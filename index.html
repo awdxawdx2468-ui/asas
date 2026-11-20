@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=2">
-<link rel="apple-touch-icon" href="icons/apple-180.png?v=2">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=3">
+<link rel="apple-touch-icon" href="icons/apple-180.png?v=3">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1325,11 +1325,12 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.8.0',APP_T='2026-11-20 17:25';
+var APP_V='1.8.1',APP_T='2026-11-20 18:20';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='تسجيل المبالغ بدون إنترنت، وتنحفظ تلقائياً على السيرفر أول ما يرجع النت|شرح تثبيت أسس على الموبايل والحاسبة بالصور، من «المزيد» ← «كيف أثبّت التطبيق»|على الحاسبة: قائمة جانبية، وتكتب المبلغ من الكيبورد|شريط التحديث يخبرك بما تغيّر قبل التحديث|بعد التحديث تظهر لك قائمة «ما الجديد»|رقم الإصدار وحالته في «المزيد» مع زر «تحقق»';
+var APP_NEWS='أيقونة جديدة للتطبيق: الخوذة أكبر وفوق طابوق الأساس';
 var APP_LOG=[
- {v:'1.8.0',d:'2026-11-20',n:APP_NEWS.split('|')},
+ {v:'1.8.1',d:'2026-11-20',n:APP_NEWS.split('|')},
+ {v:'1.8.0',d:'2026-11-20',n:['تسجيل المبالغ بدون إنترنت، وتنحفظ تلقائياً على السيرفر أول ما يرجع النت', 'شرح تثبيت أسس على الموبايل والحاسبة بالصور، من «المزيد» ← «كيف أثبّت التطبيق»', 'على الحاسبة: قائمة جانبية، وتكتب المبلغ من الكيبورد', 'شريط التحديث يخبرك بما تغيّر قبل التحديث', 'بعد التحديث تظهر لك قائمة «ما الجديد»', 'رقم الإصدار وحالته في «المزيد» مع زر «تحقق»']},
  {v:'1.7.1',d:'2026-11-20',n:['زر «✓ حفظ الآن» في الإدخال السريع بعد كتابة البند']},
  {v:'1.7.0',d:'2026-11-20',n:['«صرفت مبلغ» و«استلمت مبلغ» صارت خطوة بخطوة بلوحة أرقام كبيرة','زر «📅 تاريخ سابق» لتسجيل مبلغ بتاريخ قديم','كلمة «متزامن» صغيرة تحت الجرس']},
  {v:'1.6.0',d:'2026-11-20',n:['زر «طلب دفعة» يرسل كشف الدفعة للزبون بالواتساب برابط','قائمة «زبائن يحتاجون دفعة» وألوان بطاقات المشاريع','كل النسخ الاحتياطية بمكان واحد + تذكير كل 14 يوماً']},
