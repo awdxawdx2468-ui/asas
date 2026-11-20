@@ -330,7 +330,7 @@ table.t th:first-child{border-radius:0 8px 8px 0}table.t th:last-child{border-ra
 .qin{width:100%;border:2px solid #E1E7F0;border-radius:16px;padding:16px;font-size:18px;font-family:inherit;background:var(--card);box-sizing:border-box}.qin:focus{outline:0;border-color:var(--yel)}
 .qsub{font-size:12.5px;color:var(--mut)}.qchips{display:flex;flex-wrap:wrap;gap:8px}.qchips button{border:0;border-radius:12px;padding:11px 14px;background:var(--card);font-weight:700;font-size:14.5px;color:var(--navy);box-shadow:0 2px 6px rgba(20,41,74,.06)}
 .qcam{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:200px;border:2px dashed #C9D2E0;border-radius:20px;background:var(--card);font-size:48px}.qcam b{font-size:17px}.qcam span{font-size:13px;color:var(--mut)}.qcam img{max-width:100%;max-height:300px;border-radius:14px}
-.qgo{font-size:19px;padding:16px}.btn.gin{background:var(--green);color:#fff}
+.qgo{font-size:19px;padding:16px}.btn.qnow{background:#fff;color:var(--green);border:2px solid var(--green);font-size:17px}.btn.qnow small{font-size:12px;font-weight:600;color:var(--mut);margin-inline-start:6px}.btn.gin{background:var(--green);color:#fff}
 .qnav{display:flex;gap:8px}.qnav button{flex:1;border:0;background:none;color:var(--mut);font-weight:700;padding:10px 4px;font-size:14px}.qnav button[disabled]{opacity:.35}.qnav button:last-child{color:var(--navy);text-decoration:underline}
 .bkhd{display:flex;justify-content:space-between;align-items:baseline;margin:2px 2px 4px}.bkhd b{font-size:16px}.bkhd span{font-size:12px;color:var(--mut)}
 .bks .bic{width:34px;height:34px;border-radius:10px;background:#fff;display:grid;place-items:center;font-size:17px;flex:none}
@@ -1223,7 +1223,7 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.7.0',APP_T='2026-11-20 13:15';
+var APP_V='1.7.1',APP_T='2026-11-20 13:20';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
 function verTxt(){const s=window.__verSt;return s==='ok'?'✓ أحدث إصدار':s==='old'?'🔄 يوجد تحديث':''}
 function verLine(){return `<div class="ver">الإصدار <b class="num">${APP_V}</b> · <span class="num">${verDate()}</span> <span id="ver_s" class="vs ${window.__verSt||''}">${verTxt()}</span></div>`}
@@ -1332,7 +1332,7 @@ VIEWS.quick=()=>{if(!Q)return VIEWS.home();const st=qSteps(),k=st[Q.step],isIn=Q
   const req=k==='amt'||k==='pid';const p=P(Q.pid),c=p&&C(p.cid);
   return `<header class="top short"><div class="hdr"><div><h1>${isIn?'استلمت مبلغ':'صرفت مبلغ'}</h1><p>خطوة <span class="num">${Q.step+1}</span> من <span class="num">${st.length}</span>${Q.amt&&k!=='amt'?' · <b class="num">'+fmt(Q.amt)+'</b> د.ع':''}${p&&k!=='pid'&&k!=='amt'?' · '+esc(cName(c||{})):''}</p></div><button class="back" aria-label="إغلاق" onclick="Q=null;go('home')">✕</button></div></header>
   <div class="wrap qwrap"><div class="qdots">${dots}</div><h2 class="qh">${QT[k]}</h2>${body}
-   <button class="btn ${isIn?'gin':'y'} qgo" onclick="${last?'qSave()':'qNext()'}">${last?'✓ حفظ':'التالي ←'}</button>
+   <button class="btn ${isIn?'gin':'y'} qgo" onclick="${last?'qSave()':'qNext()'}">${last?'✓ حفظ':'التالي ←'}</button>${!last&&Q.step>=2?`<button class="btn qnow" onclick="qSave()">✓ حفظ الآن <small>بدون ${st.slice(Q.step+1).map(x=>x==='att'?'صورة':x==='note'?'ملاحظة':QT[x]).join(' و')}</small></button>`:''}
    <div class="qnav"><button onclick="qBack()" ${Q.step?'':'disabled'}>→ رجوع</button>${req?'':`<button onclick="qSkip()">تخطي</button>`}<button onclick="qFull()">النموذج الكامل</button></div></div>`};
 function qRead(){const d=$('#q-det');if(d)Q.det=d.value.trim();const n=$('#q-note');if(n)Q.note=n.value.trim()}
 function qKey(x){if(x==='⌫')Q.amt=Math.floor(Q.amt/10);else{const v=+(String(Q.amt||'')+x);if(v<1e12)Q.amt=v}
