@@ -773,7 +773,7 @@ VIEWS.entry=(a={})=>{
    <input id="f-att" type="file" accept="image/*" capture="environment" hidden onchange="attPick(this)">
    <button class="btn" id="ent-save" onclick="entrySave()"><span class="ck">✓</span> حفظ المبلغ</button>
    ${F.id&&F.kind==='in'?`<div class="row2"><button class="btn ghost" onclick="showReceipt('${F.id}')">🧾 وصل الاستلام</button><button class="btn wa" onclick="waReceipt('${F.id}')">💬 أرسله للزبون</button></div>`:''}
-   ${F.id?`<button class="btn del" onclick="entryDel()">نقل إلى سلة المحذوفات</button>
+   ${F.id?`<button class="btn del" onclick="entryDel()">🗑️ حذف هذا المبلغ</button>
     <details><summary>سجل التعديلات (${(F.log||[]).length})</summary><div class="log">
      <div>أُنشئ بواسطة ${esc(F.by||'')} · <span class="num">${new Date(F.ts).toISOString().slice(0,16).replace('T',' ')}</span></div>
      ${(F.log||[]).map(l=>`<div><span class="num">${l.at}</span> · ${esc(l.by)}: ${esc(l.ch)}</div>`).join('')}</div></details>`:''}
@@ -891,7 +891,7 @@ function clientSheet(id){const c=id?C(id):{name:'',title:'السيد',phone:''};
    <div class="fld"><div class="bx"><label for="c-name">اسم الزبون</label><input id="c-name" value="${esc(c.name)}" placeholder="حسين عبد الله"></div></div></div>
    <div class="fld"><div class="bx"><label for="c-phone">رقم الموبايل (للواتساب)</label><input id="c-phone" class="num" inputmode="tel" value="${esc(c.phone)}" placeholder="07xx xxx xxxx" style="text-align:right"></div></div>
    <button class="btn" onclick="clientSave('${id||''}')"><span class="ck">✓</span> حفظ ${id?'':'ثم أضف مشروعه'}</button>
-   ${id?`<button class="btn del" onclick="clientDel('${id}')">نقل الزبون إلى السلة</button>`:''}`);setTimeout(()=>$('#c-name').focus(),50)}
+   ${id?`<button class="btn del" onclick="clientDel('${id}')">🗑️ حذف الزبون</button>`:''}`);setTimeout(()=>$('#c-name').focus(),50)}
 function clientSave(id){const n=$('#c-name').value.trim();if(!n)return toast('اكتب اسم الزبون');const d={name:n,title:$('#c-title').value.trim(),phone:$('#c-phone').value.trim()};
   if(id){Object.assign(C(id),d);save();closeSheet();render()}else{const c=Object.assign({id:uid()},d);S.clients.push(c);save();projectSheet(null,c.id)}}
 function clientDel(id){if(live(S.projects).some(p=>p.cid===id))return toast('انقل مشاريع هذا الزبون إلى السلة أولاً');C(id).del={at:today(),by:S.me};save();closeSheet();render()}
@@ -908,7 +908,7 @@ function projectSheet(id,cid){if(!id&&projFull())return limitSheet();const p=id?
     <input type="hidden" id="p-ft" value="${p.feeType}"></div>
    <button class="btn" onclick="projectSave('${id||''}')"><span class="ck">✓</span> حفظ المشروع</button>
    ${id?(p.done?`<button class="btn ghost" onclick="projectDone('${id}',false)">إعادة فتح المشروع</button>`:`<button class="btn ghost" onclick="projectDone('${id}',true)">✔ إنهاء المشروع (لا يُحسب ضمن حد الباقة)</button>`):''}
-   ${id?`<button class="btn del" onclick="projectDel('${id}')">نقل المشروع إلى السلة</button>`:''}`)}
+   ${id?`<button class="btn del" onclick="projectDel('${id}')">🗑️ حذف المشروع</button>`:''}`)}
 function feeT(t){$('#p-ft').value=t;$('#ft-pct').classList.toggle('on',t==='pct');$('#ft-fixed').classList.toggle('on',t==='fixed');$('#p-feel').textContent=t==='pct'?'النسبة %':'المبلغ (د.ع)';$('#p-fee').value=t==='pct'?10:''}
 function projectSave(id){const n=$('#p-name').value.trim();if(!n)return toast('اكتب اسم المشروع');const ft=$('#p-ft').value;
   const d={cid:$('#p-cid').value,name:n,desc:$('#p-desc').value.trim(),loc:$('#p-loc').value.trim(),feeType:ft,feeVal:ft==='pct'?+$('#p-fee').value.replace(/[^\d.]/g,'')||0:parseAmt($('#p-fee').value)};
@@ -1416,11 +1416,12 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.8.5',APP_T='2026-11-20 20:35';
+var APP_V='1.8.6',APP_T='2026-11-21 00:20';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='الضغط السريع على الأرقام ما يكبّر الشاشة بعد|بالآيفون: الضغط على خانة الكتابة أو التاريخ ما يكبّر الشاشة';
+var APP_NEWS='اضغط على أي حركة بالمشروع حتى تعدّلها أو تحذفها|الحذف يطلب تأكيد، والمحذوف يروح لسلة المحذوفات وتكدر ترجعه خلال 30 يوم|حذف الزبون أو المشروع صار يطلب تأكيد، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.8.5',d:'2026-11-20',n:APP_NEWS.split('|')},
+ {v:'1.8.6',d:'2026-11-21',n:APP_NEWS.split('|')},
+ {v:'1.8.5',d:'2026-11-20',n:['الضغط السريع على الأرقام ما يكبّر الشاشة بعد', 'بالآيفون: الضغط على خانة الكتابة أو التاريخ ما يكبّر الشاشة']},
  {v:'1.8.4',d:'2026-11-20',n:['كل التواريخ صارت اختيار يوم وشهر وسنة بدل الكتابة باليد', 'شاشة اختيار الكشف صارت أرتب: كل دفعة وكل كشف بزر «عرض الكشف» موحّد']},
  {v:'1.8.3',d:'2026-11-20',n:['صفحة المشروع صارت أرتب: الرصيد بوضوح وأزرار مرتبة بمربعات', 'زر «إرسال للزبون» داخل كل كشف: يوصله رابط الكشف الكامل بالواتساب', 'بالإدخال السريع للصرف: الملاحظة صارت قبل الصورة']},
  {v:'1.8.2',d:'2026-11-20',n:['بالآيفون: صارت مسافة تحت الساعة والبطارية بأعلى الشاشة','رسائل الواتساب للزبون صارت أرتب: توقيع المهندس بدون تكرار']},
@@ -1935,6 +1936,47 @@ const _tabbarI=tabbar;tabbar=function(){const h=_tabbarI();if(!h||isInstalled())
 addEventListener('keydown',ev=>{if(V.v!=='quick'||!Q||$('#layer').innerHTML||ev.ctrlKey||ev.metaKey||ev.altKey)return;if(qSteps()[Q.step]!=='amt')return;
   const k=ev.key,ar='٠١٢٣٤٥٦٧٨٩'.indexOf(k),d=ar>=0?String(ar):k;
   if(/^[0-9]$/.test(d)){ev.preventDefault();qKey(d)}else if(k==='Backspace'){ev.preventDefault();qKey('⌫')}else if(k==='Enter'){ev.preventDefault();qNext()}});
+
+/* ===== v1.8.6: تعديل وحذف لكل حركة وسجل ===== */
+document.head.insertAdjacentHTML('beforeend',`<style>
+.li-more{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;color:var(--mut);background:var(--soft);font-size:15px;font-weight:900;margin-inline-start:2px}
+.emhint{margin:-4px 4px 8px;font-size:12.5px;color:var(--mut)}
+.emh{display:flex;gap:12px;align-items:center;padding:4px 2px 14px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.emh .mid{display:flex;flex-direction:column;gap:3px;min-width:0}.emh .mid b{font-size:22px}.emh .mid b small{font-size:12px;color:var(--mut);font-weight:600}
+.emh .mid>span{font-size:13px;color:var(--mut)}
+.emenu{display:flex;flex-direction:column;gap:8px;margin-bottom:6px}
+.emenu button{display:flex;gap:12px;align-items:center;text-align:right;width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:#fff;font:inherit;color:inherit;cursor:pointer}
+.emenu button i{font-style:normal;font-size:20px;width:30px;text-align:center;flex:none}
+.emenu button div{display:flex;flex-direction:column;gap:2px}.emenu button b{font-size:15.5px}.emenu button span{font-size:12.5px;color:var(--mut)}
+.emenu button.dl{border-color:#F5C9C9}.emenu button.dl b{color:var(--red)}
+.attdel{display:block;margin:-4px auto 6px;background:none;border:0;color:var(--red);font:inherit;font-size:13.5px;font-weight:700;padding:6px 10px;cursor:pointer}
+.btn.redf{background:var(--red);color:#fff;border:0}
+</style>`);
+function askDel(msg,yes,cb){askCb=cb;sheet(`<h3>${esc(msg)}</h3><button class="btn redf" onclick="closeSheet();askCb&&askCb()">🗑️ ${esc(yes)}</button><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
+entryRow=(function(o){return function(e){return o(e).replace(`onclick="go('entry',{id:'${e.id}'})"`,`onclick="entMenu('${e.id}')"`).replace(/<\/button>$/,'<span class="li-more" aria-hidden="true">⋮</span></button>')}})(entryRow);
+function entMenu(id){const e=S.entries.find(x=>x.id===id);if(!e)return;const p=P(e.pid),c=p&&C(p.cid),isIn=e.kind==='in';
+  const open=`closeSheet();go('entry',{id:'${id}',pid:'${e.pid}'})`;
+  sheet(`<div class="emh"><div class="dot ${e.kind}">${isIn?'↓':'↑'}</div><div class="mid"><b class="amt ${isIn?'pos':'neg'}">${isIn?'+':'−'}${fmt(e.amt)} <small>د.ع</small></b>
+   <span>${esc(e.det||(isIn?'دفعة':'—'))} · <span class="num">${e.date}</span>${e.no?' · <span class="num">'+esc(e.no)+'</span>':''}</span>${c?'<span>'+esc(c.name)+' · '+esc(p.name)+'</span>':''}</div></div>
+  <div class="emenu">
+   ${CAN.edit&&!(p&&p.done)?`<button onclick="${open}"><i>✏️</i><div><b>تعديل</b><span>المبلغ، التاريخ، البيان، البند، الصورة…</span></div></button>`:`<button onclick="${open}"><i>👁️</i><div><b>عرض التفاصيل</b>${p&&p.done?'<span>المشروع منتهٍ، أعد فتحه للتعديل</span>':''}</div></button>`}
+   ${isIn&&c?`<button onclick="closeSheet();rcptSheet('${id}')"><i>🧾</i><div><b>الوصل</b><span>عرض، طباعة، إرسال بالواتساب</span></div></button>`:''}
+   ${CAN.del&&!(p&&p.done)?`<button class="dl" onclick="entDelAsk('${id}')"><i>🗑️</i><div><b>حذف</b><span>ينتقل لسلة المحذوفات ويمكن استرجاعه خلال 30 يوماً</span></div></button>`:''}
+  </div><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
+function entDelAsk(id,back){const e=S.entries.find(x=>x.id===id);if(!e)return;const isIn=e.kind==='in';
+  askDel(`حذف ${isIn?'الدفعة':'المصروف'} ${fmt(e.amt)} د.ع${e.no?' ('+e.no+')':''}؟ ينتقل لسلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً.${isIn&&e.no?' رقم الوصل يبقى محجوزاً له ولا يُعطى لدفعة ثانية.':''}`,'نعم، احذف',()=>{
+    e.del={at:today(),by:S.me};save();toast('انحذف ✓ تقدر ترجعه من سلة المحذوفات');if(back){F=null;go('project',e.pid)}else render()})}
+entryDel=function(){entDelAsk(F.id,true)};
+projectDel=function(id){const p=P(id);if(!p)return;const n=live(S.entries).filter(e=>e.pid===id).length;
+  askDel(`حذف مشروع «${p.name}»${n?' مع حركاته ('+n+')':''}؟ ينتقل لسلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً.`,'نعم، احذف المشروع',()=>{p.del={at:today(),by:S.me};save();toast('انحذف المشروع ✓');go('home')})};
+clientDel=function(id){const c=C(id);if(!c)return;const ps=live(S.projects).filter(p=>p.cid===id);
+  askDel(`حذف الزبون «${c.name}»${ps.length?' مع '+(ps.length===1?'مشروعه':'مشاريعه ('+ps.length+')'):''}؟ ينتقل لسلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً.`,'نعم، احذف الزبون',()=>{
+    const d={at:today(),by:S.me};c.del=d;for(const p of ps)p.del=Object.assign({w:id},d);save();toast('انحذف الزبون ✓');if(V.v==='project')go('clients');else render()})};
+restore=(function(o){return function(t,id){if(t!=='clients')return o(t,id);const c=C(id);if(!c)return;delete c.del;let left=0;
+  for(const p of S.projects.filter(p=>p.cid===id&&p.del&&p.del.w===id)){if(!p.done&&projFull()){left++;continue}delete p.del}
+  save();toast(left?'رجع الزبون ✓ وبقي '+left+' مشروع بالسلة لأن الباقة ممتلئة':'تم الاسترجاع ✓');render()}})(restore);
+VIEWS.project=(function(o){return function(id){let h=o(id);if(CAN.edit&&/class="li"/.test(h))h=h.replace(/(<div class="pj-sec"><h2>الحركات<\/h2>[\s\S]*?<\/div>)/,'$1<p class="emhint">اضغط على أي حركة حتى تعدّلها أو تحذفها</p>');return h}})(VIEWS.project);
+VIEWS.entry=(function(o){return function(a){let h=o(a);if(F&&F.att&&CAN.edit)h=h.replace(/(<input id="f-att"[^>]*>)/,'$1<button class="attdel" onclick="readF();F.att=\'\';render()">🗑️ حذف الصورة</button>');return h}})(VIEWS.entry);
 
 async function boot(){const h=location.hash.slice(1);
   if(HAS_CLOUD){SB=window.supabase.createClient(CLOUD.url,CLOUD.key,{auth:{persistSession:true,autoRefreshToken:true,storageKey:'asas-auth'}});
