@@ -2066,7 +2066,7 @@ VIEWS.project=(function(o){return function(id){let h=o(id);if(CAN.edit&&/class="
 VIEWS.entry=(function(o){return function(a){let h=o(a);if(F&&F.att&&CAN.edit)h=h.replace(/(<input id="f-att"[^>]*>)/,'$1<button class="attdel" onclick="readF();F.att=\'\';render()">🗑️ حذف الصورة</button>');return h}})(VIEWS.entry);
 
 /* ===== v1.8.8: الطباعة مثل مندوبي — التطبيق يصنع ملف PDF بحجم A4 كامل ويرسله للطابعة ===== */
-document.head.insertAdjacentHTML('beforeend','<style>.pdfx .rch{height:549px!important;padding:24px 30px 10px!important}.pdfx .rccut{height:24px!important}.pdfx .rccut span{margin-top:-24px!important}</style>');
+document.head.insertAdjacentHTML('beforeend','<style>.pdfx .rch{height:549px!important;padding:24px 30px 10px!important}.pdfx .rccut{height:24px!important}.pdfx .rccut span{margin-top:-24px!important}.pdfx *{letter-spacing:0!important}</style>');
 const H2C=['lib/html2canvas.min.js','https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'];
 let PDFF=null,PDFBUSY=false;
 function loadH2C(i=0){return new Promise((ok,no)=>{if(window.html2canvas)return ok();if(i>=H2C.length)return no(new Error('h2c'));const s=document.createElement('script');s.src=H2C[i];s.onload=ok;s.onerror=()=>{s.remove();loadH2C(i+1).then(ok,no)};document.head.appendChild(s)})}
@@ -2097,7 +2097,7 @@ doPrint=async function(){if(PDFBUSY)return;PDFBUSY=true;sheet(`<h3>⏳ جارٍ 
   catch(e){try{logErr&&logErr('pdf',e)}catch(_){}
     sheet(`<h3>تعذّر تجهيز الملف</h3><p class="note">تأكد من الإنترنت (أول مرة فقط) وحاول مرة ثانية.</p><button class="btn" onclick="closeSheet();doPrint()">🔄 حاول مرة ثانية</button><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
   finally{PDFBUSY=false}};
-function pdfSheet(){const n=PDFF.pages;sheet(`<h3>✓ الملف جاهز</h3><p class="note"><b>${esc(PDFF.name)}</b><br>${n===1?'ورقة A4 وحدة':'<span class="num">'+n+'</span> أوراق A4'} · كاملة بدون قص</p>
+function pdfSheet(){const n=PDFF.pages;sheet(`<h3>✓ الملف جاهز</h3><p class="note"><b>${esc(PDFF.name.replace(/\.pdf$/,''))}</b> <span class="num">(PDF)</span><br>${n===1?'ورقة A4 وحدة':'<span class="num">'+n+'</span> أوراق A4'} · كاملة بدون قص</p>
   <button class="btn" onclick="pdfShare()">🖨️ إرسال للطابعة / مشاركة</button>
   <button class="btn ghost" onclick="pdfSave()">💾 حفظ الملف</button>
   <button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
