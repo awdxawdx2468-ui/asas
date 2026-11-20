@@ -493,6 +493,22 @@ body.nodel .btn.del{display:none!important}
 .pjv .pban button{background:var(--navy)}
 
 @media (max-width:600px){.docbar{flex-wrap:wrap;row-gap:8px}.docbar b{flex:1 1 calc(100% - 110px);font-size:15px;line-height:1.4}.docbar b .pages{display:block;font-size:11.5px}.docbar>button{white-space:nowrap;font-size:14px}.docbar>button:not(:first-child){flex:1}}
+
+/* statement chooser — unified rows */
+.sprow{background:var(--soft);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:10px}
+.spi{display:flex;align-items:center;gap:10px;padding:2px 4px}.spi .mid{flex:1;min-width:0}.spi .t{font-weight:800}.spi .s{font-size:12px;color:var(--mut)}
+.spi .pb{text-align:left;flex:none}.spi .pb b{display:block}.spi .pb span{font-size:11.5px;color:var(--mut)}
+.spd{background:#fff;border-radius:12px;padding:8px 12px;display:flex;flex-direction:column;gap:2px}.spd label{font-size:12px;color:var(--mut)}.spd input{border:0;background:none;font:inherit;font-weight:800;font-size:16px;text-align:right;padding:0;color:var(--ink);width:100%}
+.stv{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:12px;padding:11px;background:var(--navy);color:#fff;font-family:inherit;font-weight:800;font-size:15px}
+.stv svg{width:20px;height:20px}.stv:active{opacity:.85}
+
+/* date picker: day / month / year */
+.dpk{display:grid;grid-template-columns:.8fr 1.6fr 1fr;gap:6px;width:100%}.dpk.m{grid-template-columns:1.6fr 1fr}
+.dpk select{appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 8px;font:inherit;font-weight:800;font-size:14.5px;color:var(--ink);text-align:center;text-align-last:center;width:100%;min-width:0}
+.dpw{display:flex;flex-direction:column;gap:4px}.dpw>label{font-size:12.5px;color:var(--mut);font-weight:700}
+.sprow .dpw{background:#fff;border-radius:12px;padding:8px 10px}.sprow .dpk select{background:var(--soft);border-color:transparent}
+.row2:has(.dpk)>*{grid-column:1/-1}
+.bx .dpk{margin-top:4px}
 </style>
 
 <div id="app"></div>
@@ -524,6 +540,15 @@ const fmt=n=>(Math.round(+n||0)).toLocaleString('en-US');
 const sfmt=n=>(n<0?'−':'')+fmt(Math.abs(n));
 const pad=n=>String(n).padStart(2,'0');
 const today=(d=new Date())=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const MONS=['كانون الثاني','شباط','آذار','نيسان','أيار','حزيران','تموز','آب','أيلول','تشرين الأول','تشرين الثاني','كانون الأول'];
+function dpk(id,v,mode){const m1=mode==='m';if(!v||!(m1?/^\d{4}-\d{2}$/:/^\d{4}-\d{2}-\d{2}$/).test(v))v=m1?today().slice(0,7):today();const [y,m,d]=v.split('-').map(Number);const cy=new Date().getFullYear();const y0=Math.min(y,cy-5);
+  const op=(a,b,cur,lab)=>Array.from({length:b-a+1},(_,i)=>a+i).map(n=>`<option value="${n}" ${n===cur?'selected':''}>${lab?lab(n):n}</option>`).join('');
+  return `<div class="dpk${m1?' m':''}" data-mode="${m1?'m':'d'}">${m1?'':`<select aria-label="اليوم" class="num" onchange="dpkSet(this)">${op(1,31,d)}</select>`}<select aria-label="الشهر" onchange="dpkSet(this)">${op(1,12,m,n=>n+' · '+MONS[n-1])}</select><select aria-label="السنة" class="num" onchange="dpkSet(this)">${op(y0,cy+1,y)}</select><input type="hidden" id="${id}" value="${v}"></div>`}
+function dpkSet(el){const w=el.closest('.dpk'),s=w.querySelectorAll('select'),m1=w.dataset.mode==='m';const y=+s[s.length-1].value,m=+s[s.length-2].value;
+  let v=y+'-'+String(m).padStart(2,'0');if(!m1){const dim=new Date(y,m,0).getDate();if(+s[0].value>dim)s[0].value=dim;v+='-'+String(s[0].value).padStart(2,'0')}w.querySelector('input').value=v}
+function dpkPut(id,v){const i=$('#'+id);if(!i)return;const w=i.closest('.dpk'),s=w.querySelectorAll('select'),p=v.split('-').map(Number);
+  const ys=s[s.length-1];if(![...ys.options].some(o=>+o.value===p[0]))ys.insertAdjacentHTML('afterbegin',`<option value="${p[0]}">${p[0]}</option>`);
+  ys.value=p[0];s[s.length-2].value=p[1];if(w.dataset.mode!=='m')s[0].value=p[2];dpkSet(ys)}
 const okDate=s=>/^\d{4}-\d{2}-\d{2}$/.test(s||'');
 const parseAmt=s=>+String(s||'').replace(/[^\d.]/g,'')||0;
 
@@ -730,7 +755,7 @@ VIEWS.entry=(a={})=>{
    <div class="fld"><div class="ic">${isIn?'👤':'🏭'}</div><div class="bx"><label for="f-party">${isIn?'المقبوض منه':'المدفوع له'}</label><input id="f-party" value="${esc(F.party)}" list="parties" placeholder="${isIn?'اسم الزبون':'معمل الفرات'}"></div></div>
    <datalist id="parties">${[...new Set(live(S.entries).map(e=>e.party).filter(Boolean))].map(x=>`<option>${esc(x)}`).join('')}</datalist>
    <div class="row2">
-    <div class="fld"><div class="bx"><label for="f-date">التاريخ</label><input id="f-date" class="num" inputmode="numeric" value="${esc(F.date)}" placeholder="2026-11-19" style="text-align:right">
+    <div class="fld"><div class="bx"><label>التاريخ</label>${dpk('f-date',F.date)}
      <div class="quick"><button onclick="setDate(0)">اليوم</button><button onclick="setDate(1)">أمس</button></div></div></div>
     <div class="fld"><div class="bx"><label for="f-dt">المستند (نوعه ورقمه)</label>
      <div style="display:flex;gap:6px"><select id="f-dt" style="width:auto">${DOCTYPES.map(d=>`<option ${d===F.docType?'selected':''}>${d}</option>`).join('')}</select>
@@ -761,13 +786,13 @@ function paintCat(){const ch=$('#f-catchip');if(ch)ch.textContent=F.cat?CATN[F.c
   document.querySelectorAll('#f-cats button').forEach(b=>b.classList.toggle('on',b.dataset.k===F.cat));const mr=$('#f-matrow');if(mr)mr.hidden=F.cat!=='mat'}
 function setCat(k){F.cat=k;F.catSet=true;paintCat()}
 function setKind(k){readF();F.kind=k;render()}
-function setDate(back){const d=new Date();d.setDate(d.getDate()-back);$('#f-date').value=today(d)}
+function setDate(back){const d=new Date();d.setDate(d.getDate()-back);dpkPut('f-date',today(d))}
 function attPick(inp){const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{
   const sc=Math.min(1,1000/Math.max(im.width,im.height));const cv=document.createElement('canvas');cv.width=im.width*sc;cv.height=im.height*sc;
   cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);readF();F.att=cv.toDataURL('image/jpeg',.7);render()};im.src=r.result};r.readAsDataURL(f)}
 const FIELDN={amt:'المبلغ',date:'التاريخ',det:'البيان',party:'الطرف',pid:'المشروع',cat:'البند',docNo:'رقم المستند',docType:'نوع المستند',kind:'النوع'};
 function entrySave(){if(!F.quick)readF();
-  if(!F.amt)return toast('اكتب المبلغ');if(!okDate(F.date))return toast('التاريخ بالأرقام هكذا: 2026-11-19');if(!F.pid)return toast('اختر المشروع');
+  if(!F.amt)return toast('اكتب المبلغ');if(!okDate(F.date))return toast('اختر التاريخ');if(F.date>today())return toast('لا يمكن اختيار تاريخ بعد اليوم');if(!F.pid)return toast('اختر المشروع');
   if(F.kind==='out'&&!F.cat)F.cat=autoCat(F.det);if(F.kind==='in')F.cat='';
   const doSave=()=>{if(F.id){const i=S.entries.findIndex(e=>e.id===F.id);const old=S.entries[i];const ch=[];
       for(const k of Object.keys(FIELDN))if(String(old[k]??'')!==String(F[k]??''))ch.push(`${FIELDN[k]}: ${k==='amt'?fmt(old[k]):k==='cat'?CATN[old[k]]||'':k==='pid'?(P(old[k])||{}).name:old[k]||'—'} ← ${k==='amt'?fmt(F[k]):k==='cat'?CATN[F[k]]||'':k==='pid'?(P(F[k])||{}).name:F[k]||'—'}`);
@@ -793,13 +818,13 @@ VIEWS.reports=()=>{const ps=live(S.projects);
    <div class="sec"><h2>التقرير الشهري</h2></div>
    <div class="card" style="display:flex;flex-direction:column;gap:10px">
     <p class="note" style="margin:0">المقبوض والمصروف وأتعابك لشهر كامل، لكل المشاريع، جاهز للطباعة.</p>
-    <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="mr-m">الشهر</label><input id="mr-m" class="num" value="${today().slice(0,7)}" style="text-align:right" placeholder="2026-11"></div></div>
-    <div class="quick"><button onclick="$('#mr-m').value=today().slice(0,7)">هذا الشهر</button><button onclick="$('#mr-m').value=prevYm(today().slice(0,7))">الشهر الماضي</button></div>
+    <div class="dpw"><label>الشهر</label>${dpk('mr-m',today().slice(0,7),'m')}</div>
+    <div class="quick"><button onclick="dpkPut('mr-m',today().slice(0,7))">هذا الشهر</button><button onclick="dpkPut('mr-m',prevYm(today().slice(0,7)))">الشهر الماضي</button></div>
     <button class="btn" onclick="showMonthly($('#mr-m').value.trim())">📊 عرض التقرير الشهري</button></div>
    <div class="sec"><h2>سجل يومية الصندوق</h2></div>
    <div class="card" style="display:flex;flex-direction:column;gap:10px">
-    <div class="row2"><div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="cb-from">من</label><input id="cb-from" class="num" value="${today().slice(0,7)}-01" style="text-align:right"></div></div>
-    <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="cb-to">إلى</label><input id="cb-to" class="num" value="${today()}" style="text-align:right"></div></div></div>
+    <div class="dpw"><label>من</label>${dpk('cb-from',today().slice(0,7)+'-01')}</div>
+    <div class="dpw"><label>إلى</label>${dpk('cb-to',today())}</div>
     <div class="quick"><button onclick="cbRange('m')">هذا الشهر</button><button onclick="cbRange('pm')">الشهر الماضي</button><button onclick="cbRange('y')">هذه السنة</button><button onclick="cbRange('all')">من البداية</button></div>
     <button class="btn" onclick="showCashbook($('#cb-from').value,$('#cb-to').value)">عرض اليومية</button></div>
    <div class="sec"><h2>آخر الحركات</h2></div>
@@ -808,7 +833,7 @@ VIEWS.reports=()=>{const ps=live(S.projects);
 function cbRange(k){const d=new Date(),y=d.getFullYear(),m=d.getMonth();let f,t=today();
   if(k==='m')f=today().slice(0,7)+'-01';else if(k==='pm'){const a=new Date(y,m-1,1),b=new Date(y,m,0);f=today(a);t=today(b)}
   else if(k==='y')f=y+'-01-01';else f=(live(S.entries).map(e=>e.date).sort()[0])||today();
-  $('#cb-from').value=f;$('#cb-to').value=t}
+  dpkPut('cb-from',f);dpkPut('cb-to',t)}
 
 /* ---- المزيد ---- */
 VIEWS.more=()=>`<header class="top short"><div class="hdr"><div><h1>المزيد</h1><p>${esc(S.co.name)}</p></div></div></header>
@@ -1120,7 +1145,7 @@ function showFinal(pid){readSTM();const annex=STM.annex;const p=P(pid),c=C(p.cid
   docOpen('كشف حساب نهائي',html,{no:'ك-'+stNo(p),who:whoOf(p),client:cliSig(p),pid:p.id})}
 
 /* كشف حسب فترة */
-function showPeriod(pid,from,to){readSTM();if(!okDate(from)||!okDate(to))return toast('التاريخ بالأرقام هكذا: 2026-11-19');
+function showPeriod(pid,from,to){readSTM();if(!okDate(from)||!okDate(to))return toast('اختر التاريخ');if(from>to)return toast('تاريخ «من» لازم يكون قبل «إلى»');
   const p=P(pid),c=C(p.cid)||{},es=entriesOf(pid);const pct=p.feeType==='pct'?(+p.feeVal||0)/100:0;closeSheet();
   let open=0;for(const e of es)if(e.date<from)open+=e.kind==='in'?e.amt-Math.round(e.amt*pct):-e.amt;
   const r=es.filter(e=>e.date>=from&&e.date<=to),ins=r.filter(e=>e.kind==='in'),outs=r.filter(e=>e.kind==='out');
@@ -1139,6 +1164,7 @@ function showPeriod(pid,from,to){readSTM();if(!okDate(from)||!okDate(to))return 
 
 /* نافذة اختيار نوع الكشف */
 function setSTM(m){STM.mode=m;document.querySelectorAll('#stm button').forEach((b,i)=>b.classList.toggle('on',(i===0)===(m==='sum')));$('#stm-h').textContent=m==='sum'?'مثال: كل الطابوق بسطر واحد بعدد وصولاته ومجموعه. يبقى الكشف في ورقة واحدة.':'كل وصل بسطر. الكشف الطويل يستمر في أكثر من ورقة.'}
+function stvBtn(fn){return `<button class="stv" onclick="${fn}">${pjIc('doc')}<span>عرض الكشف</span></button>`}
 function showStatement(pid){const p=P(pid),c=C(p.cid)||{},L=pays(p),k=calc(p);const es=entriesOf(pid);
   sheet(`<h3>كشف ${esc(c.name)} · ${esc(p.name)}</h3><div class="stopt"><b>طريقة عرض المصروفات</b>
     <div class="cats" id="stm"><button class="${STM.mode==='sum'?'on':''}" onclick="setSTM('sum')">مختصر · سطر لكل مادة</button><button class="${STM.mode==='det'?'on':''}" onclick="setSTM('det')">مفصّل · كل وصل بسطر</button></div>
@@ -1146,16 +1172,17 @@ function showStatement(pid){const p=P(pid),c=C(p.cid)||{},L=pays(p),k=calc(p);co
     <label class="ck2"><input type="checkbox" id="st-annex" ${STM.annex?'checked':''}> أرفق التفاصيل بملحق بعد الكشف</label></div>
    <p class="note" style="margin:0">اختر نوع الكشف:</p>
    <div class="stopt"><div class="sth"><b>١. كشف دفعة</b> <span class="chip g">الأكثر استعمالاً</span><p>عند انتهاء دفعة وطلب الدفعة التالية من الزبون: يبيّن أين صُرفت هذه الدفعة. ورقة واحدة.</p></div>
-    ${L.map(x=>`<button class="pitem" onclick="showPayment('${pid}',${x.i})"><span class="pic">💵</span><div class="mid"><div class="t">الدفعة ${ordN(x.i)} · <span class="num">${fmt(x.e.amt)}</span></div><div class="s"><span class="num">${x.e.date}</span> · ${x.outs.length} مصروف</div></div>
-      <div class="pb"><b class="amt ${x.close<0?'neg':'pos'}">${sfmt(x.close)}</b><span>${x.close<0?'تجاوز':(x.last?'متبقٍ منها':'دُوِّر')}</span></div></button>`).join('')||'<div class="note">لا توجد دفعات مستلمة بعد</div>'}</div>
+    ${L.map(x=>`<div class="sprow"><div class="spi"><div class="mid"><div class="t">الدفعة ${ordN(x.i)} · <span class="num">${fmt(x.e.amt)}</span></div><div class="s"><span class="num">${x.e.date}</span> · ${x.outs.length} مصروف</div></div>
+      <div class="pb"><b class="amt ${x.close<0?'neg':'pos'}">${sfmt(x.close)}</b><span>${x.close<0?'تجاوز':(x.last?'متبقٍ منها':'دُوِّر')}</span></div></div>${stvBtn(`showPayment('${pid}',${x.i})`)}</div>`).join('')||'<div class="note">لا توجد دفعات مستلمة بعد</div>'}</div>
    <div class="stopt"><div class="sth"><b>٢. كشف نهائي</b><p>عند إكمال البيت أو الدار: ملخص جميع الدفعات والرصيد النهائي في ورقة واحدة. الملحق يضيف كشف كل دفعة.</p></div>
-    <button class="btn sm" style="width:100%" onclick="showFinal('${pid}')">عرض الكشف النهائي</button></div>
+    <div class="sprow"><div class="spi"><div class="mid"><div class="t">كل الدفعات · <span class="num">${L.length}</span> دفعة</div><div class="s">الملخص النهائي للمشروع</div></div>
+      <div class="pb"><b class="amt ${k.bal<0?'neg':'pos'}">${sfmt(k.bal)}</b><span>${k.bal<0?'تجاوز':'الرصيد'}</span></div></div>${stvBtn(`showFinal('${pid}')`)}</div></div>
    <div class="stopt"><div class="sth"><b>٣. كشف حسب فترة</b><p>من تاريخ إلى تاريخ تختاره أنت.</p></div>
-    <div class="row2"><div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="sp-from">من</label><input id="sp-from" class="num" value="${es[0]?es[0].date:today()}" style="text-align:right"></div></div>
-    <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="sp-to">إلى</label><input id="sp-to" class="num" value="${today()}" style="text-align:right"></div></div></div>
-    <button class="btn sm ghost" style="width:100%" onclick="showPeriod('${pid}',$('#sp-from').value.trim(),$('#sp-to').value.trim())">عرض كشف الفترة</button></div>
+    <div class="sprow"><div class="dpw"><label>من</label>${dpk('sp-from',es[0]?es[0].date:today())}</div>
+    <div class="dpw"><label>إلى</label>${dpk('sp-to',today())}</div>
+    ${stvBtn(`showPeriod('${pid}',$('#sp-from').value.trim(),$('#sp-to').value.trim())`)}</div></div>
    <button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)}
-function showCashbook(from,to){if(!okDate(from)||!okDate(to))return toast('التاريخ بالأرقام هكذا: 2026-11-19');
+function showCashbook(from,to){if(!okDate(from)||!okDate(to))return toast('اختر التاريخ');if(from>to)return toast('تاريخ «من» لازم يكون قبل «إلى»');
   const all=live(S.entries).filter(e=>P(e.pid)&&!P(e.pid).del).sort((a,b)=>a.date.localeCompare(b.date)||a.ts-b.ts);
   let open=0;for(const e of all)if(e.date<from)open+=e.kind==='in'?e.amt:-e.amt;
   const rows=all.filter(e=>e.date>=from&&e.date<=to);let bal=open,ti=0,to2=0;
@@ -1383,11 +1410,12 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.8.3',APP_T='2026-11-20 19:55';
+var APP_V='1.8.4',APP_T='2026-11-20 20:15';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='صفحة المشروع صارت أرتب: الرصيد بوضوح وأزرار مرتبة بمربعات|زر «إرسال للزبون» داخل كل كشف: يوصله رابط الكشف الكامل بالواتساب|بالإدخال السريع للصرف: الملاحظة صارت قبل الصورة';
+var APP_NEWS='كل التواريخ صارت اختيار يوم وشهر وسنة بدل الكتابة باليد|شاشة اختيار الكشف صارت أرتب: كل دفعة وكل كشف بزر «عرض الكشف» موحّد';
 var APP_LOG=[
- {v:'1.8.3',d:'2026-11-20',n:APP_NEWS.split('|')},
+ {v:'1.8.4',d:'2026-11-20',n:APP_NEWS.split('|')},
+ {v:'1.8.3',d:'2026-11-20',n:['صفحة المشروع صارت أرتب: الرصيد بوضوح وأزرار مرتبة بمربعات', 'زر «إرسال للزبون» داخل كل كشف: يوصله رابط الكشف الكامل بالواتساب', 'بالإدخال السريع للصرف: الملاحظة صارت قبل الصورة']},
  {v:'1.8.2',d:'2026-11-20',n:['بالآيفون: صارت مسافة تحت الساعة والبطارية بأعلى الشاشة','رسائل الواتساب للزبون صارت أرتب: توقيع المهندس بدون تكرار']},
  {v:'1.8.1',d:'2026-11-20',n:['أيقونة جديدة للتطبيق: الخوذة أكبر وفوق طابوق الأساس']},
  {v:'1.8.0',d:'2026-11-20',n:['تسجيل المبالغ بدون إنترنت، وتنحفظ تلقائياً على السيرفر أول ما يرجع النت', 'شرح تثبيت أسس على الموبايل والحاسبة بالصور، من «المزيد» ← «كيف أثبّت التطبيق»', 'على الحاسبة: قائمة جانبية، وتكتب المبلغ من الكيبورد', 'شريط التحديث يخبرك بما تغيّر قبل التحديث', 'بعد التحديث تظهر لك قائمة «ما الجديد»', 'رقم الإصدار وحالته في «المزيد» مع زر «تحقق»']},
