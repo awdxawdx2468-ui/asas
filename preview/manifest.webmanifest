@@ -1,0 +1,50 @@
+{
+  "name": "أسس — نسخة تجريبية",
+  "short_name": "أسس تجريبي",
+  "description": "حسابات مشاريعك وزبائنك بمكان واحد",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#14294A",
+  "theme_color": "#B42318",
+  "icons": [
+    {
+      "src": "../icons/icon-192.png?v=3",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "../icons/icon-512.png?v=3",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "../icons/maskable-512.png?v=3",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "id": "./",
+  "screenshots": [
+    {
+      "src": "../screens/wide.png",
+      "sizes": "1440x900",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "أسس على الحاسبة"
+    },
+    {
+      "src": "../screens/narrow.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "أسس على الموبايل"
+    }
+  ]
+}
