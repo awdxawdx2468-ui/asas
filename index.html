@@ -467,6 +467,32 @@ body.nodel .btn.del{display:none!important}
 .docbar{padding-top:calc(10px + env(safe-area-inset-top,0px))}
 .sheet{max-height:calc(92vh - env(safe-area-inset-top,0px))}
 @media screen and (min-width:1000px){.tabbar .in{padding-top:calc(22px + env(safe-area-inset-top,0px))}}
+
+/* project page — calm layout */
+.pjv .pj-sum{background:var(--card);border-radius:18px;padding:16px 16px 4px;box-shadow:0 2px 10px rgba(20,41,74,.06)}
+.pj-bal span{display:block;font-size:13px;color:var(--mut);font-weight:600}
+.pj-bal b{display:block;font-size:34px;font-weight:900;color:var(--navy);line-height:1.25;margin-top:2px}
+.pj-bal b.neg{color:var(--red)}.pj-bal small{font-size:14px;font-weight:600;color:var(--mut);margin-inline-start:6px}
+.pj-bar{height:6px;border-radius:6px;background:var(--soft);margin-top:12px;overflow:hidden}.pj-bar i{display:block;height:100%;background:var(--navy2);border-radius:6px}.pj-bar i.hot{background:var(--red)}
+.pj-bar-l{font-size:12px;color:var(--mut);margin-top:6px}
+.pj-three{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);margin-top:12px}
+.pj-three div{padding:11px 2px 12px;text-align:center;min-width:0}.pj-three div+div{border-inline-start:1px solid var(--line)}
+.pj-three span{display:block;font-size:12px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pj-three em{font-style:normal;font-size:11px}
+.pj-three b{display:block;font-size:15px;font-weight:800;color:var(--ink);margin-top:3px}
+.pj-acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.pj-acts button{border-radius:14px;padding:14px;font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center;gap:10px;font-family:inherit}
+.pj-acts i{font-style:normal;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:15px}
+.pj-in{background:var(--green);color:#fff;border:0;box-shadow:0 6px 14px rgba(22,156,85,.22)}.pj-out{background:var(--red);color:#fff;border:0;box-shadow:0 6px 14px rgba(224,72,72,.22)}.pj-acts i{background:rgba(255,255,255,.2)}
+.pj-three b.pin{color:var(--green)}.pj-three b.pout{color:var(--red)}
+.pj-done{background:var(--card);border-radius:14px;padding:12px;text-align:center;margin-top:14px;font-size:14px;line-height:1.7}
+.pj-tools{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-radius:16px;overflow:hidden;margin-top:14px;box-shadow:0 2px 10px rgba(20,41,74,.05)}
+.pj-tool{border:0;background:var(--card);padding:14px 4px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--navy);font-family:inherit;font-weight:700;font-size:13px}
+.pj-tool svg{width:40px;height:40px;padding:9px;border-radius:12px;background:#EAF0F8;box-sizing:border-box}.pj-tool:active{background:var(--soft)}
+.pj-sec{display:flex;align-items:center;gap:8px;margin:20px 2px 8px}.pj-sec h2{margin:0;font-size:16px}.pj-sec span{background:var(--soft);color:var(--mut);border-radius:20px;padding:1px 9px;font-size:12px;font-weight:700}
+.pjv .chip{background:var(--soft);color:var(--mut);font-weight:600}
+.pjv .pban button{background:var(--navy)}
+
+@media (max-width:600px){.docbar{flex-wrap:wrap;row-gap:8px}.docbar b{flex:1 1 calc(100% - 110px);font-size:15px;line-height:1.4}.docbar b .pages{display:block;font-size:11.5px}.docbar>button{white-space:nowrap;font-size:14px}.docbar>button:not(:first-child){flex:1}}
 </style>
 
 <div id="app"></div>
@@ -643,18 +669,34 @@ VIEWS.clients=()=>{const cs=live(S.clients);
      ${ps.length>1?`<div class="ctot">مجموع أرصدة مشاريعه <b class="amt ${tot<0?'neg':'pos'}">${sfmt(tot)}</b></div>`:''}
    </section>`}).join('')||'<div class="card empty">لا يوجد زبائن بعد</div>'}
   </div>`};
+const PJI={doc:'<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>',send:'<path d="M20 4L3 11l7 3 3 7z"/><path d="M10 14l10-10"/>',rcpt:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/>',ask:'<circle cx="12" cy="12" r="9"/><path d="M14.5 9h-3.5a1.75 1.75 0 000 3.5h2a1.75 1.75 0 010 3.5H9.5M12 7.5v1.5M12 16v1.5"/>',chat:'<path d="M4 5h16v11H9l-5 4z"/>',edit:'<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/>'};
+function pjIc(n){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${PJI[n]}</svg>`}
 VIEWS.project=(id)=>{const p=P(id);if(!p)return VIEWS.home();const c=C(p.cid)||{};const k=calc(p);
+  const lastIn=entriesOf(p.id).filter(e=>e.kind==='in').pop();const used=k.inn>0?Math.min(100,Math.round((k.out+k.fee)/k.inn*100)):(k.out>0?100:0);
+  const tool=(ic,t,fn)=>`<button class="pj-tool" onclick="${fn}">${pjIc(ic)}<span>${t}</span></button>`;
   return `<header class="top short"><div class="hdr"><div><h1>${esc(c.name)}</h1><p>${esc(p.name)}${p.desc?' · '+esc(p.desc):''}${p.done?' · ✔ منتهٍ':''}</p></div><button class="back" aria-label="رجوع" onclick="go('home')">→</button></div></header>
-  <div class="wrap" style="margin-top:14px">
-   <div class="kpis"><div class="kpi"><span>مجموع المقبوض</span><b class="amt pos">${fmt(k.inn)}</b></div>
-    <div class="kpi"><span>مجموع المصروف</span><b class="amt neg">${fmt(k.out)}</b></div>
-    <div class="kpi"><span>أتعاب المهندس (${esc(feeLabel(p))})</span><b class="amt">${fmt(k.fee)}</b></div>
-    <div class="kpi ${k.bal<0?'lo':'hi'}"><span>${k.bal<0?'تجاوز (مطلوب من الزبون)':'الرصيد المتبقي للزبون'}</span><b class="amt">${sfmt(k.bal)}</b></div></div>
-   ${p.done?`<div class="card" style="padding:12px;text-align:center">✔ المشروع منتهٍ في <span class="num">${p.done.at}</span>. يمكنك عرض الكشف وطباعته، ولإضافة مبالغ أعد فتح المشروع من «تعديل المشروع».</div>`:`<div class="acts"><button class="act in" onclick="qStart('in','${p.id}')"><span>استلمت</span><i>↓</i></button><button class="act out" onclick="qStart('out','${p.id}')"><span>صرفت</span><i>↑</i></button></div>`}
-   <div class="row2"><button class="btn" onclick="showStatement('${p.id}')">📄 الكشف</button><button class="btn ghost" onclick="projectSheet('${p.id}')">تعديل المشروع</button></div>
-   ${(()=>{const z=payLevel(p);return z&&z.lv!=='g'?`<div class="pban ${z.lv}"><div><b>${z.bal<0?'⚠️ المصروف تجاوز المستلم':(z.bal===0?'⚠️ خلص رصيد الزبون':'⏳ رصيد الزبون قرب يخلص')}</b><span>${z.bal<0?'التجاوز':'المتبقي'} <b class="num">${fmt(Math.abs(z.bal))}</b> د.ع${z.bal>0?` · أقل من ${alertPct()}% من آخر دفعة`:''}</span></div><button onclick="payReqSheet('${p.id}')">📤 طلب دفعة</button></div>`:''})()}
-   ${waRow(c,p)}
-   <div class="sec"><h2>الحركات (${k.es.length})</h2></div>
+  <div class="wrap pjv" style="margin-top:14px">
+   <div class="pj-sum">
+    <div class="pj-bal"><span>${k.bal<0?'تجاوز — مطلوب من الزبون':'الرصيد المتبقي للزبون'}</span><b class="num${k.bal<0?' neg':''}">${fmt(Math.abs(k.bal))}<small>د.ع</small></b></div>
+    <div class="pj-bar" title="المصروف من المقبوض"><i style="width:${used}%"${used>=90?' class="hot"':''}></i></div>
+    <div class="pj-bar-l"><span>صُرف <b class="num">${used}%</b> من المقبوض</span></div>
+    <div class="pj-three">
+     <div><span>المقبوض</span><b class="num pin">${fmt(k.inn)}</b></div>
+     <div><span>المصروف</span><b class="num pout">${fmt(k.out)}</b></div>
+     <div><span>الأتعاب${p.feeType==='pct'?` <em class="num">${+p.feeVal||0}%</em>`:''}</span><b class="num">${fmt(k.fee)}</b></div>
+    </div>
+   </div>
+   ${(()=>{const z=payLevel(p);return z&&z.lv!=='g'?`<div class="pban ${z.lv}"><div><b>${z.bal<0?'⚠️ المصروف تجاوز المستلم':(z.bal===0?'⚠️ خلص رصيد الزبون':'⏳ رصيد الزبون قرب يخلص')}</b><span>${z.bal<0?'التجاوز':'المتبقي'} <b class="num">${fmt(Math.abs(z.bal))}</b> د.ع${z.bal>0?` · أقل من ${alertPct()}% من آخر دفعة`:''}</span></div><button onclick="payReqSheet('${p.id}')">طلب دفعة</button></div>`:''})()}
+   ${p.done?`<div class="pj-done">✔ المشروع منتهٍ في <span class="num">${p.done.at}</span>. يمكنك عرض الكشف وطباعته، ولإضافة مبالغ أعد فتح المشروع من «تعديل المشروع».</div>`:`<div class="pj-acts"><button class="pj-in" onclick="qStart('in','${p.id}')"><i>↓</i>استلمت</button><button class="pj-out" onclick="qStart('out','${p.id}')"><i>↑</i>صرفت</button></div>`}
+   <div class="pj-tools">
+    ${tool('doc','كشف الحساب',`showStatement('${p.id}')`)}
+    ${c.id?tool('send','ملخص واتساب',`waStatement('${p.id}')`):''}
+    ${c.id&&lastIn?tool('rcpt','آخر وصل',`waReceipt('${lastIn.id}')`):''}
+    ${c.id&&lastIn?tool('ask','طلب دفعة',`payReqSheet('${p.id}')`):''}
+    ${c.id?tool('chat','مراسلة',`waOpen(C('${c.id}'))`):''}
+    ${tool('edit','تعديل',`projectSheet('${p.id}')`)}
+   </div>
+   <div class="pj-sec"><h2>الحركات</h2><span class="num">${k.es.length}</span></div>
    <div class="list">${k.es.slice().reverse().map(entryRow).join('')||'<div class="empty">لا حركات بعد</div>'}</div>
   </div>`};
 function entryRow(e){const p=P(e.pid);const c=p&&C(p.cid);
@@ -947,7 +989,16 @@ let DOCMETA={};
 function docOpen(title,html,meta={}){const d=$('#doc');const ref=hashCode(html);html=html.split('%REF%').join(ref);
   DOCMETA=Object.assign({title,ref,no:'',date:today(),who:''},meta,{ref});
   d.innerHTML=`<div class="docbar"><button onclick="docClose()">→ رجوع</button><b>${esc(title)} <span class="pages" id="pages"></span></b><button class="y" onclick="doPrint()">طباعة / PDF</button></div><div class="paperwrap"><div class="pscale" id="pscale"><div class="book" id="paper"></div></div></div><div class="paper measure" id="measure">${html}</div>`;
-  d.classList.add('show');d.scrollTop=0;paginate($('#measure'),$('#paper'));$('#measure').remove();fitPaper()}
+  d.classList.add('show');d.scrollTop=0;paginate($('#measure'),$('#paper'));$('#measure').remove();fitPaper();
+  if(meta.pid&&!REQ)$('#doc .docbar').insertAdjacentHTML('beforeend',`<button class="wa" onclick="stSend('${meta.pid}')">💬 إرسال للزبون</button>`)}
+async function stSend(pid){const p=P(pid),c=C(p.cid)||{},k=calc(p);
+  if(!waNum(c.phone))return waOpen(c,'');const title=DOCMETA.title||'كشف حساب';let url='';
+  let w=null;if(MODE==='cloud'&&ME&&ME.org&&SB){w=window.open('about:blank','_blank');toast('جارٍ تجهيز رابط الكشف…');
+    try{const r=await SB.rpc('asas_share_create',{p_org:ME.org,p_pid:pid,p_title:title+' · '+p.name,p_html:$('#paper').innerHTML});if(r.error)throw r.error;url=APP_URL+'?s='+r.data}
+    catch(e){logErr&&logErr('share',e);toast('تعذّر إنشاء الرابط، سيُرسل الملخص فقط')}}
+  const t=`السلام عليكم ${cName(c)} المحترم،\n\n📄 *${title}*\n🏗️ ${p.name}\nرقم الكشف: ${DOCMETA.no||''} · ${DOCMETA.date||today()}\n\n${k.bal<0?'⚠️ المبلغ المطلوب منكم':'✅ الرصيد المتبقي لكم'}: *${fmt(Math.abs(k.bal))} د.ع*\n\n${url?'لعرض الكشف كاملاً بالتفاصيل والتواقيع، وطباعته أو حفظه PDF:\n'+url:'الكشف الكامل جاهز للطباعة عند الطلب.'}\n\nمع التقدير، ${waSign()}\n— أُعدّ بنظام أسس`;
+  if(w&&!w.closed){w.location.href='https://wa.me/'+waNum(c.phone)+'?text='+encodeURIComponent(t)}else waOpen(c,t)}
+
 function paginate(src,out){const M=DOCMETA;const pages=[];let page,body;const H=src.querySelector('.st-h');
   const newPage=()=>{page=document.createElement('div');page.className='paper apage';
     if(pages.length){if(H){const h=H.cloneNode(true);const t=h.querySelector('.st-tt');if(t)t.innerHTML=`<h1>${esc(M.title)}</h1><div>رقم <b class="num">${esc(M.no)}</b> · <span class="num">${M.date}</span> · رمز <b class="num">${M.ref}</b></div>`;page.appendChild(h)}
@@ -1044,7 +1095,7 @@ function payDoc(p,x,withAnnex){const c=C(p.cid)||{};const b=catsOf(x.outs);const
    ${stTail(x.close,x.last?'المتبقي من الدفعة':'المتبقي ويُدوَّر للدفعة التالية','تجاوز الدفعة (يُخصم من الدفعة القادمة)',
      `المصروفات تُحسب على آخر دفعة مستلمة قبلها حسب التاريخ.${p.feeType==='fixed'?' الأتعاب المقطوعة تُحسب في الكشف النهائي.':''}${STM.mode==='sum'?(withAnnex?' تفاصيل كل وصل في الملحق.':' التفاصيل وصلاً بوصل متوفرة عند الطلب.'):''}`)}
    ${REQ&&x.last?`<div class="keep"><div class="st-req"><div><span class="rq-l">المطلوب: دفعة جديدة</span><p>${x.close<0?`المصروف تجاوز المبالغ المستلمة بمبلغ <b class="num">${fmt(-x.close)}</b> د.ع.`:(x.close===0?'نفد رصيد الدفعة.':`رصيد الدفعة قارب على النفاد (المتبقي <b class="num">${fmt(x.close)}</b> د.ع).`)} نرجو تسديد دفعة جديدة لمواصلة العمل.</p></div><b class="rq-ic">💰</b></div></div>`:''}</div>`+(withAnnex&&STM.mode==='sum'&&x.outs.length?annexDoc(p,x.outs,'مصروفات الدفعة '+ordN(x.i)):'')}
-function showPayment(pid,i){readSTM();const p=P(pid),x=pays(p)[i-1];closeSheet();docOpen('كشف الدفعة '+ordN(i),payDoc(p,x,STM.annex),{no:`د-${stNo(p)}-${i}`,who:whoOf(p),client:cliSig(p)})}
+function showPayment(pid,i){readSTM();const p=P(pid),x=pays(p)[i-1];closeSheet();docOpen('كشف الدفعة '+ordN(i),payDoc(p,x,STM.annex),{no:`د-${stNo(p)}-${i}`,who:whoOf(p),client:cliSig(p),pid:p.id})}
 const whoOf=p=>((C(p.cid)||{}).name||'')+' · '+p.name;
 const cliSig=p=>{const c=C(p.cid)||{};return c.name?((c.title?c.title+' ':'')+c.name):''};
 function readSTM(){const a=$('#st-annex');if(a)STM.annex=a.checked}
@@ -1066,7 +1117,7 @@ function showFinal(pid){readSTM();const annex=STM.annex;const p=P(pid),c=C(p.cid
     <div>${k.mats.length?'':'<div class="st-h3">ملاحظة</div><p class="mut">تفاصيل كل مصروف موجودة في كشوف الدفعات.</p>'}${stMats(k.mats)}</div></div>
    ${stTail(k.bal,'الرصيد المتبقي للزبون','المبلغ المطلوب من الزبون',`الرصيد = المقبوض − المصروف − أتعاب المهندس. تفاصيل كل مصروف في كشف دفعته${annex?' (مرفقة بعد هذه الصفحة)':''}.`)}</div>`;
   if(annex)for(const x of L)html+=`<div class="pgbrk"></div>`+payDoc(p,x,false);
-  docOpen('كشف حساب نهائي',html,{no:'ك-'+stNo(p),who:whoOf(p),client:cliSig(p)})}
+  docOpen('كشف حساب نهائي',html,{no:'ك-'+stNo(p),who:whoOf(p),client:cliSig(p),pid:p.id})}
 
 /* كشف حسب فترة */
 function showPeriod(pid,from,to){readSTM();if(!okDate(from)||!okDate(to))return toast('التاريخ بالأرقام هكذا: 2026-11-19');
@@ -1084,7 +1135,7 @@ function showPeriod(pid,from,to){readSTM();if(!okDate(from)||!okDate(to))return 
     <div><div class="st-h3">أين صُرف المبلغ</div>${stDonut(catsOf(outs),out)}</div></div>
    ${stExp(outs,'المصروفات خلال الفترة')}
    ${stTail(close,'الرصيد في آخر الفترة','التجاوز في آخر الفترة',`الرصيد = رصيد قبل الفترة + المقبوض − الأتعاب − المصروف.${p.feeType==='fixed'?' الأتعاب المقطوعة تُحسب في الكشف النهائي.':''}`)}</div>`+(STM.annex&&STM.mode==='sum'&&outs.length?annexDoc(p,outs,'مصروفات الفترة'):'');
-  docOpen('كشف حساب لفترة',html,{no:'ف-'+stNo(p),who:whoOf(p),client:cliSig(p)})}
+  docOpen('كشف حساب لفترة',html,{no:'ف-'+stNo(p),who:whoOf(p),client:cliSig(p),pid:p.id})}
 
 /* نافذة اختيار نوع الكشف */
 function setSTM(m){STM.mode=m;document.querySelectorAll('#stm button').forEach((b,i)=>b.classList.toggle('on',(i===0)===(m==='sum')));$('#stm-h').textContent=m==='sum'?'مثال: كل الطابوق بسطر واحد بعدد وصولاته ومجموعه. يبقى الكشف في ورقة واحدة.':'كل وصل بسطر. الكشف الطويل يستمر في أكثر من ورقة.'}
@@ -1332,11 +1383,12 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.8.2',APP_T='2026-11-20 18:35';
+var APP_V='1.8.3',APP_T='2026-11-20 19:55';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='بالآيفون: صارت مسافة تحت الساعة والبطارية بأعلى الشاشة|رسائل الواتساب للزبون صارت أرتب: توقيع المهندس بدون تكرار';
+var APP_NEWS='صفحة المشروع صارت أرتب: الرصيد بوضوح وأزرار مرتبة بمربعات|زر «إرسال للزبون» داخل كل كشف: يوصله رابط الكشف الكامل بالواتساب|بالإدخال السريع للصرف: الملاحظة صارت قبل الصورة';
 var APP_LOG=[
- {v:'1.8.2',d:'2026-11-20',n:APP_NEWS.split('|')},
+ {v:'1.8.3',d:'2026-11-20',n:APP_NEWS.split('|')},
+ {v:'1.8.2',d:'2026-11-20',n:['بالآيفون: صارت مسافة تحت الساعة والبطارية بأعلى الشاشة','رسائل الواتساب للزبون صارت أرتب: توقيع المهندس بدون تكرار']},
  {v:'1.8.1',d:'2026-11-20',n:['أيقونة جديدة للتطبيق: الخوذة أكبر وفوق طابوق الأساس']},
  {v:'1.8.0',d:'2026-11-20',n:['تسجيل المبالغ بدون إنترنت، وتنحفظ تلقائياً على السيرفر أول ما يرجع النت', 'شرح تثبيت أسس على الموبايل والحاسبة بالصور، من «المزيد» ← «كيف أثبّت التطبيق»', 'على الحاسبة: قائمة جانبية، وتكتب المبلغ من الكيبورد', 'شريط التحديث يخبرك بما تغيّر قبل التحديث', 'بعد التحديث تظهر لك قائمة «ما الجديد»', 'رقم الإصدار وحالته في «المزيد» مع زر «تحقق»']},
  {v:'1.7.1',d:'2026-11-20',n:['زر «✓ حفظ الآن» في الإدخال السريع بعد كتابة البند']},
@@ -1451,7 +1503,7 @@ function bkStatus(){const L=BK.list||[];const auto=L.find(b=>b.kind==='auto');co
 let Q=null;
 function qStart(kind,pid){const recentP=()=>{const es=live(S.entries).slice().sort((a,b)=>(b.ts||0)-(a.ts||0));const e=es.find(e=>P(e.pid)&&!P(e.pid).done);return e?e.pid:(activeProjects()[0]||{}).id||''};
   Q={kind,step:0,amt:0,pid:pid||recentP(),det:'',att:'',note:'',src:'الصندوق',date:today(),fixP:!!pid};go('quick')}
-function qSteps(){return Q.kind==='out'?['amt','pid','det','att','note']:['amt','pid','src']}
+function qSteps(){return Q.kind==='out'?['amt','pid','det','note','att']:['amt','pid','src']}
 const QT={amt:'المبلغ',pid:'المشروع',det:'على شنو صرفت؟',att:'صورة الوصل',note:'ملاحظة',src:'طريقة الاستلام'};
 function qRecentDets(){const seen=new Set(),out=[];for(const e of live(S.entries).filter(e=>e.kind==='out').sort((a,b)=>(b.ts||0)-(a.ts||0))){const d=(e.det||'').trim();if(d&&!seen.has(d)){seen.add(d);out.push(d)}if(out.length>=8)break}return out}
 function qProjects(){const last={};for(const e of live(S.entries))last[e.pid]=Math.max(last[e.pid]||0,e.ts||0);return activeProjects().slice().sort((a,b)=>(last[b.id]||0)-(last[a.id]||0))}
