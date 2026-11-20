@@ -1,0 +1,49 @@
+name: Nightly offsite backup
+# نسخة خارجية مشفّرة لكل بيانات أسس، كل ليلة 02:00 بتوقيت بغداد.
+# لا أسرار هنا: الدخول برمز OIDC من GitHub، والتشفير يتم داخل Supabase قبل الإرسال.
+on:
+  schedule:
+    - cron: "0 23 * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write
+  issues: write
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      FN: https://nlwlopwewqebdawkgtbk.supabase.co/functions/v1/asas-offsite
+    steps:
+      - name: Get encrypted dump
+        run: |
+          set -e
+          TOK=$(curl -sf -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=asas-backup" | jq -r .value)
+          echo "::add-mask::$TOK"
+          F=asas-backup-$(date -u +%Y-%m-%d).json.gz.enc
+          curl -sf -X POST -H "x-gh-oidc: $TOK" -H "Content-Type: application/json" -d '{"action":"dump"}' -D headers.txt -o "$F" "$FN"
+          test "$(head -c 8 "$F")" = "Salted__"
+          SIZE=$(stat -c %s "$F"); test "$SIZE" -gt 200
+          echo "F=$F" >> $GITHUB_ENV; echo "SIZE=$SIZE" >> $GITHUB_ENV
+          grep -i '^x-counts:' headers.txt | sed 's/^[^:]*: //' | tr -d '\r' > counts.json
+          echo "### نسخة أسس الخارجية" >> $GITHUB_STEP_SUMMARY; echo "الحجم: $SIZE بايت" >> $GITHUB_STEP_SUMMARY; cat counts.json >> $GITHUB_STEP_SUMMARY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: asas-backup-${{ github.run_id }}
+          path: ${{ env.F }}
+          retention-days: 90
+      - name: Record status in app
+        if: always()
+        run: |
+          TOK=$(curl -sf -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=asas-backup" | jq -r .value)
+          echo "::add-mask::$TOK"
+          OK=$([ "${{ job.status }}" = success ] && echo true || echo false)
+          C=$(cat counts.json 2>/dev/null || echo null); [ -n "$C" ] || C=null
+          curl -s -X POST -H "x-gh-oidc: $TOK" -H "Content-Type: application/json" \
+            -d "{\"action\":\"report\",\"ok\":$OK,\"bytes\":${SIZE:-0},\"run\":\"$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID\",\"counts\":$C}" "$FN" || true
+      - name: Alert on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue create --repo "$GITHUB_REPOSITORY" --title "⚠️ فشلت نسخة أسس الخارجية الليلية" --body "افتح التفاصيل: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
