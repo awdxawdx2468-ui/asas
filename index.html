@@ -311,6 +311,19 @@ table.t th:first-child{border-radius:0 8px 8px 0}table.t th:last-child{border-ra
 .auth{min-height:100vh;background:var(--bg,#F3F5F9)}
 .auth-top{background:var(--navy);color:#fff;text-align:center;padding:42px 20px 80px;border-radius:0 0 30px 30px}
 .auth-top h1{font-size:36px;margin:10px 0 6px}.ver{text-align:center;font-size:12.5px;color:var(--mut);margin:10px 0 4px}.ver .vs.ok{color:var(--green)}.ver .vs.old{color:var(--yeld);font-weight:700}
+.vercard{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:16px;padding:12px 14px;margin:12px 0 4px;box-shadow:0 2px 8px rgba(20,41,74,.05)}.vercard .mid{flex:1}.vercard .t{font-weight:800;font-size:15px}.vercard .s{font-size:12.5px;color:var(--mut)}
+.vc-ic{width:42px;height:42px;border-radius:12px;background:var(--navy);display:grid;place-items:center;flex:none}.vercard .vs.ok{color:var(--green);font-weight:700}.vercard .vs.old{color:#B07F00;font-weight:800}
+.vc-b{border:0;border-radius:11px;padding:9px 14px;font-weight:800;background:var(--soft);color:var(--navy)}.vc-b.up{background:var(--yel)}.vercard.old{border:2px solid var(--yel)}
+.verbar{flex-direction:column;align-items:stretch!important;gap:8px!important}.vb-h b{font-size:15px}.vb-l{background:rgba(255,255,255,.08);border-radius:10px;padding:8px 10px}.vb-s{font-size:12px;opacity:.8}.vb-l ul,.vn ul{margin:4px 0 0;padding-inline-start:18px;font-size:13px;line-height:1.7}
+.vb-a{display:flex;gap:8px}.vb-a button{flex:1}.verbar .vb-a button.sk{background:rgba(255,255,255,.15);color:#fff}
+.vc-n{border:0;background:none;color:#2B6CB0;font-weight:700;font-size:12.5px;text-decoration:underline;padding:0 6px}
+.vn{background:var(--soft);border-radius:12px;padding:10px 12px;margin-bottom:8px}.vn.cur{background:#FFF8E1;border:1px solid #F3DC9C}.vn-h{display:flex;justify-content:space-between;font-size:13px}.vn-h span{color:var(--mut)}
+.vb-t{flex:1;display:flex;flex-direction:column}
+.netbar{background:#FFF1F0;border:1px solid #F5B5B0;border-radius:14px;padding:10px 12px;margin:0 0 10px;display:flex;flex-direction:column;gap:3px;font-size:12.5px;color:#7A2A24;line-height:1.6}.netbar b{font-size:14px;color:#B4231A}.netbar .nb-n{font-weight:700;color:#8A5A00;background:#FFF6DB;border-radius:8px;padding:2px 8px;align-self:flex-start;margin-top:2px}.netbar .nb-n b{font-size:13px;color:#8A5A00}
+.rcoff{background:#FFF6DB;color:#8A5A00;border-radius:10px;padding:8px 10px;font-size:12.5px;font-weight:600;margin-bottom:8px;line-height:1.6}
+.li .pl{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px}.li .pl .pend{margin:0}
+.pend.ph{color:#1F5E99;background:#E3F0FC}
+.pend{display:inline-block;font-size:10.5px;font-weight:700;color:#8A5A00;background:#FFF2CC;border-radius:6px;padding:0 6px;margin-inline-start:4px}.vb-t b{font-size:14.5px}.vb-t small{font-size:12px;opacity:.85;margin-top:2px}.verbar button.x{background:rgba(255,255,255,.15);color:#fff}
 .verbar{position:fixed;left:12px;right:12px;bottom:92px;z-index:60;background:var(--navy);color:#fff;border-radius:14px;padding:10px 12px;display:flex;gap:8px;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:536px;margin:0 auto}.verbar span{flex:1;font-size:14px}.verbar button{border:0;border-radius:10px;padding:8px 12px;background:var(--yel);color:var(--navy);font-weight:800}.verbar button+button{background:transparent;color:#fff}
 .btn.logout{background:var(--redbg);color:var(--red);border:1px solid #f3c4c4}
 .biolock{position:fixed;inset:0;z-index:200;background:var(--navy);display:flex;align-items:center;justify-content:center;padding:24px}.bl-c{width:100%;max-width:360px;text-align:center;color:#fff;display:flex;flex-direction:column;gap:12px}.bl-c h2{margin:6px 0 0;font-size:24px}.bl-c p{margin:0;color:#c9d3e3}.bl-l{margin:0 auto 6px;width:96px;height:96px}.bl-m{min-height:20px;color:#ffb4b4;font-size:14px}.biolock .btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
@@ -402,6 +415,52 @@ table.t th:first-child{border-radius:0 8px 8px 0}table.t th:last-child{border-ra
 .li.hl{background:var(--cream)}.li.off{opacity:.55}
 body.ro .fab,body.ro .fabw,body.ro .acts,body.ro .addp,body.ro button.btn.y,body.ro .chip.n,body.ro #ent-save{display:none!important}
 body.nodel .btn.del{display:none!important}
+/* ===== التثبيت على الجهاز + شاشة الحاسبة ===== */
+.ig-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:#E3E8F0;border-radius:14px;padding:4px}
+.ig-tabs button{border:0;background:none;border-radius:11px;padding:9px 4px;font-weight:700;font-size:13.5px;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:2px}
+.ig-tabs button.on{background:#fff;color:var(--navy);box-shadow:0 2px 8px rgba(20,41,74,.1)}
+.ig-tabs button i{font-style:normal;font-size:20px}
+.ig-hero{background:var(--navy);color:#fff;border-radius:18px;padding:14px;display:flex;gap:12px;align-items:center}
+.ig-hero .mid{flex:1}.ig-hero b{font-size:16.5px;display:block}.ig-hero span{font-size:13px;opacity:.85;line-height:1.6;display:block;margin-top:2px}
+.ig-ok{background:var(--greenbg);color:var(--green);border-radius:14px;padding:10px 12px;font-weight:700;font-size:14px}
+.ig-now{background:var(--yel);color:var(--navy);border:0;border-radius:14px;padding:14px;font-weight:800;font-size:16.5px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 18px rgba(224,162,0,.35)}
+.ig-steps{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
+.ig-step{background:#fff;border-radius:16px;padding:12px;display:flex;gap:12px;align-items:center;box-shadow:0 3px 12px rgba(20,41,74,.05)}
+.ig-n{width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:800;flex:none;font-size:15px}
+.ig-t{flex:1;font-size:14.5px;line-height:1.7}.ig-t b{color:var(--navy)}.ig-t small{display:block;color:var(--mut);font-size:12.5px;line-height:1.6}
+.ig-pic{flex:none;width:108px;height:80px;border-radius:12px;background:var(--soft);border:1px solid var(--line);display:grid;place-items:center;position:relative;overflow:hidden}
+.ig-pic svg{display:block;width:100%;height:100%}
+.ig-k{display:inline-flex;align-items:center;gap:4px;background:#E7ECF4;border-radius:7px;padding:0 6px;font-weight:700;font-size:13px;white-space:nowrap;vertical-align:middle}
+.ig-k svg{width:15px;height:15px}
+.ig-same{background:var(--cream);border-radius:16px;padding:12px 14px;font-size:13.5px;line-height:1.75;color:#5c4500}
+.ig-same b{color:var(--navy);font-size:15px;display:block;margin-bottom:2px}
+.ig-link{display:flex;gap:8px;align-items:center;background:#fff;border-radius:14px;padding:8px 8px 8px 12px;border:1px dashed #C3CCDA}
+.ig-link code{flex:1;direction:ltr;text-align:left;font-size:13px;color:var(--navy);font-family:ui-monospace,Consolas,monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ig-link button{border:0;border-radius:10px;padding:8px 10px;font-weight:700;background:var(--navy);color:#fff;font-size:13px;white-space:nowrap}
+.ig-link .igwa{border-radius:10px;padding:8px 10px;font-weight:700;background:#1FAF55;color:#fff;font-size:13px;text-decoration:none;white-space:nowrap}
+.ig-note{font-size:12.5px;color:var(--mut);line-height:1.7;margin:0}
+.tab.inst{display:none}
+@media screen and (min-width:1000px){
+ body:has(.tabbar){padding-right:240px}
+ #app{max-width:860px;padding-bottom:48px}
+ .tabbar{top:0;bottom:0;left:auto;right:0;width:240px;box-shadow:-6px 0 24px rgba(20,41,74,.08);padding:0}
+ .tabbar .in{max-width:none;display:flex;flex-direction:column;align-items:stretch;gap:4px;padding:22px 14px;height:100%}
+ .tabbar .in::before{order:-2;content:"أسس";font-weight:800;font-size:24px;color:var(--navy);padding:4px 12px 14px;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%2314294A%22/%3E%3Cpath%20d%3D%22M14%2040a18%2018%200%200%201%2036%200z%22%20fill%3D%22%23F5B800%22/%3E%3Cpath%20d%3D%22M28%2022h8v18h-8z%22%20fill%3D%22%23E0A200%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2239%22%20width%3D%2244%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%23F5B800%22/%3E%3C/svg%3E") no-repeat right 12px top 0/34px;padding-right:56px;line-height:34px}
+ .tab{flex-direction:row;gap:12px;font-size:15.5px;padding:12px 14px;border-radius:12px;justify-content:flex-start}
+ .tab:hover{background:var(--soft)}
+ .tab.on{background:#E7ECF4}
+ .fabw{order:-1;font-size:0;margin-bottom:10px}
+ .fab{width:100%;height:50px;border-radius:14px;margin:0;font-size:16px;display:flex;gap:8px;align-items:center;justify-content:center}
+ .fab::after{content:"إضافة مبلغ";font-size:16px;font-weight:800}
+ .tab.inst{display:flex;margin-top:auto;background:var(--cream);color:#8a6400;font-weight:700}
+ .scrim{align-items:center}
+ .sheet{border-radius:24px;max-height:88vh;max-width:600px}
+ .verbar{right:254px;left:14px;max-width:560px}
+ .toast{bottom:40px;left:calc(50% - 120px)}
+ .duo,.acts{gap:14px}
+ .prj:hover,.li:hover{filter:brightness(.98)}
+}
+@media screen and (min-width:1000px) and (display-mode:standalone){.tab.inst{display:none}}
 </style>
 
 <div id="app"></div>
@@ -595,7 +654,7 @@ VIEWS.project=(id)=>{const p=P(id);if(!p)return VIEWS.home();const c=C(p.cid)||{
 function entryRow(e){const p=P(e.pid);const c=p&&C(p.cid);
   return `<button class="li" onclick="go('entry',{id:'${e.id}'})"><div class="dot ${e.kind}">${e.kind==='in'?'↓':'↑'}</div>
    <div class="mid"><div class="t">${esc(e.det||'—')} ${e.kind==='out'&&e.cat?`<span class="chip">${CATN[e.cat]}</span>`:''}${e.att?' 📎':''}</div>
-   <div class="s"><span class="num">${e.date}</span> · ${esc(e.party||'')} ${e.docType&&e.docType!=='بدون مستند'?'· '+esc(e.docType)+' '+esc(e.docNo||''):''}${V.v!=='project'&&c?' · '+esc(c.name):''}</div></div>
+   <div class="s"><span class="num">${e.date}</span> · ${esc(e.party||'')} ${e.docType&&e.docType!=='بدون مستند'?'· '+esc(e.docType)+' '+esc(e.docNo||''):''}${V.v!=='project'&&c?' · '+esc(c.name):''}</div>${pendE(e)||(MODE==='cloud'&&String(e.att||'').startsWith('data:'))?`<div class="pl">${pendE(e)?'<span class="pend">⏳ بانتظار المزامنة</span>':''}${MODE==='cloud'&&String(e.att||'').startsWith('data:')?'<span class="pend ph">📷 الصورة بانتظار الرفع</span>':''}</div>`:''}</div>
    <b class="a amt ${e.kind==='in'?'pos':'neg'}">${e.kind==='in'?'+':'−'}${fmt(e.amt)}</b></button>`}
 
 /* ---- قيد جديد / تعديل ---- */
@@ -631,7 +690,7 @@ VIEWS.entry=(a={})=>{
    <div class="fld"><div class="ic">💼</div><div class="bx"><label for="f-src">${isIn?'استُلم إلى':'دُفع من'}</label><select id="f-src"><option ${F.src==='الصندوق'?'selected':''}>الصندوق</option><option ${F.src==='حساب المصرف'?'selected':''}>حساب المصرف</option></select></div><span class="mut">▾</span></div>
    ${isIn?`<div class="fld"><div class="ic">🙋</div><div class="bx"><label for="f-rcv">المستلم (من استلم المبلغ)</label><input id="f-rcv" value="${esc(F.rcv||S.me||'')}"></div></div>`:''}
    <div class="fld"><div class="ic">🗒️</div><div class="bx"><label for="f-note">ملاحظات</label><input id="f-note" value="${esc(F.note||'')}" placeholder="اختياري"></div></div>
-   <label class="photo" for="f-att">${F.att?`<img ${String(F.att).startsWith('sb:')?'data-sb="'+esc(F.att.slice(3))+'" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" style="min-height:80px;background:var(--soft)"':'src="'+F.att+'"'} alt="صورة المستند">تغيير الصورة`:'📷 صوّر الفاتورة (اختياري)'}</label>
+   <label class="photo" for="f-att">${F.att?`<img ${String(F.att).startsWith('sb:')?'data-sb="'+esc(F.att.slice(3))+'" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" style="min-height:80px;background:var(--soft)"':'src="'+F.att+'"'} alt="صورة المستند">${MODE==='cloud'&&String(F.att).startsWith('data:')&&F.id?'<span class="pend ph">📷 الصورة على جهازك وتنرفع أول ما يرجع النت</span>':''}تغيير الصورة`:'📷 صوّر الفاتورة (اختياري)'}</label>
    <input id="f-att" type="file" accept="image/*" capture="environment" hidden onchange="attPick(this)">
    <button class="btn" id="ent-save" onclick="entrySave()"><span class="ck">✓</span> حفظ المبلغ</button>
    ${F.id&&F.kind==='in'?`<div class="row2"><button class="btn ghost" onclick="showReceipt('${F.id}')">🧾 وصل الاستلام</button><button class="btn wa" onclick="waReceipt('${F.id}')">💬 أرسله للزبون</button></div>`:''}
@@ -668,8 +727,8 @@ function entrySave(){if(!F.quick)readF();
       if(old.kind!==F.kind)rec.no=nextNo(F.kind);
       if(ch.length)rec.log=[...(old.log||[]),{at:new Date().toISOString().slice(0,16).replace('T',' '),by:S.me,ch:ch.join(' · ')}];
       S.entries[i]=rec}
-    else{const rec=Object.assign({},F,{id:uid(),no:nextNo(F.kind),ts:Date.now(),by:S.me,log:[]});delete rec.catSet;delete rec.quick;S.entries.push(rec)}
-    const nid=F.id||S.entries[S.entries.length-1].id,wasIn=F.kind==='in',isNew=!F.id;save();toast('تم حفظ المبلغ ✓');go('project',F.pid);if(wasIn&&isNew)setTimeout(()=>rcptSheet(nid,true),250)};
+    else{const rec=Object.assign({},F,{id:uid(),no:nextNo(F.kind),ts:Date.now(),by:S.me,log:[]});if(NOFIX)rec.nf=1;delete rec.catSet;delete rec.quick;S.entries.push(rec)}
+    const nid=F.id||S.entries[S.entries.length-1].id,wasIn=F.kind==='in',isNew=!F.id;save();toast(isOff()?'✓ انحفظ على جهازك ⏳ وينرفع للسيرفر أول ما يرجع النت':'تم حفظ المبلغ ✓');go('project',F.pid);if(wasIn&&isNew)setTimeout(()=>rcptSheet(nid,true),250)};
   // كشف التكرار
   const dup=!F.id&&live(S.entries).find(e=>e.pid===F.pid&&e.kind===F.kind&&e.date===F.date&&e.amt===F.amt&&(e.det===F.det||(!F.det&&e.party===F.party)));
   if(dup)return ask('يوجد مبلغ مسجّل بنفس التاريخ والمبلغ والبيان. هل هذا تكرار؟','احفظه على أي حال',doSave);
@@ -834,8 +893,9 @@ async function shareView(t){$('#app').innerHTML=`<div class="vfy"><div class="vf
   if(!d||!d.ok){$('.vf-b').innerHTML='<div class="vf-st bad">✕ الرابط غير صحيح أو انتهى</div>';return}
   const D=$('#doc');D.innerHTML=`<div class="docbar shbar"><b>${esc(d.title||'كشف')}<span class="shsub">من ${esc(d.eng||d.office||'')} · <span class="num">${esc(d.phone||'')}</span></span></b><button class="y" onclick="doPrint()">طباعة / PDF</button></div><div class="paperwrap"><div class="pscale" id="pscale"><div class="book" id="paper">${d.html}</div></div></div>`;
   D.classList.add('show');$('#app').innerHTML='';fitPaper()}
-function rcptSheet(id,fresh){const e=S.entries.find(x=>x.id===id);if(!e)return;const c=C((P(e.pid)||{}).cid)||{};
-  sheet(`<h3>${fresh?'✓ تم تسجيل الاستلام':'وصل الاستلام'}</h3><div class="rcbox"><div>وصل رقم <b class="num">${esc(e.no||'')}</b> · <span class="num">${e.date}</span></div><b class="num">${fmt(e.amt)} د.ع</b><div>من ${esc(cName(c))} · المستلم ${esc(e.rcv||e.by||S.me||'')}</div></div>
+function rcptSheet(id,fresh){const e=S.entries.find(x=>x.id===id);if(!e)return;
+  if(!noFixed(e))return sheet(`<h3>${fresh?'✓ تم تسجيل الاستلام':'وصل الاستلام'}</h3><div class="rcbox"><b class="num">${fmt(e.amt)} د.ع</b><div>⏳ محفوظ على جهازك وبانتظار الإنترنت</div></div><p class="mut" style="text-align:center;margin:6px 0 12px">الوصل ورقمه يجهزون أول ما ينحفظ المبلغ على السيرفر، وتگدر ترسله للزبون وقتها.</p><button class="btn y" onclick="closeSheet()">تمام</button>`);const c=C((P(e.pid)||{}).cid)||{};
+  sheet(`<h3>${fresh?'✓ تم تسجيل الاستلام':'وصل الاستلام'}</h3>${MODE==='cloud'&&BASE.entries[id]===undefined?'<div class="rcoff">⏳ بدون إنترنت — رقم الوصل ثابت ولن يتغير، وينحفظ على السيرفر أول ما يرجع النت</div>':''}<div class="rcbox"><div>وصل رقم <b class="num">${esc(e.no||'')}</b> · <span class="num">${e.date}</span></div><b class="num">${fmt(e.amt)} د.ع</b><div>من ${esc(cName(c))} · المستلم ${esc(e.rcv||e.by||S.me||'')}</div></div>
    <button class="btn wa" onclick="closeSheet();waReceipt('${id}')">💬 إرسال الوصل للزبون بالواتساب</button>
    <button class="btn" onclick="closeSheet();showReceipt('${id}')">🧾 عرض الوصل وطباعته</button>
    <button class="btn ghost" onclick="closeSheet()">لاحقاً</button>`)}
@@ -1070,17 +1130,44 @@ const normPhone=p=>{let d=String(p||'').replace(/[٠-٩]/g,c=>'٠١٢٣٤٥٦٧�
   if(d.startsWith('00964'))d=d.slice(5);else if(d.startsWith('964'))d=d.slice(3);if(d.startsWith('0'))d=d.slice(1);return /^7\d{9}$/.test(d)?d:''};
 const cacheKey=()=>'asas_c_'+(ME&&ME.uid);
 const J=x=>JSON.stringify(x);
+/* --- الحفظ المضمون على الجهاز (بدون إنترنت): نسختان، localStorage + IndexedDB --- */
+let IDB_C=null,PERSIST_WARN=0;const IDB={db:null};
+function idbOpen(){return new Promise(res=>{if(IDB.db)return res(IDB.db);try{const r=indexedDB.open('asas',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>{IDB.db=r.result;res(IDB.db)};r.onerror=()=>res(null)}catch(e){res(null)}})}
+async function idbPut(k,v){const db=await idbOpen();if(!db)return false;return new Promise(res=>{try{const tx=db.transaction('kv','readwrite');tx.objectStore('kv').put(v,k);tx.oncomplete=()=>res(true);tx.onerror=tx.onabort=()=>res(false)}catch(e){res(false)}})}
+async function idbGet(k){const db=await idbOpen();if(!db)return null;return new Promise(res=>{try{const r=db.transaction('kv').objectStore('kv').get(k);r.onsuccess=()=>{try{res(r.result?JSON.parse(r.result):null)}catch(e){res(null)}};r.onerror=()=>res(null)}catch(e){res(null)}})}
+async function idbDel(k){const db=await idbOpen();if(!db)return;try{db.transaction('kv','readwrite').objectStore('kv').delete(k)}catch(e){}}
+function persist(){if(MODE!=='cloud'||!ME||!S)return;const s=J({org:ME.org,ME,S,BASE,SINCE,ts:Date.now()});let ok=true;
+  try{localStorage.setItem(cacheKey(),s)}catch(e){ok=false}
+  idbPut(cacheKey(),s).then(ok2=>{if(!ok&&!ok2&&Date.now()-PERSIST_WARN>60000){PERSIST_WARN=Date.now();toast('⚠️ ذاكرة الجهاز ممتلئة — لا تغلق التطبيق حتى يرجع الإنترنت')}})}
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+const isNetErr=e=>!!e&&/fetch|network|load failed|timeout|abort/i.test(String(e.message||e));
+const withTO=(pr,ms)=>Promise.race([pr,new Promise(r=>setTimeout(()=>r({data:null,error:{message:'timeout'}}),ms))]);
+const isOff=()=>MODE==='cloud'&&(navigator.onLine===false||SYNC.st==='off');
+const pendE=e=>MODE==='cloud'&&BASE.entries&&BASE.entries[e.id]!==J(e);
 
 /* --- التخزين المحلي --- */
 load=function(){if(MODE==='cloud'){let c=null;try{c=JSON.parse(localStorage.getItem(cacheKey())||'null')}catch(e){}
+    if(IDB_C&&IDB_C.org===ME.org&&(!c||(IDB_C.ts||0)>(c.ts||0)))c=IDB_C;
     if(c&&c.S&&c.S.v===1&&c.org===ME.org){S=c.S;BASE=c.BASE||BASE;SINCE=c.SINCE||{}}else{S=emptyS();BASE={clients:{},projects:{},entries:{},co:''};SINCE={}}
     S.me=ME.name;S.demo=false;return}
   try{S=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){S=null}if(!S||S.v!==1)S=demo()};
-save=function(){if(MODE==='cloud'){try{localStorage.setItem(cacheKey(),J({org:ME.org,ME,S,BASE,SINCE}))}catch(e){}schedPush();return}
+save=function(){if(MODE==='cloud'){persist();schedPush();return}
   try{localStorage.setItem(KEY,J(S))}catch(e){toast('تعذّر الحفظ في هذا المتصفح')}};
+/* --- أرقام ثابتة بدون إنترنت: كل جهاز يحجز أرقاماً مسبقاً من السيرفر وهو متصل --- */
+let NOFIX=false;const POOL_N={in:5,out:10};
+async function poolFill(){if(MODE!=='cloud'||!ME||!S||!CAN.edit||navigator.onLine===false||POOL_BUSY)return;POOL_BUSY=true;
+  try{S.pool=S.pool||{in:[],out:[]};for(const k of ['in','out']){const have=S.pool[k]||(S.pool[k]=[]);if(have.length>=Math.ceil(POOL_N[k]/2))continue;
+      const{data,error}=await withTO(SB.rpc('asas_reserve_nos',{p_org:ME.org,p_kind:k,p_count:POOL_N[k]-have.length}),10000);
+      if(!error&&Array.isArray(data)){for(const n of data)if(!have.includes(n))have.push(n);have.sort((a,b)=>a-b)}}
+    persist()}catch(e){}POOL_BUSY=false}
+let POOL_BUSY=false;
+async function poolRelease(){if(MODE!=='cloud'||!S||!S.pool)return;for(const k of ['in','out']){const a=S.pool[k]||[];if(!a.length)continue;
+  try{await withTO(SB.rpc('asas_release_nos',{p_org:ME.org,p_kind:k,p_nos:a}),6000)}catch(e){}}}
+const noFixed=e=>MODE!=='cloud'||BASE.entries[e.id]!==undefined||!!e.nf;
 function emptyS(){return{v:1,created:today(),me:ME?ME.name:'',co:{},clients:[],projects:[],entries:[],trash:[],seq:{in:0,out:0,st:0},demo:false}}
 nextNo=function(kind){const k=kind==='in'?'in':'out',pre=k==='in'?'ق-':'ص-';
-  if(MODE==='cloud'){const mx=S.entries.filter(e=>e.kind===k).reduce((m,e)=>Math.max(m,+String(e.no||'').replace(/\D/g,'')||0),0);return pre+String(mx+1).padStart(4,'0')}
+  if(MODE==='cloud'){NOFIX=false;const pl=S.pool&&S.pool[k];if(pl&&pl.length){NOFIX=true;const n=pl.shift();persist();setTimeout(poolFill,500);return pre+String(n).padStart(4,'0')}
+    const mx=S.entries.filter(e=>e.kind===k).reduce((m,e)=>Math.max(m,+String(e.no||'').replace(/\D/g,'')||0),0);return pre+String(mx+1).padStart(4,'0')}
   S.seq[k]=(S.seq[k]||0)+1;return pre+String(S.seq[k]).padStart(4,'0')};
 
 /* --- المزامنة مع السيرفر --- */
@@ -1088,25 +1175,27 @@ function schedPush(){clearTimeout(SYNC.t);SYNC.t=setTimeout(push,350)}
 function dirty(){const out={};for(const t in TBL){out[t]=S[t].filter(r=>J(r)!==BASE[t][r.id])}
   out.co=CAN.admin&&J(S.co)!==BASE.co;return out}
 function pendingCount(){const d=dirty();return d.clients.length+d.projects.length+d.entries.length+(d.co?1:0)}
-async function push(){if(MODE!=='cloud')return;if(SYNC.busy){SYNC.again=true;return}SYNC.busy=true;let bad=false,denied=false;
-  try{await attUpload();const d=dirty();
+async function push(){if(MODE!=='cloud')return;if(SYNC.busy){SYNC.again=true;return}SYNC.busy=true;let bad=false,denied=false,net=false;
+  try{const d=dirty();if(d.clients.length+d.projects.length+d.entries.length||d.co){const{data:ss}=await withTO(SB.auth.getSession(),10000);if(!ss||!ss.session)throw new Error('network: no session')}
+    await attUpload();
     for(const t in TBL){if(!d[t].length)continue;const sent={};
       const rows=d[t].map(r=>{const s=J(r);sent[r.id]=s;return{org_id:ME.org,id:r.id,data:r}});
       for(let i=0;i<rows.length;i+=200){const part=rows.slice(i,i+200);
         const{data,error}=await SB.from(TBL[t]).upsert(part,{onConflict:'org_id,id'}).select('id,data,updated_at');
-        if(error){bad=true;if(/project limit/i.test(error.message)){SYNC.lim=true;denied=true}else if(error.code==='42501'||/not allowed|only the owner|row-level/i.test(error.message))denied=true;continue}
+        if(error){bad=true;if(isNetErr(error))net=true;if(/project limit/i.test(error.message)){SYNC.lim=true;denied=true}else if(error.code==='42501'||/not allowed|only the owner|row-level/i.test(error.message))denied=true;continue}
         for(const row of data){const loc=S[t].find(r=>r.id===row.id);
           if(!loc){BASE[t][row.id]=J(row.data);continue}
           const same=J(loc)===sent[row.id];
           if(t==='entries'&&row.data.no&&loc.no!==row.data.no)loc.no=row.data.no; // رقم السند يحدده السيرفر
           BASE[t][row.id]=same?J(loc):sent[row.id]}}}
-    if(d.co){const s=J(S.co);const{error}=await SB.from('asas_orgs').update({co:S.co,name:S.co.short||S.co.name||'مكتب'}).eq('id',ME.org);if(error)bad=true;else BASE.co=s}
-  }catch(e){bad=true}
-  SYNC.busy=false;SYNC.st=bad?(navigator.onLine===false?'off':'err'):'ok';
-  try{localStorage.setItem(cacheKey(),J({org:ME.org,ME,S,BASE,SINCE}))}catch(e){}
+    if(d.co){const s=J(S.co);const{error}=await SB.from('asas_orgs').update({co:S.co,name:S.co.short||S.co.name||'مكتب'}).eq('id',ME.org);if(error){bad=true;if(isNetErr(error))net=true}else BASE.co=s}
+  }catch(e){bad=true;net=true}
+  SYNC.busy=false;SYNC.st=bad?(net||navigator.onLine===false?'off':'err'):'ok';
+  persist();
   syncBadge();
   if(denied){if(SYNC.lim){SYNC.lim=false;limitSheet()}else toast('ليست لديك صلاحية لهذا التعديل');await pull(true);render()}
-  if(SYNC.again){SYNC.again=false;schedPush()}else if(bad)setTimeout(schedPush,15000)}
+  if(!bad)poolFill();
+  if(SYNC.again){SYNC.again=false;schedPush()}else if(bad)setTimeout(schedPush,net?10000:15000)}
 async function pageAll(q){const out=[];for(let from=0;;from+=1000){const{data,error}=await q().range(from,from+999);if(error)throw error;out.push(...data);if(data.length<1000)break}return out}
 async function pull(force){if(MODE!=='cloud')return false;
   try{const{data:org,error:oe}=await SB.from('asas_orgs').select('co,created_at,trial_until,paid_until,plan,extra_eng').eq('id',ME.org).single();if(oe)throw oe;
@@ -1124,16 +1213,28 @@ async function pull(force){if(MODE!=='cloud')return false;
       if(rows.length)SINCE[t]=rows[rows.length-1].updated_at}
     if(force){for(const t in TBL)S[t]=S[t].filter(r=>BASE[t][r.id]!==undefined)}
     SYNC.st=pendingCount()?SYNC.st:'ok';
-    try{localStorage.setItem(cacheKey(),J({org:ME.org,ME,S,BASE,SINCE}))}catch(e){}
+    persist();
     syncBadge();return changed}
-  catch(e){SYNC.st=navigator.onLine===false?'off':'err';syncBadge();return false}}
+  catch(e){SYNC.st=(navigator.onLine===false||isNetErr(e))?'off':'err';syncBadge();return false}}
 function idle(){return !$('#layer').innerHTML&&V.v!=='entry'&&!document.body.classList.contains('docopen')}
 async function refresh(){if(MODE!=='cloud')return;if(pendingCount())await push();const ch=await pull();if(ch&&idle())render()}
-function syncBadge(){const b=$('#sync');if(!b)return;const n=MODE==='cloud'?pendingCount():0;
-  const st=MODE!=='cloud'?'demo':n?(SYNC.st==='off'?'off':'wait'):'ok';b.className='sync '+st+(b.classList.contains('inhdr')?' inhdr':'');
-  b.innerHTML='<i></i>'+(st==='demo'?'تجريبي':st==='ok'?'متزامن':st==='off'?'بدون نت ('+n+')':'يحفظ…');
+function netWatch(){if(MODE!=='cloud')return;const off=isOff(),n=pendingCount();
+  if(off&&!NET.off){NET.off=true;NET.n=n;toast('📴 انقطع الإنترنت — كمّل شغلك عادي، كل شي ينحفظ على جهازك')}
+  if(off)NET.n=Math.max(NET.n||0,n);
+  if(!off&&NET.off&&!n){NET.off=false;toast(NET.n?'✓ رجع الإنترنت وانحفظ '+(NET.n===1?'مبلغ واحد':NET.n+' عمليات')+' على السيرفر':'✓ رجع الإنترنت');NET.n=0;if(idle())render()}
+  else if(!off&&!n&&NET.had){NET.had=false;if(idle())render()}
+  if(n)NET.had=true;netBar()}
+const NET={off:false,n:0,had:false};
+function netBar(){const w=$('#app .wrap');let d=$('#netbar');const show=MODE==='cloud'&&['home','project','quick'].includes(V.v)&&isOff();
+  if(!show){if(d)d.remove();return}if(!w)return;const n=pendingCount();
+  if(!d){d=document.createElement('div');d.id='netbar';d.className='netbar';w.prepend(d)}
+  d.innerHTML=`<b>📴 أنت الآن غير متصل بالإنترنت</b><span>سجّل مبالغك عادي — تنحفظ على جهازك وتنرفع للسيرفر تلقائياً أول ما يرجع النت.</span>${n?`<span class="nb-n">⏳ بانتظار الحفظ على السيرفر: <b class="num">${n}</b></span>`:''}`}
+function syncBadge(){netWatch();const b=$('#sync');if(!b)return;const n=MODE==='cloud'?pendingCount():0;
+  const st=MODE!=='cloud'?'demo':isOff()?'off':n?'wait':'ok';b.className='sync '+st+(b.classList.contains('inhdr')?' inhdr':'');
+  b.innerHTML='<i></i>'+(st==='demo'?'تجريبي':st==='ok'?'متزامن':st==='off'?'بدون نت'+(n?' ('+n+')':''):'يحفظ…');
   b.title=st==='demo'?'تجربة · البيانات على هذا الجهاز فقط':st==='ok'?'كل شيء محفوظ على السيرفر':st==='off'?'بدون إنترنت · ستُحفظ عند الاتصال':'جارٍ الحفظ على السيرفر…'}
-window.addEventListener('online',()=>{if(MODE==='cloud')push()});
+window.addEventListener('online',()=>{if(MODE==='cloud'){SYNC.st=pendingCount()?'wait':'ok';syncBadge();refresh()}});
+window.addEventListener('offline',()=>{if(MODE==='cloud'){SYNC.st='off';syncBadge()}});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refresh()});
 setInterval(()=>{if(document.visibilityState==='visible')refresh()},45000);
 
@@ -1163,23 +1264,24 @@ async function authGo(){if(AUTH.busy)return;const up=AUTH.tab==='up';const ph=no
       const j=await r.json().catch(()=>({}));if(!r.ok&&j.error!=='taken')throw new Error(j.msg||'تعذّر إنشاء الحساب');if(j.error==='taken'){AUTH.tab='in';throw new Error(j.msg)}}
     const{error}=await SB.auth.signInWithPassword({email:ph+'@asas.app',password:pw});
     if(error)throw new Error(/invalid/i.test(error.message)?'الرقم أو كلمة السر غير صحيحة':'تعذّر الدخول، تأكد من الإنترنت');
-    AUTH.busy=false;await enterCloud();toast(up?'أهلاً بك في أسس ✓':'تم الدخول ✓')}
+    AUTH.busy=false;if(up)try{localStorage.setItem('asas_inst_due','1')}catch(e){}await enterCloud();toast(up?'أهلاً بك في أسس ✓':'تم الدخول ✓')}
   catch(e){AUTH.busy=false;authErr(e.message==='Failed to fetch'?'تعذّر الاتصال، تأكد من الإنترنت':e.message,keep)}}
 function authErr(m,keep){AUTH.err=m;render();refill(keep)}
 function refill(k){if(!k)return;const s=(id,v)=>{const el=$('#'+id);if(el&&v)el.value=v};s('a-ph',k.ph);s('a-name',k.name);s('a-co',k.co)}
 function startDemo(){try{localStorage.setItem('asas_mode','demo')}catch(e){}MODE='demo';ME=null;load();setCan();go('home')}
 function toLogin(){try{localStorage.removeItem('asas_mode')}catch(e){}MODE='demo';AUTH={tab:'up',busy:false,err:''};go('login')}
-async function enterCloud(){const{data:{session}}=await SB.auth.getSession();const user=session&&session.user;if(!user)return go('login');
-  const{data:m,error}=await SB.from('asas_members').select('org_id,role,name,phone,active,is_engineer').eq('user_id',user.id).eq('active',true).limit(1).maybeSingle();
+async function enterCloud(offUid){let user=null;if(offUid)user={id:offUid};else{const{data:{session}}=await SB.auth.getSession();user=session&&session.user}if(!user)return go('login');
+  IDB_C=await idbGet('asas_c_'+user.id);
+  const{data:m,error}=offUid?{data:null,error:{message:'offline'}}:await withTO(SB.from('asas_members').select('org_id,role,name,phone,active,is_engineer').eq('user_id',user.id).eq('active',true).limit(1).maybeSingle(),8000);
   let me=null;
   if(m)me={uid:user.id,org:m.org_id,role:m.role,eng:!!m.is_engineer,name:m.name,phone:m.phone};
-  else if(error){let c=null;try{c=JSON.parse(localStorage.getItem('asas_c_'+user.id)||'null')}catch(e){}if(c&&c.ME)me=c.ME} // بدون إنترنت: نشتغل من النسخة المحفوظة
+  else if(error){let c=null;try{c=JSON.parse(localStorage.getItem('asas_c_'+user.id)||'null')}catch(e){}if(!(c&&c.ME))c=IDB_C;if(c&&c.ME){me=c.ME;SYNC.st='off'}} // بدون إنترنت: نشتغل من النسخة المحفوظة
   if(!me){if(!error)await SB.auth.signOut().catch(()=>{});AUTH.err=error?'تعذّر الاتصال، حاول مرة ثانية':'هذا الحساب موقوف أو غير مرتبط بمكتب';return go('login')}
   ME=me;MODE='cloud';try{localStorage.removeItem('asas_mode')}catch(e){}
-  load();setCan();go('home');if(bioKey())bioShow();await pull();purgeOld();if(idle())render();push();checkAdmin().then(remind)}
+  load();setCan();go('home');if(bioKey())bioShow();await pull();purgeOld();if(idle())render();push();poolFill();checkAdmin().then(remind)}
 async function logout(){if(pendingCount()){await push();if(pendingCount())return ask('توجد تعديلات لم تُحفظ على السيرفر بسبب انقطاع الإنترنت، وستضيع عند الخروج. هل تريد الخروج؟','الخروج على أي حال',doLogout)}
   ask('تسجيل خروج من هذا الجهاز؟','تسجيل خروج',doLogout)}
-async function doLogout(){try{localStorage.removeItem(cacheKey())}catch(e){}await SB.auth.signOut().catch(()=>{});MODE='demo';ME=null;S=null;IS_ADMIN=false;ADM.orgs=null;BK.list=null;setCan();AUTH={tab:'in',busy:false,err:''};go('login')}
+async function doLogout(){await poolRelease();try{localStorage.removeItem(cacheKey())}catch(e){}idbDel(cacheKey());await SB.auth.signOut().catch(()=>{});MODE='demo';ME=null;S=null;IS_ADMIN=false;ADM.orgs=null;BK.list=null;setCan();AUTH={tab:'in',busy:false,err:''};go('login')}
 
 /* --- الصلاحيات في الواجهة --- */
 const ENDMSG='انتهت الفترة التجريبية. بياناتك محفوظة ويمكنك عرضها وطباعة الكشوف. للاشتراك: '+PLATFORM.phone;
@@ -1223,15 +1325,42 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.7.1',APP_T='2026-11-20 13:20';
+var APP_V='1.8.0',APP_T='2026-11-20 17:25';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-function verTxt(){const s=window.__verSt;return s==='ok'?'✓ أحدث إصدار':s==='old'?'🔄 يوجد تحديث':''}
-function verLine(){return `<div class="ver">الإصدار <b class="num">${APP_V}</b> · <span class="num">${verDate()}</span> <span id="ver_s" class="vs ${window.__verSt||''}">${verTxt()}</span></div>`}
-async function verCheck(){if(location.protocol!=='https:'||!/github\.io$/.test(location.hostname))return;
-  try{const r=await fetch('./?_='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;const t=await r.text();const m=t.match(/var APP_V='([^']+)'/);
-    window.__verSt=m&&m[1]!==APP_V?'old':'ok';const e=$('#ver_s');if(e){e.textContent=verTxt();e.className='vs '+window.__verSt}
-    if(window.__verSt==='old'&&!$('#verbar')){const b=document.createElement('div');b.id='verbar';b.className='verbar';b.innerHTML='<span>🔄 يتوفر إصدار جديد من أسس</span><button onclick="location.reload()">تحديث الآن</button><button aria-label="لاحقاً" onclick="this.parentNode.remove()">✕</button>';document.body.appendChild(b)}}catch(e){}}
-addEventListener('load',()=>{verCheck();setInterval(verCheck,30*60000)});
+var APP_NEWS='تسجيل المبالغ بدون إنترنت، وتنحفظ تلقائياً على السيرفر أول ما يرجع النت|شرح تثبيت أسس على الموبايل والحاسبة بالصور، من «المزيد» ← «كيف أثبّت التطبيق»|على الحاسبة: قائمة جانبية، وتكتب المبلغ من الكيبورد|شريط التحديث يخبرك بما تغيّر قبل التحديث|بعد التحديث تظهر لك قائمة «ما الجديد»|رقم الإصدار وحالته في «المزيد» مع زر «تحقق»';
+var APP_LOG=[
+ {v:'1.8.0',d:'2026-11-20',n:APP_NEWS.split('|')},
+ {v:'1.7.1',d:'2026-11-20',n:['زر «✓ حفظ الآن» في الإدخال السريع بعد كتابة البند']},
+ {v:'1.7.0',d:'2026-11-20',n:['«صرفت مبلغ» و«استلمت مبلغ» صارت خطوة بخطوة بلوحة أرقام كبيرة','زر «📅 تاريخ سابق» لتسجيل مبلغ بتاريخ قديم','كلمة «متزامن» صغيرة تحت الجرس']},
+ {v:'1.6.0',d:'2026-11-20',n:['زر «طلب دفعة» يرسل كشف الدفعة للزبون بالواتساب برابط','قائمة «زبائن يحتاجون دفعة» وألوان بطاقات المشاريع','كل النسخ الاحتياطية بمكان واحد + تذكير كل 14 يوماً']},
+ {v:'1.5.1',d:'2026-11-20',n:['وصل استلام احترافي A5 بنسختين مع رمز QR للتحقق','رقم الوصل يظهر في كشف الحساب']}];
+var APP_NOTE=APP_NEWS.split('|')[0];
+function verTxt(){const s=window.__verSt;return s==='ok'?'✓ أحدث إصدار':s==='old'?'🔄 يوجد تحديث ('+(window.__verNew||'')+')':s==='chk'?'جارٍ التحقق…':''}
+function verLine(){const s=window.__verSt;return `<div class="vercard ${s||''}"><div class="vc-ic">${helmet(30)}</div><div class="mid"><div class="t">الإصدار <b class="num">${APP_V}</b> <button class="vc-n" onclick="verNews()">ما الجديد؟</button></div><div class="s"><span class="num">${verDate()}</span> · <span id="ver_s" class="vs ${s||''}">${verTxt()||'—'}</span></div></div>
+  ${s==='old'?`<button class="vc-b up" onclick="verUpdate()">تحديث</button>`:`<button class="vc-b" onclick="verCheck(true)">تحقق</button>`}</div>`}
+async function verCheck(manual){if(location.protocol!=='https:'||!/github\.io$/.test(location.hostname)){if(manual)toast('التحقق يعمل على الرابط الحي فقط');return}
+  if(manual){window.__verSt='chk';if(V.v==='more')render()}
+  try{const r=await fetch('./?_='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;const t=await r.text();const m=t.match(/var APP_V='([^']+)'/);const n=t.match(/var APP_NEWS='([^']*)'/);
+    window.__verNew=m?m[1]:'';window.__verNews=n?n[1].split('|').filter(Boolean):[];window.__verNote=window.__verNews[0]||'';window.__verSt=m&&m[1]!==APP_V?'old':'ok';
+    if(V.v==='more')render();if(manual&&window.__verSt==='ok')toast('عندك أحدث إصدار ✓');
+    if(window.__verSt==='old'){let sk='';try{sk=sessionStorage.getItem('asas_vskip')||''}catch(e){}if(manual||sk!==window.__verNew)verBar()}}catch(e){window.__verSt='';if(manual){toast('تعذّر التحقق، تأكد من الإنترنت');if(V.v==='more')render()}}}
+function verBar(){if($('#verbar'))return;const b=document.createElement('div');b.id='verbar';b.className='verbar';
+  const N=window.__verNews||[];
+  b.innerHTML=`<div class="vb-h"><b>🔄 يوجد تحديث جديد <span class="num">${esc(window.__verNew||'')}</span></b></div>${N.length?`<div class="vb-l"><div class="vb-s">شنو الجديد:</div><ul>${N.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:''}
+   <div class="vb-a"><button class="sk" onclick="verSkip()">تخطي</button><button onclick="verUpdate()">تحديث الآن</button></div>`;document.body.appendChild(b)}
+function verSkip(){try{sessionStorage.setItem('asas_vskip',window.__verNew||'')}catch(e){}const b=$('#verbar');if(b)b.remove();toast('تقدر تحدّث بعدين من «المزيد»')}
+async function verUpdate(){const b=$('#verbar');if(b)b.innerHTML='<div class="vb-h"><b>⏳ جارٍ التحديث…</b></div>';
+  try{if(navigator.serviceWorker){const rs=await navigator.serviceWorker.getRegistrations();await Promise.all(rs.map(r=>r.update().catch(()=>{})))}
+    if(window.caches){const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}}catch(e){}
+  location.replace(location.pathname+'?v='+encodeURIComponent(window.__verNew||Date.now()))}
+(function(){const u=new URL(location.href);if(u.searchParams.has('v')){u.searchParams.delete('v');history.replaceState(null,'',u.pathname+(u.search||'')+u.hash);}
+  let seen='';try{seen=localStorage.getItem('asas_vseen')||''}catch(e){}
+  if(seen&&seen!==APP_V)setTimeout(()=>{if(!$('#layer').innerHTML)verNews(true)},1800);try{localStorage.setItem('asas_vseen',APP_V)}catch(e){}})();
+function verNews(fresh){const L=fresh?APP_LOG.slice(0,1):APP_LOG;
+  sheet(`<h3>${fresh?'✓ تم التحديث إلى الإصدار <span class="num">'+APP_V+'</span>':'📋 ما الجديد في أسس'}</h3>${L.map((x,i)=>`<div class="vn ${i?'':'cur'}"><div class="vn-h"><b>الإصدار <span class="num">${x.v}</span></b><span class="num">${x.d}</span></div><ul>${x.n.map(t=>`<li>${esc(t)}</li>`).join('')}</ul></div>`).join('')}
+   ${fresh?`<button class="btn ghost" onclick="closeSheet();verNews()">كل الإصدارات السابقة</button>`:''}<button class="btn y" onclick="closeSheet()">تمام</button>`)}
+addEventListener('load',()=>{verCheck();setInterval(verCheck,10*60000)});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')verCheck()});
 
 /* ===== القفل بالبصمة / Face ID (على هذا الجهاز فقط) ===== */
 function bioKey(){try{return localStorage.getItem('asas_bio')||''}catch(e){return ''}}
@@ -1499,7 +1628,7 @@ function memberRows(){if(!MEMBERS.length)return '<div class="empty">لحظة…<
     <div class="s"><span class="num">${esc(m.phone||'')}</span> · ${ROLE_N[roleOf(m)]}${m.active?'':' · موقوف'}</div></div>
     ${m.role==='owner'?'':`<button class="chip n" onclick="memberSheet('${m.user_id}')">تعديل</button>`}</div>`).join('')}
 async function loadMembers(){const{data}=await SB.from('asas_members').select('user_id,role,name,phone,active,created_at,is_engineer').eq('org_id',ME.org).order('created_at');MEMBERS=data||[];const l=$('#mlist');if(l)l.innerHTML=memberRows();const si=$('#seatinfo');if(si)si.textContent=seatInfo()}
-const _render=render;render=function(){_render();if(V.v==='members'&&MODE==='cloud')loadMembers();ensureBadge();trialBar();adminBtn()};
+const _render=render;render=function(){_render();if(V.v==='members'&&MODE==='cloud')loadMembers();ensureBadge();trialBar();adminBtn();netBar()};
 function trialBar(){const n=subLeft();if(n===null||V.v!=='home'||(S.sub.paid&&n>7)||(!S.sub.paid&&n>30))return;const w=$('#app .wrap');if(!w||$('#trialbar'))return;
   const d=document.createElement('div');d.id='trialbar';d.className='trialbar'+(n<=0?' end':'');
   d.innerHTML=n<=0?`<span>انتهت ${S.sub.paid?'مدة الاشتراك':'الفترة التجريبية'}. الحساب للعرض فقط</span><button onclick="subSheet()">اشترك</button>`:`<span>${S.sub.paid?'الاشتراك':'الفترة التجريبية المجانية'}: متبقٍّ <span class="num">${n}</span> يوماً</span><button onclick="subSheet()">الاشتراك</button>`;
@@ -1626,12 +1755,98 @@ async function admActivate(id){const body={action:'activate',org_id:id,plan:admV
   closeSheet();toast('تم التفعيل حتى '+data.paid_until.slice(0,10)+' ✓');ADM.orgs=null;render()}
 
 /* --- الإقلاع --- */
+function offUid(se){if(!(se||navigator.onLine===false))return null;if(se&&!isNetErr(se))return null; // الجلسة محفوظة لكن لا يوجد نت لتجديدها
+  try{const a=JSON.parse(localStorage.getItem('asas-auth')||'null');const id=a&&(a.user||(a.currentSession||{}).user||{}).id;if(id&&(localStorage.getItem('asas_c_'+id)||true))return id}catch(e){}return null}
+
+/* ===== تثبيت التطبيق على الموبايل والحاسبة ===== */
+window.__bip=null;
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();window.__bip=e;if($('#ig'))instRefresh();if(MAINTABS.includes(V.v)&&!$('#layer').innerHTML)render()});
+addEventListener('appinstalled',()=>{window.__bip=null;try{localStorage.setItem('asas_inst','1')}catch(e){}if($('#ig'))closeSheet();toast('تم تثبيت أسس على هذا الجهاز ✓');if(MAINTABS.includes(V.v))render()});
+function isInstalled(){try{return matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: window-controls-overlay)').matches||navigator.standalone===true}catch(e){return false}}
+function devKind(){const u=navigator.userAgent||'';if(/iPhone|iPod|iPad/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1))return 'ios';if(/Android/i.test(u))return 'android';return 'pc'}
+const IGI={
+ share:'<svg viewBox="0 0 24 24" fill="none" stroke="#1E6FE0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9H6v11h12V9h-2"/><path d="M12 15V3M8.5 6.5 12 3l3.5 3.5"/></svg>',
+ dots:'<svg viewBox="0 0 24 24" fill="#14294A"><circle cx="12" cy="5" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="12" cy="19" r="2.2"/></svg>',
+ hdots:'<svg viewBox="0 0 24 24" fill="#14294A"><circle cx="5" cy="12" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="19" cy="12" r="2.2"/></svg>',
+ plus:'<svg viewBox="0 0 24 24" fill="none" stroke="#14294A" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/></svg>',
+ inst:'<svg viewBox="0 0 24 24" fill="none" stroke="#14294A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 7v6M9.5 10.5 12 13l2.5-2.5"/></svg>'};
+function igG(n){return IGI[n].replace('<svg viewBox="0 0 24 24"','<g').replace('</svg>','</g>')}
+function igK(n,t){return `<span class="ig-k">${IGI[n]||''}${t||''}</span>`}
+/* صور صغيرة توضّح مكان الزر */
+const IGP={
+ hl:(x,y,r)=>`<circle cx="${x}" cy="${y}" r="${r||8}" fill="#F5B800" opacity=".45"/><circle cx="${x}" cy="${y}" r="${r||8}" fill="none" stroke="#E0A200" stroke-width="1.6"/>`,
+ frame:(inner)=>`<svg width="86" height="64" viewBox="0 0 86 64" direction="ltr" style="direction:ltr"><rect x="0.5" y="0.5" width="85" height="63" rx="10" fill="#fff" stroke="#D3DAE6"/>${inner}</svg>`,
+ lines:(y0)=>[0,1,2].map(i=>`<rect x="12" y="${y0+i*8}" width="${62-i*14}" height="3.5" rx="1.75" fill="#E3E8F0"/>`).join(''),
+ url:()=>IGP.frame(`<rect x="0.5" y="0.5" width="85" height="17" rx="10" fill="#F3F6FA"/><rect x="6" y="3" width="64" height="12" rx="6" fill="#FFF0BF" stroke="#E0A200" stroke-width="1.4"/><text x="38" y="11.5" font-size="6.5" text-anchor="middle" fill="#14294A" font-family="Arial">github.io/asas</text><circle cx="78" cy="9" r="2" fill="#C3CCDA"/>${IGP.lines(28)}`),
+ topDots:()=>IGP.frame(`<rect x="0.5" y="0.5" width="85" height="17" rx="10" fill="#F3F6FA"/><rect x="8" y="4.5" width="56" height="9" rx="4.5" fill="#fff" stroke="#C3CCDA"/>${IGP.hl(75,9,7)}<g transform="translate(69 3) scale(.5)">${igG('dots')}</g>${IGP.lines(28)}`),
+ botShare:()=>IGP.frame(`${IGP.lines(10)}<rect x="0.5" y="46" width="85" height="17.5" rx="0" fill="#F3F6FA"/><rect x="0.5" y="56" width="85" height="7.5" rx="10" fill="#F3F6FA"/>${IGP.hl(43,54.5,7.5)}<g transform="translate(37 48.5) scale(.5)">${igG('share')}</g><circle cx="16" cy="54.5" r="2.4" fill="#C3CCDA"/><circle cx="70" cy="54.5" r="2.4" fill="#C3CCDA"/>`),
+ menu:(t)=>IGP.frame(`<rect x="6" y="6" width="74" height="12" rx="3" fill="#F3F6FA"/><rect x="6" y="20" width="74" height="15" rx="3" fill="#FFF0BF" stroke="#E0A200" stroke-width="1.4"/><text x="74" y="30.5" font-size="7.2" text-anchor="end" fill="#14294A" font-weight="700" font-family="Tajawal,Arial" ${t.length>14?'textLength="52" lengthAdjust="spacingAndGlyphs"':''}>${t}</text><rect x="9" y="23.5" width="8" height="8" rx="2" fill="none" stroke="#14294A" stroke-width="1.2"/><rect x="6" y="37" width="74" height="12" rx="3" fill="#F3F6FA"/><rect x="6" y="51" width="74" height="8" rx="3" fill="#F3F6FA"/>`),
+ dlg:(t,top)=>IGP.frame(top?`<rect x="0.5" y="0.5" width="85" height="17" rx="10" fill="#F3F6FA"/><text x="78" y="11.5" font-size="6.5" text-anchor="end" fill="#7A879C" font-family="Tajawal,Arial">إلغاء</text>${IGP.hl(16,10,9)}<text x="16" y="12.6" font-size="7.5" text-anchor="middle" fill="#1E6FE0" font-weight="700" font-family="Tajawal,Arial">${t}</text><rect x="32" y="24" width="22" height="22" rx="6" fill="#14294A"/><path d="M36.5 39a6.5 6.5 0 0 1 13 0z" fill="#F5B800"/><rect x="35" y="38.5" width="16" height="2.4" rx="1.2" fill="#F5B800"/><text x="43" y="55" font-size="7" text-anchor="middle" fill="#14294A" font-family="Tajawal,Arial">أسس</text>`
+   :`<rect x="10" y="10" width="66" height="44" rx="7" fill="#F3F6FA" stroke="#D3DAE6"/><rect x="16" y="16" width="10" height="10" rx="3" fill="#14294A"/><path d="M18 24a3 3 0 0 1 6 0z" fill="#F5B800"/><rect x="30" y="18" width="38" height="3.5" rx="1.75" fill="#C3CCDA"/><rect x="40" y="37" width="30" height="12" rx="6" fill="#1E6FE0"/><text x="55" y="45.5" font-size="7" text-anchor="middle" fill="#fff" font-weight="700" font-family="Tajawal,Arial">${t}</text><text x="26" y="45.5" font-size="6.5" text-anchor="middle" fill="#7A879C" font-family="Tajawal,Arial">إلغاء</text>`),
+ home:()=>{let g='';for(let r=0;r<3;r++)for(let c=0;c<4;c++){const x=10+c*18,y=6+r*18;if(r===1&&c===2)g+=`<circle cx="${x+6}" cy="${y+6}" r="11" fill="#F5B800" opacity=".35"/><rect x="${x}" y="${y}" width="12" height="12" rx="3.2" fill="#14294A"/><path d="M${x+2.2} ${y+8.5}a3.8 3.8 0 0 1 7.6 0z" fill="#F5B800"/><rect x="${x+1.5}" y="${y+8}" width="9" height="1.6" rx=".8" fill="#F5B800"/>`;else g+=`<rect x="${x}" y="${y}" width="12" height="12" rx="3.2" fill="${['#C3CCDA','#E3E8F0','#D3DAE6'][(r+c)%3]}"/>`}return IGP.frame(g)},
+ addr:()=>IGP.frame(`<rect x="0.5" y="0.5" width="85" height="9" rx="10" fill="#E3E8F0"/><circle cx="7" cy="5" r="1.6" fill="#E04848"/><circle cx="12" cy="5" r="1.6" fill="#F5B800"/><circle cx="17" cy="5" r="1.6" fill="#169C55"/><rect x="4" y="12" width="78" height="11" rx="5.5" fill="#F3F6FA" stroke="#C3CCDA"/><text x="10" y="19.6" font-size="6" fill="#14294A" font-family="Arial">github.io/asas</text>${IGP.hl(74,17.5,7.5)}<g transform="translate(69.5 13) scale(.38)">${igG('inst')}</g>${IGP.lines(32)}`),
+ win:()=>IGP.frame(`<rect x="6" y="6" width="74" height="46" rx="5" fill="#EEF2F8" stroke="#C3CCDA"/><rect x="6" y="6" width="74" height="7" rx="3" fill="#14294A"/><text x="73" y="11.6" font-size="5.5" text-anchor="end" fill="#fff" font-family="Tajawal,Arial">أسس</text><rect x="62" y="15" width="16" height="35" fill="#fff"/><rect x="64" y="18" width="12" height="4" rx="2" fill="#F5B800"/><rect x="10" y="16" width="48" height="10" rx="2.5" fill="#fff"/><rect x="10" y="29" width="23" height="9" rx="2.5" fill="#1DB45F"/><rect x="35" y="29" width="23" height="9" rx="2.5" fill="#F06262"/><rect x="10" y="41" width="48" height="8" rx="2.5" fill="#fff"/><rect x="28" y="54" width="30" height="7" rx="2" fill="#D3DAE6"/><rect x="40" y="55" width="6" height="5" rx="1.2" fill="#14294A"/>`)};
+const IGS={
+ android:{n:'أندرويد',i:'🤖',st:[
+  ['افتح رابط أسس بمتصفح <b>Chrome</b>','إذا فتحته من الواتساب: اضغط '+igK('dots')+' فوق واختار «فتح في Chrome».',IGP.url()],
+  ['اضغط زر النقاط الثلاث '+igK('dots')+' بأعلى الشاشة','',IGP.topDots()],
+  ['اختار <b>«تثبيت التطبيق»</b> أو <b>«إضافة إلى الشاشة الرئيسية»</b>','',IGP.menu('تثبيت التطبيق')],
+  ['اضغط <b>«تثبيت»</b>','',IGP.dlg('تثبيت')],
+  ['خلص! أيقونة أسس (الخوذة الصفراء) صارت على شاشتك','افتحه منها مثل أي تطبيق، بدون ما تكتب الرابط كل مرة.',IGP.home()]]},
+ ios:{n:'آيفون',i:'📱',st:[
+  ['افتح رابط أسس بمتصفح <b>Safari</b> 🧭','لازم Safari. إذا انفتح داخل الواتساب، اضغط أيقونة البوصلة 🧭 أو «فتح في Safari».',IGP.url()],
+  ['اضغط زر المشاركة '+igK('share')+' بأسفل الشاشة','بالآيفونات الحديثة إذا ما شفته: اضغط '+igK('hdots')+' أولاً، بعدين «مشاركة».',IGP.botShare()],
+  ['انزل لتحت واختار <b>«إضافة إلى الشاشة الرئيسية»</b> '+igK('plus'),'',IGP.menu('إضافة إلى الشاشة الرئيسية')],
+  ['اضغط <b>«إضافة»</b> بأعلى الشاشة','',IGP.dlg('إضافة',1)],
+  ['خلص! أيقونة أسس (الخوذة الصفراء) صارت على شاشتك','افتحه منها مثل أي تطبيق، بدون ما تكتب الرابط كل مرة.',IGP.home()]]},
+ pc:{n:'الحاسبة',i:'💻',st:[
+  ['افتح رابط أسس على الحاسبة بمتصفح <b>Chrome</b> أو <b>Edge</b>','انسخ الرابط من تحت، أو أرسله لنفسك بالواتساب وافتحه من الحاسبة.',IGP.url()],
+  ['اضغط أيقونة التثبيت '+igK('inst')+' بنهاية شريط العنوان','إذا ما ظهرت — Chrome: '+igK('dots')+' ← «البث والحفظ والمشاركة» ← «تثبيت الصفحة كتطبيق». Edge: '+igK('hdots')+' ← «التطبيقات» ← «تثبيت هذا الموقع كتطبيق».',IGP.addr()],
+  ['اضغط <b>«تثبيت»</b>','',IGP.dlg('تثبيت')],
+  ['خلص! أسس ينفتح بنافذة خاصة بيه','تلگاه على سطح المكتب وقائمة «ابدأ» بالويندوز، أو بالـ Dock بالماك. بالماك مع Safari: قائمة «ملف» ← «إضافة إلى Dock».',IGP.win()]]}};
+let IG={tab:'android',fresh:false};
+function instSheet(fresh,tab){IG={tab:tab||devKind(),fresh:!!fresh};sheet(instHtml())}
+function instRefresh(){if($('#ig'))sheet(instHtml())}
+function instTab(t){IG.tab=t;instRefresh()}
+function instHtml(){const d=IGS[IG.tab],me=devKind(),inst=isInstalled(),here=IG.tab===me;
+  const hero=IG.fresh?`<div class="ig-hero">${helmet(44)}<div class="mid"><b>🎉 أهلاً بك! تجربتك المجانية بدأت</b><span>ثبّت أسس على موبايلك وحاسبتك، حتى تفتحه بضغطة وحدة مثل أي تطبيق.</span></div></div>`
+   :`<div class="ig-hero">${helmet(44)}<div class="mid"><b>📲 كيف أثبّت أسس كتطبيق؟</b><span>على الموبايل والحاسبة، بخطوات بسيطة. اختار جهازك:</span></div></div>`;
+  return `<div id="ig" style="display:contents">${hero}
+  <div class="ig-tabs" role="tablist">${['android','ios','pc'].map(k=>`<button role="tab" class="${IG.tab===k?'on':''}" onclick="instTab('${k}')"><i>${IGS[k].i}</i>${IGS[k].n}${k===me?' <small>(جهازك)</small>':''}</button>`).join('')}</div>
+  ${here&&inst?'<div class="ig-ok">✓ أسس مثبّت على هذا الجهاز. الخطوات لباقي أجهزتك.</div>':''}
+  ${here&&!inst&&window.__bip?`<button class="ig-now" onclick="instNow()">⬇️ ثبّت أسس على هذا الجهاز الآن</button><p class="ig-note" style="text-align:center">أو اتبع الخطوات:</p>`:''}
+  <ol class="ig-steps">${d.st.map((s,i)=>`<li class="ig-step"><span class="ig-n num">${i+1}</span><div class="ig-t">${s[0]}${s[1]?`<small>${s[1]}</small>`:''}</div><div class="ig-pic" aria-hidden="true">${s[2]}</div></li>`).join('')}</ol>
+  <div class="ig-same"><b>💡 نفس الحساب على كل أجهزتك</b>ادخل برقم موبايلك وكلمة السر نفسها على الموبايل والحاسبة. الديون والكشوف والزبائن تطلع نفسها على الكل، وأي مبلغ تسجّله بالموبايل يظهر بالحاسبة خلال دقيقة.</div>
+  <div class="ig-link"><code>${APP_URL}</code><button onclick="instCopy()">نسخ الرابط</button><a class="igwa" href="https://wa.me/?text=${encodeURIComponent('رابط تطبيق أسس: '+APP_URL)}" target="_blank" rel="noopener">واتساب</a></div>
+  <button class="btn y" onclick="closeSheet()">تمام، فهمت</button></div>`}
+async function instNow(){const e=window.__bip;if(!e)return instRefresh();try{e.prompt();const r=await e.userChoice;window.__bip=null;if(r&&r.outcome==='accepted'){try{localStorage.setItem('asas_inst','1')}catch(x){}closeSheet();toast('جارٍ التثبيت… ✓')}else instRefresh()}catch(x){instRefresh()}}
+function instCopy(){const ok=()=>toast('تم نسخ الرابط ✓');try{navigator.clipboard.writeText(APP_URL).then(ok,fb)}catch(e){fb()}
+  function fb(){const t=document.createElement('textarea');t.value=APP_URL;document.body.appendChild(t);t.select();try{document.execCommand('copy');ok()}catch(e){toast(APP_URL)}t.remove()}}
+/* يطلع الشرح تلقائياً أول ما يسوّي المهندس حساب (بداية التجربة)، وأول دخول على أي جهاز غير مثبّت عليه */
+function instAuto(n){n=n||0;if(isInstalled()||MODE!=='cloud')return;let due='',shown='';try{due=localStorage.getItem('asas_inst_due')||'';shown=localStorage.getItem('asas_inst_shown')||''}catch(e){}
+  if(!due&&shown)return;
+  if(!idle()||document.querySelector('.biolock')){if(n<20)setTimeout(()=>instAuto(n+1),3000);return}
+  try{localStorage.setItem('asas_inst_shown','1');localStorage.removeItem('asas_inst_due')}catch(e){}
+  instSheet(!!due)}
+const _enterCloudI=enterCloud;enterCloud=async function(o){const r=await _enterCloudI(o);setTimeout(()=>instAuto(),2500);return r};
+/* زر دائم في «المزيد» */
+const _moreI=VIEWS.more;VIEWS.more=()=>{const h=_moreI(),inst=isInstalled();
+  const li=`<div class="list"><button class="li ${inst?'':'hl'}" onclick="instSheet()"><div class="ic">📲</div><div class="mid"><div class="t">كيف أثبّت التطبيق</div><div class="s">${inst?'✓ مثبّت على هذا الجهاز · الشرح لأجهزتك الثانية':'على الموبايل (أندرويد وآيفون) والحاسبة · خطوة بخطوة'}</div></div></button></div>`;
+  return h.includes('<button class="btn logout"')?h.replace('<button class="btn logout"',li+'<button class="btn logout"'):h.replace('<div class="wrap menu" style="margin-top:14px">','<div class="wrap menu" style="margin-top:14px">'+li)};
+/* على الحاسبة: زر «ثبّت» أسفل القائمة الجانبية */
+const _tabbarI=tabbar;tabbar=function(){const h=_tabbarI();if(!h||isInstalled())return h;return h.replace(/<\/div><\/nav>$/,`<button class="tab inst" onclick="instSheet(false,'pc')"><span style="font-size:19px">⬇️</span><span>ثبّت التطبيق</span></button></div></nav>`)};
+/* الحاسبة: كتابة المبلغ من الكيبورد بالإدخال السريع */
+addEventListener('keydown',ev=>{if(V.v!=='quick'||!Q||$('#layer').innerHTML||ev.ctrlKey||ev.metaKey||ev.altKey)return;if(qSteps()[Q.step]!=='amt')return;
+  const k=ev.key,ar='٠١٢٣٤٥٦٧٨٩'.indexOf(k),d=ar>=0?String(ar):k;
+  if(/^[0-9]$/.test(d)){ev.preventDefault();qKey(d)}else if(k==='Backspace'){ev.preventDefault();qKey('⌫')}else if(k==='Enter'){ev.preventDefault();qNext()}});
+
 async function boot(){const h=location.hash.slice(1);
   if(HAS_CLOUD){SB=window.supabase.createClient(CLOUD.url,CLOUD.key,{auth:{persistSession:true,autoRefreshToken:true,storageKey:'asas-auth'}});
     const vr=new URLSearchParams(location.search).get('r');if(vr)return verifyView(vr);const vs=new URLSearchParams(location.search).get('s');if(vs)return shareView(vs);
-    const{data:{session}}=await SB.auth.getSession();
+    const gs=await withTO(SB.auth.getSession(),8000);const session=gs.data&&gs.data.session,se=gs.error||(gs.data?null:{message:'timeout'});
     if(session){
       await enterCloud()}
+    else if(offUid(se))await enterCloud(offUid(se))
     else{let m=null;try{m=localStorage.getItem('asas_mode')}catch(e){}if(m==='demo'){MODE='demo';load();setCan();render()}else{go('login')}}
     SB.auth.onAuthStateChange((ev)=>{if(ev==='SIGNED_OUT'&&MODE==='cloud'){MODE='demo';ME=null;setCan();go('login')}})}
   else{load();save();setCan();render()}
