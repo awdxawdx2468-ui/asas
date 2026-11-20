@@ -314,6 +314,13 @@ table.t th:first-child{border-radius:0 8px 8px 0}table.t th:last-child{border-ra
 .verbar{position:fixed;left:12px;right:12px;bottom:92px;z-index:60;background:var(--navy);color:#fff;border-radius:14px;padding:10px 12px;display:flex;gap:8px;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:536px;margin:0 auto}.verbar span{flex:1;font-size:14px}.verbar button{border:0;border-radius:10px;padding:8px 12px;background:var(--yel);color:var(--navy);font-weight:800}.verbar button+button{background:transparent;color:#fff}
 .btn.logout{background:var(--redbg);color:var(--red);border:1px solid #f3c4c4}
 .biolock{position:fixed;inset:0;z-index:200;background:var(--navy);display:flex;align-items:center;justify-content:center;padding:24px}.bl-c{width:100%;max-width:360px;text-align:center;color:#fff;display:flex;flex-direction:column;gap:12px}.bl-c h2{margin:6px 0 0;font-size:24px}.bl-c p{margin:0;color:#c9d3e3}.bl-l{margin:0 auto 6px;width:96px;height:96px}.bl-m{min-height:20px;color:#ffb4b4;font-size:14px}.biolock .btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
+.dlrem{display:flex;gap:12px;background:#FFF6DA;border:1px solid #F3DC9C;border-radius:18px;padding:14px;margin:12px 0}.dlrem .dli{width:42px;height:42px;border-radius:12px;background:#fff;display:grid;place-items:center;font-size:21px;flex:none}
+.dlrem .mid{flex:1}.dlrem b{display:block;font-size:14.5px;color:var(--navy)}.dlrem span{display:block;font-size:12.5px;color:#4A5568;margin-top:2px}.dlrem span.num{display:inline;font-size:inherit;color:inherit;margin:0}
+.dlb{display:flex;gap:8px;margin-top:10px}.dlb button{border:0;border-radius:11px;padding:9px 14px;font-weight:800;background:#fff;color:var(--navy)}.dlb button.y{background:var(--yel);flex:1}
+.bkhd{display:flex;justify-content:space-between;align-items:baseline;margin:2px 2px 4px}.bkhd b{font-size:16px}.bkhd span{font-size:12px;color:var(--mut)}
+.bks .bic{width:34px;height:34px;border-radius:10px;background:#fff;display:grid;place-items:center;font-size:17px;flex:none}
+.bkacts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.bkacts button{flex:1 1 calc(50% - 4px);border:0;border-radius:12px;padding:12px 6px;font-weight:800;font-size:13.5px;background:var(--soft);color:var(--navy)}.bkacts button.y{flex-basis:100%;background:var(--yel);color:var(--navy)}
+.bkinfo{padding:14px;line-height:1.9;font-size:13.5px;color:#4A5568;margin-top:12px}
 .bkbox{background:var(--card,#fff);border-radius:18px;padding:12px;box-shadow:0 1px 3px rgba(20,41,74,.06)}.bkok{background:#E8F6EE;color:#17663A;border-radius:12px;padding:10px 12px;margin-bottom:10px;font-weight:700}
 .bks{display:flex;align-items:center;gap:10px;background:var(--soft);border-radius:12px;padding:10px 12px;margin-top:8px}.bks .mid{flex:1;min-width:0}.bks .t{font-weight:800}.bks .s{font-size:12.5px;color:var(--mut)}.bks b{font-size:22px}.bks b.ok{color:var(--green)}.bks b.no{color:var(--red)}.bks b.na{color:var(--mut)}
 .hdb{border-radius:18px;padding:14px;border:1.5px solid}.hdb.good{background:#EEF8F2;border-color:#CBE9D6;color:#17663A}.hdb.warn{background:#FFF7E3;border-color:#F3DC9C;color:#8A5A00}.hdb.bad{background:#FDEDED;border-color:#F3C4C4;color:#A12020}
@@ -323,7 +330,7 @@ table.t th:first-child{border-radius:0 8px 8px 0}table.t th:last-child{border-ra
 .hlist .s{white-space:normal}.okc{color:var(--green);font-size:20px}.noc{color:var(--red);font-size:20px}.hok{background:#EEF8F2;color:#17663A;font-weight:700;padding:14px}
 .mcmp{font-size:11.5px;color:#555;margin:6px 0 10px}.mcmp small.g{color:#17803d}.mcmp small.r{color:#c62828}
 .warow{display:flex;gap:8px;flex-wrap:wrap}.warow button{flex:1;min-width:0;border:0;border-radius:12px;padding:10px 4px;background:#E7F8EE;color:#127A3E;font-weight:800;font-size:12.5px;white-space:nowrap;overflow:hidden}
-.ccard .warow{margin:8px 0 2px}.btn.wa{background:#25D366;color:#fff}
+.ccard .warow{margin:8px 0 2px}.warow.w4 button{flex:1 1 calc(50% - 4px)}.btn.wa{background:#25D366;color:#fff}
 .rcbox{background:var(--soft);border-radius:14px;padding:14px;text-align:center;line-height:1.9}.rcbox>b{display:block;font-size:26px;color:var(--green)}
 .rc-main{display:flex;align-items:center;gap:16px;border:1.5px solid #cfd8e6;border-radius:12px;padding:12px 16px;margin:8px 0 12px}.rc-amt{text-align:center;min-width:150px}.rc-amt span{display:block;font-size:11px;color:#667}.rc-amt b{font-size:28px;color:#14294A}.rc-amt small{display:block;font-size:11px}.rc-w{font-weight:700;font-size:14px;flex:1}
 .rcg{border:1px solid #d9e0ea;border-radius:10px;overflow:hidden}.rcr{display:flex;border-top:1px solid #e3e8f0;font-size:13px}.rcr:first-child{border-top:0}.rcr>span{width:34%;background:#f3f6fa;font-weight:700;padding:8px 10px}.rcr>div{flex:1;padding:8px 10px}
@@ -340,6 +347,19 @@ table.t th:first-child{border-radius:0 8px 8px 0}table.t th:last-child{border-ra
 .rc-gr{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.rr{display:flex;gap:8px;border-bottom:1px dashed #d6dde8;padding:4px 0}.rr span{color:#667;min-width:84px;font-size:11px}.rr b{font-weight:700;font-size:12px}.rr .r{color:#c62828}
 .rc-qr{width:118px;flex:none;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:#556}.rc-qr .qr{width:104px;height:104px;border:1px solid #d6dde8;border-radius:8px;padding:5px;box-sizing:border-box;background:#fff}.rc-qr .qr svg{width:100%;height:100%}.rc-qr .qr.off{display:flex;align-items:center;justify-content:center;color:#bbb;font-size:20px}.rc-qr small{font-size:9.5px}
 .rc-sig{display:flex;gap:18px;align-items:flex-end;padding-top:6px}.rc-sig>div{flex:1;text-align:center;font-weight:700;font-size:11px;position:relative}.rc-sig i{display:block;border-top:1px solid #8a96a8;margin-bottom:3px}.rc-sig .stamp{width:58px;height:58px;top:-60px;font-size:7.5px;padding:5px;line-height:1.25}.rc-sig{padding-top:40px}
+.need{padding:6px 12px}.nrow{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px dashed #E4E9F1}.nrow:last-of-type{border-bottom:0}
+.nmid{flex:1;display:flex;align-items:center;gap:10px;border:0;background:none;text-align:right;padding:0;min-width:0}.nmid>div{flex:1;min-width:0}.nmid .t{font-weight:800;font-size:14px}.nmid .s{font-size:12px;color:var(--mut)}.nmid>b{font-size:14.5px;white-space:nowrap}
+.ndot{width:10px;height:10px;border-radius:50%;flex:none}.nrow.r .ndot{background:var(--red)}.nrow.y .ndot{background:#E0A800}
+.nbtn{border:0;border-radius:11px;padding:9px 10px;background:#25D366;color:#fff;font-weight:800;font-size:12.5px;white-space:nowrap}
+.nnote{font-size:11.5px;color:var(--mut);padding:8px 0 4px;border-top:1px solid #EEF1F6;margin-top:2px}
+.lvt.y{color:#B07F00;font-weight:800}.lvt.r{color:var(--red);font-weight:800}
+.pban{display:flex;align-items:center;gap:10px;border-radius:16px;padding:12px 14px;margin:10px 0}.pban.y{background:#FFF6DA;border:1px solid #F3DC9C}.pban.r{background:var(--redbg);border:1px solid #F5C2C2}
+.pban>div{flex:1}.pban b{display:block;font-size:14px}.pban span{font-size:12.5px;color:#4A5568}.pban span b{display:inline}.pban button{border:0;border-radius:12px;padding:10px 12px;background:#25D366;color:#fff;font-weight:800;white-space:nowrap}
+.rqhd{background:#F2F5FA;border-radius:12px;padding:10px 12px;font-size:13.5px;line-height:1.9;margin-bottom:10px}
+.st-req{display:flex;align-items:center;justify-content:space-between;gap:14px;border:2px solid #E0A800;background:#FFF8E1;border-radius:14px;padding:12px 18px;margin:12px 0 6px}
+.st-req .rq-l{display:inline-block;background:#14294A;color:#F2B705;font-weight:800;border-radius:8px;padding:3px 12px;font-size:14px}.st-req p{margin:6px 0 0;font-size:12px}.st-req p.w{color:#6B7689;font-size:11px}
+.st-req>b{font-size:26px;color:#14294A;white-space:nowrap}.st-req>b.rq-ic{font-size:40px}.st-req small{font-size:13px}
+.docbar .wa{background:#25D366;color:#fff}.docbar.shbar b{font-size:14px;line-height:1.5;display:flex;flex-direction:column;align-items:flex-start}.shsub{font-size:11px;font-weight:500;opacity:.8}
 .rc-dec{margin-top:auto;border:1px solid #F3DC9C;background:#FFFBEF;border-radius:10px;padding:8px 12px;font-size:11.5px;line-height:1.8}
 .rc-ft{display:flex;justify-content:space-between;font-size:9.5px;color:#778;border-top:1px solid #e3e8f0;margin-top:6px;padding-top:4px}
 .rccut{height:30px;display:flex;align-items:center;justify-content:center;border-top:1.5px dashed #9aa6b8;margin:0 20px;flex:none}.rccut span{background:#fff;margin-top:-30px;padding:0 10px;font-size:10px;color:#8a96a8}
@@ -513,15 +533,17 @@ VIEWS.home=()=>{const t=cashTotals();const ps=live(S.projects);
    <div class="acts"><button class="act in" onclick="go('entry',{kind:'in'})"><span>استلمت مبلغ</span><i>↓</i></button>
      <button class="act out" onclick="go('entry',{kind:'out'})"><span>صرفت مبلغ</span><i>↑</i></button></div>
    ${S.demo?`<div class="trial"><span>نسخة تجريبية مجانية · باقٍ ${trialLeft()} يوماً</span><b>بيانات تجريبية</b></div>`:''}
+   ${typeof dlRemind==='function'?dlRemind():''}
+   ${needSec()}
    <div class="sec"><h2>مشاريع زبائنك</h2><button class="link" onclick="go('clients')">عرض الكل</button></div>
    ${ps.length?ps.map(prjCard).join(''):`<div class="card empty">لا توجد مشاريع بعد.<br><br><button class="btn sm y" onclick="clientSheet()">أضف أول زبون</button></div>`}
   </div>`};
 function prjCard(p){const c=C(p.cid)||{};const k=calc(p);const used=k.inn?Math.min(1,(k.out+k.fee)/k.inn):(k.out?1:0);
-  const cls=k.bal<0?'r':(used>.85?'y':'g');const col=k.bal<0?'var(--red)':(used>.85?'var(--yeld)':'var(--green)');
+  const z=payLevel(p);const cls=z?z.lv:'g';const col=cls==='r'?'var(--red)':(cls==='y'?'var(--yeld)':'var(--green)');
   return `<button class="prj" onclick="go('project','${p.id}')"><div class="av ${cls}">${esc((c.name||'?').trim()[0])}</div>
    <div class="mid"><div class="nm">${esc(c.name||'')}</div><div class="sub">${esc(p.name)}${p.desc?' · '+esc(p.desc):''}</div>
    <div class="bar"><i style="width:${Math.round(used*100)}%;background:${col}"></i></div></div>
-   <div class="bal"><b class="amt ${k.bal<0?'neg':'pos'}">${sfmt(k.bal)}</b><span>${k.bal<0?'تجاوز':'رصيده'}</span></div></button>`}
+   <div class="bal"><b class="amt ${k.bal<0?'neg':'pos'}">${sfmt(k.bal)}</b><span class="lvt ${cls}">${cls==='r'?(k.bal<0?'تجاوز':'خلص'):(cls==='y'?'قرب يخلص':'رصيده')}</span></div></button>`}
 
 VIEWS.clients=()=>{const cs=live(S.clients);
   return `<header class="top short"><div class="hdr"><div><h1>الزبائن</h1><p>${cs.length} زبون · ${live(S.projects).length} مشروع</p></div></div></header>
@@ -547,6 +569,7 @@ VIEWS.project=(id)=>{const p=P(id);if(!p)return VIEWS.home();const c=C(p.cid)||{
     <div class="kpi ${k.bal<0?'lo':'hi'}"><span>${k.bal<0?'تجاوز (مطلوب من الزبون)':'الرصيد المتبقي للزبون'}</span><b class="amt">${sfmt(k.bal)}</b></div></div>
    ${p.done?`<div class="card" style="padding:12px;text-align:center">✔ المشروع منتهٍ في <span class="num">${p.done.at}</span>. يمكنك عرض الكشف وطباعته، ولإضافة مبالغ أعد فتح المشروع من «تعديل المشروع».</div>`:`<div class="acts"><button class="act in" onclick="go('entry',{kind:'in',pid:'${p.id}'})"><span>استلمت</span><i>↓</i></button><button class="act out" onclick="go('entry',{kind:'out',pid:'${p.id}'})"><span>صرفت</span><i>↑</i></button></div>`}
    <div class="row2"><button class="btn" onclick="showStatement('${p.id}')">📄 الكشف</button><button class="btn ghost" onclick="projectSheet('${p.id}')">تعديل المشروع</button></div>
+   ${(()=>{const z=payLevel(p);return z&&z.lv!=='g'?`<div class="pban ${z.lv}"><div><b>${z.bal<0?'⚠️ المصروف تجاوز المستلم':(z.bal===0?'⚠️ خلص رصيد الزبون':'⏳ رصيد الزبون قرب يخلص')}</b><span>${z.bal<0?'التجاوز':'المتبقي'} <b class="num">${fmt(Math.abs(z.bal))}</b> د.ع${z.bal>0?` · أقل من ${alertPct()}% من آخر دفعة`:''}</span></div><button onclick="payReqSheet('${p.id}')">📤 طلب دفعة</button></div>`:''})()}
    ${waRow(c,p)}
    <div class="sec"><h2>الحركات (${k.es.length})</h2></div>
    <div class="list">${k.es.slice().reverse().map(entryRow).join('')||'<div class="empty">لا حركات بعد</div>'}</div>
@@ -680,13 +703,14 @@ VIEWS.settings=()=>{const c=S.co;return `<header class="top short"><div class="h
   <div class="wrap" style="margin-top:14px">
    ${[['s-eng','اسم المهندس (يظهر بخط مميّز)',c.eng],['s-name','اسم الشركة كاملاً',c.name],['s-short','الاسم المختصر (رأس التطبيق)',c.short],['s-city','المدينة / العنوان',c.city],['s-phone','الهاتف',c.phone],['s-me','اسمك داخل التطبيق',S.me],['s-stt','نص الختم (إن لم تُرفع صورة)',c.stampText]]
      .map(([id,l,v])=>`<div class="fld"><div class="bx"><label for="${id}">${l}</label><input id="${id}" value="${esc(v)}"></div></div>`).join('')}
+   <div class="fld"><div class="ic">⏳</div><div class="bx"><label for="s-ap">تنبيه «يحتاج دفعة» عندما ينزل الرصيد تحت (% من آخر دفعة)</label><input id="s-ap" inputmode="numeric" value="${alertPct()}"></div><span class="mut">%</span></div>
    <div class="fld"><div class="ic">🔤</div><div class="bx"><label for="s-ord">الأسماء في رأس الكشف</label><select id="s-ord">${[['eng','المهندس أولاً ثم الشركة'],['co','الشركة أولاً ثم المهندس (للمكاتب)'],['coonly','اسم الشركة فقط'],['engonly','اسم المهندس فقط']].map(([v,t])=>`<option value="${v}" ${(c.order||'eng')===v?'selected':''}>${t}</option>`).join('')}</select></div><span class="mut">▾</span></div>
    <div class="row2"><label class="photo" for="s-logo">${c.logo?`<img src="${c.logo}" alt="">`:defLogo(48)}<br>شعار الشركة</label><label class="photo" for="s-stamp">${c.stamp?`<img src="${c.stamp}" alt="">`:'🔵'}<br>صورة الختم</label></div>
    <input id="s-logo" type="file" accept="image/*" hidden onchange="imgPick(this,'logo')"><input id="s-stamp" type="file" accept="image/*" hidden onchange="imgPick(this,'stamp')">
    <button class="btn" onclick="setSave()"><span class="ck">✓</span> حفظ</button>
    <p class="note">سطر «${PLATFORM.footer} · للاشتراك: ${PLATFORM.phone}» يظهر صغيراً أسفل كل كشف ولا يمكن حذفه.</p>
   </div>`};
-function setSave(){const g=id=>$('#'+id).value.trim();Object.assign(S.co,{eng:g('s-eng'),name:g('s-name'),short:g('s-short'),city:g('s-city'),phone:g('s-phone'),stampText:g('s-stt'),order:$('#s-ord').value});S.me=g('s-me')||S.me;save();toast('تم الحفظ ✓');go('more')}
+function setSave(){const g=id=>$('#'+id).value.trim();Object.assign(S.co,{eng:g('s-eng'),name:g('s-name'),short:g('s-short'),city:g('s-city'),phone:g('s-phone'),stampText:g('s-stt'),order:$('#s-ord').value,alertPct:Math.min(90,Math.max(1,+g('s-ap')||20))});S.me=g('s-me')||S.me;save();toast('تم الحفظ ✓');go('more')}
 function imgPick(inp,key){const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const sc=Math.min(1,400/Math.max(im.width,im.height));
   const cv=document.createElement('canvas');cv.width=im.width*sc;cv.height=im.height*sc;cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);S.co[key]=cv.toDataURL('image/png');save();render()};im.src=r.result};r.readAsDataURL(f)}
 VIEWS.trash=()=>{const es=S.entries.filter(e=>e.del),ps=S.projects.filter(p=>p.del),cs=S.clients.filter(c=>c.del);
@@ -750,7 +774,7 @@ function waOpen(c,text){const n=waNum(c&&c.phone);if(!n){toast('أضف رقم م
 function cName(c){return (c.title?c.title+' ':'')+(c.name||'')}
 function coSign(){const c=S.co;const e=c.eng?(/^م\.?\s/.test(c.eng)?c.eng:'م. '+c.eng):'';return [...new Set([e,c.name||'',c.phone||''].filter(Boolean))].join(' · ')}
 function waRow(c,p,ps){if(!c||!c.id)return '';const lastIn=p?entriesOf(p.id).filter(e=>e.kind==='in').pop():null;
-  return `<div class="warow"><button onclick="waOpen(C('${c.id}'))">💬 مراسلة</button>${p?`<button onclick="${ps&&ps.length>1?`waPickSt('${c.id}')`:`waStatement('${p.id}')`}">📤 إرسال الكشف</button>`:''}${lastIn?`<button onclick="waReceipt('${lastIn.id}')">🧾 آخر وصل</button>`:''}</div>`}
+  const rq=p&&(!ps||ps.length<2)&&lastIn;return `<div class="warow${rq?' w4':''}"><button onclick="waOpen(C('${c.id}'))">💬 مراسلة</button>${p?`<button onclick="${ps&&ps.length>1?`waPickSt('${c.id}')`:`waStatement('${p.id}')`}">📤 إرسال الكشف</button>`:''}${lastIn?`<button onclick="waReceipt('${lastIn.id}')">🧾 آخر وصل</button>`:''}${rq?`<button onclick="payReqSheet('${p.id}')">💰 طلب دفعة</button>`:''}</div>`}
 function waPickSt(cid){const ps=live(S.projects).filter(p=>p.cid===cid);sheet(`<h3>إرسال كشف أي مشروع؟</h3><div class="list">${ps.map(p=>`<button class="li" onclick="closeSheet();waStatement('${p.id}')"><div class="ic">🏗️</div><div class="mid"><div class="t">${esc(p.name)}</div></div></button>`).join('')}</div><button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)}
 function rcptRef(e){return hashCode(e.id+'|'+e.amt+'|'+e.date+'|'+(e.no||''))}
 function balAfter(e){const p=P(e.pid);const pct=p&&p.feeType==='pct'?(+p.feeVal||0)/100:0;let b=0;for(const x of entriesOf(e.pid)){if(x.kind==='in')b+=x.amt-Math.round(x.amt*pct);else b-=x.amt;if(x.id===e.id)break}return b}
@@ -759,6 +783,39 @@ function rcptText(e){const p=P(e.pid)||{},c=C(p.cid)||{};const b=balAfter(e);
 function waReceipt(id){const e=S.entries.find(x=>x.id===id);if(!e)return;const c=C((P(e.pid)||{}).cid)||{};waOpen(c,rcptText(e))}
 function waStatement(pid){const p=P(pid),c=C(p.cid)||{},k=calc(p);
   waOpen(c,`📄 *كشف حساب* — ${p.name}\n${cName(c)} المحترم\nلغاية ${today()}\n\n↓ مجموع ما استلمناه منكم: ${fmt(k.inn)} د.ع\n↑ مجموع المصروف على المشروع: ${fmt(k.out)} د.ع\n👷 أتعاب المهندس (${feeLabel(p)}): ${fmt(k.fee)} د.ع\n\n${k.bal<0?'⚠️ المبلغ المطلوب منكم':'✅ الرصيد المتبقي لكم'}: *${fmt(Math.abs(k.bal))} د.ع*\n\nعدد الحركات: ${k.es.length} · الكشف المفصّل بالفواتير جاهز للطباعة عند الطلب.\n\nمع التقدير، ${coSign()}\n— أُعدّ بنظام أسس`)}
+/* ---- طلب دفعة: تنبيه نفاد الرصيد ---- */
+const alertPct=()=>{const v=+S.co.alertPct;return v>0&&v<100?v:20};
+function payLevel(p){if(p.done||p.del)return null;const k=calc(p);if(!k.es.length)return null;const L=pays(p);const last=L[L.length-1];
+  const ref=last?last.e.amt:0;const lim=Math.round(ref*alertPct()/100);
+  const lv=k.bal<=0?'r':(k.bal<lim?'y':'g');return{lv,bal:k.bal,last,lim,k}}
+function reqDefault(p){const z=payLevel(p);if(!z)return 0;const base=z.last?z.last.e.amt:0;return Math.max(0,(z.bal<0?-z.bal:0)+base)}
+function needList(){return live(S.projects).map(p=>({p,z:payLevel(p)})).filter(x=>x.z&&x.z.lv!=='g').sort((a,b)=>a.z.bal-b.z.bal)}
+function needSec(){const L=needList();if(!L.length)return '';
+  return `<div class="sec"><h2>⚠️ زبائن يحتاجون دفعة (${L.length})</h2></div><section class="card need">${L.map(({p,z})=>{const c=C(p.cid)||{};
+   return `<div class="nrow ${z.lv}"><button class="nmid" onclick="go('project','${p.id}')"><i class="ndot"></i><div><div class="t">${esc(cName(c))}</div><div class="s">${esc(p.name)} · ${z.bal<0?'تجاوز':(z.bal===0?'خلص الرصيد':'باقي')}</div></div><b class="amt ${z.bal<0?'neg':''}">${sfmt(z.bal)}</b></button>
+     <button class="nbtn" onclick="payReqSheet('${p.id}')">📤 طلب دفعة</button></div>`}).join('')}
+   <div class="nnote">التنبيه عندما ينزل الرصيد تحت <b class="num">${alertPct()}%</b> من آخر دفعة أو يصير صفر/سالب · تغييره من «هوية الشركة»</div></section>`}
+function payReqSheet(pid){payReqSend(pid)}
+
+let REQ=0;
+function payReqShow(pid){REQ=1;const p=P(pid),L=pays(p);if(!L.length){REQ=0;return toast('لا توجد دفعات مستلمة بعد')}closeSheet();readSTM();
+  docOpen('كشف الدفعة '+ordN(L.length),payDoc(p,L[L.length-1],STM.annex),{no:`د-${stNo(p)}-${L.length}`,who:whoOf(p),client:cliSig(p)});REQ=0;
+  const bar=$('#doc .docbar');if(bar)bar.insertAdjacentHTML('beforeend',`<button class="wa" onclick="payReqSend('${pid}')">💬 إرسال للزبون</button>`)}
+function payReqText(p,url){const c=C(p.cid)||{},k=calc(p);const L=pays(p),x=L[L.length-1];
+  return `السلام عليكم ${cName(c)} المحترم،\n\nنودّ إعلامكم بأن ${k.bal<0?'مصروفات المشروع تجاوزت المبالغ المستلمة':'رصيد مشروعكم قارب على النفاد'}:\n🏗️ ${p.name}\n\n${x?`↓ آخر دفعة استلمناها: ${fmt(x.e.amt)} د.ع (وصل ${x.e.no}، ${x.e.date})\n↑ صُرف منها: ${fmt(x.spent)} د.ع\n`:''}${k.bal<0?'⚠️ التجاوز الحالي':'✅ المتبقي الآن'}: *${fmt(Math.abs(k.bal))} د.ع*\n\n💰 *المطلوب: دفعة جديدة* بالمبلغ الذي ترونه مناسباً، حتى يستمر العمل بدون توقف.\n\n${url?`📄 كشف الدفعة كاملاً (كل مصروف وكيف وصل الرصيد):\n${url}\n\n`:''}نشكر تعاونكم، ${coSign()}\n— أُعدّ بنظام أسس`}
+async function payReqSend(pid){const p=P(pid),c=C(p.cid)||{};
+  if(!waNum(c.phone))return toast('أضف رقم هاتف الزبون أولاً');const L=pays(p);let url='';
+  let w=null;if(L.length&&MODE==='cloud'&&ME&&ME.org&&SB){w=window.open('about:blank','_blank');toast('جارٍ تجهيز رابط الكشف…');const keep=$('#doc').classList.contains('show')?$('#doc').innerHTML:null;
+    REQ=1;readSTM();docOpen('كشف الدفعة '+ordN(L.length),payDoc(p,L[L.length-1],STM.annex),{no:`د-${stNo(p)}-${L.length}`,who:whoOf(p),client:cliSig(p)});REQ=0;
+    const html=$('#paper').innerHTML;if(keep!==null){$('#doc').innerHTML=keep}else docClose();
+    try{const r=await SB.rpc('asas_share_create',{p_org:ME.org,p_pid:pid,p_title:'كشف الدفعة '+ordN(L.length)+' · '+p.name,p_html:html});if(r.error)throw r.error;url=APP_URL+'?s='+r.data}
+    catch(e){logErr&&logErr('share',e);toast('تعذّر إنشاء الرابط، سيُرسل الملخص فقط')}}
+  closeSheet();const t=payReqText(p,url);if(w&&!w.closed){w.location.href='https://wa.me/'+waNum(c.phone)+'?text='+encodeURIComponent(t)}else waOpen(c,t)}
+async function shareView(t){$('#app').innerHTML=`<div class="vfy"><div class="vf-c"><div class="vf-h">${helmet(44)}<b>أسس</b><span>كشف حساب</span></div><div class="vf-b">جارٍ التحميل…</div></div></div>`;
+  let d=null;try{const r=await SB.rpc('asas_share_get',{p_token:t});d=r.data}catch(e){}
+  if(!d||!d.ok){$('.vf-b').innerHTML='<div class="vf-st bad">✕ الرابط غير صحيح أو انتهى</div>';return}
+  const D=$('#doc');D.innerHTML=`<div class="docbar shbar"><b>${esc(d.title||'كشف')}<span class="shsub">من ${esc(d.eng||d.office||'')} · <span class="num">${esc(d.phone||'')}</span></span></b><button class="y" onclick="doPrint()">طباعة / PDF</button></div><div class="paperwrap"><div class="pscale" id="pscale"><div class="book" id="paper">${d.html}</div></div></div>`;
+  D.classList.add('show');$('#app').innerHTML='';fitPaper()}
 function rcptSheet(id,fresh){const e=S.entries.find(x=>x.id===id);if(!e)return;const c=C((P(e.pid)||{}).cid)||{};
   sheet(`<h3>${fresh?'✓ تم تسجيل الاستلام':'وصل الاستلام'}</h3><div class="rcbox"><div>وصل رقم <b class="num">${esc(e.no||'')}</b> · <span class="num">${e.date}</span></div><b class="num">${fmt(e.amt)} د.ع</b><div>من ${esc(cName(c))} · المستلم ${esc(e.rcv||e.by||S.me||'')}</div></div>
    <button class="btn wa" onclick="closeSheet();waReceipt('${id}')">💬 إرسال الوصل للزبون بالواتساب</button>
@@ -900,7 +957,8 @@ function payDoc(p,x,withAnnex){const c=C(p.cid)||{};const b=catsOf(x.outs);const
    <div class="st-2"><div><div class="st-h3">حساب الدفعة</div>${eq}</div><div><div class="st-h3">أين صُرفت الدفعة</div>${stDonut(b,x.spent)}</div></div>
    ${stExp(x.outs,'مصروفات الدفعة '+ordN(x.i))}
    ${stTail(x.close,x.last?'المتبقي من الدفعة':'المتبقي ويُدوَّر للدفعة التالية','تجاوز الدفعة (يُخصم من الدفعة القادمة)',
-     `المصروفات تُحسب على آخر دفعة مستلمة قبلها حسب التاريخ.${p.feeType==='fixed'?' الأتعاب المقطوعة تُحسب في الكشف النهائي.':''}${STM.mode==='sum'?(withAnnex?' تفاصيل كل وصل في الملحق.':' التفاصيل وصلاً بوصل متوفرة عند الطلب.'):''}`)}</div>`+(withAnnex&&STM.mode==='sum'&&x.outs.length?annexDoc(p,x.outs,'مصروفات الدفعة '+ordN(x.i)):'')}
+     `المصروفات تُحسب على آخر دفعة مستلمة قبلها حسب التاريخ.${p.feeType==='fixed'?' الأتعاب المقطوعة تُحسب في الكشف النهائي.':''}${STM.mode==='sum'?(withAnnex?' تفاصيل كل وصل في الملحق.':' التفاصيل وصلاً بوصل متوفرة عند الطلب.'):''}`)}
+   ${REQ&&x.last?`<div class="keep"><div class="st-req"><div><span class="rq-l">المطلوب: دفعة جديدة</span><p>${x.close<0?`المصروف تجاوز المبالغ المستلمة بمبلغ <b class="num">${fmt(-x.close)}</b> د.ع.`:(x.close===0?'نفد رصيد الدفعة.':`رصيد الدفعة قارب على النفاد (المتبقي <b class="num">${fmt(x.close)}</b> د.ع).`)} نرجو تسديد دفعة جديدة لمواصلة العمل، بالمبلغ الذي ترونه مناسباً.</p></div><b class="rq-ic">💰</b></div></div>`:''}</div>`+(withAnnex&&STM.mode==='sum'&&x.outs.length?annexDoc(p,x.outs,'مصروفات الدفعة '+ordN(x.i)):'')}
 function showPayment(pid,i){readSTM();const p=P(pid),x=pays(p)[i-1];closeSheet();docOpen('كشف الدفعة '+ordN(i),payDoc(p,x,STM.annex),{no:`د-${stNo(p)}-${i}`,who:whoOf(p),client:cliSig(p)})}
 const whoOf=p=>((C(p.cid)||{}).name||'')+' · '+p.name;
 const cliSig=p=>{const c=C(p.cid)||{};return c.name?((c.title?c.title+' ':'')+c.name):''};
@@ -1126,7 +1184,7 @@ VIEWS.more=()=>{if(MODE!=='cloud')return _more().replace(`onclick="toast('إضا
     ${CAN.admin?li("go('settings')",'🏢','هوية الشركة','الاسم، الشعار، الختم، العنوان، الهاتف'):''}
     ${CAN.admin?li("go('members')",'👷','فريق العمل','أضف مهندساً أو مساعداً وحدّد صلاحيته'):''}
     ${li("go('trash')",'🗑️','سلة المحذوفات',n+' عنصر'+(CAN.del?' قابل للاسترجاع':''))}
-    ${CAN.admin?li("go('backups')",'💾','النسخ الاحتياطي','نسخ يومية على السيرفر، تنزيل واسترجاع'):li('backupSheet()','💾','نسخة من بياناتك','تنزيل ملف بكل بياناتك')}
+    ${li("go('backups')",'💾','النسخ الاحتياطي',CAN.admin?'كل النسخ بمكان واحد: على جوالك، السحابية، والخارجية':'تنزيل نسخة من بياناتك على جوالك')}
     ${li('bioToggle()','🔐','القفل بالبصمة / Face ID',bioKey()?'مفعّل على هذا الجهاز · اضغط للإلغاء':'غير مفعّل · اضغط للتفعيل')}
     ${IS_ADMIN?li("go('admin')",'🛠️','لوحة إدارة أسس','المكاتب المسجّلة وتفعيل الاشتراكات','hl'):''}
     ${CAN.admin?li('subSheet()','⭐','الاشتراك',subLabel()):''}
@@ -1142,11 +1200,11 @@ const _backup=backupSheet;
 backupSheet=function(){if(MODE!=='cloud')return _backup();
   sheet(`<h3>نسخة من بياناتك</h3><p class="note">بياناتك محفوظة على السيرفر تلقائياً. إذا تريد نسخة عندك، نزّل هذا الملف واحفظه.</p>
    <button class="btn" onclick="dlBackup()">⬇️ تنزيل الملف</button><button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)};
-function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='asas-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();dlMark();toast('تم التنزيل ✓')}
+function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='asas-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();dlMark();toast('تم التنزيل ✓');if(V.v==='backups')render()}
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.5.1',APP_T='2026-11-20 12:20';
+var APP_V='1.6.0',APP_T='2026-11-20 13:00';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
 function verTxt(){const s=window.__verSt;return s==='ok'?'✓ أحدث إصدار':s==='old'?'🔄 يوجد تحديث':''}
 function verLine(){return `<div class="ver">الإصدار <b class="num">${APP_V}</b> · <span class="num">${verDate()}</span> <span id="ver_s" class="vs ${window.__verSt||''}">${verTxt()}</span></div>`}
@@ -1184,18 +1242,17 @@ const BK={list:null,busy:false};
 const BK_KIND={auto:'تلقائية',manual:'يدوية',before_restore:'قبل الاسترجاع'};
 function bkWhen(x){const d=new Date(x);let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
 async function bkLoad(){const[{data,error},o]=await Promise.all([SB.rpc('asas_backup_list',{p_org:ME.org}),SB.rpc('asas_offsite_status')]);BK.list=error?[]:data;BK.off=o.data||null;if(V.v==='backups')render()}
-VIEWS.backups=()=>{if(!BK.list){bkLoad()}const L=BK.list||[];const last=L[0];
+VIEWS.backups=()=>{if(!CAN.admin)return `<header class="top short"><div class="hdr"><div><h1>النسخ الاحتياطي</h1><p>نسخة من بياناتك على جوالك</p></div><button class="back" onclick="go('more')">→</button></div></header><div class="wrap" style="margin-top:14px">${bkPanel(false)}<div class="card bkinfo">☁️ بيانات المكتب محفوظة على سيرفر أسس تلقائياً، والنسخ السحابية والاسترجاع عند مدير المكتب.</div></div>`;
+  if(!BK.list){bkLoad()}const L=BK.list||[];const last=L[0];
   return `<header class="top short"><div class="hdr"><div><h1>النسخ الاحتياطي</h1><p>${last?'آخر نسخة: <span class="num">'+bkWhen(last.created_at)+'</span>':BK.list?'لا توجد نسخ بعد':'جارٍ التحميل…'}</p></div><button class="back" onclick="go('more')">→</button></div></header>
   <div class="wrap" style="margin-top:14px">
-   <div class="card" style="padding:14px;line-height:1.9;font-size:14px"><b>كيف تُحفظ بياناتك؟</b><br>
+   ${bkPanel(false)}<input type="file" id="bk-file" accept=".json,application/json" hidden onchange="bkFile(this)">
+   <div class="card bkinfo"><b>كيف تُحفظ بياناتك؟</b><br>
     ☁️ كل ما تسجّله يُحفظ فوراً على سيرفر أسس، وتبقى نسخة على جهازك للعمل بدون إنترنت.<br>
     🗓️ تُؤخذ <b>نسخة احتياطية تلقائية يومياً</b> على السيرفر لكل يوم فيه تعديل، وتُحفظ <b class="num">30</b> يوماً.<br>
     📦 النسخة تشمل: الزبائن، المشاريع، جميع المبالغ وسنداتها، وهوية الشركة.<br>
     🗑️ ما تحذفه يبقى في السلة <b class="num">30</b> يوماً قابلاً للاسترجاع، ثم يُحذف نهائياً.</div>
-   ${bkStatus(last)}
-   <div class="row2"><button class="btn y" onclick="bkNow()">💾 نسخة الآن</button><button class="btn ghost" onclick="dlBackup()">⬇️ تنزيل ملف</button></div>
-   <button class="btn ghost" onclick="$('#bk-file').click()">📂 استرجاع من ملف محفوظ</button><input type="file" id="bk-file" accept=".json,application/json" hidden onchange="bkFile(this)">
-   <div class="sec"><h2>النسخ على السيرفر (${L.length})</h2></div>
+   <div class="sec" id="bk-srv"><h2>النسخ على السيرفر (${L.length})</h2></div>
    <div class="list">${L.map(b=>`<div class="li"><div class="ic">${b.kind==='auto'?'🗓️':b.kind==='manual'?'💾':'↩️'}</div><div class="mid"><div class="t"><span class="num">${bkWhen(b.created_at)}</span></div><div class="s">${BK_KIND[b.kind]||b.kind} · ${b.counts.clients} زبون · ${b.counts.projects} مشروع · ${b.counts.entries} مبلغ</div></div>
      <button class="chip n" onclick="bkSheet(${b.id})">خيارات</button></div>`).join('')||`<div class="empty">${BK.list?'لا توجد نسخ بعد. اضغط «نسخة الآن».':'…'}</div>`}</div>
   </div>`};
@@ -1207,7 +1264,7 @@ function bkSheet(id){const b=(BK.list||[]).find(x=>x.id===id);sheet(`<h3>نسخ�
   <button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)}
 async function bkGet(id){const{data,error}=await SB.rpc('asas_backup_get',{p_org:ME.org,p_id:id});if(error||!data){toast('تعذّر تحميل النسخة');return null}return data}
 function saveFile(name,obj){const b=new Blob([JSON.stringify(obj)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();a.remove()}
-async function bkDl(id){const d=await bkGet(id);if(!d)return;saveFile('asas-backup-'+String(d.at||'').slice(0,10)+'.json',Object.assign({app:'asas'},d));dlMark();toast('تم التنزيل ✓')}
+async function bkDl(id){const d=await bkGet(id);if(!d)return;saveFile('asas-backup-'+String(d.at||'').slice(0,10)+'.json',Object.assign({app:'asas'},d));dlMark();toast('تم التنزيل ✓');if(V.v==='backups')render()}
 function bkAskRestore(id){ask('استرجاع هذه النسخة؟ ستعود البيانات كما كانت وقتها، وما أُضيف بعدها يُنقل إلى السلة. تُؤخذ نسخة من وضعك الحالي قبل الاسترجاع.','استرجاع',async()=>{const d=await bkGet(id);if(d)bkRestore(d)})}
 function bkFile(inp){const f=inp.files&&inp.files[0];inp.value='';if(!f)return;const r=new FileReader();r.onload=()=>{let d=null;try{d=JSON.parse(r.result)}catch(e){}
   if(d&&d.v===1&&Array.isArray(d.clients)&&Array.isArray(d.projects)&&Array.isArray(d.entries)){d={co:d.co,clients:d.clients,projects:d.projects,entries:d.entries}}else d=null;
@@ -1232,6 +1289,38 @@ function bkStatus(){const L=BK.list||[];const auto=L.find(b=>b.kind==='auto');co
    ${row(man?true:false,'نسخة يدوية (ملف على جهازك)',man?'<span class="num">'+man.slice(0,10)+'</span> · '+agoTxt(man):'لم تُحفظ بعد — اضغط «تنزيل ملف»')}
    ${row(auto?fresh(auto.created_at):false,'نسخة سحابية تلقائية (يومياً)',auto?'<span class="num">'+auto.created_at.slice(0,10)+'</span> · '+agoTxt(auto.created_at):BK.list?'تُؤخذ أول نسخة الليلة':'…')}
    ${row(off?(off.ok&&fresh(off.at)):null,'نسخة خارجية مشفّرة (GitHub، ليلياً)',off?'<span class="num">'+String(off.at).slice(0,10)+'</span> · '+agoTxt(off.at)+(off.ok?'':' · <b style="color:var(--red)">فشلت آخر محاولة</b>'):'…')}</div>`}
+
+/* ===== تذكير كل 14 يوماً بتنزيل نسخة على الجوال ===== */
+const DL_EVERY=14;
+function lsGet(k){try{return localStorage.getItem(k)||''}catch(e){return ''}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function dlRemind(){if(MODE!=='cloud'||!ME||!ME.org)return '';const fk='asas_dlfirst_'+ME.org,sk='asas_dlsnooze_'+ME.org;
+  if(!lsGet(fk))lsSet(fk,new Date().toISOString());const last=dlLast();const base=last||lsGet(fk);
+  const days=Math.floor((Date.now()-Date.parse(base))/864e5);if(days<DL_EVERY)return '';
+  const sn=lsGet(sk);if(sn&&Date.now()<Date.parse(sn))return '';
+  return `<div class="dlrem"><div class="dli">💾</div><div class="mid"><b>${last?'صار لك <span class="num">'+days+'</span> يوماً بدون نسخة على جوالك':'ما نزّلت أي نسخة على جوالك بعد'}</b><span>نزّل نسخة من بياناتك كل أسبوعين حتى تبقى عندك حتى بدون إنترنت.</span>
+    <div class="dlb"><button class="y" onclick="dlBackup();render()">⬇️ تنزيل الآن</button><button onclick="dlSnooze()">لاحقاً</button></div></div></div>`}
+function dlSnooze(){lsSet('asas_dlsnooze_'+ME.org,new Date(Date.now()+3*864e5).toISOString());toast('سنذكّرك بعد 3 أيام');render()}
+
+/* ===== لوحة النسخ الموحّدة (المهندس والإدارة) ===== */
+function bkPanel(admin){const fresh=x=>x&&Date.now()-Date.parse(x)<2.2*864e5;
+  const man=admin?admDl():dlLast();const L=BK.list||[];const auto=admin?(HL.d&&HL.d.last_backup?{created_at:HL.d.last_backup}:null):L.find(b=>b.kind==='auto');
+  const off=admin?(HL.d&&HL.d.offsite):BK.off;const can=admin||CAN.admin;
+  const row=(ic,ok,t,sub)=>`<div class="bks"><div class="bic">${ic}</div><div class="mid"><div class="t">${t}</div><div class="s">${sub}</div></div><b class="${ok===true?'ok':ok===false?'no':'na'}">${ok===true?'✓':ok===false?'✕':'—'}</b></div>`;
+  const all=man&&fresh(auto&&auto.created_at)&&off&&off.ok&&fresh(off.at);
+  return `<div class="bkbox ${all?'good':''}">${all?'<div class="bkok">✅ '+(admin?'بيانات كل المكاتب محمية':'بياناتك محمية')+' بثلاث نسخ.</div>':''}<div class="bkhd"><b>حالة النسخ</b><span>${admin?'كل المكاتب':'مكتبك'}</span></div>
+   ${row('📱',man?fresh(man)||null:false,'نسخة يدوية على جهازك',man?'آخر تنزيل <span class="num">'+man.slice(0,10)+'</span> · '+agoTxt(man):'لم تُنزَّل بعد · اضغط «تنزيل على جوالي»')}
+   ${can?row('☁️',auto?fresh(auto.created_at):false,'نسخة سحابية تلقائية (يومياً)',auto?'<span class="num">'+String(auto.created_at).slice(0,10)+'</span> · '+agoTxt(auto.created_at)+' · تُحفظ 30 يوماً':(admin||BK.list)?'تُؤخذ أول نسخة الليلة':'…'):''}
+   ${can?row('🔐',off?(off.ok&&fresh(off.at)):null,'نسخة خارجية مشفّرة (GitHub، ليلياً)',off?'<span class="num">'+String(off.at).slice(0,10)+'</span> · '+agoTxt(off.at)+' · تُحفظ 90 يوماً'+(off.ok?'':' · <b style="color:var(--red)">فشلت آخر محاولة</b>'):'…'):''}
+   <div class="bkacts">${admin?`<button class="y" onclick="admExport()">⬇️ تنزيل نسخة كاملة على جوالي</button><button onclick="offKey()">🔑 مفتاح النسخة الخارجية</button>`
+     :`<button class="y" onclick="dlBackup()">⬇️ تنزيل على جوالي</button>${can?`<button onclick="bkNow()">☁️ حفظ سحابي الآن</button><button onclick="bkRestoreMenu()">↩️ استرجاع</button>`:''}`}</div></div>`}
+function bkRestoreMenu(){sheet(`<h3>↩️ استرجاع نسخة</h3><p class="note" style="margin:0">قبل أي استرجاع تُؤخذ نسخة من وضعك الحالي، فلا يضيع شيء.</p>
+  <button class="btn" onclick="closeSheet();document.getElementById('bk-srv')&&document.getElementById('bk-srv').scrollIntoView({behavior:'smooth'})">☁️ من النسخ على السيرفر (اختر التاريخ)</button>
+  <button class="btn ghost" onclick="closeSheet();$('#bk-file').click()">📂 من ملف على جوالي</button><button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)}
+function admKey(){return 'asas_admdl'}
+function admDl(){try{return localStorage.getItem(admKey())||''}catch(e){return ''}}
+async function admExport(){toast('جارٍ تجهيز النسخة الكاملة…');const{data,error}=await SB.rpc('asas_admin_export');if(error||!data)return toast('تعذّر تجهيز النسخة');
+  saveFile('asas-all-'+today()+'.json',data);try{localStorage.setItem(admKey(),new Date().toISOString())}catch(e){}toast('تم التنزيل ✓');render()}
 
 /* ===== صور الوصولات: تُرفع إلى مخزن السيرفر بدل حفظها داخل المبلغ ===== */
 async function attUpload(){if(MODE!=='cloud'||!navigator.onLine)return;
@@ -1287,13 +1376,9 @@ VIEWS.health=()=>{if(!IS_ADMIN)return VIEWS.home();if(!HL.d){hlLoad();return `<h
     ${tile('المبالغ المسجّلة',d.entries)}${tile('المشاريع',d.projects)}
     ${tile('صور الوصولات ('+MB(d.storage_bytes).toFixed(1)+' ميغا من 1000)',d.storage_files)}${tile('النسخ على السيرفر',d.backups)}
    </div>
-   <div class="sec"><h2>💾 حالة النسخ الاحتياطي</h2></div>
-   <div class="list hlist">
-    <div class="li"><div class="ic">🗓️</div><div class="mid"><div class="t">النسخة السحابية التلقائية</div><div class="s">آخر نسخة: <span class="num">${f(d.last_backup)}</span> · تُحفظ 30 يوماً</div></div><b class="${d.last_backup&&Date.now()-Date.parse(d.last_backup)<2.2*864e5?'okc':'noc'}">${d.last_backup?'✓':'✕'}</b></div>
-    <div class="li"><div class="ic">🔐</div><div class="mid"><div class="t">النسخة الخارجية المشفّرة (GitHub)</div><div class="s">${off?'آخر نسخة: <span class="num">'+f(off.at)+'</span>'+(off.bytes?' · <span class="num">'+(off.bytes/1024).toFixed(0)+'</span> ك.ب':'')+(off.ok?'':' · <b style="color:var(--red)">فشلت</b>'):'لم تُنفَّذ بعد'} · كل ليلة 2:00 · تُحفظ 90 يوماً</div></div><b class="${off&&off.ok?'okc':'noc'}">${off&&off.ok?'✓':'✕'}</b></div>
-   </div>
-   <button class="btn ghost" onclick="offKey()">🔑 تنزيل مفتاح فك تشفير النسخة الخارجية</button>
-   <p class="note" style="margin:0">احفظ ملف المفتاح في مكان آمن خارج الهاتف (مثل Google Drive أو بريدك). بدونه لا يمكن فتح النسخة الخارجية.</p>
+   <div class="sec"><h2>💾 النسخ الاحتياطي</h2></div>
+   ${bkPanel(true)}
+   <p class="note" style="margin:0">احفظ ملف المفتاح والنسخة الكاملة في مكان آمن خارج الهاتف (مثل Google Drive أو بريدك). النسخ الخارجية: GitHub ← Actions ← Nightly offsite backup.</p>
    <div class="sec"><h2>🐞 أخطاء التطبيق (آخر 7 أيام)</h2></div>
    ${d.errors_7d?`<div class="list">${d.errors.map(x=>`<div class="li"><div class="mid"><div class="t" style="font-size:13.5px;white-space:normal">${esc(x.msg)}</div><div class="s"><span class="num">${bkWhen(x.at)}</span> · ${esc(x.src||'')} · إصدار <span class="num">${esc(x.ver||'')}</span></div></div></div>`).join('')}</div>${d.errors_7d>10?'<p class="note">يظهر آخر 10 من <span class="num">'+d.errors_7d+'</span></p>':''}`:'<div class="card hok">لا توجد أخطاء ✅</div>'}
    <button class="btn ghost" onclick="HL.d=null;render()">↻ تحديث</button>
@@ -1474,7 +1559,7 @@ async function admActivate(id){const body={action:'activate',org_id:id,plan:admV
 /* --- الإقلاع --- */
 async function boot(){const h=location.hash.slice(1);
   if(HAS_CLOUD){SB=window.supabase.createClient(CLOUD.url,CLOUD.key,{auth:{persistSession:true,autoRefreshToken:true,storageKey:'asas-auth'}});
-    const vr=new URLSearchParams(location.search).get('r');if(vr)return verifyView(vr);
+    const vr=new URLSearchParams(location.search).get('r');if(vr)return verifyView(vr);const vs=new URLSearchParams(location.search).get('s');if(vs)return shareView(vs);
     const{data:{session}}=await SB.auth.getSession();
     if(session){
       await enterCloud()}

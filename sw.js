@@ -1,5 +1,5 @@
 // أسس — عامل الخدمة: يحفظ واجهة التطبيق لتفتح بدون إنترنت. البيانات نفسها تُزامَن مع السيرفر من داخل التطبيق.
-const V = 'asas-v6';
+const V = 'asas-v7';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png',
   'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js'];
 self.addEventListener('install', (e) => {
