@@ -461,6 +461,12 @@ body.nodel .btn.del{display:none!important}
  .prj:hover,.li:hover{filter:brightness(.98)}
 }
 @media screen and (min-width:1000px) and (display-mode:standalone){.tab.inst{display:none}}
+/* iPhone: مسافة تحت الساعة والبطارية بالتطبيق المثبّت */
+.top{padding-top:calc(18px + env(safe-area-inset-top,0px))}
+.auth-top{padding-top:calc(42px + env(safe-area-inset-top,0px))}
+.docbar{padding-top:calc(10px + env(safe-area-inset-top,0px))}
+.sheet{max-height:calc(92vh - env(safe-area-inset-top,0px))}
+@media screen and (min-width:1000px){.tabbar .in{padding-top:calc(22px + env(safe-area-inset-top,0px))}}
 </style>
 
 <div id="app"></div>
@@ -849,17 +855,18 @@ function waNum(ph){let d=String(ph||'').replace(/\D/g,'');if(!d)return '';if(d.s
 function waOpen(c,text){const n=waNum(c&&c.phone);if(!n){toast('أضف رقم موبايل الزبون أولاً');if(c&&c.id)setTimeout(()=>clientSheet(c.id),300);return}
   const a=document.createElement('a');a.href='https://wa.me/'+n+(text?'?text='+encodeURIComponent(text):'');a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove()}
 function cName(c){return (c.title?c.title+' ':'')+(c.name||'')}
-function coSign(){const c=S.co;const e=c.eng?(/^م\.?\s/.test(c.eng)?c.eng:'م. '+c.eng):'';return [...new Set([e,c.name||'',c.phone||''].filter(Boolean))].join(' · ')}
+function waSign(){const c=S.co;const e=c.eng?(/^م(\.\s*|\s+)/.test(c.eng)?c.eng:'م. '+c.eng):'';const bare=x=>String(x||'').trim().replace(/^م(\.\s*|\s+)/,'').trim();const n=c.name&&bare(c.name)!==bare(e)?c.name:'';return [e,n].filter(Boolean).join(' · ')}
+function coSign(){const c=S.co;const e=c.eng?(/^م\.?\s/.test(c.eng)?c.eng:'م. '+c.eng):'';const bare=x=>String(x||'').trim().replace(/^م(\.\s*|\s+)/,'').trim();const n=c.name&&bare(c.name)!==bare(e)?c.name:'';return [...new Set([e,n,c.phone||''].filter(Boolean))].join(' · ')}
 function waRow(c,p,ps){if(!c||!c.id)return '';const lastIn=p?entriesOf(p.id).filter(e=>e.kind==='in').pop():null;
   const rq=p&&(!ps||ps.length<2)&&lastIn;return `<div class="warow${rq?' w4':''}"><button onclick="waOpen(C('${c.id}'))">💬 مراسلة</button>${p?`<button onclick="${ps&&ps.length>1?`waPickSt('${c.id}')`:`waStatement('${p.id}')`}">📤 إرسال الكشف</button>`:''}${lastIn?`<button onclick="waReceipt('${lastIn.id}')">🧾 آخر وصل</button>`:''}${rq?`<button onclick="payReqSheet('${p.id}')">💰 طلب دفعة</button>`:''}</div>`}
 function waPickSt(cid){const ps=live(S.projects).filter(p=>p.cid===cid);sheet(`<h3>إرسال كشف أي مشروع؟</h3><div class="list">${ps.map(p=>`<button class="li" onclick="closeSheet();waStatement('${p.id}')"><div class="ic">🏗️</div><div class="mid"><div class="t">${esc(p.name)}</div></div></button>`).join('')}</div><button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)}
 function rcptRef(e){return hashCode(e.id+'|'+e.amt+'|'+e.date+'|'+(e.no||''))}
 function balAfter(e){const p=P(e.pid);const pct=p&&p.feeType==='pct'?(+p.feeVal||0)/100:0;let b=0;for(const x of entriesOf(e.pid)){if(x.kind==='in')b+=x.amt-Math.round(x.amt*pct);else b-=x.amt;if(x.id===e.id)break}return b}
 function rcptText(e){const p=P(e.pid)||{},c=C(p.cid)||{};const b=balAfter(e);
-  return `🧾 *وصل استلام* رقم ${e.no||''}\n${S.co.name||S.co.eng||''}\n\nاستلمنا من ${cName(c)} مبلغاً قدره *${fmt(e.amt)} دينار عراقي*\n(فقط ${words(e.amt)} دينار عراقي لا غير)\n\n🏗️ المشروع: ${p.name||''}${e.det?'\n📝 البيان: '+e.det:''}\n📅 تاريخ الاستلام: ${e.date}\n🙋 المستلم: ${e.rcv||e.by||S.me||''}\n💼 ${e.src==='حساب المصرف'?'تحويل إلى حساب المصرف':'نقداً'}${e.docType&&e.docType!=='بدون مستند'&&e.docNo?'\n📄 '+e.docType+' '+e.docNo:''}\n\nرصيدكم في المشروع بعد هذه الدفعة: ${sfmt(b)} د.ع\nرمز التحقق: ${rcptRef(e)}\n\nمع التقدير، ${coSign()}\n— أُعدّ بنظام أسس`}
+  return `🧾 *وصل استلام* رقم ${e.no||''}\n\nاستلمنا من ${cName(c)} مبلغاً قدره *${fmt(e.amt)} دينار عراقي*\n(فقط ${words(e.amt)} دينار عراقي لا غير)\n\n🏗️ المشروع: ${p.name||''}${e.det?'\n📝 البيان: '+e.det:''}\n📅 تاريخ الاستلام: ${e.date}\n🙋 المستلم: ${e.rcv||e.by||S.me||''}\n💼 ${e.src==='حساب المصرف'?'تحويل إلى حساب المصرف':'نقداً'}${e.docType&&e.docType!=='بدون مستند'&&e.docNo?'\n📄 '+e.docType+' '+e.docNo:''}\n\nرصيدكم في المشروع بعد هذه الدفعة: ${sfmt(b)} د.ع\nرمز التحقق: ${rcptRef(e)}\n\nمع التقدير، ${waSign()}\n— أُعدّ بنظام أسس`}
 function waReceipt(id){const e=S.entries.find(x=>x.id===id);if(!e)return;const c=C((P(e.pid)||{}).cid)||{};waOpen(c,rcptText(e))}
 function waStatement(pid){const p=P(pid),c=C(p.cid)||{},k=calc(p);
-  waOpen(c,`📄 *كشف حساب* — ${p.name}\n${cName(c)} المحترم\nلغاية ${today()}\n\n↓ مجموع ما استلمناه منكم: ${fmt(k.inn)} د.ع\n↑ مجموع المصروف على المشروع: ${fmt(k.out)} د.ع\n👷 أتعاب المهندس (${feeLabel(p)}): ${fmt(k.fee)} د.ع\n\n${k.bal<0?'⚠️ المبلغ المطلوب منكم':'✅ الرصيد المتبقي لكم'}: *${fmt(Math.abs(k.bal))} د.ع*\n\nعدد الحركات: ${k.es.length} · الكشف المفصّل بالفواتير جاهز للطباعة عند الطلب.\n\nمع التقدير، ${coSign()}\n— أُعدّ بنظام أسس`)}
+  waOpen(c,`📄 *كشف حساب* — ${p.name}\n${cName(c)} المحترم\nلغاية ${today()}\n\n↓ مجموع ما استلمناه منكم: ${fmt(k.inn)} د.ع\n↑ مجموع المصروف على المشروع: ${fmt(k.out)} د.ع\n👷 أتعاب المهندس (${feeLabel(p)}): ${fmt(k.fee)} د.ع\n\n${k.bal<0?'⚠️ المبلغ المطلوب منكم':'✅ الرصيد المتبقي لكم'}: *${fmt(Math.abs(k.bal))} د.ع*\n\nعدد الحركات: ${k.es.length} · الكشف المفصّل بالفواتير جاهز للطباعة عند الطلب.\n\nمع التقدير، ${waSign()}\n— أُعدّ بنظام أسس`)}
 /* ---- طلب دفعة: تنبيه نفاد الرصيد ---- */
 const alertPct=()=>{const v=+S.co.alertPct;return v>0&&v<100?v:20};
 function payLevel(p){if(p.done||p.del)return null;const k=calc(p);if(!k.es.length)return null;const L=pays(p);const last=L[L.length-1];
@@ -879,7 +886,7 @@ function payReqShow(pid){REQ=1;const p=P(pid),L=pays(p);if(!L.length){REQ=0;retu
   docOpen('كشف الدفعة '+ordN(L.length),payDoc(p,L[L.length-1],STM.annex),{no:`د-${stNo(p)}-${L.length}`,who:whoOf(p),client:cliSig(p)});REQ=0;
   const bar=$('#doc .docbar');if(bar)bar.insertAdjacentHTML('beforeend',`<button class="wa" onclick="payReqSend('${pid}')">💬 إرسال للزبون</button>`)}
 function payReqText(p,url){const c=C(p.cid)||{},k=calc(p);const L=pays(p),x=L[L.length-1];
-  return `السلام عليكم ${cName(c)} المحترم،\n\nنودّ إعلامكم بأن ${k.bal<0?'مصروفات المشروع تجاوزت المبالغ المستلمة':'رصيد مشروعكم قارب على النفاد'}:\n🏗️ ${p.name}\n\n${x?`↓ آخر دفعة استلمناها: ${fmt(x.e.amt)} د.ع (وصل ${x.e.no}، ${x.e.date})\n↑ صُرف منها: ${fmt(x.spent)} د.ع\n`:''}${k.bal<0?'⚠️ التجاوز الحالي':'✅ المتبقي الآن'}: *${fmt(Math.abs(k.bal))} د.ع*\n\n💰 *المطلوب: دفعة جديدة* حتى يستمر العمل بدون توقف.\n\n${url?`📄 كشف الدفعة كاملاً (كل مصروف وكيف وصل الرصيد):\n${url}\n\n`:''}نشكر تعاونكم، ${coSign()}\n— أُعدّ بنظام أسس`}
+  return `السلام عليكم ${cName(c)} المحترم،\n\nنودّ إعلامكم بأن ${k.bal<0?'مصروفات المشروع تجاوزت المبالغ المستلمة':'رصيد مشروعكم قارب على النفاد'}:\n🏗️ ${p.name}\n\n${x?`↓ آخر دفعة استلمناها: ${fmt(x.e.amt)} د.ع (وصل ${x.e.no}، ${x.e.date})\n↑ صُرف منها: ${fmt(x.spent)} د.ع\n`:''}${k.bal<0?'⚠️ التجاوز الحالي':'✅ المتبقي الآن'}: *${fmt(Math.abs(k.bal))} د.ع*\n\n💰 *المطلوب: دفعة جديدة* حتى يستمر العمل بدون توقف.\n\n${url?`📄 كشف الدفعة كاملاً (كل مصروف وكيف وصل الرصيد):\n${url}\n\n`:''}نشكر تعاونكم، ${waSign()}\n— أُعدّ بنظام أسس`}
 async function payReqSend(pid){const p=P(pid),c=C(p.cid)||{};
   if(!waNum(c.phone))return toast('أضف رقم هاتف الزبون أولاً');const L=pays(p);let url='';
   let w=null;if(L.length&&MODE==='cloud'&&ME&&ME.org&&SB){w=window.open('about:blank','_blank');toast('جارٍ تجهيز رابط الكشف…');const keep=$('#doc').classList.contains('show')?$('#doc').innerHTML:null;
@@ -1325,11 +1332,12 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.8.1',APP_T='2026-11-20 18:20';
+var APP_V='1.8.2',APP_T='2026-11-20 18:35';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='أيقونة جديدة للتطبيق: الخوذة أكبر وفوق طابوق الأساس';
+var APP_NEWS='بالآيفون: صارت مسافة تحت الساعة والبطارية بأعلى الشاشة|رسائل الواتساب للزبون صارت أرتب: توقيع المهندس بدون تكرار';
 var APP_LOG=[
- {v:'1.8.1',d:'2026-11-20',n:APP_NEWS.split('|')},
+ {v:'1.8.2',d:'2026-11-20',n:APP_NEWS.split('|')},
+ {v:'1.8.1',d:'2026-11-20',n:['أيقونة جديدة للتطبيق: الخوذة أكبر وفوق طابوق الأساس']},
  {v:'1.8.0',d:'2026-11-20',n:['تسجيل المبالغ بدون إنترنت، وتنحفظ تلقائياً على السيرفر أول ما يرجع النت', 'شرح تثبيت أسس على الموبايل والحاسبة بالصور، من «المزيد» ← «كيف أثبّت التطبيق»', 'على الحاسبة: قائمة جانبية، وتكتب المبلغ من الكيبورد', 'شريط التحديث يخبرك بما تغيّر قبل التحديث', 'بعد التحديث تظهر لك قائمة «ما الجديد»', 'رقم الإصدار وحالته في «المزيد» مع زر «تحقق»']},
  {v:'1.7.1',d:'2026-11-20',n:['زر «✓ حفظ الآن» في الإدخال السريع بعد كتابة البند']},
  {v:'1.7.0',d:'2026-11-20',n:['«صرفت مبلغ» و«استلمت مبلغ» صارت خطوة بخطوة بلوحة أرقام كبيرة','زر «📅 تاريخ سابق» لتسجيل مبلغ بتاريخ قديم','كلمة «متزامن» صغيرة تحت الجرس']},
