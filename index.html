@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/apple-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=2">
+<link rel="apple-touch-icon" href="icons/apple-180.png?v=2">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -310,7 +310,11 @@ table.t th:first-child{border-radius:0 8px 8px 0}table.t th:last-child{border-ra
 /* ---- السحابة والدخول ---- */
 .auth{min-height:100vh;background:var(--bg,#F3F5F9)}
 .auth-top{background:var(--navy);color:#fff;text-align:center;padding:42px 20px 80px;border-radius:0 0 30px 30px}
-.auth-top h1{font-size:36px;margin:10px 0 6px}.hook{margin:12px auto 0;max-width:340px;padding:10px 14px;border-radius:14px;background:rgba(245,184,0,.14);border:1px solid rgba(245,184,0,.45);color:#fff;font-size:14px;line-height:1.75}.hook b{color:var(--yel)}.hook.in{max-width:none;margin:0 0 4px;background:var(--cream);color:var(--ink);border-color:var(--yel)}.hook.in b{color:var(--yeld)}
+.auth-top h1{font-size:36px;margin:10px 0 6px}.ver{text-align:center;font-size:12.5px;color:var(--mut);margin:10px 0 4px}.ver .vs.ok{color:var(--green)}.ver .vs.old{color:var(--yeld);font-weight:700}
+.verbar{position:fixed;left:12px;right:12px;bottom:92px;z-index:60;background:var(--navy);color:#fff;border-radius:14px;padding:10px 12px;display:flex;gap:8px;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:536px;margin:0 auto}.verbar span{flex:1;font-size:14px}.verbar button{border:0;border-radius:10px;padding:8px 12px;background:var(--yel);color:var(--navy);font-weight:800}.verbar button+button{background:transparent;color:#fff}
+.btn.logout{background:var(--redbg);color:var(--red);border:1px solid #f3c4c4}
+.biolock{position:fixed;inset:0;z-index:200;background:var(--navy);display:flex;align-items:center;justify-content:center;padding:24px}.bl-c{width:100%;max-width:360px;text-align:center;color:#fff;display:flex;flex-direction:column;gap:12px}.bl-c h2{margin:6px 0 0;font-size:24px}.bl-c p{margin:0;color:#c9d3e3}.bl-l{margin:0 auto 6px;width:96px;height:96px}.bl-m{min-height:20px;color:#ffb4b4;font-size:14px}.biolock .btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
+.hook{margin:12px auto 0;max-width:340px;padding:10px 14px;border-radius:14px;background:rgba(245,184,0,.14);border:1px solid rgba(245,184,0,.45);color:#fff;font-size:14px;line-height:1.75}.hook b{color:var(--yel)}.hook.in{max-width:none;margin:0 0 4px;background:var(--cream);color:var(--ink);border-color:var(--yel)}.hook.in b{color:var(--yeld)}
 .auth-top .tag{font-size:18px;font-weight:700;margin:0;color:var(--yel);line-height:1.6}.auth-top .tag2{font-size:15.5px;font-weight:700;margin:8px 0 0;color:var(--yel);line-height:1.7}
 .trialbar{border-radius:14px;padding:10px 14px;font-size:14px;font-weight:700;display:flex;justify-content:space-between;gap:8px;align-items:center;background:var(--cream);color:#7a5800}.trialbar.end{background:#FDECEC;color:#B42318}.trialbar button{border:0;border-radius:10px;padding:6px 12px;font-weight:800;background:var(--navy);color:#fff;flex:none}
 .auth-logo{width:92px;height:92px;border-radius:26px;background:#0E1E38;display:grid;place-items:center;margin:0 auto;box-shadow:0 8px 24px rgba(0,0,0,.25)}
@@ -642,12 +646,13 @@ function setSave(){const g=id=>$('#'+id).value.trim();Object.assign(S.co,{eng:g(
 function imgPick(inp,key){const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const sc=Math.min(1,400/Math.max(im.width,im.height));
   const cv=document.createElement('canvas');cv.width=im.width*sc;cv.height=im.height*sc;cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);S.co[key]=cv.toDataURL('image/png');save();render()};im.src=r.result};r.readAsDataURL(f)}
 VIEWS.trash=()=>{const es=S.entries.filter(e=>e.del),ps=S.projects.filter(p=>p.del),cs=S.clients.filter(c=>c.del);
-  return `<header class="top short"><div class="hdr"><div><h1>سلة المحذوفات</h1><p>لا يُحذف شيء نهائياً، ولا يُعاد استعمال أرقام السندات</p></div><button class="back" onclick="go('more')">→</button></div></header>
+  return `<header class="top short"><div class="hdr"><div><h1>سلة المحذوفات</h1><p>يبقى كل محذوف <span class="num">30</span> يوماً قابلاً للاسترجاع، ثم يُحذف نهائياً</p></div><button class="back" onclick="go('more')">→</button></div></header>
   <div class="wrap" style="margin-top:14px"><div class="list">
-   ${cs.map(c=>`<div class="li"><div class="mid"><div class="t">👤 ${esc(c.name)}</div><div class="s">زبون · حُذف <span class="num">${c.del.at}</span></div></div><button class="btn sm ghost" onclick="restore('clients','${c.id}')">استرجاع</button></div>`).join('')}
-   ${ps.map(p=>`<div class="li"><div class="mid"><div class="t">🏗️ ${esc(p.name)}</div><div class="s">مشروع · حُذف <span class="num">${p.del.at}</span></div></div><button class="btn sm ghost" onclick="restore('projects','${p.id}')">استرجاع</button></div>`).join('')}
-   ${es.map(e=>`<div class="li"><div class="dot ${e.kind}">${e.kind==='in'?'↓':'↑'}</div><div class="mid"><div class="t">${esc(e.det)} · <span class="num">${e.no}</span></div><div class="s"><span class="num">${e.date}</span> · ${fmt(e.amt)} · حذفه ${esc(e.del.by)}</div></div><button class="btn sm ghost" onclick="restore('entries','${e.id}')">استرجاع</button></div>`).join('')}
+   ${cs.map(c=>`<div class="li"><div class="mid"><div class="t">👤 ${esc(c.name)}</div><div class="s">زبون · حُذف <span class="num">${c.del.at}</span><br>${tlTxt(c.del)}</div></div><button class="btn sm ghost" onclick="restore('clients','${c.id}')">استرجاع</button></div>`).join('')}
+   ${ps.map(p=>`<div class="li"><div class="mid"><div class="t">🏗️ ${esc(p.name)}</div><div class="s">مشروع · حُذف <span class="num">${p.del.at}</span><br>${tlTxt(p.del)}</div></div><button class="btn sm ghost" onclick="restore('projects','${p.id}')">استرجاع</button></div>`).join('')}
+   ${es.map(e=>`<div class="li"><div class="dot ${e.kind}">${e.kind==='in'?'↓':'↑'}</div><div class="mid"><div class="t">${esc(e.det)} · <span class="num">${e.no}</span></div><div class="s"><span class="num">${e.date}</span> · ${fmt(e.amt)} · حذفه ${esc(e.del.by)}<br>${tlTxt(e.del)}</div></div><button class="btn sm ghost" onclick="restore('entries','${e.id}')">استرجاع</button></div>`).join('')}
    ${!es.length&&!ps.length&&!cs.length?'<div class="empty">السلة فارغة</div>':''}</div></div>`};
+function tlTxt(d){const n=(typeof trashLeft==='function')?trashLeft(d):30;return n<=1?'<b style="color:var(--red)">يُحذف نهائياً اليوم</b>':'يُحذف نهائياً بعد <span class="num">'+n+'</span> يوماً'}
 function restore(t,id){const x=S[t].find(r=>r.id===id);if(t==='projects'&&!x.done&&projFull())return limitSheet();delete x.del;if(t==='projects'){const c=C(x.cid);if(c&&c.del)delete c.del}save();toast('تم الاسترجاع ✓');render()}
 
 /* ---- نوافذ منبثقة ---- */
@@ -972,7 +977,7 @@ VIEWS.login=()=>{const up=AUTH.tab==='up';return `<div class="auth">
    ${up?`<p class="note">تبدأ بفترة تجريبية مجانية ${PLATFORM.trialDays} يوماً. بياناتك محفوظة على السيرفر ولا يطّلع عليها أحد غيرك وغير فريق عملك.</p>`:`<p class="note">نسيت كلمة السر؟ تواصل معنا على <b class="num">${PLATFORM.phone}</b>. ويطلبها المساعد من صاحب الحساب.</p>`}
    <button class="btn ghost" onclick="startDemo()">جرّب بدون حساب (بيانات تجريبية)</button>
   </div>
-  <p class="note" style="text-align:center;font-size:14px">للمساعدة: <b class="num">${PLATFORM.phone}</b></p></div>`};
+  <p class="note" style="text-align:center;font-size:14px">للمساعدة: <b class="num">${PLATFORM.phone}</b></p>${verLine()}</div>`};
 function helmet(sz){return `<svg width="${sz}" height="${sz}" viewBox="0 0 64 64"><path d="M10 42a22 22 0 0 1 44 0z" fill="#F5B800"/><path d="M27 20h10v22H27z" fill="#E0A200"/><rect x="6" y="41" width="52" height="7" rx="3.5" fill="#F5B800"/></svg>`}
 async function authGo(){if(AUTH.busy)return;const up=AUTH.tab==='up';const ph=normPhone($('#a-ph').value),pw=$('#a-pw').value;
   const name=up?$('#a-name').value.trim():'',co=up?$('#a-co').value.trim():'';
@@ -996,10 +1001,10 @@ async function enterCloud(){const{data:{session}}=await SB.auth.getSession();con
   else if(error){let c=null;try{c=JSON.parse(localStorage.getItem('asas_c_'+user.id)||'null')}catch(e){}if(c&&c.ME)me=c.ME} // بدون إنترنت: نشتغل من النسخة المحفوظة
   if(!me){if(!error)await SB.auth.signOut().catch(()=>{});AUTH.err=error?'تعذّر الاتصال، حاول مرة ثانية':'هذا الحساب موقوف أو غير مرتبط بمكتب';return go('login')}
   ME=me;MODE='cloud';try{localStorage.removeItem('asas_mode')}catch(e){}
-  load();setCan();go('home');await pull();if(idle())render();push();checkAdmin().then(remind)}
+  load();setCan();go('home');if(bioKey())bioShow();await pull();purgeOld();if(idle())render();push();checkAdmin().then(remind)}
 async function logout(){if(pendingCount()){await push();if(pendingCount())return ask('توجد تعديلات لم تُحفظ على السيرفر بسبب انقطاع الإنترنت، وستضيع عند الخروج. هل تريد الخروج؟','الخروج على أي حال',doLogout)}
   ask('تسجيل خروج من هذا الجهاز؟','تسجيل خروج',doLogout)}
-async function doLogout(){try{localStorage.removeItem(cacheKey())}catch(e){}await SB.auth.signOut().catch(()=>{});MODE='demo';ME=null;S=null;IS_ADMIN=false;ADM.orgs=null;setCan();AUTH={tab:'in',busy:false,err:''};go('login')}
+async function doLogout(){try{localStorage.removeItem(cacheKey())}catch(e){}await SB.auth.signOut().catch(()=>{});MODE='demo';ME=null;S=null;IS_ADMIN=false;ADM.orgs=null;BK.list=null;setCan();AUTH={tab:'in',busy:false,err:''};go('login')}
 
 /* --- الصلاحيات في الواجهة --- */
 const ENDMSG='انتهت الفترة التجريبية. بياناتك محفوظة ويمكنك عرضها وطباعة الكشوف. للاشتراك: '+PLATFORM.phone;
@@ -1023,11 +1028,13 @@ VIEWS.more=()=>{if(MODE!=='cloud')return _more().replace(`onclick="toast('إضا
     ${CAN.admin?li("go('settings')",'🏢','هوية الشركة','الاسم، الشعار، الختم، العنوان، الهاتف'):''}
     ${CAN.admin?li("go('members')",'👷','فريق العمل','أضف مهندساً أو مساعداً وحدّد صلاحيته'):''}
     ${li("go('trash')",'🗑️','سلة المحذوفات',n+' عنصر'+(CAN.del?' قابل للاسترجاع':''))}
-    ${li('backupSheet()','💾','نسخة من بياناتك','تنزيل ملف بكل بياناتك')}
+    ${CAN.admin?li("go('backups')",'💾','النسخ الاحتياطي','نسخ يومية على السيرفر، تنزيل واسترجاع'):li('backupSheet()','💾','نسخة من بياناتك','تنزيل ملف بكل بياناتك')}
+    ${li('bioToggle()','🔐','القفل بالبصمة / Face ID',bioKey()?'مفعّل على هذا الجهاز · اضغط للإلغاء':'غير مفعّل · اضغط للتفعيل')}
     ${IS_ADMIN?li("go('admin')",'🛠️','لوحة إدارة أسس','المكاتب المسجّلة وتفعيل الاشتراكات','hl'):''}
     ${CAN.admin?li('subSheet()','⭐','الاشتراك',subLabel()):''}
    </div>
-   <div class="list">${li('logout()','🚪','تسجيل خروج','من هذا الجهاز فقط')}</div>
+   <button class="btn logout" onclick="logout()">🚪 تسجيل الخروج</button>
+   ${verLine()}
    <p class="note" style="text-align:center">${PLATFORM.footer} · للاشتراك: <span class="num">${PLATFORM.phone}</span></p>
   </div>`};
 const _settings=VIEWS.settings;
@@ -1038,6 +1045,79 @@ backupSheet=function(){if(MODE!=='cloud')return _backup();
   sheet(`<h3>نسخة من بياناتك</h3><p class="note">بياناتك محفوظة على السيرفر تلقائياً. إذا تريد نسخة عندك، نزّل هذا الملف واحفظه.</p>
    <button class="btn" onclick="dlBackup()">⬇️ تنزيل الملف</button><button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)};
 function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='asas-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();toast('تم التنزيل ✓')}
+
+
+/* ===== الإصدار ===== */
+var APP_V='1.4.0',APP_T='2026-11-20 06:10';
+function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
+function verTxt(){const s=window.__verSt;return s==='ok'?'✓ أحدث إصدار':s==='old'?'🔄 يوجد تحديث':''}
+function verLine(){return `<div class="ver">الإصدار <b class="num">${APP_V}</b> · <span class="num">${verDate()}</span> <span id="ver_s" class="vs ${window.__verSt||''}">${verTxt()}</span></div>`}
+async function verCheck(){if(location.protocol!=='https:'||!/github\.io$/.test(location.hostname))return;
+  try{const r=await fetch('./?_='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;const t=await r.text();const m=t.match(/var APP_V='([^']+)'/);
+    window.__verSt=m&&m[1]!==APP_V?'old':'ok';const e=$('#ver_s');if(e){e.textContent=verTxt();e.className='vs '+window.__verSt}
+    if(window.__verSt==='old'&&!$('#verbar')){const b=document.createElement('div');b.id='verbar';b.className='verbar';b.innerHTML='<span>🔄 يتوفر إصدار جديد من أسس</span><button onclick="location.reload()">تحديث الآن</button><button aria-label="لاحقاً" onclick="this.parentNode.remove()">✕</button>';document.body.appendChild(b)}}catch(e){}}
+addEventListener('load',()=>{verCheck();setInterval(verCheck,30*60000)});
+
+/* ===== القفل بالبصمة / Face ID (على هذا الجهاز فقط) ===== */
+function bioKey(){try{return localStorage.getItem('asas_bio')||''}catch(e){return ''}}
+function b2u(b){let s='';new Uint8Array(b).forEach(c=>s+=String.fromCharCode(c));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function u2b(t){t=t.replace(/-/g,'+').replace(/_/g,'/');while(t.length%4)t+='=';const s=atob(t),a=new Uint8Array(s.length);for(let i=0;i<s.length;i++)a[i]=s.charCodeAt(i);return a.buffer}
+async function bioSupported(){try{return !!(window.PublicKeyCredential&&await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable())}catch(e){return false}}
+async function bioToggle(){if(bioKey()){try{localStorage.removeItem('asas_bio')}catch(e){}toast('أُلغي القفل بالبصمة');return render()}
+  if(!(await bioSupported()))return toast('هذا الجهاز أو المتصفح لا يدعم القفل بالبصمة');
+  try{const cred=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{name:'أسس'},
+      user:{id:new TextEncoder().encode(String(ME&&ME.uid||'u')),name:(ME&&ME.phone)||'أسس',displayName:(ME&&ME.name)||'مستخدم'},
+      pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required',residentKey:'preferred'},timeout:60000}});
+    localStorage.setItem('asas_bio',b2u(cred.rawId));toast('تم تفعيل القفل بالبصمة ✓');render()}catch(e){toast('لم يتم تفعيل القفل بالبصمة')}}
+async function bioAuth(){await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),allowCredentials:[{type:'public-key',id:u2b(bioKey()),transports:['internal']}],userVerification:'required',timeout:60000}})}
+function bioShow(){if(!bioKey()||MODE!=='cloud'||$('#biolock'))return;const o=document.createElement('div');o.id='biolock';o.className='biolock';
+  o.innerHTML=`<div class="bl-c"><div class="bl-l"><svg viewBox="0 0 512 512" width="96" height="96"><rect width="512" height="512" rx="112" fill="#1E3A66"/><g transform="translate(256 262) scale(1.22) translate(-256 -238)"><path d="M136 300 C136 205 190 150 256 150 C322 150 376 205 376 300 Z" fill="#F5B800"/><path d="M232 152 h48 v148 h-48 Z" fill="#E0A200"/><rect x="238" y="140" width="36" height="24" rx="8" fill="#F5B800"/><rect x="104" y="296" width="304" height="40" rx="20" fill="#F5B800"/><rect x="104" y="318" width="304" height="18" rx="9" fill="#E0A200"/></g></svg></div><h2>أسس مقفل</h2><p>افتح بالبصمة أو Face ID للمتابعة</p><button class="btn y" id="bl_go">🔓 فتح التطبيق</button><div class="bl-m" id="bl_m"></div><button class="btn ghost" id="bl_pw">الدخول بكلمة السر بدلاً من ذلك</button></div>`;
+  document.body.appendChild(o);
+  const go_=async()=>{try{await bioAuth();o.remove()}catch(e){$('#bl_m').textContent='لم يتم التحقق، حاول مرة أخرى.'}};
+  $('#bl_go').onclick=go_;$('#bl_pw').onclick=async()=>{try{localStorage.removeItem('asas_bio')}catch(e){}o.remove();await doLogout()};setTimeout(go_,300)}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)window.__hid=Date.now();else if(bioKey()&&MODE==='cloud'&&Date.now()-(window.__hid||Date.now())>300000)bioShow()});
+
+/* ===== النسخ الاحتياطي ===== */
+const TRASH_DAYS=30;
+function trashLeft(d){const t=Date.parse((d&&d.at)||'');if(!t)return TRASH_DAYS;return Math.max(0,TRASH_DAYS-Math.floor((Date.now()-t)/864e5))}
+function purgeOld(){if(!S)return;let n=0;for(const t of ['clients','projects','entries']){const keep=S[t].filter(r=>!(r.del&&trashLeft(r.del)<=0));n+=S[t].length-keep.length;
+    for(const r of S[t])if(!keep.includes(r)&&BASE[t])delete BASE[t][r.id];S[t]=keep}if(n)save()}
+const BK={list:null,busy:false};
+const BK_KIND={auto:'تلقائية',manual:'يدوية',before_restore:'قبل الاسترجاع'};
+function bkWhen(x){const d=new Date(x);let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
+async function bkLoad(){const{data,error}=await SB.rpc('asas_backup_list',{p_org:ME.org});BK.list=error?[]:data;if(V.v==='backups')render()}
+VIEWS.backups=()=>{if(!BK.list){bkLoad()}const L=BK.list||[];const last=L[0];
+  return `<header class="top short"><div class="hdr"><div><h1>النسخ الاحتياطي</h1><p>${last?'آخر نسخة: <span class="num">'+bkWhen(last.created_at)+'</span>':BK.list?'لا توجد نسخ بعد':'جارٍ التحميل…'}</p></div><button class="back" onclick="go('more')">→</button></div></header>
+  <div class="wrap" style="margin-top:14px">
+   <div class="card" style="padding:14px;line-height:1.9;font-size:14px"><b>كيف تُحفظ بياناتك؟</b><br>
+    ☁️ كل ما تسجّله يُحفظ فوراً على سيرفر أسس، وتبقى نسخة على جهازك للعمل بدون إنترنت.<br>
+    🗓️ تُؤخذ <b>نسخة احتياطية تلقائية يومياً</b> على السيرفر لكل يوم فيه تعديل، وتُحفظ <b class="num">30</b> يوماً.<br>
+    📦 النسخة تشمل: الزبائن، المشاريع، جميع المبالغ وسنداتها، وهوية الشركة.<br>
+    🗑️ ما تحذفه يبقى في السلة <b class="num">30</b> يوماً قابلاً للاسترجاع، ثم يُحذف نهائياً.</div>
+   <div class="row2"><button class="btn y" onclick="bkNow()">💾 نسخة الآن</button><button class="btn ghost" onclick="dlBackup()">⬇️ تنزيل ملف</button></div>
+   <button class="btn ghost" onclick="$('#bk-file').click()">📂 استرجاع من ملف محفوظ</button><input type="file" id="bk-file" accept=".json,application/json" hidden onchange="bkFile(this)">
+   <div class="sec"><h2>النسخ على السيرفر (${L.length})</h2></div>
+   <div class="list">${L.map(b=>`<div class="li"><div class="ic">${b.kind==='auto'?'🗓️':b.kind==='manual'?'💾':'↩️'}</div><div class="mid"><div class="t"><span class="num">${bkWhen(b.created_at)}</span></div><div class="s">${BK_KIND[b.kind]||b.kind} · ${b.counts.clients} زبون · ${b.counts.projects} مشروع · ${b.counts.entries} مبلغ</div></div>
+     <button class="chip n" onclick="bkSheet(${b.id})">خيارات</button></div>`).join('')||`<div class="empty">${BK.list?'لا توجد نسخ بعد. اضغط «نسخة الآن».':'…'}</div>`}</div>
+  </div>`};
+async function bkNow(){if(BK.busy)return;BK.busy=true;await push();const{error}=await SB.rpc('asas_backup_now',{p_org:ME.org,p_kind:'manual'});BK.busy=false;
+  if(error)return toast(/too many/.test(error.message)?'أخذت نسخاً كثيرة خلال ساعة، حاول لاحقاً':'تعذّر أخذ النسخة');toast('تم أخذ نسخة احتياطية ✓');BK.list=null;render()}
+function bkSheet(id){const b=(BK.list||[]).find(x=>x.id===id);sheet(`<h3>نسخة ${esc(bkWhen(b.created_at))}</h3><p class="note" style="margin:0">${BK_KIND[b.kind]} · ${b.counts.clients} زبون · ${b.counts.projects} مشروع · ${b.counts.entries} مبلغ</p>
+  <button class="btn" onclick="bkDl(${id})">⬇️ تنزيل هذه النسخة كملف</button>
+  <button class="btn y" onclick="bkAskRestore(${id})">↩️ استرجاع هذه النسخة</button>
+  <button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)}
+async function bkGet(id){const{data,error}=await SB.rpc('asas_backup_get',{p_org:ME.org,p_id:id});if(error||!data){toast('تعذّر تحميل النسخة');return null}return data}
+function saveFile(name,obj){const b=new Blob([JSON.stringify(obj)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();a.remove()}
+async function bkDl(id){const d=await bkGet(id);if(!d)return;saveFile('asas-backup-'+String(d.at||'').slice(0,10)+'.json',Object.assign({app:'asas'},d));toast('تم التنزيل ✓')}
+function bkAskRestore(id){ask('استرجاع هذه النسخة؟ ستعود البيانات كما كانت وقتها، وما أُضيف بعدها يُنقل إلى السلة. تُؤخذ نسخة من وضعك الحالي قبل الاسترجاع.','استرجاع',async()=>{const d=await bkGet(id);if(d)bkRestore(d)})}
+function bkFile(inp){const f=inp.files&&inp.files[0];inp.value='';if(!f)return;const r=new FileReader();r.onload=()=>{let d=null;try{d=JSON.parse(r.result)}catch(e){}
+  if(d&&d.v===1&&Array.isArray(d.clients)&&Array.isArray(d.projects)&&Array.isArray(d.entries)){d={co:d.co,clients:d.clients,projects:d.projects,entries:d.entries}}else d=null;
+  if(!d)return toast('الملف غير صالح');ask('استرجاع البيانات من هذا الملف؟ ما ليس في الملف يُنقل إلى السلة، وتُؤخذ نسخة من وضعك الحالي قبل الاسترجاع.','استرجاع',()=>bkRestore(d))};r.readAsText(f)}
+async function bkRestore(d){toast('جارٍ الاسترجاع…');await push();const{error}=await SB.rpc('asas_backup_now',{p_org:ME.org,p_kind:'before_restore'});if(error)return toast('تعذّر أخذ نسخة قبل الاسترجاع، لم يتغيّر شيء');
+  const by=S.me||'استرجاع';for(const t of ['clients','projects','entries']){const src=(d[t]||[]).filter(x=>x&&x.id);const ids=new Set(src.map(x=>x.id));
+    for(const r of S[t])if(!ids.has(r.id)&&!r.del)r.del={at:today(),by:'استرجاع نسخة'};
+    for(const x of src){const i=S[t].findIndex(r=>r.id===x.id);if(i>=0)S[t][i]=JSON.parse(JSON.stringify(x));else S[t].push(JSON.parse(JSON.stringify(x)))}}
+  if(d.co&&CAN.admin)S.co=Object.assign({},S.co,d.co);save();await push();BK.list=null;go('home');toast(pendingCount()?'استُرجعت النسخة وستُحفظ على السيرفر عند توفر الإنترنت':'تم استرجاع النسخة ✓')}
 
 /* --- المساعدون --- */
 VIEWS.members=()=>`<header class="top short"><div class="hdr"><div><h1>فريق العمل</h1><p id="seatinfo">${esc(seatInfo())}</p></div><button class="back" onclick="go('more')">→</button></div></header>
@@ -1128,7 +1208,7 @@ VIEWS.admin=()=>{if(!ADM.orgs){admLoad();return `<header class="top short"><div 
    <div class="cats">${tab('all','الكل')}${tab('trial','تجريبي')}${tab('paid','مشترك')}${tab('end','منتهي')}</div>
    <div class="fld"><div class="bx"><label for="adm-q">بحث بالاسم أو الرقم</label><input id="adm-q" value="${esc(ADM.q)}" oninput="ADM.q=this.value;clearTimeout(ADM.t);ADM.t=setTimeout(()=>{render();const i=$('#adm-q');i.focus();i.setSelectionRange(i.value.length,i.value.length)},300)"></div></div>
    <div class="list">${list.map(o=>{const[st,c]=admState(o);return `<button class="li" onclick="admSheet('${o.id}')"><div class="ic">🏢</div><div class="mid"><div class="t">${esc(o.name)}</div>
-     <div class="s">${esc(o.owner)} · <span class="num">${esc(o.phone)}</span> · ${o.entries} مبلغ · ${o.members} ${o.members===1?'مستخدم':'مستخدمين'}</div></div><span class="chip ${c}">${st}</span></button>`}).join('')||'<div class="empty">لا توجد نتائج</div>'}</div>
+     <div class="s">${esc(o.owner)} · <span class="num">${esc(o.phone)}</span> · ${o.entries} مبلغ · ${o.members} ${o.members===1?'مستخدم':'مستخدمين'}<br>💾 ${o.last_backup?'آخر نسخة <span class="num">'+bkWhen(o.last_backup).split(' · ')[0]+'</span> · '+o.backups+' نسخة':'<span style="color:var(--red)">لا توجد نسخة احتياطية</span>'}</div></div><span class="chip ${c}">${st}</span></button>`}).join('')||'<div class="empty">لا توجد نتائج</div>'}</div>
    <button class="btn ghost" onclick="ADM.orgs=null;render()">↻ تحديث</button>
   </div>`};
 const APP_URL='https://awdxawdx2468-ui.github.io/asas/';
