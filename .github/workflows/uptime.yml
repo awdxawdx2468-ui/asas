@@ -1,0 +1,28 @@
+name: Uptime check
+# كل 30 دقيقة: يفتح موقع أسس وقاعدة البيانات. إذا وقف واحد منهم يوصل تنبيه تيليجرام/واتساب (عند تغيّر الحالة فقط).
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      FN: https://nlwlopwewqebdawkgtbk.supabase.co/functions/v1/asas-offsite
+    steps:
+      - name: Check app and database
+        run: |
+          D=""
+          curl -sf -m 20 -o /dev/null https://awdxawdx2468-ui.github.io/asas/ || D="الموقع لا يفتح. "
+          C=$(curl -s -m 20 -o /dev/null -w '%{http_code}' https://nlwlopwewqebdawkgtbk.supabase.co/auth/v1/health)
+          [ "$C" = 200 ] || [ "$C" = 401 ] || D="${D}قاعدة البيانات لا ترد ($C)."
+          OK=$([ -z "$D" ] && echo true || echo false)
+          TOK=$(curl -sf -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=asas-backup" | jq -r .value)
+          echo "::add-mask::$TOK"
+          curl -s -X POST -H "x-gh-oidc: $TOK" -H "Content-Type: application/json" \
+            -d "$(jq -nc --argjson ok $OK --arg d "$D" '{action:"uptime",ok:$ok,detail:$d}')" "$FN" || true
+          [ "$OK" = true ]
