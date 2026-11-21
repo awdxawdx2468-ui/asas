@@ -736,6 +736,12 @@ details.stopt summary{cursor:pointer;list-style:none}details.stopt summary::-web
 .htsh .tot b.g{color:var(--green)}.htsh .tot b.r{color:var(--red)}
 .htsh .list{box-shadow:none;border:1px solid var(--line);max-height:52vh;overflow:auto}
 .htsh .eq{font-size:13px;color:var(--mut);margin-top:4px}
+.top.hth{padding-bottom:24px}
+.wrap.htw{margin-top:16px}
+.htsh .hteq .li{cursor:pointer}.htsh .hteq .li.tl{background:var(--soft);cursor:default}
+.htsh .hteq .t{font-weight:800}.htsh .b.r,.htsh b.r{color:var(--red)}
+.htsh .li-more{color:var(--mut);font-size:18px;margin-right:4px}
+.htt .s{line-height:1.5}
 
 </style>
 
@@ -910,7 +916,7 @@ VIEWS.home=()=>{const t=cashTotals();const ps=activeProjects();
     <div><h1>${esc(S.co.short||S.co.name)}</h1><p>${greet} ${esc(S.me)}</p></div>
     <button class="ib" aria-label="التنبيهات" onclick="toast('لا توجد تنبيهات جديدة')">${IC.bell}</button></div></header>
   <div class="wrap pull">
-   <section class="card cash"><div class="lbl">المبلغ الموجود في الصندوق الآن</div>
+   <section class="card cash"><div class="lbl">المبلغ الموجود في القاصة الآن</div>
      <div class="big"><span class="amt ${t.cash<0?'neg':''}">${sfmt(t.cash)}</span><small>د.ع</small></div>
      <div class="duo"><div class="mini"><span>صرف هذا الشهر</span><b class="amt">${fmt(t.mon)}</b></div>
      <div class="mini"><span>أتعابي من كل المشاريع</span><b class="amt">${fmt(t.fees)}</b></div></div></section>
@@ -988,7 +994,7 @@ VIEWS.entry=(a={})=>{
     if(ex)F.catSet=true}
   const isIn=F.kind==='in';const ps=live(S.projects).filter(p=>!p.done||p.id===F.pid);
   if(!ps.length)return `<header class="top short"><div class="hdr"><div><h1>إضافة مبلغ</h1></div><button class="back" onclick="go('home')">→</button></div></header><div class="wrap" style="margin-top:14px"><div class="card empty">أضف زبوناً ومشروعاً أولاً<br><br><button class="btn sm y" onclick="clientSheet()">+ زبون جديد</button></div></div>`;
-  return `<header class="top short"><div class="hdr"><div><h1>${F.id?'تعديل مبلغ '+esc(F.no||''):'إضافة مبلغ'}</h1><p>يُسجَّل في يومية الصندوق</p></div><button class="back" aria-label="رجوع" onclick="history.length&&V.a&&V.a.pid?go('project',V.a.pid):go('home')">→</button></div>
+  return `<header class="top short"><div class="hdr"><div><h1>${F.id?'تعديل مبلغ '+esc(F.no||''):'إضافة مبلغ'}</h1><p>يُسجَّل في يومية القاصة</p></div><button class="back" aria-label="رجوع" onclick="history.length&&V.a&&V.a.pid?go('project',V.a.pid):go('home')">→</button></div>
    <div class="seg"><button class="${isIn?'on in':''}" onclick="setKind('in')">مقبوض</button><button class="${!isIn?'on out':''}" onclick="setKind('out')">مدفوع</button></div></header>
   <div class="wrap" style="margin-top:14px">
    <div class="card amtcard"><label for="f-amt">المبلغ</label>
@@ -1011,7 +1017,7 @@ VIEWS.entry=(a={})=>{
     <div class="fld"><div class="bx"><label for="f-dt">المستند (نوعه ورقمه)</label>
      <div style="display:flex;gap:6px"><select id="f-dt" style="width:auto">${DOCTYPES.map(d=>`<option ${d===F.docType?'selected':''}>${d}</option>`).join('')}</select>
      <input id="f-dn" class="num" inputmode="numeric" value="${esc(F.docNo)}" placeholder="رقم" style="text-align:right"></div></div></div></div>
-   <div class="fld"><div class="ic">💼</div><div class="bx"><label for="f-src">${isIn?'استُلم إلى':'دُفع من'}</label><select id="f-src"><option ${F.src==='الصندوق'?'selected':''}>الصندوق</option><option ${F.src==='حساب المصرف'?'selected':''}>حساب المصرف</option></select></div><span class="mut">▾</span></div>
+   <div class="fld"><div class="ic">💼</div><div class="bx"><label for="f-src">${isIn?'استُلم إلى':'دُفع من'}</label><select id="f-src"><option value="الصندوق" ${F.src==='الصندوق'?'selected':''}>القاصة</option><option ${F.src==='حساب المصرف'?'selected':''}>حساب المصرف</option></select></div><span class="mut">▾</span></div>
    ${isIn?`<div class="fld"><div class="ic">🙋</div><div class="bx"><label for="f-rcv">المستلم (من استلم المبلغ)</label><input id="f-rcv" value="${esc(F.rcv||S.me||'')}"></div></div>`:''}
    <div class="fld"><div class="ic">🗒️</div><div class="bx"><label for="f-note">ملاحظات</label><input id="f-note" value="${esc(F.note||'')}" placeholder="اختياري"></div></div>
    <label class="photo" for="f-att">${F.att?`<img ${String(F.att).startsWith('sb:')?'data-sb="'+esc(F.att.slice(3))+'" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" style="min-height:80px;background:var(--soft)"':'src="'+F.att+'"'} alt="صورة المستند">${MODE==='cloud'&&String(F.att).startsWith('data:')&&F.id?'<span class="pend ph">📷 الصورة محفوظة على جهازك وتُرفع فور عودة الاتصال</span>':''}تغيير الصورة`:'📷 صوّر الفاتورة (اختياري)'}</label>
@@ -1062,7 +1068,7 @@ function entryDel(){ask('نقل هذا المبلغ إلى سلة المحذوف
 
 /* ---- الكشوف ---- */
 VIEWS.reports=()=>{const ps=activeProjects();const dps=doneProjects();
-  return `<header class="top short"><div class="hdr"><div><h1>الكشوف</h1><p>كشوف الحساب ويومية الصندوق</p></div></div></header>
+  return `<header class="top short"><div class="hdr"><div><h1>الكشوف</h1><p>كشوف الحساب ويومية القاصة</p></div></div></header>
   <div class="wrap" style="margin-top:14px">
    <div class="sec"><h2>كشوف الزبائن</h2></div>
    <div class="list">${ps.map(p=>{const c=C(p.cid)||{};const k=calc(p);return `<button class="li" onclick="showStatement('${p.id}')"><div class="dot" style="background:#E7ECF4;color:var(--navy)">📄</div><div class="mid"><div class="t">${esc(c.name)} · ${esc(p.name)}</div><div class="s">${k.es.length} حركة · الرصيد <span class="num">${sfmt(k.bal)}</span></div></div><span class="chip n">عرض</span></button>`}).join('')}</div>
@@ -1073,7 +1079,7 @@ VIEWS.reports=()=>{const ps=activeProjects();const dps=doneProjects();
     <div class="dpw"><label>الشهر</label>${dpk('mr-m',today().slice(0,7),'m')}</div>
     <div class="quick"><button onclick="dpkPut('mr-m',today().slice(0,7))">هذا الشهر</button><button onclick="dpkPut('mr-m',prevYm(today().slice(0,7)))">الشهر الماضي</button></div>
     <button class="btn" onclick="showMonthly($('#mr-m').value.trim())">📊 عرض التقرير الشهري</button></div>
-   <div class="sec"><h2>سجل يومية الصندوق</h2></div>
+   <div class="sec"><h2>سجل يومية القاصة</h2></div>
    <div class="card" style="display:flex;flex-direction:column;gap:10px">
     <div class="dpw"><label>من</label>${dpk('cb-from',today().slice(0,7)+'-01')}</div>
     <div class="dpw"><label>إلى</label>${dpk('cb-to',today())}</div>
@@ -1438,14 +1444,14 @@ function showCashbook(from,to){if(!okDate(from)||!okDate(to))return toast('اخ�
   const all=live(S.entries).filter(e=>((P(e.pid)&&!P(e.pid).del)||e.pid==='office')&&!e.cu).map(e=>e.kind==='cg'||e.kind==='cr'?Object.assign({},e,{kind:e.kind==='cr'?'in':'out',party:tmName(e.cu),det:e.kind==='cg'?'عهدة إلى '+tmName(e.cu):'إرجاع عهدة من '+tmName(e.cu),docType:'دون مستند'}):e).sort((a,b)=>a.date.localeCompare(b.date)||a.ts-b.ts);
   let open=0;for(const e of all)if(e.date<from)open+=e.kind==='in'?e.amt:-e.amt;
   const rows=all.filter(e=>e.date>=from&&e.date<=to);let bal=open,ti=0,to2=0;
-  const html=docHead('سجل يومية الصندوق',`من <span class="num">${from}</span> إلى <span class="num">${to}</span>`)+`<div class="st-b">
+  const html=docHead('سجل يومية القاصة',`من <span class="num">${from}</span> إلى <span class="num">${to}</span>`)+`<div class="st-b">
    <table class="t cb"><thead><tr><th>ت</th><th class="n">مقبوضات</th><th class="n">مدفوعات</th><th>المقبوض منه / المدفوع له</th><th>البيان</th><th>المستند</th><th>التاريخ</th><th>المشروع</th><th class="n">الرصيد</th></tr></thead><tbody>
    <tr><td></td><td></td><td></td><td colspan="5"><b>رصيد أول المدة</b></td><td class="n"><b>${sfmt(open)}</b></td></tr>
    ${rows.map((e,i)=>{if(e.kind==='in'){bal+=e.amt;ti+=e.amt}else{bal-=e.amt;to2+=e.amt}const p=P(e.pid),c=p?(C(p.cid)||{}):{name:'المكتب'};
      return `<tr><td>${i+1}</td><td class="n g">${e.kind==='in'?fmt(e.amt):''}</td><td class="n r">${e.kind==='out'?fmt(e.amt):''}</td><td>${esc(e.party)}</td><td>${esc(e.det)}${e.note?` <span class="mut">(${esc(e.note)})</span>`:''}</td><td>${e.docType==='دون مستند'?'—':esc(e.docType)+' <span class="num">'+esc(e.docNo||e.no)+'</span>'}</td><td class="num">${e.date}</td><td>${esc(c.name)}</td><td class="n">${sfmt(bal)}</td></tr>`}).join('')}
    <tr class="tot keep"><td>المجموع</td><td class="n">${fmt(ti)}</td><td class="n">${fmt(to2)}</td><td colspan="5">رصيد آخر المدة</td><td class="n">${sfmt(bal)}</td></tr></tbody></table>
 </div>`;
-  docOpen('سجل يومية الصندوق',html,{no:from+' / '+to,who:S.co.short||'',sigs:['المحاسب','المهندس','المدقق']})}
+  docOpen('سجل يومية القاصة',html,{no:from+' / '+to,who:S.co.short||'',sigs:['المحاسب','المهندس','المدقق']})}
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" crossorigin="anonymous"></script>
@@ -1662,9 +1668,10 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.3',APP_T='2026-11-22 00:00';
+var APP_V='1.9.4',APP_T='2026-11-22 02:30';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='الرئيسية أوضح: القاصة في الأعلى، ثم ستة مربعات (المستلم من الزبائن، مصاريف الزبائن، أتعابي، مصاريف المكتب، صافيي، العهدة لدى الموظفين) تُفتح تفاصيلها عند الضغط|زر «✔ إنهاء المشروع»: يبيّن الرصيد الباقي قبل الإنهاء، وينقل المشروع إلى «المشاريع المنتهية» التي لا تُحسب ضمن حد الباقة، مع الكشف النهائي وزر «إعادة فتح»|دعوة المهندس أو المساعد برابط واتساب: يختار كلمة المرور بنفسه، وتحدد له المسمى والصلاحيات والمشاريع|كل نصوص التطبيق صارت بالفصحى|إصلاح تكرار نافذة «جديد في النظام» للمدير';
+var APP_NEWS='أصبح مستطيل القاصة تحت الشريط العلوي بالكامل|مربع «أتعابي» يبيّن طريقة الحساب، مثل: 10% من المستلم|كل المربعات في الرئيسية تفتح تفاصيلها عند الضغط، ومنها صافيي وعهدة الموظفين|كلمة «القاصة» بدل «الصندوق» في كل التطبيق';
+var APP_NEWS_193='الرئيسية أوضح: القاصة في الأعلى، ثم ستة مربعات (المستلم من الزبائن، مصاريف الزبائن، أتعابي، مصاريف المكتب، صافيي، العهدة لدى الموظفين) تُفتح تفاصيلها عند الضغط|زر «✔ إنهاء المشروع»: يبيّن الرصيد الباقي قبل الإنهاء، وينقل المشروع إلى «المشاريع المنتهية» التي لا تُحسب ضمن حد الباقة، مع الكشف النهائي وزر «إعادة فتح»|دعوة المهندس أو المساعد برابط واتساب: يختار كلمة المرور بنفسه، وتحدد له المسمى والصلاحيات والمشاريع|كل نصوص التطبيق صارت بالفصحى|إصلاح تكرار نافذة «جديد في النظام» للمدير';
 var APP_NEWS_192='أصبحت شاشة «صافيي» أوضح: الصافي في الأعلى مع أتعابي والمصاريف، وتختار الشهر أو السنة أو أي فترة من زر صغير|مربع المصاريف بكل تفاصيلها، ومربع أتعابي يبيّن كيف احتُسبت الأتعاب من كل دفعة';
 var APP_NEWS_191='شاشة «صافيي»: أتعابك مطروحاً منها مصاريف المكتب، لشهر أو سنة أو أي فترة، وأين صرفت، وكشف أرباح للطباعة|الموظفون والعهدة: تحدد لكل موظف مشاريعه، وتعطيه مبلغاً وتشاهد كم صرف وأين وكم المتبقي لديه، مع كشف عهدة|يشاهد الموظف مشاريعه فقط، ويصرف على المشروع أو على المكتب، ويعدّل صرفه في اليوم نفسه فقط|أصبحت الأشهر أرقاماً في كل التطبيق';
 var APP_NEWS_190='تحسينات بالسرعة والثبات';
@@ -1672,7 +1679,8 @@ var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة 
 var APP_NEWS_188='أصبحت الطباعة ملف PDF بحجم A4 كامل وبدقة عالية، ترسله إلى الطابعة أو إلى أي شخص عبر الواتساب|الوصل: النسختان في ورقة واحدة، والختم والتوقيع مرتبان|لا يوجد قص في الحواف ولا ورقة زائدة في الطباعة';
 var APP_NEWS_186='اضغط على أي حركة في المشروع لتعديلها أو حذفها|الحذف يطلب تأكيداً، والمحذوف ينتقل إلى سلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً|أصبح حذف الزبون أو المشروع يطلب تأكيداً، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.3',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.4',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.3',d:'2026-11-22',n:APP_NEWS_193.split('|')},
  {v:'1.9.2',d:'2026-11-21',n:APP_NEWS_192.split('|')},
  {v:'1.9.1',d:'2026-11-21',n:APP_NEWS_191.split('|')},
  {v:'1.9.0',d:'2026-11-21',n:APP_NEWS_190.split('|')},
@@ -2907,7 +2915,7 @@ function custMenu(id){const e=S.entries.find(x=>x.id===id);if(!e)return;
    <button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)}
 function custSheet(u,kind){const c=custOf(u),nm=tmName(u);
   sheet(`<h3>${kind==='cg'?'أعطيت '+esc(nm)+' مبلغ':'استلمت من '+esc(nm)}</h3>
-   <p class="note">${kind==='cg'?'يخرج المبلغ من الصندوق ويصبح بعهدة الموظف. لا يُحسب مصروفاً، فالمصروف هو ما يصرفه الموظف.':'يعود المبلغ إلى الصندوق ويُخصم مما لديه.'} المتبقي لديه الآن: <b class="num">${sfmt(c.left)}</b> د.ع</p>
+   <p class="note">${kind==='cg'?'يخرج المبلغ من القاصة ويصبح بعهدة الموظف. لا يُحسب مصروفاً، فالمصروف هو ما يصرفه الموظف.':'يعود المبلغ إلى القاصة ويُخصم مما لديه.'} المتبقي لديه الآن: <b class="num">${sfmt(c.left)}</b> د.ع</p>
    <div class="fld"><div class="bx"><label for="cs-amt">المبلغ (د.ع)</label><input id="cs-amt" class="num" inputmode="numeric" style="text-align:right" oninput="const n=parseAmt(this.value);this.value=n?fmt(n):''"></div></div>
    ${kind==='cr'&&c.left>0?`<div class="quick"><button onclick="$('#cs-amt').value='${fmt(c.left)}'">كل الباقي (${fmt(c.left)})</button></div>`:''}
    <div class="dpw"><label>التاريخ</label>${dpk('cs-date',today())}</div>
@@ -3041,7 +3049,7 @@ const SI_PRESET={
   'فورمن':{add:1,inn:0,del:0,fee:0,st:0,all:0},
   'سكرتير':{add:1,inn:1,del:0,fee:0,st:1,all:1},
   'غيره':{add:1,inn:1,del:0,fee:0,st:1,all:1}};
-const SI_PERMS=[['add','يسجّل ويعدّل المبالغ','مصاريف المشاريع ومصاريف عهدته'],['inn','يستلم مبالغ من الزبائن','يسجّل القبض ويُصدر الوصل'],['del','يحذف','للمهندس فقط'],['fee','يشاهد أتعابي','نسبتي أو مبلغي المقطوع من كل مشروع'],['st','يطبع ويرسل كشوف الزبائن','الكشوف والتقرير الشهري ويومية الصندوق']];
+const SI_PERMS=[['add','يسجّل ويعدّل المبالغ','مصاريف المشاريع ومصاريف عهدته'],['inn','يستلم مبالغ من الزبائن','يسجّل القبض ويُصدر الوصل'],['del','يحذف','للمهندس فقط'],['fee','يشاهد أتعابي','نسبتي أو مبلغي المقطوع من كل مشروع'],['st','يطبع ويرسل كشوف الزبائن','الكشوف والتقرير الشهري ويومية القاصة']];
 let INVITES=[],SI=null;
 const SI_URL=c=>(location.protocol==='https:'&&/github\.io$/.test(location.host)?location.origin+location.pathname.replace(/index\.html$/,''):'https://awdxawdx2468-ui.github.io/asas/')+'?j='+c;
 const siTitleOf=m=>m.title||(m.role==='owner'?'صاحب الحساب':ROLE_N[roleOf(m)]);
@@ -3183,11 +3191,14 @@ function htTiles(){const N=htNums();const am=(v,c)=>`<b class="amt ${c||''}">${s
    <div class="htg">
     ${t(1,"htShow('in')",'المستلم من الزبائن',am(N.inn,'g'),`<span class="num">${N.ins.length}</span> دفعة`)}
     ${t(2,"htShow('out')",'مصاريف الزبائن',am(N.out,'r'),'على مشاريع الزبائن')}
-    ${t(3,"go('team')",'العهدة لدى الموظفين',am(N.cust),N.cn?`لدى <span class="num">${N.cn}</span> موظف · الرصيد الآن`:'الرصيد الآن')}
-    ${t(4,"htShow('fee')",'أتعابي',am(N.R.f),'من المبالغ المستلمة')}
+    ${t(3,"htShow('cust')",'عهدة الموظفين',am(N.cust),N.cn?`لدى <span class="num">${N.cn}</span> موظف · الرصيد الآن`:'الرصيد الآن')}
+    ${t(4,"htShow('fee')",'أتعابي',am(N.R.f),htFeeHow(N.a,N.b))}
     ${t(5,"htShow('off')",'مصاريف المكتب',am(N.R.e,'r'),'تُخصم من الأتعاب')}
-    ${t(6,"go('net')",'صافيي',am(N.R.n,N.R.n<0?'neg':''),'أتعابي − مصاريف المكتب')}
+    ${t(6,"htShow('net')",'صافيي',am(N.R.n,N.R.n<0?'neg':''),'أتعابي − مصاريف المكتب')}
    </div>`}
+function htFeeHow(a,b){const rs=feeRows(a,b);if(!rs.length)return 'لا توجد أتعاب في هذه الفترة';const pr=rs.filter(r=>!r.fixed);const pcs=[...new Set(pr.map(r=>r.pc))];const fx=rs.some(r=>r.fixed);
+  if(pcs.length===1&&!fx)return `<span class="num">${pcs[0]}%</span> من المستلم <span class="num">${fmt(pr.reduce((x,r)=>x+r.e.amt,0))}</span>`;
+  const q=[];if(pcs.length)q.push(pcs.map(x=>'<span class="num">'+x+'%</span>').join(' و ')+' من المستلم');if(fx)q.push('أتعاب مقطوعة');return q.join(' + ')}
 function htShow(k){const N=htNums();const per=npChip();let h='';
   const box=(lbl,v,c)=>`<div class="tot"><span>${lbl}</span><b class="amt ${c||''}">${sfmt(v)} <small>د.ع</small></b></div>`;
   const lst=(rows,empty)=>`<div class="list">${rows||`<div class="empty" style="padding:18px;text-align:center;color:var(--mut)">${empty}</div>`}</div>`;
@@ -3195,9 +3206,18 @@ function htShow(k){const N=htNums();const per=npChip();let h='';
   else if(k==='out')h=`<h3>مصاريف الزبائن</h3><p class="note">${per} · المصاريف المسجّلة على المشاريع، وتظهر في كشف كل زبون</p>${box('المجموع',N.out,'r')}${lst(N.outs.map(entryRow).join(''),'لا توجد مصاريف في هذه الفترة')}`;
   else if(k==='off')h=`<h3>مصاريف المكتب</h3><p class="note">${per} · تُخصم من أتعابك، ولا تظهر للزبون</p>${box('المجموع',N.R.e,'r')}${lst(N.R.ex.map(entryRow).join(''),'لا توجد مصاريف مكتب في هذه الفترة')}<button class="btn" style="margin-top:12px;width:100%" onclick="closeSheet();go('net')">عرض صافيي</button>`;
   else if(k==='fee'){const FR=feeRows(N.a,N.b);h=`<h3>أتعابي</h3><p class="note">${per} · تُحسب من كل دفعة يستلمها المكتب من الزبون</p>${box('المجموع',N.R.f)}${lst(FR.map(r=>{const c=C(r.p.cid)||{};return `<button class="li" onclick="closeSheet();go('project','${r.p.id}')"><div class="dot in">٪</div><div class="mid"><div class="t">${esc(c.name||'')} · ${esc(r.p.name)}</div><div class="s"><span class="num">${r.e.date}</span> · ${r.fixed?'أتعاب مقطوعة':'<span class="num">'+r.pc+'%</span> من دفعة <span class="num">'+fmt(r.e.amt)+'</span>'}</div></div><b class="a amt">${fmt(r.f)}</b></button>`}).join(''),'لا توجد أتعاب في هذه الفترة')}<button class="btn" style="margin-top:12px;width:100%" onclick="closeSheet();go('net')">عرض صافيي</button>`}
+  else if(k==='net'){const R=N.R;h=`<h3>صافيي</h3><p class="note">${per} · ما يبقى لك من أتعابك بعد مصاريف المكتب</p>
+   <div class="list hteq"><button class="li" onclick="htShow('fee')"><div class="mid"><div class="t">أتعابي</div><div class="s">${htFeeHow(N.a,N.b)}</div></div><b class="a amt">${fmt(R.f)}</b><span class="li-more">‹</span></button>
+   <button class="li" onclick="htShow('off')"><div class="mid"><div class="t">− مصاريف المكتب</div><div class="s"><span class="num">${R.ex.length}</span> مصروف</div></div><b class="a amt r">${fmt(R.e)}</b><span class="li-more">‹</span></button>
+   <div class="li tl"><div class="mid"><div class="t">= صافيي</div></div><b class="a amt ${R.n<0?'r':''}">${sfmt(R.n)}</b></div></div>
+   <button class="btn" style="margin-top:12px;width:100%" onclick="closeSheet();go('net')">عرض صافيي لأي فترة</button>`}
+  else if(k==='cust'){if(MODE==='cloud'&&!MEMBERS.length&&!htShow.ld){htShow.ld=1;loadMembers().then(()=>htShow('cust'),()=>{})}
+   const us=[...new Set(live(S.entries).filter(e=>e.cu).map(e=>e.cu))].map(u=>({u,c:custOf(u)})).filter(x=>x.c.L.length).sort((x,y)=>y.c.left-x.c.left);
+   h=`<h3>عهدة الموظفين</h3><p class="note">المبالغ الموجودة الآن لدى الموظفين من أموال القاصة</p>${box('المجموع الآن',N.cust)}${lst(us.map(x=>`<button class="li" onclick="closeSheet();go('staff','${x.u}')"><div class="dot cg">${esc((tmName(x.u)||'?').trim()[0])}</div><div class="mid"><div class="t">${esc(tmName(x.u))}</div><div class="s">استلم <span class="num">${fmt(x.c.g+x.c.col)}</span> · صرف <span class="num">${fmt(x.c.sp)}</span>${x.c.r?' · أرجع <span class="num">'+fmt(x.c.r)+'</span>':''}</div></div><b class="a amt">${sfmt(x.c.left)}</b><span class="li-more">‹</span></button>`).join(''),'لا توجد عهدة لدى أي موظف')}
+   <button class="btn" style="margin-top:12px;width:100%" onclick="closeSheet();go('team')">الموظفون والعهدة</button>`}
   sheet(`<div class="htsh">${h}</div>`)}
 const _homeHT=VIEWS.home;VIEWS.home=a=>{let h=_homeHT(a);if(AS||!CAN.admin)return h;
-  h=h.replace('<section class="card cash">','<section class="card cash htc">').replace(/<div class="duo"><div class="mini"><span>صرف هذا الشهر[\s\S]*?<\/div><\/div><\/section>/,'</section>');
+  h=h.replace('<header class="top">','<header class="top hth">').replace('<div class="wrap pull">','<div class="wrap htw">').replace('<section class="card cash">','<section class="card cash htc">').replace(/<div class="duo"><div class="mini"><span>صرف هذا الشهر[\s\S]*?<\/div><\/div><\/section>/,'</section>');
   h=h.replace(/<button class="card nfmini" onclick="NP\.k='m'[\s\S]*?<\/button>\s*(?=<div class="sec"><h2>مشاريع زبائنك)/,'');
   const A='<span>صرفت مبلغ</span><i>↑</i></button></div>';h=h.includes(A)?h.replace(A,A+'\n   '+htTiles()):h.replace('<div class="sec"><h2>مشاريع زبائنك</h2>',htTiles()+'\n   <div class="sec"><h2>مشاريع زبائنك</h2>');
   return h};
