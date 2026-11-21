@@ -522,6 +522,12 @@ details.stopt summary{cursor:pointer;list-style:none}details.stopt summary::-web
 .aacts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.aacts button{border:1px solid var(--line);background:var(--card);color:var(--navy);border-radius:14px;padding:12px 6px;font:inherit;font-weight:800;font-size:14px;line-height:1.5;cursor:pointer}.aacts button.bad{background:var(--red);border-color:var(--red);color:#fff}.aacts button.ok{background:var(--green);border-color:var(--green);color:#fff}.aacts button:disabled{opacity:.35}
 .adel{border:0;background:#FDECEC;color:#B42318;border-radius:14px;padding:12px;font:inherit;font-weight:800;font-size:15px;cursor:pointer}
 .pwbox{font-size:40px;font-weight:800;letter-spacing:8px;text-align:center;background:var(--cream);color:var(--navy);border-radius:16px;padding:16px}
+/* الوصل: النسختين بورقة A4 وحدة حتى لو الطابعة/الآيفون يضيف هوامش */
+.rch{height:472px;padding:16px 26px 6px}.rch .rc-mid{padding-top:8px}.rch .rr{padding:3px 0}.rch .rc-dec{margin-top:auto;margin-bottom:auto;padding:6px 12px;line-height:1.7}.rch .rc-sig{padding-top:66px;margin-top:0}.rch .rc-sig .stamp{top:-63px}
+.rccut{height:22px;margin:0 20px}.rccut span{margin-top:-22px}
+@media print{html,body{height:auto!important;min-height:0!important}body:has(#doc.show) #app,body:has(#doc.show) .tabbar,body:has(#doc.show) #layer{display:none!important}#doc{position:static!important}.book .apage.rcpage{height:auto!important;overflow:visible;break-inside:avoid;page-break-inside:avoid}}
+/* كل الأوراق المطبوعة: تصغير بسيط حتى ما تنقص الحواف مع هوامش الآيفون والطابعات */
+@media print{.pscale .book{zoom:.84;margin:0 auto!important;width:794px!important}}
 </style>
 
 <div id="app"></div>
@@ -978,7 +984,7 @@ async function payReqSend(pid){const p=P(pid),c=C(p.cid)||{};
 async function shareView(t){$('#app').innerHTML=`<div class="vfy"><div class="vf-c"><div class="vf-h">${helmet(44)}<b>أسس</b><span>كشف حساب</span></div><div class="vf-b">جارٍ التحميل…</div></div></div>`;
   let d=null;try{const r=await SB.rpc('asas_share_get',{p_token:t});d=r.data}catch(e){}
   if(!d||!d.ok){$('.vf-b').innerHTML='<div class="vf-st bad">✕ الرابط غير صحيح أو انتهى</div>';return}
-  const D=$('#doc');D.innerHTML=`<div class="docbar shbar"><b>${esc(d.title||'كشف')}<span class="shsub">من ${esc(d.eng||d.office||'')} · <span class="num">${esc(d.phone||'')}</span></span></b><button class="y" onclick="doPrint()">طباعة / PDF</button></div><div class="paperwrap"><div class="pscale" id="pscale"><div class="book" id="paper">${d.html}</div></div></div>`;
+  const D=$('#doc');D.innerHTML=`<div class="docbar shbar"><b>${esc(d.title||'كشف')}<span class="shsub">من ${esc(d.eng||d.office||'')} · <span class="num">${esc(d.phone||'')}</span></span></b><button class="y" onclick="doPrint()">🖨️ طباعة / PDF</button></div><div class="paperwrap"><div class="pscale" id="pscale"><div class="book" id="paper">${d.html}</div></div></div>`;
   D.classList.add('show');$('#app').innerHTML='';fitPaper()}
 function rcptSheet(id,fresh){const e=S.entries.find(x=>x.id===id);if(!e)return;
   if(!noFixed(e))return sheet(`<h3>${fresh?'✓ تم تسجيل الاستلام':'وصل الاستلام'}</h3><div class="rcbox"><b class="num">${fmt(e.amt)} د.ع</b><div>⏳ محفوظ على جهازك وبانتظار الإنترنت</div></div><p class="mut" style="text-align:center;margin:6px 0 12px">الوصل ورقمه يجهزون أول ما ينحفظ المبلغ على السيرفر، وتگدر ترسله للزبون وقتها.</p><button class="btn y" onclick="closeSheet()">تمام</button>`);const c=C((P(e.pid)||{}).cid)||{};
@@ -1003,7 +1009,7 @@ function rcHalf(e,copy){const p=P(e.pid)||{},c=C(p.cid)||{},co=S.co;const b=balA
    <div class="rc-ft"><span>${esc(co.short||co.name||'')}${co.city?' · '+esc(co.city):''}</span><span>${PLATFORM.footer} · للاشتراك: <span class="num">${PLATFORM.phone}</span></span></div></section>`}
 async function showReceipt(id){const e=S.entries.find(x=>x.id===id);if(!e)return;
   const d=$('#doc');DOCMETA={title:'وصل استلام '+(e.no||''),no:e.no||'',ref:rcptRef(e),date:e.date};
-  d.innerHTML=`<div class="docbar"><button onclick="docClose()">→ رجوع</button><b>وصل استلام ${esc(e.no||'')} <span class="pages">نسختان بورقة A4 · كل نسخة A5</span></b><button class="y" onclick="doPrint()">طباعة / PDF</button></div><div class="paperwrap"><div class="pscale" id="pscale"><div class="book" id="paper"><div class="paper apage rcpage">${rcHalf(e,'نسخة الزبون')}<div class="rccut"><span>✂ قص هنا</span></div>${rcHalf(e,'نسخة المكتب')}</div></div></div></div>`;
+  d.innerHTML=`<div class="docbar"><button onclick="docClose()">→ رجوع</button><b>وصل استلام ${esc(e.no||'')} <span class="pages">نسختان بورقة A4 · كل نسخة A5</span></b><button class="y" onclick="doPrint()">🖨️ طباعة / PDF</button></div><div class="paperwrap"><div class="pscale" id="pscale"><div class="book" id="paper"><div class="paper apage rcpage">${rcHalf(e,'نسخة الزبون')}<div class="rccut"><span>✂ قص هنا</span></div>${rcHalf(e,'نسخة المكتب')}</div></div></div></div>`;
   d.classList.add('show');d.scrollTop=0;fitPaper();
   if(rcptUrl(e)){await loadQR();if(window.qrcode)document.querySelectorAll('#doc [data-qr]').forEach(x=>x.innerHTML=qrSvg(x.dataset.qr))}}
 
@@ -1026,7 +1032,7 @@ function hashCode(str){let h=5381;for(let i=0;i<str.length;i++)h=((h<<5)+h+str.c
 let DOCMETA={};
 function docOpen(title,html,meta={}){const d=$('#doc');const ref=hashCode(html);html=html.split('%REF%').join(ref);
   DOCMETA=Object.assign({title,ref,no:'',date:today(),who:''},meta,{ref});
-  d.innerHTML=`<div class="docbar"><button onclick="docClose()">→ رجوع</button><b>${esc(title)} <span class="pages" id="pages"></span></b><button class="y" onclick="doPrint()">طباعة / PDF</button></div><div class="paperwrap"><div class="pscale" id="pscale"><div class="book" id="paper"></div></div></div><div class="paper measure" id="measure">${html}</div>`;
+  d.innerHTML=`<div class="docbar"><button onclick="docClose()">→ رجوع</button><b>${esc(title)} <span class="pages" id="pages"></span></b><button class="y" onclick="doPrint()">🖨️ طباعة / PDF</button></div><div class="paperwrap"><div class="pscale" id="pscale"><div class="book" id="paper"></div></div></div><div class="paper measure" id="measure">${html}</div>`;
   d.classList.add('show');d.scrollTop=0;paginate($('#measure'),$('#paper'));$('#measure').remove();fitPaper();
   if(meta.pid&&!REQ)$('#doc .docbar').insertAdjacentHTML('beforeend',`<button class="wa" onclick="stSend('${meta.pid}')">💬 إرسال للزبون</button>`)}
 async function stSend(pid){const p=P(pid),c=C(p.cid)||{},k=calc(p);
@@ -1423,12 +1429,13 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.8.7',APP_T='2026-11-21 00:35';
+var APP_V='1.8.8',APP_T='2026-11-21 11:45';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='تحسينات بإدارة الاشتراكات وحالة الحساب';
+var APP_NEWS='الطباعة صارت ملف PDF بحجم A4 كامل وبدقة عالية، ترسله للطابعة أو لأي شخص بالواتساب|الوصل: النسختين بورقة وحدة، والختم والتوقيع مرتبين|ما أكو قص بالحواف ولا ورقة زايدة بالطباعة';
 var APP_NEWS_186='اضغط على أي حركة بالمشروع حتى تعدّلها أو تحذفها|الحذف يطلب تأكيد، والمحذوف يروح لسلة المحذوفات وتكدر ترجعه خلال 30 يوم|حذف الزبون أو المشروع صار يطلب تأكيد، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.8.7',d:'2026-11-21',n:APP_NEWS.split('|')},
+ {v:'1.8.8',d:'2026-11-21',n:APP_NEWS.split('|')},
+ {v:'1.8.7',d:'2026-11-21',n:['تحسينات بإدارة الاشتراكات وحالة الحساب']},
  {v:'1.8.6',d:'2026-11-21',n:APP_NEWS_186.split('|')},
  {v:'1.8.5',d:'2026-11-20',n:['الضغط السريع على الأرقام ما يكبّر الشاشة بعد', 'بالآيفون: الضغط على خانة الكتابة أو التاريخ ما يكبّر الشاشة']},
  {v:'1.8.4',d:'2026-11-20',n:['كل التواريخ صارت اختيار يوم وشهر وسنة بدل الكتابة باليد', 'شاشة اختيار الكشف صارت أرتب: كل دفعة وكل كشف بزر «عرض الكشف» موحّد']},
@@ -2059,6 +2066,47 @@ restore=(function(o){return function(t,id){if(t!=='clients')return o(t,id);const
   save();toast(left?'رجع الزبون ✓ وبقي '+left+' مشروع بالسلة لأن الباقة ممتلئة':'تم الاسترجاع ✓');render()}})(restore);
 VIEWS.project=(function(o){return function(id){let h=o(id);if(CAN.edit&&/class="li"/.test(h))h=h.replace(/(<div class="pj-sec"><h2>الحركات<\/h2>[\s\S]*?<\/div>)/,'$1<p class="emhint">اضغط على أي حركة حتى تعدّلها أو تحذفها</p>');return h}})(VIEWS.project);
 VIEWS.entry=(function(o){return function(a){let h=o(a);if(F&&F.att&&CAN.edit)h=h.replace(/(<input id="f-att"[^>]*>)/,'$1<button class="attdel" onclick="readF();F.att=\'\';render()">🗑️ حذف الصورة</button>');return h}})(VIEWS.entry);
+
+/* ===== v1.8.8: الطباعة مثل مندوبي — التطبيق يصنع ملف PDF بحجم A4 كامل ويرسله للطابعة ===== */
+document.head.insertAdjacentHTML('beforeend','<style>.pdfx .rch{height:549px!important;padding:24px 30px 10px!important}.pdfx .rccut{height:24px!important}.pdfx .rccut span{margin-top:-24px!important}.pdfx *{letter-spacing:0!important}</style>');
+const H2C=['lib/html2canvas.min.js','https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'];
+let PDFF=null,PDFBUSY=false;
+function loadH2C(i=0){return new Promise((ok,no)=>{if(window.html2canvas)return ok();if(i>=H2C.length)return no(new Error('h2c'));const s=document.createElement('script');s.src=H2C[i];s.onload=ok;s.onerror=()=>{s.remove();loadH2C(i+1).then(ok,no)};document.head.appendChild(s)})}
+function pdfName(){const m=(typeof DOCMETA!=='undefined'&&DOCMETA)||{};let t=m.title||($('#doc .docbar b')||{}).firstChild?.textContent||'مستند';t=String(t).trim();
+  if(m.no&&!t.includes(m.no))t+=' '+m.no;return t.replace(/[\\/:*?"<>|]+/g,'-').replace(/\s+/g,' ').trim()+'.pdf'}
+function cvJpeg(cv){const s=atob(cv.toDataURL('image/jpeg',.93).split(',')[1]);const b=new Uint8Array(s.length);for(let i=0;i<s.length;i++)b[i]=s.charCodeAt(i);return{b,w:cv.width,h:cv.height}}
+function buildPdf(imgs){const enc=new TextEncoder(),parts=[],off=[];let len=0;const W=595.28,H=841.89,n=imgs.length;
+  const add=x=>{const b=typeof x==='string'?enc.encode(x):x;parts.push(b);len+=b.length};
+  const obj=(id,a)=>{off[id]=len;add(id+' 0 obj\n');(Array.isArray(a)?a:[a]).forEach(add);add('\nendobj\n')};
+  add('%PDF-1.4\n');add(new Uint8Array([37,226,227,207,211,10]));
+  obj(1,'<</Type/Catalog/Pages 2 0 R>>');
+  obj(2,`<</Type/Pages/Kids[${imgs.map((_,i)=>(3+i*3)+' 0 R').join(' ')}]/Count ${n}>>`);
+  imgs.forEach((im,i)=>{const p=3+i*3;const cs=`q ${W} 0 0 ${H} 0 0 cm /Im0 Do Q`;
+    obj(p,`<</Type/Page/Parent 2 0 R/MediaBox[0 0 ${W} ${H}]/Resources<</XObject<</Im0 ${p+1} 0 R>>>>/Contents ${p+2} 0 R>>`);
+    obj(p+1,[`<</Type/XObject/Subtype/Image/Width ${im.w}/Height ${im.h}/ColorSpace/DeviceRGB/BitsPerComponent 8/Filter/DCTDecode/Length ${im.b.length}>>\nstream\n`,im.b,'\nendstream']);
+    obj(p+2,`<</Length ${cs.length}>>\nstream\n${cs}\nendstream`)});
+  const tot=3+n*3,xr=len;let x=`xref\n0 ${tot}\n0000000000 65535 f \n`;for(let i=1;i<tot;i++)x+=String(off[i]).padStart(10,'0')+' 00000 n \n';
+  add(x+`trailer\n<</Size ${tot}/Root 1 0 R>>\nstartxref\n${xr}\n%%EOF\n`);return new Blob(parts,{type:'application/pdf'})}
+async function pagesToPdf(){await loadH2C();try{await document.fonts.ready}catch(e){}
+  const src=[...document.querySelectorAll('#paper .apage')];if(!src.length)throw new Error('no pages');
+  const box=document.createElement('div');box.className='book pdfx';box.style.cssText='position:absolute;left:-30000px;top:0;width:794px;background:#fff;transform:none';$('#doc').appendChild(box);
+  const imgs=[];try{for(const pg of src){const c=pg.cloneNode(true);c.style.margin='0';c.style.boxShadow='none';c.style.width='794px';c.style.height='1122px';box.appendChild(c);
+      const cv=await html2canvas(c,{scale:3.125,backgroundColor:'#ffffff',useCORS:true,logging:false,width:794,height:1122,windowWidth:794,scrollX:0,scrollY:0});
+      imgs.push(cvJpeg(cv));box.removeChild(c)}}finally{box.remove()}
+  return{blob:buildPdf(imgs),pages:imgs.length}}
+doPrint=async function(){if(PDFBUSY)return;PDFBUSY=true;sheet(`<h3>⏳ جارٍ تجهيز الملف…</h3><p class="note">نصنع ملف PDF بحجم A4 كامل، لحظات.</p>`);
+  try{const r=await pagesToPdf();const name=pdfName();let f=null;try{f=new File([r.blob],name,{type:'application/pdf'})}catch(e){}PDFF={blob:r.blob,f,name,pages:r.pages};pdfSheet()}
+  catch(e){try{logErr&&logErr('pdf',e)}catch(_){}
+    sheet(`<h3>تعذّر تجهيز الملف</h3><p class="note">تأكد من الإنترنت (أول مرة فقط) وحاول مرة ثانية.</p><button class="btn" onclick="closeSheet();doPrint()">🔄 حاول مرة ثانية</button><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
+  finally{PDFBUSY=false}};
+function pdfSheet(){const n=PDFF.pages;sheet(`<h3>✓ الملف جاهز</h3><p class="note"><b>${esc(PDFF.name.replace(/\.pdf$/,''))}</b> <span class="num">(PDF)</span><br>${n===1?'ورقة A4 وحدة':'<span class="num">'+n+'</span> أوراق A4'} · كاملة بدون قص</p>
+  <button class="btn" onclick="pdfShare()">🖨️ إرسال للطابعة / مشاركة</button>
+  <button class="btn ghost" onclick="pdfSave()">💾 حفظ الملف</button>
+  <button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
+async function pdfShare(){if(!PDFF)return;const f=PDFF.f;
+  if(f&&navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:PDFF.name});closeSheet()}catch(e){if(!e||e.name!=='AbortError')pdfSave()}}
+  else pdfSave()}
+function pdfSave(){if(!PDFF)return;const u=URL.createObjectURL(PDFF.blob);const a=document.createElement('a');a.href=u;a.download=PDFF.name;a.target='_blank';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),120000);closeSheet();toast('انحفظ الملف ✓')}
 
 async function boot(){const h=location.hash.slice(1);
   if(HAS_CLOUD){SB=window.supabase.createClient(CLOUD.url,CLOUD.key,{auth:{persistSession:true,autoRefreshToken:true,storageKey:'asas-auth'}});
