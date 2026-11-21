@@ -742,6 +742,8 @@ details.stopt summary{cursor:pointer;list-style:none}details.stopt summary::-web
 .htsh .hteq .t{font-weight:800}.htsh .b.r,.htsh b.r{color:var(--red)}
 .htsh .li-more{color:var(--mut);font-size:18px;margin-right:4px}
 .htt .s{line-height:1.5}
+.htg{grid-auto-rows:1fr}
+.htt{height:100%;box-sizing:border-box}
 
 </style>
 
@@ -1668,9 +1670,10 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.4',APP_T='2026-11-22 02:30';
+var APP_V='1.9.5',APP_T='2026-11-22 02:50';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='أصبح مستطيل القاصة تحت الشريط العلوي بالكامل|مربع «أتعابي» يبيّن طريقة الحساب، مثل: 10% من المستلم|كل المربعات في الرئيسية تفتح تفاصيلها عند الضغط، ومنها صافيي وعهدة الموظفين|كلمة «القاصة» بدل «الصندوق» في كل التطبيق';
+var APP_NEWS='مربعات الرئيسية الستة بطول واحد، وكل مربع يعرض تفاصيله كاملة|نافذة «تم التحديث» تعرض الجديد فقط، والإصدارات السابقة في «المزيد» ← «ما الجديد؟»';
+var APP_NEWS_194='أصبح مستطيل القاصة تحت الشريط العلوي بالكامل|مربع «أتعابي» يبيّن طريقة الحساب، مثل: 10% من المستلم|كل المربعات في الرئيسية تفتح تفاصيلها عند الضغط، ومنها صافيي وعهدة الموظفين|كلمة «القاصة» بدل «الصندوق» في كل التطبيق';
 var APP_NEWS_193='الرئيسية أوضح: القاصة في الأعلى، ثم ستة مربعات (المستلم من الزبائن، مصاريف الزبائن، أتعابي، مصاريف المكتب، صافيي، العهدة لدى الموظفين) تُفتح تفاصيلها عند الضغط|زر «✔ إنهاء المشروع»: يبيّن الرصيد الباقي قبل الإنهاء، وينقل المشروع إلى «المشاريع المنتهية» التي لا تُحسب ضمن حد الباقة، مع الكشف النهائي وزر «إعادة فتح»|دعوة المهندس أو المساعد برابط واتساب: يختار كلمة المرور بنفسه، وتحدد له المسمى والصلاحيات والمشاريع|كل نصوص التطبيق صارت بالفصحى|إصلاح تكرار نافذة «جديد في النظام» للمدير';
 var APP_NEWS_192='أصبحت شاشة «صافيي» أوضح: الصافي في الأعلى مع أتعابي والمصاريف، وتختار الشهر أو السنة أو أي فترة من زر صغير|مربع المصاريف بكل تفاصيلها، ومربع أتعابي يبيّن كيف احتُسبت الأتعاب من كل دفعة';
 var APP_NEWS_191='شاشة «صافيي»: أتعابك مطروحاً منها مصاريف المكتب، لشهر أو سنة أو أي فترة، وأين صرفت، وكشف أرباح للطباعة|الموظفون والعهدة: تحدد لكل موظف مشاريعه، وتعطيه مبلغاً وتشاهد كم صرف وأين وكم المتبقي لديه، مع كشف عهدة|يشاهد الموظف مشاريعه فقط، ويصرف على المشروع أو على المكتب، ويعدّل صرفه في اليوم نفسه فقط|أصبحت الأشهر أرقاماً في كل التطبيق';
@@ -1679,7 +1682,8 @@ var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة 
 var APP_NEWS_188='أصبحت الطباعة ملف PDF بحجم A4 كامل وبدقة عالية، ترسله إلى الطابعة أو إلى أي شخص عبر الواتساب|الوصل: النسختان في ورقة واحدة، والختم والتوقيع مرتبان|لا يوجد قص في الحواف ولا ورقة زائدة في الطباعة';
 var APP_NEWS_186='اضغط على أي حركة في المشروع لتعديلها أو حذفها|الحذف يطلب تأكيداً، والمحذوف ينتقل إلى سلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً|أصبح حذف الزبون أو المشروع يطلب تأكيداً، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.4',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.5',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.4',d:'2026-11-22',n:APP_NEWS_194.split('|')},
  {v:'1.9.3',d:'2026-11-22',n:APP_NEWS_193.split('|')},
  {v:'1.9.2',d:'2026-11-21',n:APP_NEWS_192.split('|')},
  {v:'1.9.1',d:'2026-11-21',n:APP_NEWS_191.split('|')},
@@ -1722,7 +1726,7 @@ async function verUpdate(){const b=$('#verbar');if(b)b.innerHTML='<div class="vb
   if(seen&&seen!==APP_V)setTimeout(()=>{if(!$('#layer').innerHTML)verNews(true)},1800);try{localStorage.setItem('asas_vseen',APP_V)}catch(e){}})();
 function verNews(fresh){const L=fresh?APP_LOG.slice(0,1):APP_LOG;
   sheet(`<h3>${fresh?'✓ تم التحديث إلى الإصدار <span class="num">'+APP_V+'</span>':'📋 ما الجديد في أسس'}</h3>${L.map((x,i)=>`<div class="vn ${i?'':'cur'}"><div class="vn-h"><b>الإصدار <span class="num">${x.v}</span></b><span class="num">${x.d}</span></div><ul>${x.n.map(t=>`<li>${esc(t)}</li>`).join('')}</ul></div>`).join('')}
-   ${fresh?`<button class="btn ghost" onclick="closeSheet();verNews()">كل الإصدارات السابقة</button>`:''}<button class="btn y" onclick="closeSheet()">تمام</button>`)}
+   <button class="btn y" onclick="closeSheet()">تمام</button>`)}
 addEventListener('load',()=>{verCheck();setInterval(verCheck,10*60000)});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')verCheck()});
 
