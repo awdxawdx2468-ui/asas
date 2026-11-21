@@ -1510,13 +1510,15 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.8.9',APP_T='2026-11-21 13:00';
+var APP_V='1.9.0',APP_T='2026-11-21 16:45';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='تجديد الاشتراك أسهل: تختار الباقة والمدة وتشوف المبلغ قبل ما ترسل الوصل|إشعار من الإدارة يظهر لك بأعلى التطبيق عند وجود خبر مهم|تحسينات بالسرعة والثبات';
+var APP_NEWS='تحسينات بالسرعة والثبات';
+var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة والمدة وتشوف المبلغ قبل ما ترسل الوصل|إشعار من الإدارة يظهر لك بأعلى التطبيق عند وجود خبر مهم|تحسينات بالسرعة والثبات';
 var APP_NEWS_188='الطباعة صارت ملف PDF بحجم A4 كامل وبدقة عالية، ترسله للطابعة أو لأي شخص بالواتساب|الوصل: النسختين بورقة وحدة، والختم والتوقيع مرتبين|ما أكو قص بالحواف ولا ورقة زايدة بالطباعة';
 var APP_NEWS_186='اضغط على أي حركة بالمشروع حتى تعدّلها أو تحذفها|الحذف يطلب تأكيد، والمحذوف يروح لسلة المحذوفات وتكدر ترجعه خلال 30 يوم|حذف الزبون أو المشروع صار يطلب تأكيد، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.8.9',d:'2026-11-21',n:APP_NEWS.split('|')},
+ {v:'1.9.0',d:'2026-11-21',n:APP_NEWS.split('|')},
+ {v:'1.8.9',d:'2026-11-21',n:APP_NEWS_189.split('|')},
  {v:'1.8.8',d:'2026-11-21',n:APP_NEWS_188.split('|')},
  {v:'1.8.7',d:'2026-11-21',n:['تحسينات بإدارة الاشتراكات وحالة الحساب']},
  {v:'1.8.6',d:'2026-11-21',n:APP_NEWS_186.split('|')},
@@ -2594,7 +2596,56 @@ async function boot(){const h=location.hash.slice(1);
   else{load();save();setCan();render()}
   if(h.startsWith('st-'))showStatement(h.slice(3));else if(h==='cashbook')showCashbook('2026-06-01',today());
   else if(h.startsWith('v-')){const[v,a]=h.slice(2).split('-');V={v,a:a&&(v==='entry'?{id:S.entries.find(e=>e.pid===a)?.id}:a)};render()}}
+/* إشعار المدير عند فتح النظام: مشتركون جدد، تسجيل دخول، تفعيل، طلبات تجديد (مثل مندوبي) */
+var ADMN={busy:0,t:0,cur:null};
+function admNLs(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){}return null}
+function admNAgo(t){const m=Math.round((Date.now()-Date.parse(t))/6e4);if(!(m>=0))return'';if(m<1)return'هسه';if(m<60)return'قبل '+m+' دقيقة';const h=Math.round(m/60);if(h<24)return'قبل '+h+' ساعة';const d=Math.round(h/24);return d==1?'أمس':'قبل '+d+' يوم'}
+function admNCalc(){
+  const ts=admNLs('asas_adm_seen_ts'),out={su:[],lg:[],ac:[],rq:[],first:!ts};if(!ts)return out;
+  for(const o of (ADM.orgs||[])){
+    if(o.created_at&&o.created_at>ts)out.su.push({o,t:o.created_at});
+    else if(o.last_login&&o.last_login>ts)out.lg.push({o,t:o.last_login});
+    for(const p of (o.payments||[]))if(p.created_at&&p.created_at>ts)out.ac.push({o,t:p.created_at,p});
+    if(o.renew&&!o.suspended_at)out.rq.push({o,t:o.renew});
+  }
+  for(const k of ['su','lg','ac','rq'])out[k].sort((a,b)=>String(b.t).localeCompare(String(a.t)));
+  return out}
+function admNDone(){admNLs('asas_adm_seen_ts',new Date().toISOString());const w=document.getElementById('admNBox');if(w)w.remove()}
+function admNGo(id,tab){admNDone();go('admin');if(id)setTimeout(()=>{if(ADM.orgs&&typeof admSheet==='function')admSheet(id,tab||'info')},120)}
+function admNShow(force){
+  if(!IS_ADMIN||!ADM.orgs||document.getElementById('admNBox'))return;
+  if(!force&&$('#layer')&&$('#layer').innerHTML)return; // نافذة مفتوحة: نأجّل
+  const o=admNCalc();if(o.first){admNDone();return}
+  const L=(x,extra,id,tab)=>`<li onclick="admNGo('${x.o.id}'${tab?`,'${tab}'`:''})"><div><b>${esc(x.o.name||'—')}</b>${x.o.owner?` <small>· ${esc(x.o.owner)}</small>`:''}${extra?`<div class="ax">${extra}</div>`:''}</div><span class="t">${admNAgo(x.t)}</span></li>`;
+  const sec=(ic,tt,arr,f)=>arr.length?`<h4>${ic} ${tt} <span class="n num">${arr.length}</span></h4><ul>${arr.slice(0,8).map(f).join('')}${arr.length>8?`<li class="more" onclick="admNGo()">و ${arr.length-8} غيرهم…</li>`:''}</ul>`:'';
+  let h='';
+  h+=sec('💳','طلب تجديد',o.rq,x=>{const r=typeof renewOf==='function'?renewOf(x.o):null;return L(x,r&&r.plan?`باقة ${esc(r.plan)}${r.months?' · '+moTxt(r.months):''}`:'',x.o.id,'sub')});
+  h+=sec('🆕','مشترك جديد',o.su,x=>L(x,x.o.phone?`<span class="num" dir="ltr">${esc(x.o.phone)}</span>`:''));
+  h+=sec('✅','تفعيل اشتراك',o.ac,x=>L(x,`${esc(x.p.plan||'')}${x.p.months?' · '+moTxt(x.p.months):''}${x.p.amount?' · <span class="num">'+Number(x.p.amount).toLocaleString('en-US')+'</span> د.ع':''}`,x.o.id,'pay'));
+  h+=sec('🔑','سجّل دخول',o.lg,x=>L(x,''));
+  if(!h)return;
+  const w=document.createElement('div');w.id='admNBox';
+  w.innerHTML=`<div class="wnc" role="dialog"><h3>🔔 جديد في النظام</h3><p class="sb">من آخر مرة فتحت الإدارة. اضغط على أي مكتب حتى تفتحه.</p>${h}<div class="admn-b"><button onclick="admNGo()">فتح الإدارة</button><button class="g" onclick="admNDone()">تم</button></div></div>`;
+  w.onclick=e=>{if(e.target===w)admNDone()};
+  document.body.appendChild(w)}
+async function admNLoad(){if(ADMN.busy)return;ADMN.busy=1;ADMN.t=Date.now();try{await admLoad()}catch(e){}ADMN.busy=0;setTimeout(()=>admNShow(),600)}
+(function(){const c0=checkAdmin;checkAdmin=async function(){await c0.apply(this,arguments);if(IS_ADMIN)admNLoad()};
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&IS_ADMIN&&Date.now()-ADMN.t>300000)admNLoad()});
+  setInterval(()=>{if(!document.hidden&&IS_ADMIN&&ADM.orgs&&!document.getElementById('admNBox'))admNShow()},4000)})();
+
 boot();
 </script>
+<style>#admNBox{position:fixed;inset:0;z-index:2147483100;background:rgba(10,20,40,.55);display:grid;place-items:center;padding:20px}
+#admNBox .wnc{background:var(--card,#fff);color:var(--ink,#0f2342);border-radius:20px;padding:18px;max-width:400px;width:100%;max-height:82vh;overflow:auto;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+#admNBox h3{margin:0 0 2px;font-size:18px}#admNBox .sb{margin:0 0 6px;font-size:12.5px;color:#6b7a90}
+#admNBox h4{margin:12px 0 6px;font-size:14.5px;display:flex;align-items:center;gap:6px}
+#admNBox h4 .n{background:var(--navy,#14284b);color:#fff;border-radius:999px;font-size:12px;padding:0 8px;line-height:20px}
+#admNBox ul{list-style:none;margin:0;padding:0}
+#admNBox li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 10px;margin:4px 0;border-radius:12px;background:#f3f6fb;cursor:pointer;font-size:14px}
+#admNBox li:active{background:#e5ecf7}#admNBox li small,#admNBox li .ax{color:#6b7a90;font-size:12.5px;font-weight:400}
+#admNBox li .t{color:#6b7a90;font-size:12px;white-space:nowrap}#admNBox li.more{justify-content:center;color:var(--navy,#14284b);font-weight:700}
+#admNBox .admn-b{display:flex;gap:8px;margin-top:14px}#admNBox .admn-b button{flex:1;padding:12px;border-radius:12px;border:0;background:var(--navy,#14284b);color:#fff;font:700 15px inherit;font-family:inherit}
+#admNBox .admn-b button.g{background:#eef2f8;color:inherit}
+</style>
 
 <script>if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}</script>
