@@ -609,6 +609,44 @@ details.stopt summary{cursor:pointer;list-style:none}details.stopt summary::-web
 .ahd .ib{flex:none}
 .lk{border:0;background:none;padding:0 4px;font:inherit;font-weight:800;color:var(--navy);text-decoration:underline}
 .spick .cats{margin-top:8px}.spick .cats button{font-size:14.5px;padding:8px 14px}
+/* ===== صافي المهندس + الموظفون والعهدة ===== */
+.nfmini{display:flex;align-items:center;justify-content:space-between;width:100%;text-align:right;border:0;padding:14px 16px;gap:10px;cursor:pointer}
+.nfmini span{display:block;font-size:13px;color:var(--mut)}
+.nfmini b{font-size:22px;display:block;margin:2px 0}
+.nfmini small{font-size:12px;color:var(--mut)}
+.nfmini i{font-style:normal;font-size:24px;color:var(--mut)}
+.nfper{display:flex;flex-direction:column;gap:10px}
+.nfseg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.nfseg button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 4px;font-weight:700;color:var(--navy);font-size:14px}
+.nfseg button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.nfkeep{margin-top:12px;font-size:13.5px;color:var(--mut)}
+.nfkeep b{color:var(--navy)}
+.nfcmp{margin-top:4px;font-size:13px;color:var(--mut)}
+.nfcmp .g{color:var(--green)}.nfcmp .r{color:var(--red)}
+.nfk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 12px}
+.nfk div{background:var(--soft);border-radius:12px;padding:10px 6px;text-align:center}
+.nfk span{display:block;font-size:12px;color:var(--mut)}
+.nfk b{font-size:16px}
+.nfh{font-weight:800;font-size:16px}
+.nfleft{text-align:left;flex:none}
+.nfleft b{display:block;font-size:15px}
+.nfleft span{font-size:11.5px;color:var(--mut)}
+.nfchk{display:flex;gap:10px;align-items:center;padding:10px 2px;border-bottom:1px solid var(--line);cursor:pointer}
+.nfchk input{width:20px;height:20px;accent-color:var(--navy);flex:none}
+.nfchk span{display:flex;flex-direction:column}
+.nfchk small{color:var(--mut);font-size:12.5px}
+.nfpj{display:flex;flex-direction:column;gap:6px}
+.nfas{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--cream);border-radius:12px;padding:8px 12px;font-size:13px;font-weight:700;color:#8a6400}
+.nfas button{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:6px 10px;font-weight:700;white-space:nowrap}
+.qopt.qoff{border-style:dashed}
+.lockn{color:var(--mut);font-size:12px}
+.dot.cr,.dot.cg{background:var(--soft);color:var(--navy)}
+.nfyt{width:100%;border-collapse:collapse;font-size:13px}
+.nfyt th{color:var(--mut);font-weight:500;text-align:right;padding:6px 4px;border-bottom:1px solid var(--line)}
+.nfyt td{padding:8px 4px;border-bottom:1px solid var(--line)}
+.nfyt .n{text-align:left}
+.nfg{color:var(--green)}.nfr{color:var(--red)}
+
 </style>
 
 <div id="app"></div>
@@ -643,7 +681,7 @@ const today=(d=new Date())=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.ge
 const MONS=['كانون الثاني','شباط','آذار','نيسان','أيار','حزيران','تموز','آب','أيلول','تشرين الأول','تشرين الثاني','كانون الأول'];
 function dpk(id,v,mode){const m1=mode==='m';if(!v||!(m1?/^\d{4}-\d{2}$/:/^\d{4}-\d{2}-\d{2}$/).test(v))v=m1?today().slice(0,7):today();const [y,m,d]=v.split('-').map(Number);const cy=new Date().getFullYear();const y0=Math.min(y,cy-5);
   const op=(a,b,cur,lab)=>Array.from({length:b-a+1},(_,i)=>a+i).map(n=>`<option value="${n}" ${n===cur?'selected':''}>${lab?lab(n):n}</option>`).join('');
-  return `<div class="dpk${m1?' m':''}" data-mode="${m1?'m':'d'}">${m1?'':`<select aria-label="اليوم" class="num" onchange="dpkSet(this)">${op(1,31,d)}</select>`}<select aria-label="الشهر" onchange="dpkSet(this)">${op(1,12,m,n=>n+' · '+MONS[n-1])}</select><select aria-label="السنة" class="num" onchange="dpkSet(this)">${op(y0,cy+1,y)}</select><input type="hidden" id="${id}" value="${v}"></div>`}
+  return `<div class="dpk${m1?' m':''}" data-mode="${m1?'m':'d'}">${m1?'':`<select aria-label="اليوم" class="num" onchange="dpkSet(this)">${op(1,31,d)}</select>`}<select aria-label="الشهر" class="num" onchange="dpkSet(this)">${op(1,12,m,n=>String(n))}</select><select aria-label="السنة" class="num" onchange="dpkSet(this)">${op(y0,cy+1,y)}</select><input type="hidden" id="${id}" value="${v}"></div>`}
 function dpkSet(el){const w=el.closest('.dpk'),s=w.querySelectorAll('select'),m1=w.dataset.mode==='m';const y=+s[s.length-1].value,m=+s[s.length-2].value;
   let v=y+'-'+String(m).padStart(2,'0');if(!m1){const dim=new Date(y,m,0).getDate();if(+s[0].value>dim)s[0].value=dim;v+='-'+String(s[0].value).padStart(2,'0')}w.querySelector('input').value=v}
 function dpkPut(id,v){const i=$('#'+id);if(!i)return;const w=i.closest('.dpk'),s=w.querySelectorAll('select'),p=v.split('-').map(Number);
@@ -683,7 +721,10 @@ function calc(p){const es=entriesOf(p.id);let inn=0,out=0;const byCat={},mats={}
   return{es,inn,out,fee,bal:inn-out-fee,byCat,mats:Object.values(mats)}}
 function feeLabel(p){return p.feeType==='pct'?`${+p.feeVal||0}% من المقبوض`:`مقطوعة ${fmt(p.feeVal)} د.ع`}
 function cashTotals(){let inn=0,out=0,mon=0;const m=today().slice(0,7);
-  for(const e of live(S.entries)){if(!P(e.pid)||P(e.pid).del)continue;if(e.kind==='in')inn+=e.amt;else{out+=e.amt;if(e.date.startsWith(m))mon+=e.amt}}
+  for(const e of live(S.entries)){const off=e.pid==='office';if(!off&&(!P(e.pid)||P(e.pid).del))continue;
+    if(e.kind==='cg'){out+=e.amt;continue}if(e.kind==='cr'){inn+=e.amt;continue}
+    if(e.cu){if(e.kind==='out'&&e.date.startsWith(m))mon+=e.amt;continue}
+    if(e.kind==='in')inn+=e.amt;else{out+=e.amt;if(e.date.startsWith(m))mon+=e.amt}}
   let fees=0;for(const p of live(S.projects))fees+=calc(p).fee;return{inn,out,cash:inn-out,mon,fees}}
 function nextNo(kind){const k=kind==='in'?'in':'out';S.seq[k]=(S.seq[k]||0)+1;return(kind==='in'?'ق-':'ص-')+String(S.seq[k]).padStart(4,'0')}
 function autoCat(t){for(const[k,re]of AUTOCAT)if(re.test(t||''))return k;return 'oth'}
@@ -730,6 +771,25 @@ function demo(){
   add('p3','out','2026-10-06',1000000,'كاشي أرضيات','mat','معرض الكاشي','فاتورة','560');
   add('p3','out','2026-10-20',600000,'أجور تركيب الكاشي','lab','أسطة الكاشي','وصل','12');
   add('p3','out','2026-11-15',250000,'نقل أنقاض','tr','سائق بيكب','بدون مستند','');
+  s.team=[{uid:'t-ali',name:'م. علي حسن',job:'مهندس موقع',phone:'0770 111 2222',projects:['p1','p2']},{uid:'t-sara',name:'سارة كاظم',job:'محاسبة',phone:'0781 333 4444',projects:['p4']}];
+  for(const ym of ['2026-06','2026-07','2026-08','2026-09','2026-10','2026-11']){const mo=+ym.slice(5);
+    add('office','out',ym+'-01',600000,'راتب المهندس علي حسن','','م. علي حسن','بدون مستند','');
+    if(mo>=8)add('office','out',ym+'-01',400000,'راتب المحاسبة سارة كاظم','','سارة كاظم','بدون مستند','');
+    add('office','out',ym+'-02',300000,'إيجار المكتب','','صاحب الملك','وصل','');
+    add('office','out',ym+'-06',110000+(mo%4)*15000,'اشتراك المولدة','','صاحب المولدة','وصل','');
+    add('office','out',ym+'-15',90000+(mo%3)*20000,'بنزين السيارة','','محطة الوقود','بدون مستند','')}
+  add('office','out','2026-09-18',250000,'صيانة السيارة','','ورشة كريم','فاتورة','77');
+  add('office','out','2026-10-08',95000,'حبر وورق للطابعة','','مكتبة النور','فاتورة','310');
+  const cg=(kind,date,amt,cu,det)=>s.entries.push({id:uid(),pid:'office',kind,date,amt,det,cu,party:'',by:s.me,ts:Date.parse(date)+s.entries.length,log:[]});
+  add('p1','in','2026-11-19',25000000,'دفعة رابعة','','حسين عبد الله','سند','');
+  cg('cg','2026-11-02',3000000,'t-ali','عهدة نقدية');
+  add('p1','out','2026-11-08',360000,'سمنت 40 كيس','mat','معمل الفرات','وصل','4810',{mat:'سمنت',qty:40,unit:'كيس',cu:'t-ali',by:'م. علي حسن'});
+  add('p2','out','2026-11-12',250000,'أجور تنظيف الموقع','lab','عمال يومية','بدون مستند','',{cu:'t-ali',by:'م. علي حسن'});
+  add('office','out','2026-11-14',60000,'بنزين للموقع','','محطة الوقود','بدون مستند','',{cu:'t-ali',by:'م. علي حسن'});
+  cg('cg','2026-11-16',1000000,'t-ali','عهدة نقدية');
+  add('p1','out','2026-11-18',1500000,'طابوق 6000 قطعة','mat','معمل طابوق','فاتورة','2290',{mat:'طابوق',qty:6000,unit:'قطعة',cu:'t-ali',by:'م. علي حسن'});
+  cg('cg','2026-11-10',500000,'t-sara','عهدة نقدية');
+  add('office','out','2026-11-11',85000,'قرطاسية وأختام','','مكتبة النور','وصل','',{cu:'t-sara',by:'سارة كاظم'});
   return s}
 
 /* ============ الحالة والتنقّل ============ */
@@ -843,11 +903,11 @@ VIEWS.entry=(a={})=>{
    <div class="card amtcard"><label for="f-amt">المبلغ</label>
     <input id="f-amt" inputmode="numeric" autocomplete="off" placeholder="0" value="${F.amt?fmt(F.amt):''}" style="color:${isIn?'var(--green)':'var(--red)'}">
     <div class="w" id="f-words">${F.amt?words(F.amt)+' دينار':'اكتب المبلغ بالدينار'}</div></div>
-   <div class="fld"><div class="ic">🏠</div><div class="bx"><label for="f-pid">الزبون / المشروع</label>
-     <select id="f-pid">${ps.map(p=>`<option value="${p.id}" ${p.id===F.pid?'selected':''}>${esc((C(p.cid)||{}).name)} · ${esc(p.name)}</option>`).join('')}</select></div><span class="mut">▾</span></div>
-   <div class="fld"><div class="ic">📝</div><div class="bx"><label for="f-det">البيان</label><input id="f-det" value="${esc(F.det)}" placeholder="${isIn?'دفعة أولى':'سمنت 150 كيس'}"></div>${!isIn?`<span class="chip" id="f-catchip">${F.cat?CATN[F.cat]:'—'}</span>`:''}</div>
-   ${!isIn?`<div class="cats" id="f-cats">${CATS.map(c=>`<button data-k="${c.k}" class="${F.cat===c.k?'on':''}" onclick="setCat('${c.k}')">${c.n}</button>`).join('')}</div>`:''}
-   ${!isIn?`<div class="row3" id="f-matrow" ${F.cat==='mat'?'':'hidden'}>
+   <div class="fld"><div class="ic">🏠</div><div class="bx"><label for="f-pid">${isIn?'الزبون / المشروع':'يُحسب هذا المصروف على'}</label>
+     <select id="f-pid" onchange="if(F.kind==='out'){readF();render()}">${!isIn?`<option value="office" ${F.pid==='office'?'selected':''}>🏢 المكتب (يُخصم من الأتعاب، ولا يظهر للزبون)</option>`:''}${ps.map(p=>`<option value="${p.id}" ${p.id===F.pid?'selected':''}>${esc((C(p.cid)||{}).name)} · ${esc(p.name)}</option>`).join('')}</select></div><span class="mut">▾</span></div>
+   <div class="fld"><div class="ic">📝</div><div class="bx"><label for="f-det">${F.pid==='office'?'التفاصيل':'البيان'}</label><input id="f-det" value="${esc(F.det)}" placeholder="${isIn?'دفعة أولى':F.pid==='office'?'مثلاً: أجور العامل أحمد، إيجار المكتب':'سمنت 150 كيس'}"></div>${!isIn&&F.pid!=='office'?`<span class="chip" id="f-catchip">${F.cat?CATN[F.cat]:'—'}</span>`:''}</div>
+   ${!isIn&&F.pid!=='office'?`<div class="cats" id="f-cats">${CATS.map(c=>`<button data-k="${c.k}" class="${F.cat===c.k?'on':''}" onclick="setCat('${c.k}')">${c.n}</button>`).join('')}</div>`:''}
+   ${!isIn&&F.pid!=='office'?`<div class="row3" id="f-matrow" ${F.cat==='mat'?'':'hidden'}>
      <div class="fld"><div class="bx"><label for="f-mat">المادة</label><input id="f-mat" value="${esc(F.mat)}" placeholder="سمنت"></div></div>
      <div class="fld"><div class="bx"><label for="f-qty">الكمية</label><input id="f-qty" inputmode="decimal" value="${esc(F.qty)}" placeholder="150"></div></div>
      <div class="fld"><div class="bx"><label for="f-unit">الوحدة</label><input id="f-unit" value="${esc(F.unit)}" placeholder="كيس" list="units"></div></div></div>
@@ -891,17 +951,17 @@ function attPick(inp){const f=inp.files&&inp.files[0];if(!f)return;const r=new F
   const sc=Math.min(1,1000/Math.max(im.width,im.height));const cv=document.createElement('canvas');cv.width=im.width*sc;cv.height=im.height*sc;
   cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);readF();F.att=cv.toDataURL('image/jpeg',.7);render()};im.src=r.result};r.readAsDataURL(f)}
 const FIELDN={amt:'المبلغ',date:'التاريخ',det:'البيان',party:'الطرف',pid:'المشروع',cat:'البند',docNo:'رقم المستند',docType:'نوع المستند',kind:'النوع'};
-function entrySave(){if(!F.quick)readF();
+function entrySave(){if(!F.quick)readF();if(F.id&&!canEditE(S.entries.find(e=>e.id===F.id)))return toast(LOCK_MSG);
   if(!F.amt)return toast('اكتب المبلغ');if(!okDate(F.date))return toast('اختر التاريخ');if(F.date>today())return toast('لا يمكن اختيار تاريخ بعد اليوم');if(!F.pid)return toast('اختر المشروع');
-  if(F.kind==='out'&&!F.cat)F.cat=autoCat(F.det);if(F.kind==='in')F.cat='';
+  if(F.pid==='office')F.cat='';else if(F.kind==='out'&&!F.cat)F.cat=autoCat(F.det);if(F.kind==='in')F.cat='';
   const doSave=()=>{if(F.id){const i=S.entries.findIndex(e=>e.id===F.id);const old=S.entries[i];const ch=[];
       for(const k of Object.keys(FIELDN))if(String(old[k]??'')!==String(F[k]??''))ch.push(`${FIELDN[k]}: ${k==='amt'?fmt(old[k]):k==='cat'?CATN[old[k]]||'':k==='pid'?(P(old[k])||{}).name:old[k]||'—'} ← ${k==='amt'?fmt(F[k]):k==='cat'?CATN[F[k]]||'':k==='pid'?(P(F[k])||{}).name:F[k]||'—'}`);
       const rec=Object.assign({},old,F);delete rec.catSet;delete rec.quick;
       if(old.kind!==F.kind)rec.no=nextNo(F.kind);
       if(ch.length)rec.log=[...(old.log||[]),{at:new Date().toISOString().slice(0,16).replace('T',' '),by:S.me,ch:ch.join(' · ')}];
       S.entries[i]=rec}
-    else{const rec=Object.assign({},F,{id:uid(),no:nextNo(F.kind),ts:Date.now(),by:S.me,log:[]});if(NOFIX)rec.nf=1;delete rec.catSet;delete rec.quick;S.entries.push(rec)}
-    const nid=F.id||S.entries[S.entries.length-1].id,wasIn=F.kind==='in',isNew=!F.id;save();toast(isOff()?'✓ انحفظ على جهازك ⏳ وينرفع للسيرفر أول ما يرجع النت':'تم حفظ المبلغ ✓');go('project',F.pid);if(wasIn&&isNew)setTimeout(()=>rcptSheet(nid,true),250)};
+    else{const rec=Object.assign({},F,{id:uid(),no:nextNo(F.kind),ts:Date.now(),by:S.me,log:[]});if(NOFIX)rec.nf=1;if(AS)rec.cu=AS.uid;delete rec.catSet;delete rec.quick;S.entries.push(rec)}
+    const nid=F.id||S.entries[S.entries.length-1].id,wasIn=F.kind==='in',isNew=!F.id;save();toast(isOff()?'✓ انحفظ على جهازك ⏳ وينرفع للسيرفر أول ما يرجع النت':'تم حفظ المبلغ ✓');(F.pid==='office'?go(AS?'home':'net'):go('project',F.pid));if(wasIn&&isNew)setTimeout(()=>rcptSheet(nid,true),250)};
   // كشف التكرار
   const dup=!F.id&&live(S.entries).find(e=>e.pid===F.pid&&e.kind===F.kind&&e.date===F.date&&e.amt===F.amt&&(e.det===F.det||(!F.det&&e.party===F.party)));
   if(dup)return ask('يوجد مبلغ مسجّل بنفس التاريخ والمبلغ والبيان. هل هذا تكرار؟','احفظه على أي حال',doSave);
@@ -1283,13 +1343,13 @@ function showStatement(pid){const p=P(pid),c=C(p.cid)||{},L=pays(p),k=calc(p);co
     ${stvBtn(`showPeriod('${pid}',$('#sp-from').value.trim(),$('#sp-to').value.trim())`)}</div></div>
    <button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)}
 function showCashbook(from,to){if(!okDate(from)||!okDate(to))return toast('اختر التاريخ');if(from>to)return toast('تاريخ «من» لازم يكون قبل «إلى»');
-  const all=live(S.entries).filter(e=>P(e.pid)&&!P(e.pid).del).sort((a,b)=>a.date.localeCompare(b.date)||a.ts-b.ts);
+  const all=live(S.entries).filter(e=>((P(e.pid)&&!P(e.pid).del)||e.pid==='office')&&!e.cu).map(e=>e.kind==='cg'||e.kind==='cr'?Object.assign({},e,{kind:e.kind==='cr'?'in':'out',party:tmName(e.cu),det:e.kind==='cg'?'عهدة إلى '+tmName(e.cu):'إرجاع عهدة من '+tmName(e.cu),docType:'بدون مستند'}):e).sort((a,b)=>a.date.localeCompare(b.date)||a.ts-b.ts);
   let open=0;for(const e of all)if(e.date<from)open+=e.kind==='in'?e.amt:-e.amt;
   const rows=all.filter(e=>e.date>=from&&e.date<=to);let bal=open,ti=0,to2=0;
   const html=docHead('سجل يومية الصندوق',`من <span class="num">${from}</span> إلى <span class="num">${to}</span>`)+`<div class="st-b">
    <table class="t cb"><thead><tr><th>ت</th><th class="n">مقبوضات</th><th class="n">مدفوعات</th><th>المقبوض منه / المدفوع له</th><th>البيان</th><th>المستند</th><th>التاريخ</th><th>المشروع</th><th class="n">الرصيد</th></tr></thead><tbody>
    <tr><td></td><td></td><td></td><td colspan="5"><b>رصيد أول المدة</b></td><td class="n"><b>${sfmt(open)}</b></td></tr>
-   ${rows.map((e,i)=>{if(e.kind==='in'){bal+=e.amt;ti+=e.amt}else{bal-=e.amt;to2+=e.amt}const p=P(e.pid),c=C(p.cid)||{};
+   ${rows.map((e,i)=>{if(e.kind==='in'){bal+=e.amt;ti+=e.amt}else{bal-=e.amt;to2+=e.amt}const p=P(e.pid),c=p?(C(p.cid)||{}):{name:'المكتب'};
      return `<tr><td>${i+1}</td><td class="n g">${e.kind==='in'?fmt(e.amt):''}</td><td class="n r">${e.kind==='out'?fmt(e.amt):''}</td><td>${esc(e.party)}</td><td>${esc(e.det)}${e.note?` <span class="mut">(${esc(e.note)})</span>`:''}</td><td>${e.docType==='بدون مستند'?'—':esc(e.docType)+' <span class="num">'+esc(e.docNo||e.no)+'</span>'}</td><td class="num">${e.date}</td><td>${esc(c.name)}</td><td class="n">${sfmt(bal)}</td></tr>`}).join('')}
    <tr class="tot keep"><td>المجموع</td><td class="n">${fmt(ti)}</td><td class="n">${fmt(to2)}</td><td colspan="5">رصيد آخر المدة</td><td class="n">${sfmt(bal)}</td></tr></tbody></table>
 </div>`;
@@ -1457,9 +1517,9 @@ function startDemo(){try{localStorage.setItem('asas_mode','demo')}catch(e){}MODE
 function toLogin(){try{localStorage.removeItem('asas_mode')}catch(e){}MODE='demo';AUTH={tab:'up',busy:false,err:''};go('login')}
 async function enterCloud(offUid){let user=null;if(offUid)user={id:offUid};else{const{data:{session}}=await SB.auth.getSession();user=session&&session.user}if(!user)return go('login');
   IDB_C=await idbGet('asas_c_'+user.id);
-  const{data:m,error}=offUid?{data:null,error:{message:'offline'}}:await withTO(SB.from('asas_members').select('org_id,role,name,phone,active,is_engineer').eq('user_id',user.id).eq('active',true).limit(1).maybeSingle(),8000);
+  const{data:m,error}=offUid?{data:null,error:{message:'offline'}}:await withTO(SB.from('asas_members').select('org_id,role,name,phone,active,is_engineer,projects').eq('user_id',user.id).eq('active',true).limit(1).maybeSingle(),8000);
   let me=null;
-  if(m)me={uid:user.id,org:m.org_id,role:m.role,eng:!!m.is_engineer,name:m.name,phone:m.phone};
+  if(m)me={uid:user.id,org:m.org_id,role:m.role,eng:!!m.is_engineer,name:m.name,phone:m.phone,projects:Array.isArray(m.projects)?m.projects:null};
   else if(error){let c=null;try{c=JSON.parse(localStorage.getItem('asas_c_'+user.id)||'null')}catch(e){}if(!(c&&c.ME))c=IDB_C;if(c&&c.ME){me=c.ME;SYNC.st='off'}} // بدون إنترنت: نشتغل من النسخة المحفوظة
   if(!me){if(!error)await SB.auth.signOut().catch(()=>{});AUTH.err=error?'تعذّر الاتصال، حاول مرة ثانية':'هذا الحساب موقوف أو غير مرتبط بمكتب';return go('login')}
   ME=me;MODE='cloud';try{localStorage.removeItem('asas_mode')}catch(e){}
@@ -1510,14 +1570,16 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.0',APP_T='2026-11-21 16:45';
+var APP_V='1.9.1',APP_T='2026-11-21 16:50';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='تحسينات بالسرعة والثبات';
+var APP_NEWS='شاشة «صافيي»: أتعابك ناقص مصاريف المكتب، لشهر أو سنة أو أي فترة، وين صرفت، وكشف أرباح للطباعة|الموظفون والعهدة: تحدد لكل موظف مشاريعه، وتعطيه مبلغ وتشوف شكد صرف ووين وشكد باقي بيده، مع كشف عهدة|الموظف يشوف بس مشاريعه، ويصرف على المشروع أو على المكتب، ويعدّل صرفه بنفس اليوم فقط|الأشهر صارت أرقام بكل التطبيق';
+var APP_NEWS_190='تحسينات بالسرعة والثبات';
 var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة والمدة وتشوف المبلغ قبل ما ترسل الوصل|إشعار من الإدارة يظهر لك بأعلى التطبيق عند وجود خبر مهم|تحسينات بالسرعة والثبات';
 var APP_NEWS_188='الطباعة صارت ملف PDF بحجم A4 كامل وبدقة عالية، ترسله للطابعة أو لأي شخص بالواتساب|الوصل: النسختين بورقة وحدة، والختم والتوقيع مرتبين|ما أكو قص بالحواف ولا ورقة زايدة بالطباعة';
 var APP_NEWS_186='اضغط على أي حركة بالمشروع حتى تعدّلها أو تحذفها|الحذف يطلب تأكيد، والمحذوف يروح لسلة المحذوفات وتكدر ترجعه خلال 30 يوم|حذف الزبون أو المشروع صار يطلب تأكيد، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.0',d:'2026-11-21',n:APP_NEWS.split('|')},
+ {v:'1.9.1',d:'2026-11-21',n:APP_NEWS.split('|')},
+ {v:'1.9.0',d:'2026-11-21',n:APP_NEWS_190.split('|')},
  {v:'1.8.9',d:'2026-11-21',n:APP_NEWS_189.split('|')},
  {v:'1.8.8',d:'2026-11-21',n:APP_NEWS_188.split('|')},
  {v:'1.8.7',d:'2026-11-21',n:['تحسينات بإدارة الاشتراكات وحالة الحساب']},
@@ -1652,7 +1714,7 @@ VIEWS.quick=()=>{if(!Q)return VIEWS.home();const st=qSteps(),k=st[Q.step],isIn=Q
     body=`<div class="qamt ${isIn?'in':'out'}"><b id="q-amt">${Q.amt?fmt(Q.amt):'0'}</b><span>د.ع</span></div><div class="qw" id="q-w">${Q.amt?words(Q.amt)+' دينار':'اكتب المبلغ'}</div>
      <div class="qpad">${['1','2','3','4','5','6','7','8','9','000','0','⌫'].map(x=>`<button onclick="qKey('${x}')" class="${x==='⌫'?'bk':''}">${x}</button>`).join('')}</div>
      <div class="qdate"><span>التاريخ:</span><button class="${Q.date===today()?'on':''}" onclick="qDate(0)">اليوم</button><button class="${dl==='أمس'?'on':''}" onclick="qDate(1)">أمس</button><button class="qother ${dl!=='اليوم'&&dl!=='أمس'?'on':''}" onclick="qDatePick()">📅 ${dl!=='اليوم'&&dl!=='أمس'?'<span class="num">'+Q.date+'</span>':'تاريخ سابق'}</button></div>`}
-  else if(k==='pid'){const ps=qProjects();body=`<div class="qlist">${ps.map(p=>{const c=C(p.cid)||{};return `<button class="qopt ${Q.pid===p.id?'on':''}" onclick="Q.pid='${p.id}';qNext()"><b>${esc(cName(c))}</b><span>${esc(p.name)}</span></button>`}).join('')||'<div class="empty">أضف مشروعاً أولاً</div>'}</div>`}
+  else if(k==='pid'){const ps=qProjects();body=`<div class="qlist">${!isIn?`<button class="qopt qoff ${Q.pid==='office'?'on':''}" onclick="Q.pid='office';qNext()"><b>🏢 المكتب</b><span>يُخصم من الأتعاب، ولا يظهر للزبون</span></button>`:''}${ps.map(p=>{const c=C(p.cid)||{};return `<button class="qopt ${Q.pid===p.id?'on':''}" onclick="Q.pid='${p.id}';qNext()"><b>${esc(cName(c))}</b><span>${esc(p.name)}</span></button>`}).join('')||'<div class="empty">أضف مشروعاً أولاً</div>'}</div>`}
   else if(k==='det'){const R=qRecentDets();body=`<input id="q-det" class="qin" placeholder="مثلاً: سمنت 50 كيس" value="${esc(Q.det)}" autocomplete="off">
      ${R.length?`<div class="qsub">آخر ما صرفت عليه (اضغط للاختيار)</div><div class="qchips">${R.map(d=>`<button onclick="Q.det=this.textContent;qNext()">${esc(d)}</button>`).join('')}</div>`:''}`}
   else if(k==='att'){body=`<label class="qcam" for="q-att">${Q.att?`<img src="${Q.att}" alt="">`:'📷<b>صوّر الوصل</b><span>اختياري</span>'}</label><input id="q-att" type="file" accept="image/*" capture="environment" hidden onchange="qAtt(this)">`}
@@ -1660,7 +1722,7 @@ VIEWS.quick=()=>{if(!Q)return VIEWS.home();const st=qSteps(),k=st[Q.step],isIn=Q
   else if(k==='src'){body=`<div class="qlist">${[['الصندوق','💵 نقداً'],['حساب المصرف','🏦 تحويل للمصرف']].map(([v,t])=>`<button class="qopt ${Q.src===v?'on':''}" onclick="Q.src='${v}';qNext()"><b>${t}</b></button>`).join('')}</div>`}
   const req=k==='amt'||k==='pid';const p=P(Q.pid),c=p&&C(p.cid);
   return `<header class="top short"><div class="hdr"><div><h1>${isIn?'استلمت مبلغ':'صرفت مبلغ'}</h1><p>خطوة <span class="num">${Q.step+1}</span> من <span class="num">${st.length}</span>${Q.amt&&k!=='amt'?' · <b class="num">'+fmt(Q.amt)+'</b> د.ع':''}${p&&k!=='pid'&&k!=='amt'?' · '+esc(cName(c||{})):''}</p></div><button class="back" aria-label="إغلاق" onclick="Q=null;go('home')">✕</button></div></header>
-  <div class="wrap qwrap"><div class="qdots">${dots}</div><h2 class="qh">${QT[k]}</h2>${body}
+  <div class="wrap qwrap"><div class="qdots">${dots}</div><h2 class="qh">${k==='pid'&&!isIn?'يُحسب هذا المصروف على:':k==='det'&&Q.pid==='office'?'التفاصيل (مثلاً: أجور العامل أحمد)':QT[k]}</h2>${body}
    <button class="btn ${isIn?'gin':'y'} qgo" onclick="${last?'qSave()':'qNext()'}">${last?'✓ حفظ':'التالي ←'}</button>${!last&&Q.step>=2?`<button class="btn qnow" onclick="qSave()">✓ حفظ الآن <small>بدون ${st.slice(Q.step+1).map(x=>x==='att'?'صورة':x==='note'?'ملاحظة':QT[x]).join(' و')}</small></button>`:''}
    <div class="qnav"><button onclick="qBack()" ${Q.step?'':'disabled'}>→ رجوع</button>${req?'':`<button onclick="qSkip()">تخطي</button>`}<button onclick="qFull()">النموذج الكامل</button></div></div>`};
 function qRead(){const d=$('#q-det');if(d)Q.det=d.value.trim();const n=$('#q-note');if(n)Q.note=n.value.trim()}
@@ -1681,7 +1743,7 @@ function qNext(){qRead();const k=qSteps()[Q.step];if(k==='amt'&&!Q.amt)return to
 function qBack(){qRead();if(Q.step>0){Q.step--;if(qSteps()[Q.step]==='pid'&&Q.fixP&&Q.step>0)Q.step--}render()}
 function qSkip(){qRead();const k=qSteps()[Q.step];if(k==='det')Q.det='';if(k==='att')Q.att='';if(k==='note')Q.note='';if(Q.step>=qSteps().length-1)return qSave();Q.step++;render()}
 function qBase(){const p=P(Q.pid),c=p&&C(p.cid);const isIn=Q.kind==='in';
-  return{id:null,kind:Q.kind,pid:Q.pid,amt:Q.amt,date:Q.date,det:Q.det||(isIn?'دفعة':''),cat:isIn?'':autoCat(Q.det),catSet:false,party:isIn&&c?cName(c):'',docType:isIn?'بدون مستند':(Q.att?'فاتورة':'بدون مستند'),docNo:'',mat:'',qty:'',unit:'',src:Q.src,att:Q.att,note:Q.note,rcv:isIn?(S.me||''):undefined}}
+  return{id:null,kind:Q.kind,pid:Q.pid,amt:Q.amt,date:Q.date,det:Q.det||(isIn?'دفعة':''),cat:isIn||Q.pid==='office'?'':autoCat(Q.det),catSet:false,party:isIn&&c?cName(c):'',docType:isIn?'بدون مستند':(Q.att?'فاتورة':'بدون مستند'),docNo:'',mat:'',qty:'',unit:'',src:Q.src,att:Q.att,note:Q.note,rcv:isIn?(S.me||''):undefined}}
 function qSave(){qRead();if(!Q.amt){Q.step=0;render();return toast('اكتب المبلغ')}if(!Q.pid)return toast('اختر المشروع');
   F=Object.assign(qBase(),{quick:true});if(F.rcv===undefined)delete F.rcv;Q=null;entrySave()}
 function qFull(){qRead();const b=qBase();if(b.rcv===undefined)delete b.rcv;Q=null;go('entry',{kind:b.kind,pid:b.pid});Object.assign(F,b,{amt:b.amt||0,det:b.det==='دفعة'?'':b.det,docType:b.att?'فاتورة':F.docType});render()}
@@ -1786,7 +1848,7 @@ async function offKey(){const{data,error}=await SB.rpc('asas_admin_offsite_key')
 
 /* ===== التقرير الشهري للمهندس ===== */
 const MONTHS=['كانون الثاني','شباط','آذار','نيسان','أيار','حزيران','تموز','آب','أيلول','تشرين الأول','تشرين الثاني','كانون الأول'];
-function monthName(ym){const[y,m]=ym.split('-');return MONTHS[+m-1]+' '+y}
+function monthName(ym){const[y,m]=ym.split('-');return (+m)+'/'+y}
 function monthData(ym){const rows={};let inn=0,out=0,fee=0;const byCat={};
   const firstIn={};for(const e of live(S.entries).filter(e=>e.kind==='in').sort((a,b)=>a.date.localeCompare(b.date)))if(!firstIn[e.pid])firstIn[e.pid]=e.date;
   for(const e of live(S.entries)){const p=P(e.pid);if(!p||p.del||!e.date.startsWith(ym))continue;
@@ -1828,7 +1890,7 @@ function memberRows(){if(!MEMBERS.length)return '<div class="empty">لحظة…<
   return MEMBERS.map(m=>`<div class="li ${m.active?'':'off'}"><div class="ic">${m.role==='owner'?'⭐':roleOf(m)==='engineer'?'👷':'🧑‍💼'}</div><div class="mid"><div class="t">${esc(m.name)}${m.user_id===ME.uid?' (أنت)':''}</div>
     <div class="s"><span class="num">${esc(m.phone||'')}</span> · ${ROLE_N[roleOf(m)]}${m.active?'':' · موقوف'}</div></div>
     ${m.role==='owner'?'':`<button class="chip n" onclick="memberSheet('${m.user_id}')">تعديل</button>`}</div>`).join('')}
-async function loadMembers(){const{data}=await SB.from('asas_members').select('user_id,role,name,phone,active,created_at,is_engineer').eq('org_id',ME.org).order('created_at');MEMBERS=data||[];const l=$('#mlist');if(l)l.innerHTML=memberRows();const si=$('#seatinfo');if(si)si.textContent=seatInfo()}
+async function loadMembers(){const{data}=await SB.from('asas_members').select('user_id,role,name,phone,active,created_at,is_engineer,projects').eq('org_id',ME.org).order('created_at');MEMBERS=data||[];const l=$('#mlist');if(l)l.innerHTML=memberRows();const si=$('#seatinfo');if(si)si.textContent=seatInfo()}
 const _render=render;render=function(){_render();if(V.v==='members'&&MODE==='cloud')loadMembers();ensureBadge();trialBar();adminBtn();netBar();if(typeof SETS!=='undefined'){annBar();if(MODE==='cloud'&&ME&&ME.org&&!SETS.tried)setsLoad()}};
 function trialBar(){const n=subLeft();if(n!==null&&S.sub.susp&&V.v==='home'&&!$('#trialbar')){const w=$('#app .wrap');if(!w)return;const d=document.createElement('div');d.id='trialbar';d.className='trialbar end';d.innerHTML=`<span>⛔ الحساب موقوف مؤقتاً من إدارة أسس. بياناتك محفوظة وللعرض فقط</span><a href="https://wa.me/964${PLATFORM.phone.replace(/^0/,'')}" target="_blank" rel="noopener" style="border:0;border-radius:10px;padding:6px 12px;background:#B42318;color:#fff;text-decoration:none;white-space:nowrap">تواصل</a>`;const sy=$('#sync');if(sy&&sy.parentNode===w)sy.after(d);else w.prepend(d);return}if(n===null||V.v!=='home'||S.sub.susp||(S.sub.paid&&n>7)||(!S.sub.paid&&n>30))return;const w=$('#app .wrap');if(!w||$('#trialbar'))return;
   const d=document.createElement('div');d.id='trialbar';d.className='trialbar'+(n<=0?' end':'');
@@ -1853,7 +1915,8 @@ function memberSheet(id){const m=id?MEMBERS.find(x=>x.user_id===id):null;
    <div class="fld"><div class="bx"><label for="m-pw">كلمة سر جديدة</label><input id="m-pw" class="num" style="text-align:right" placeholder="6 أحرف على الأقل"></div></div>
    <button class="btn ghost" onclick="const p=$('#m-pw').value;if(p.length<6)return toast('كلمة السر 6 أحرف على الأقل');memberAct('password','${id}',{password:p})">تغيير كلمة السر</button>
    <button class="btn ghost" onclick="memberAct('update','${id}',{active:${!m.active}})">${m.active?'إيقاف الدخول مؤقتاً':'إعادة التفعيل'}</button>
-   <button class="btn del" onclick="ask('حذف ${esc(m.name)} نهائياً؟ لن يتمكّن من الدخول بعد الآن، وتبقى المبالغ التي سجّلها.','حذف المستخدم',()=>memberAct('remove','${id}'))">حذف المستخدم</button>`)}
+   <button class="btn ghost" onclick="closeSheet();go('staff','${id}')">💼 العهدة والمشاريع</button>
+   <button class="btn del" onclick="if(custOf('${id}').left)return toast('عنده عهدة باقية '+fmt(custOf('${id}').left)+' د.ع. سجّل «استلمت الباقي» أولاً');ask('حذف ${esc(m.name)} نهائياً؟ لن يتمكّن من الدخول بعد الآن، وتبقى المبالغ التي سجّلها.','حذف المستخدم',()=>memberAct('remove','${id}'))">حذف المستخدم</button>`)}
 async function callMember(body){const{data,error}=await SB.functions.invoke('asas-member',{body:Object.assign({org_id:ME.org},body)});
   if(error){let msg='تعذّر التنفيذ، تأكد من الإنترنت';try{const j=await error.context.json();if(j.msg)msg=j.msg}catch(e){}throw new Error(msg)}return data}
 async function memberAdd(){const name=$('#m-name').value.trim(),ph=normPhone($('#m-ph').value),pw=$('#m-pw').value.trim(),role=$('#m-role').value;
@@ -2522,15 +2585,15 @@ entryRow=(function(o){return function(e){return o(e).replace(`onclick="go('entry
 function entMenu(id){const e=S.entries.find(x=>x.id===id);if(!e)return;const p=P(e.pid),c=p&&C(p.cid),isIn=e.kind==='in';
   const open=`closeSheet();go('entry',{id:'${id}',pid:'${e.pid}'})`;
   sheet(`<div class="emh"><div class="dot ${e.kind}">${isIn?'↓':'↑'}</div><div class="mid"><b class="amt ${isIn?'pos':'neg'}">${isIn?'+':'−'}${fmt(e.amt)} <small>د.ع</small></b>
-   <span>${esc(e.det||(isIn?'دفعة':'—'))} · <span class="num">${e.date}</span>${e.no?' · <span class="num">'+esc(e.no)+'</span>':''}</span>${c?'<span>'+esc(c.name)+' · '+esc(p.name)+'</span>':''}</div></div>
+   <span>${esc(e.det||(isIn?'دفعة':'—'))} · <span class="num">${e.date}</span>${e.no?' · <span class="num">'+esc(e.no)+'</span>':''}</span>${c?'<span>'+esc(c.name)+' · '+esc(p.name)+'</span>':e.pid==='office'?'<span>🏢 المكتب</span>':''}${!canEditE(e)?'<span class="lockn">🔒 '+LOCK_MSG+'</span>':''}</div></div>
   <div class="emenu">
-   ${CAN.edit&&!(p&&p.done)?`<button onclick="${open}"><i>✏️</i><div><b>تعديل</b><span>المبلغ، التاريخ، البيان، البند، الصورة…</span></div></button>`:`<button onclick="${open}"><i>👁️</i><div><b>عرض التفاصيل</b>${p&&p.done?'<span>المشروع منتهٍ، أعد فتحه للتعديل</span>':''}</div></button>`}
+   ${CAN.edit&&!(p&&p.done)&&canEditE(e)?`<button onclick="${open}"><i>✏️</i><div><b>تعديل</b><span>المبلغ، التاريخ، البيان، البند، الصورة…</span></div></button>`:`<button onclick="${open}"><i>👁️</i><div><b>عرض التفاصيل</b>${p&&p.done?'<span>المشروع منتهٍ، أعد فتحه للتعديل</span>':''}</div></button>`}
    ${isIn&&c?`<button onclick="closeSheet();rcptSheet('${id}')"><i>🧾</i><div><b>الوصل</b><span>عرض، طباعة، إرسال بالواتساب</span></div></button>`:''}
    ${CAN.del&&!(p&&p.done)?`<button class="dl" onclick="entDelAsk('${id}')"><i>🗑️</i><div><b>حذف</b><span>ينتقل لسلة المحذوفات ويمكن استرجاعه خلال 30 يوماً</span></div></button>`:''}
   </div><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
 function entDelAsk(id,back){const e=S.entries.find(x=>x.id===id);if(!e)return;const isIn=e.kind==='in';
   askDel(`حذف ${isIn?'الدفعة':'المصروف'} ${fmt(e.amt)} د.ع${e.no?' ('+e.no+')':''}؟ ينتقل لسلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً.${isIn&&e.no?' رقم الوصل يبقى محجوزاً له ولا يُعطى لدفعة ثانية.':''}`,'نعم، احذف',()=>{
-    e.del={at:today(),by:S.me};save();toast('انحذف ✓ تقدر ترجعه من سلة المحذوفات');if(back){F=null;go('project',e.pid)}else render()})}
+    e.del={at:today(),by:S.me};save();toast('انحذف ✓ تقدر ترجعه من سلة المحذوفات');if(back){F=null;e.pid==='office'?go(AS?'home':'net'):go('project',e.pid)}else render()})}
 entryDel=function(){entDelAsk(F.id,true)};
 projectDel=function(id){const p=P(id);if(!p)return;const n=live(S.entries).filter(e=>e.pid===id).length;
   askDel(`حذف مشروع «${p.name}»${n?' مع حركاته ('+n+')':''}؟ ينتقل لسلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً.`,'نعم، احذف المشروع',()=>{p.del={at:today(),by:S.me};save();toast('انحذف المشروع ✓');go('home')})};
@@ -2632,6 +2695,199 @@ async function admNLoad(){if(ADMN.busy)return;ADMN.busy=1;ADMN.t=Date.now();try{
 (function(){const c0=checkAdmin;checkAdmin=async function(){await c0.apply(this,arguments);if(IS_ADMIN)admNLoad()};
   document.addEventListener('visibilitychange',()=>{if(!document.hidden&&IS_ADMIN&&Date.now()-ADMN.t>300000)admNLoad()});
   setInterval(()=>{if(!document.hidden&&IS_ADMIN&&ADM.orgs&&!document.getElementById('admNBox'))admNShow()},4000)})();
+
+/* ============ صافي المهندس + الموظفون والعهدة ============ */
+/* مصروف المكتب = حركة kind:'out' و pid:'office' (لا يظهر بكشف الزبون).
+   العهدة: kind:'cg' (أعطيته) و kind:'cr' (استلمت منه)، pid:'office'، cu = رقم الموظف.
+   أي حركة يسجّلها الموظف تحمل cu = رقمه، فتنزل من عهدته ولا تُحسب على الصندوق مرة ثانية. */
+let DEMO_AS=null,FULL=null,TM_LOADED=false;
+Object.defineProperty(window,'AS',{configurable:true,get(){if(DEMO_AS)return DEMO_AS;
+  if(MODE==='cloud'&&ME&&ME.role!=='owner'&&Array.isArray(ME.projects))return{uid:ME.uid,name:ME.name,projects:ME.projects};return null}});
+const LOCK_MSG='الموظف يعدّل صرفه بنفس اليوم فقط، وبعدها التعديل لصاحب الحساب';
+function canEditE(e){if(!e||!AS)return true;if(e.kind==='cg'||e.kind==='cr')return false;return e.cu===AS.uid&&today(new Date(e.ts||0))===today()}
+function TEAM(){if(MODE==='cloud')return MEMBERS.filter(m=>m.role!=='owner').map(m=>({uid:m.user_id,name:m.name,phone:m.phone,job:ROLE_N[roleOf(m)],projects:Array.isArray(m.projects)?m.projects:null,active:m.active}));
+  const S0=FULL||S;return S0.team||(S0.team=[])}
+function tmName(u){const t=TEAM().find(x=>x.uid===u);return t?t.name:(AS&&AS.uid===u?AS.name:'موظف')}
+function custOf(u){const S0=FULL||S;let g=0,r=0,sp=0,col=0;const L=[];
+  for(const e of live(S0.entries)){if(e.cu!==u)continue;if(e.pid!=='office'){const p=S0.projects.find(x=>x.id===e.pid);if(!p||p.del)continue}
+    L.push(e);if(e.kind==='cg')g+=e.amt;else if(e.kind==='cr')r+=e.amt;else if(e.kind==='out')sp+=e.amt;else if(e.kind==='in')col+=e.amt}
+  L.sort((a,b)=>a.date.localeCompare(b.date)||(a.ts||0)-(b.ts||0));return{g,r,sp,col,left:g+col-sp-r,L}}
+
+/* ---- الأتعاب بتاريخ كل دفعة، ومصاريف المكتب ---- */
+function feesIn(a,b){const rows=[];let tot=0;
+  for(const p of live(S.projects)){const es=live(S.entries).filter(e=>e.pid===p.id&&e.kind==='in').sort((x,y)=>x.date.localeCompare(y.date)||(x.ts||0)-(y.ts||0));if(!es.length)continue;let f=0;
+    if(p.feeType==='pct'){const pc=(+p.feeVal||0)/100;for(const e of es)if(e.date>=a&&e.date<=b)f+=Math.round(e.amt*pc)}
+    else if(+p.feeVal&&es[0].date>=a&&es[0].date<=b)f=+p.feeVal;
+    if(f){rows.push({p,f});tot+=f}}
+  return{tot,rows:rows.sort((x,y)=>y.f-x.f)}}
+const offIn=(a,b)=>live(S.entries).filter(e=>e.pid==='office'&&e.kind==='out'&&e.date>=a&&e.date<=b).sort((x,y)=>y.date.localeCompare(x.date)||(y.ts||0)-(x.ts||0));
+function netOf(a,b){const f=feesIn(a,b),ex=offIn(a,b),e=ex.reduce((s,x)=>s+x.amt,0);return{f:f.tot,fr:f.rows,ex,e,n:f.tot-e}}
+function grpDet(ex){const by={};for(const e of ex){const k=(e.det||'—').trim();(by[k]=by[k]||{k,n:0,a:0}).a+=e.amt;by[k].n++}return Object.values(by).sort((x,y)=>y.a-x.a)}
+const nextYm=ym=>{const[y,m]=ym.split('-').map(Number);const d=new Date(y,m,1);return d.getFullYear()+'-'+pad(d.getMonth()+1)};
+function monthsIn(a,b){const out=[];for(let ym=a.slice(0,7);ym<=b.slice(0,7);ym=nextYm(ym)){const q=netOf(ym+'-01',ym+'-31');out.push({ym,...q})}return out}
+
+/* ---- اختيار الفترة ---- */
+const NP={k:'m',m:today().slice(0,7),y:+today().slice(0,4),from:today().slice(0,8)+'01',to:today()};
+function npRange(){if(NP.k==='m')return[NP.m+'-01',NP.m+'-31'];if(NP.k==='y')return[NP.y+'-01-01',NP.y+'-12-31'];return NP.from<=NP.to?[NP.from,NP.to]:[NP.to,NP.from]}
+function npLabel(){const r=npRange();if(NP.k==='m')return monthName(NP.m);if(NP.k==='y')return 'سنة '+NP.y;return 'من '+r[0]+' إلى '+r[1]}
+function npRead(){const g=id=>{const el=$('#'+id);return el?el.value:null};
+  if(NP.k==='m'&&g('np-m'))NP.m=g('np-m');if(NP.k==='y'&&g('np-y'))NP.y=+g('np-y');if(NP.k==='r'){if(g('np-from'))NP.from=g('np-from');if(g('np-to'))NP.to=g('np-to')}render()}
+function npSet(k){NP.k=k;render()}
+function npQuick(w){if(w==='tm'){NP.k='m';NP.m=today().slice(0,7)}else if(w==='pm'){NP.k='m';NP.m=prevYm(today().slice(0,7))}render()}
+
+VIEWS.net=()=>{if(AS||!CAN.admin)return VIEWS.home();const[a,b]=npRange();const R=netOf(a,b);
+  const multi=a.slice(0,7)!==b.slice(0,7);const cy=new Date().getFullYear();const ys=[...new Set(live(S.entries).map(e=>+String(e.date).slice(0,4)).filter(Boolean).concat([cy]))].sort((x,y)=>y-x);
+  const G=grpDet(R.ex);
+  return `<header class="top short"><div class="hdr"><div><h1>صافيي</h1><p>${esc(npLabel())}</p></div><button class="back" aria-label="رجوع" onclick="go('reports')">→</button></div></header>
+  <div class="wrap" style="margin-top:14px">
+   <section class="card nfper" onchange="npRead()">
+    <div class="nfseg">${[['m','شهر'],['y','سنة كاملة'],['r','فترة']].map(([k,n])=>`<button class="${NP.k===k?'on':''}" onclick="npSet('${k}')">${n}</button>`).join('')}</div>
+    ${NP.k==='m'?`<div class="dpw"><label>الشهر</label>${dpk('np-m',NP.m,'m')}</div><div class="quick"><button onclick="npQuick('tm')">هذا الشهر</button><button onclick="npQuick('pm')">الشهر الماضي</button></div>`:''}
+    ${NP.k==='y'?`<div class="dpw"><label for="np-y">السنة</label><select id="np-y" class="num">${ys.map(y=>`<option value="${y}" ${y===NP.y?'selected':''}>${y}</option>`).join('')}</select></div>`:''}
+    ${NP.k==='r'?`<div class="dpw"><label>من</label>${dpk('np-from',NP.from)}</div><div class="dpw"><label>إلى</label>${dpk('np-to',NP.to)}</div>`:''}
+   </section>
+   <section class="card cash"><div class="lbl">صافيي · ${esc(npLabel())}</div>
+    <div class="big"><span class="amt ${R.n<0?'neg':''}">${sfmt(R.n)}</span><small>د.ع</small></div>
+    <div class="duo"><div class="mini"><span>أتعابي</span><b class="amt nfg">${fmt(R.f)}</b></div><div class="mini"><span>مصاريف المكتب</span><b class="amt nfr">${fmt(R.e)}</b></div></div>
+    </section>
+   <div class="row2"><button class="btn y" onclick="qStart('out','office')">+ مصروف مكتب</button><button class="btn ghost" onclick="showProfit()">🖨️ طباعة الكشف</button></div>
+   ${multi?`<div class="sec"><h2>حسب الشهر</h2></div><section class="card"><table class="nfyt"><thead><tr><th>الشهر</th><th class="n">الأتعاب</th><th class="n">المصاريف</th><th class="n">الصافي</th></tr></thead><tbody>
+    ${monthsIn(a,b).filter(q=>q.f||q.e).map(q=>`<tr><td>${monthName(q.ym)}</td><td class="n num nfg">${fmt(q.f)}</td><td class="n num nfr">${fmt(q.e)}</td><td class="n num"><b>${sfmt(q.n)}</b></td></tr>`).join('')||'<tr><td colspan="4" class="mut">لا حركات</td></tr>'}</tbody></table></section>`:''}
+   <div class="sec"><h2>وين صرفت</h2><span class="num">${R.ex.length}</span></div>
+   <div class="list">${G.map(g=>`<div class="li"><div class="ic">🏢</div><div class="mid"><div class="t">${esc(g.k)}</div><div class="s">${g.n>1?'<span class="num">'+g.n+'</span> مرات':'مرة واحدة'}</div></div><b class="a amt neg">${fmt(g.a)}</b></div>`).join('')||'<div class="empty">ما في مصاريف مكتب بهذه الفترة</div>'}</div>
+   <div class="sec"><h2>أتعابي حسب المشروع</h2></div>
+   <div class="list">${R.fr.map(x=>`<button class="li" onclick="go('project','${x.p.id}')"><div class="ic">🏗️</div><div class="mid"><div class="t">${esc(cName(C(x.p.cid)||{}))} · ${esc(x.p.name)}</div><div class="s">${esc(feeLabel(x.p))}</div></div><b class="a amt pos">${fmt(x.f)}</b></button>`).join('')||'<div class="empty">لا أتعاب بهذه الفترة</div>'}</div>
+   <div class="sec"><h2>تفاصيل مصاريف المكتب</h2></div>
+   <div class="list">${R.ex.slice(0,60).map(custRow).join('')||'<div class="empty">—</div>'}</div>
+   <p class="note">الأتعاب بالنسبة تُحسب بتاريخ كل دفعة يستلمها المكتب، والأتعاب المقطوعة بتاريخ أول دفعة من المشروع. مصاريف المكتب لا تظهر للزبون ولا للموظفين.</p>
+  </div>`};
+
+function showProfit(){const[a,b]=npRange();const R=netOf(a,b);const G=grpDet(R.ex);const multi=a.slice(0,7)!==b.slice(0,7);
+  const html=docHead('كشف الأرباح',`<span class="num">${esc(npLabel())}</span>`)+`<div class="st-b">
+   ${stKpis([['أتعاب المهندس',R.f],['مصاريف المكتب',R.e],[R.n<0?'الخسارة':'الصافي',R.n,R.n<0?'neg':'']])}
+   ${multi?`<div class="st-h3">حسب الشهر</div><table class="t"><thead><tr><th>الشهر</th><th class="n">الأتعاب</th><th class="n">مصاريف المكتب</th><th class="n">الصافي</th></tr></thead><tbody>
+    ${monthsIn(a,b).filter(q=>q.f||q.e).map(q=>`<tr><td>${monthName(q.ym)}</td><td class="n g">${fmt(q.f)}</td><td class="n r">${fmt(q.e)}</td><td class="n">${sfmt(q.n)}</td></tr>`).join('')}
+    <tr class="tot"><td>المجموع</td><td class="n">${fmt(R.f)}</td><td class="n">${fmt(R.e)}</td><td class="n">${sfmt(R.n)}</td></tr></tbody></table>`:''}
+   <div class="st-h3">الأتعاب حسب المشروع</div>
+   <table class="t"><thead><tr><th>ت</th><th>الزبون</th><th>المشروع</th><th>الأتعاب</th><th class="n">المبلغ</th></tr></thead><tbody>
+    ${R.fr.map((x,i)=>`<tr><td>${i+1}</td><td>${esc(cName(C(x.p.cid)||{}))}</td><td>${esc(x.p.name)}</td><td>${esc(feeLabel(x.p))}</td><td class="n g">${fmt(x.f)}</td></tr>`).join('')||'<tr><td colspan="5" style="text-align:center">لا أتعاب في هذه الفترة</td></tr>'}
+    <tr class="tot"><td colspan="4">المجموع</td><td class="n">${fmt(R.f)}</td></tr></tbody></table>
+   <div class="st-h3">مصاريف المكتب</div>
+   <table class="t"><thead><tr><th>ت</th><th>التفاصيل</th><th class="n">العدد</th><th class="n">المبلغ</th></tr></thead><tbody>
+    ${G.map((g,i)=>`<tr><td>${i+1}</td><td>${esc(g.k)}</td><td class="n">${g.n}</td><td class="n r">${fmt(g.a)}</td></tr>`).join('')||'<tr><td colspan="4" style="text-align:center">لا مصاريف</td></tr>'}
+    <tr class="tot"><td colspan="3">المجموع</td><td class="n">${fmt(R.e)}</td></tr></tbody></table>
+   <div class="st-note">الأتعاب بالنسبة تُحسب بتاريخ كل دفعة مستلمة، والأتعاب المقطوعة بتاريخ أول دفعة من المشروع. مصاريف المكتب لا تظهر في كشوف الزبائن.${S.demo?' · <b>بيانات تجريبية</b>':''}</div></div>`;
+  docOpen('كشف الأرباح · '+npLabel(),html,{no:a+' / '+b,who:S.co.short||'',sigs:['المحاسب','المهندس','المدقق']})}
+
+/* ---- الموظفون والعهدة ---- */
+VIEWS.team=()=>{if(AS||!CAN.admin)return VIEWS.home();const T=TEAM();
+  return `<header class="top short"><div class="hdr"><div><h1>الموظفون والعهدة</h1><p><span class="num">${T.length}</span> موظف</p></div><button class="back" aria-label="رجوع" onclick="go('more')">→</button></div></header>
+  <div class="wrap" style="margin-top:14px">
+   <div class="hint">لكل موظف تحدد <b>المشاريع اللي يشوفها</b>، وتتابع <b>عهدته</b>: كم أعطيته، كم صرف ووين، وكم باقي بيده.</div>
+   ${MODE==='cloud'?`<button class="btn y" onclick="go('members')">+ إضافة مستخدم</button>`:`<button class="btn y" onclick="tmAddSheet()">+ موظف جديد</button>`}
+   <div class="list">${T.map(t=>{const c=custOf(t.uid);return `<button class="li" onclick="go('staff','${t.uid}')"><div class="ic">👷</div><div class="mid"><div class="t">${esc(t.name)}</div><div class="s">${esc(t.job||'')} · ${t.projects?'<span class="num">'+t.projects.length+'</span> مشاريع':'كل المشاريع'}</div></div><div class="nfleft"><b class="num ${c.left<0?"nfr":""}">${sfmt(c.left)}</b><span>باقي بيده</span></div></button>`}).join('')||`<div class="empty">${MODE==='cloud'&&!TM_LOADED?'لحظة…':'ما في موظفين بعد'}</div>`}</div>
+  </div>`};
+function tmAddSheet(){sheet(`<h3>موظف جديد</h3>
+  <div class="fld"><div class="bx"><label for="tm-n">الاسم</label><input id="tm-n" placeholder="م. أحمد كريم"></div></div>
+  <div class="fld"><div class="bx"><label for="tm-j">العمل</label><input id="tm-j" placeholder="مهندس موقع"></div></div>
+  <button class="btn" onclick="const n=$('#tm-n').value.trim();if(!n)return toast('اكتب الاسم');TEAM().push({uid:'t-'+uid(),name:n,job:$('#tm-j').value.trim(),projects:[]});save();closeSheet();render()"><span class="ck">✓</span> إضافة</button><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
+function custRow(e){if(e.kind==='cg'||e.kind==='cr')return `<button class="li" onclick="custMenu('${e.id}')"><div class="dot ${e.kind}">${e.kind==='cg'?'↓':'↩'}</div><div class="mid"><div class="t">${e.kind==='cg'?'استلم عهدة':'رجّع للمكتب'}${e.det&&!/^(عهدة نقدية|إرجاع)$/.test(e.det)?' · '+esc(e.det):''}</div><div class="s"><span class="num">${e.date}</span>${e.by?' · '+esc(e.by):''}</div></div><b class="a amt">${fmt(e.amt)}</b></button>`;
+  let r=entryRow(e);if(e.pid==='office')r=r.replace('<div class="s">','<div class="s">🏢 المكتب · ');if(e.cu&&!AS)r=r.replace('<div class="s">','<div class="s">👷 '+esc(tmName(e.cu))+' · ');return r}
+function custMenu(id){const e=S.entries.find(x=>x.id===id);if(!e)return;
+  sheet(`<h3>${e.kind==='cg'?'عهدة إلى ':'استلام من '}${esc(tmName(e.cu))}</h3><p class="note"><b class="num">${fmt(e.amt)}</b> د.ع · <span class="num">${e.date}</span>${e.det?' · '+esc(e.det):''}</p>
+   ${CAN.admin&&!AS?`<button class="btn del" onclick="closeSheet();askDel('حذف هذه الحركة؟ تنتقل لسلة المحذوفات.','نعم، احذف',()=>{const x=S.entries.find(q=>q.id==='${id}');x.del={at:today(),by:S.me};save();render();toast('انحذف ✓')})">🗑️ حذف</button>`:''}
+   <button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)}
+function custSheet(u,kind){const c=custOf(u),nm=tmName(u);
+  sheet(`<h3>${kind==='cg'?'أعطيت '+esc(nm)+' مبلغ':'استلمت من '+esc(nm)}</h3>
+   <p class="note">${kind==='cg'?'المبلغ يطلع من الصندوق ويصير بإيد الموظف. ما ينحسب مصروف، المصروف هو اللي يصرفه هو.':'المبلغ يرجع للصندوق وينزل من اللي بإيده.'} باقي بيده الآن: <b class="num">${sfmt(c.left)}</b> د.ع</p>
+   <div class="fld"><div class="bx"><label for="cs-amt">المبلغ (د.ع)</label><input id="cs-amt" class="num" inputmode="numeric" style="text-align:right" oninput="const n=parseAmt(this.value);this.value=n?fmt(n):''"></div></div>
+   ${kind==='cr'&&c.left>0?`<div class="quick"><button onclick="$('#cs-amt').value='${fmt(c.left)}'">كل الباقي (${fmt(c.left)})</button></div>`:''}
+   <div class="dpw"><label>التاريخ</label>${dpk('cs-date',today())}</div>
+   <div class="fld"><div class="bx"><label for="cs-det">ملاحظة</label><input id="cs-det" placeholder="اختياري"></div></div>
+   <button class="btn" onclick="custSave('${u}','${kind}')"><span class="ck">✓</span> حفظ</button><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
+function custSave(u,kind){const amt=parseAmt($('#cs-amt').value),date=$('#cs-date').value;if(!amt)return toast('اكتب المبلغ');if(!okDate(date))return toast('اختر التاريخ');if(date>today())return toast('لا يمكن اختيار تاريخ بعد اليوم');
+  S.entries.push({id:uid(),pid:'office',kind,cu:u,amt,date,det:$('#cs-det').value.trim()||(kind==='cg'?'عهدة نقدية':'إرجاع'),party:tmName(u),by:S.me,ts:Date.now(),log:[]});
+  save();closeSheet();render();toast(kind==='cg'?'تم ✓ أعطيته '+fmt(amt):'تم ✓ استلمت '+fmt(amt))}
+function pjAll(on){$('#pj-list').hidden=on}
+async function pjSave(u){const arr=$('#pj-all').checked?null:[...document.querySelectorAll('.pj-c:checked')].map(x=>x.value);
+  if(MODE==='cloud'){const{error}=await SB.rpc('asas_member_projects',{p_org:ME.org,p_user:u,p_projects:arr});if(error)return toast('تعذّر الحفظ، تأكد من الإنترنت');const m=MEMBERS.find(x=>x.user_id===u);if(m)m.projects=arr}
+  else{const t=TEAM().find(x=>x.uid===u);t.projects=arr;save()}
+  toast('تم حفظ المشاريع ✓');render()}
+VIEWS.staff=(u)=>{if(AS||!CAN.admin)return VIEWS.home();const t=TEAM().find(x=>x.uid===u);if(!t)return VIEWS.team();const c=custOf(u);
+  const byP={};for(const e of c.L)if(e.kind==='out')byP[e.pid]=(byP[e.pid]||0)+e.amt;const ps=live(S.projects);const all=!t.projects;
+  return `<header class="top short"><div class="hdr"><div><h1>${esc(t.name)}</h1><p>${esc(t.job||'')}${t.phone?' · <span class="num">'+esc(t.phone)+'</span>':''}</p></div><button class="back" aria-label="رجوع" onclick="go('team')">→</button></div></header>
+  <div class="wrap" style="margin-top:14px">
+   <section class="card"><div class="nfh">العهدة</div>
+    <div class="nfk"><div><span>أعطيته</span><b class="num nfg">${fmt(c.g)}</b></div><div><span>صرف</span><b class="num nfr">${fmt(c.sp)}</b></div><div><span>باقي بيده</span><b class="num ${c.left<0?"nfr":""}">${sfmt(c.left)}</b></div></div>
+    ${c.col||c.r?`<p class="note" style="margin:0 0 10px">${c.col?'استلم من الزبائن <b class="num">'+fmt(c.col)+'</b> د.ع':''}${c.col&&c.r?' · ':''}${c.r?'رجّع للمكتب <b class="num">'+fmt(c.r)+'</b> د.ع':''}</p>`:''}
+    ${c.left<0?`<p class="note" style="margin:0 0 10px">صرف أكثر مما استلم بـ <b class="num">${fmt(-c.left)}</b> د.ع، والمبلغ له بذمة المكتب.</p>`:''}
+    <div class="row2"><button class="btn y" onclick="custSheet('${u}','cg')">+ أعطيته مبلغ</button><button class="btn ghost" onclick="custSheet('${u}','cr')">استلمت منه</button></div>
+    <button class="btn ghost" style="margin-top:10px" onclick="showCustody('${u}')">🖨️ كشف العهدة</button></section>
+   <div class="sec"><h2>وين صرف</h2></div>
+   <div class="list">${Object.entries(byP).sort((x,y)=>y[1]-x[1]).map(([k,v])=>{const p=P(k);return `<div class="li"><div class="ic">${k==='office'?'🏢':'🏗️'}</div><div class="mid"><div class="t">${k==='office'?'المكتب':esc(p?cName(C(p.cid)||{})+' · '+p.name:'—')}</div><div class="s">${k==='office'?'يُخصم من أتعابك':'يظهر في كشف الزبون'}</div></div><b class="a amt neg">${fmt(v)}</b></div>`}).join('')||'<div class="empty">ما صرف شي بعد</div>'}</div>
+   <div class="sec"><h2>كل الحركات</h2><span class="num">${c.L.length}</span></div>
+   <div class="list">${c.L.slice().reverse().map(custRow).join('')||'<div class="empty">لا حركات</div>'}</div>
+   <div class="sec"><h2>المشاريع التي يراها</h2></div>
+   <section class="card nfpj">
+    <label class="nfchk"><input type="checkbox" id="pj-all" ${all?'checked':''} onchange="pjAll(this.checked)"><span><b>كل المشاريع</b><small>يشوف كل مشاريع المكتب</small></span></label>
+    <div id="pj-list" ${all?'hidden':''}>${ps.map(p=>`<label class="nfchk"><input type="checkbox" class="pj-c" value="${p.id}" ${!all&&t.projects.includes(p.id)?'checked':''}><span><b>${esc(cName(C(p.cid)||{}))}</b><small>${esc(p.name)}${p.done?' · منتهٍ':''}</small></span></label>`).join('')}</div>
+    <button class="btn" onclick="pjSave('${u}')"><span class="ck">✓</span> حفظ المشاريع</button>
+    <p class="note" style="margin:0">يشوف بس المشاريع المأشّرة: حساباتها وصرفياتها وكشوفها. ما يشوف أتعابك ولا «صافيي» ولا مصاريف المكتب، إلا اللي صرفه هو.</p></section>
+   ${MODE!=='cloud'?`<button class="btn ghost" onclick="enterAs('${u}')">👁️ شوف التطبيق مثل ما يشوفه ${esc(t.name)}</button>`:''}
+  </div>`};
+function showCustody(u){const t=TEAM().find(x=>x.uid===u)||{name:tmName(u)};const c=custOf(u);let bal=0;
+  const rows=c.L.map((e,i)=>{const plus=e.kind==='cg'||e.kind==='in';bal+=plus?e.amt:-e.amt;const p=P(e.pid);
+    const where=e.kind==='cg'?'استلام عهدة':e.kind==='cr'?'إرجاع للمكتب':e.kind==='in'?'استلام من الزبون · '+(p?p.name:''):e.pid==='office'?'المكتب':(p?cName(C(p.cid)||{})+' · '+p.name:'—');
+    return `<tr><td>${i+1}</td><td class="num">${e.date}</td><td>${esc(e.det||'—')}</td><td>${esc(where)}</td><td class="n g">${plus?fmt(e.amt):''}</td><td class="n r">${plus?'':fmt(e.amt)}</td><td class="n">${sfmt(bal)}</td></tr>`}).join('');
+  const html=docHead('كشف عهدة',esc(t.name))+`<div class="st-b">
+   ${stKpis([['استلم',c.g+c.col],['صرف',c.sp],['رجّع للمكتب',c.r],[c.left<0?'له بذمة المكتب':'الباقي بيده',c.left,c.left<0?'neg':'']])}
+   <table class="t"><thead><tr><th>ت</th><th>التاريخ</th><th>البيان</th><th>المشروع / الجهة</th><th class="n">استلم</th><th class="n">صرف</th><th class="n">الرصيد</th></tr></thead><tbody>
+    ${rows||'<tr><td colspan="7" style="text-align:center">لا حركات</td></tr>'}
+    <tr class="tot"><td colspan="4">المجموع</td><td class="n">${fmt(c.g+c.col)}</td><td class="n">${fmt(c.sp+c.r)}</td><td class="n">${sfmt(c.left)}</td></tr></tbody></table>
+   <div class="st-note">الصرف على المشاريع يظهر في كشوف الزبائن، والصرف على المكتب يُخصم من أتعاب المهندس.${S.demo?' · <b>بيانات تجريبية</b>':''}</div></div>`;
+  docOpen('كشف عهدة · '+t.name,html,{no:'ع-'+today(),who:t.name,sigs:['الموظف: '+t.name,'المهندس المسؤول','المحاسب']})}
+
+/* ---- شاشة الموظف (يشوف مشاريعه بس) ---- */
+function workerHome(){const c=custOf(AS.uid);const mine=c.L.filter(e=>e.kind==='out'||e.kind==='in').slice(-6).reverse();const ps=live(S.projects);
+  return `<header class="top"><div class="brand"><div class="logo">${logoHtml()}</div><div><h1>${esc(S.co.short||S.co.name)}</h1><p>أهلاً ${esc(AS.name)}</p></div></div></header>
+  <div class="wrap pull">
+   ${DEMO_AS?`<div class="nfas"><span>👁️ هذا ما يشوفه ${esc(AS.name)}</span><button onclick="exitAs()">رجوع لحسابي</button></div>`:''}
+   <section class="card cash"><div class="lbl">باقي بيدي من العهدة</div><div class="big"><span class="amt ${c.left<0?'neg':''}">${sfmt(c.left)}</span><small>د.ع</small></div>
+    <div class="duo"><div class="mini"><span>استلمت</span><b class="amt">${fmt(c.g+c.col)}</b></div><div class="mini"><span>صرفت</span><b class="amt">${fmt(c.sp)}</b></div></div></section>
+   <div class="acts"><button class="act in" onclick="qStart('in')"><span>استلمت مبلغ</span><i>↓</i></button><button class="act out" onclick="qStart('out')"><span>صرفت مبلغ</span><i>↑</i></button></div>
+   <div class="sec"><h2>آخر صرفي</h2></div><div class="list">${mine.map(custRow).join('')||'<div class="empty">ما سجلت صرف بعد</div>'}</div>
+   <div class="sec"><h2>مشاريعي</h2><span class="num">${ps.length}</span></div>
+   ${ps.length?ps.map(prjCard).join(''):'<div class="card empty">ما عندك مشاريع محددة. اطلب من المهندس يحددها لك.</div>'}
+   <p class="note" style="text-align:center">🔒 تشوف بس المشاريع اللي حددها لك المهندس.</p></div>`}
+function enterAs(u){const t=TEAM().find(x=>x.uid===u);if(!t)return;FULL=S;const pj=t.projects;
+  const projects=FULL.projects.filter(p=>!pj||pj.includes(p.id)),pids=new Set(projects.map(p=>p.id)),cids=new Set(projects.map(p=>p.cid));
+  S=Object.assign({},FULL,{projects,clients:FULL.clients.filter(c=>cids.has(c.id)),entries:FULL.entries.filter(e=>pids.has(e.pid)||(e.pid==='office'&&e.cu===u)),me:t.name});
+  DEMO_AS={uid:u,name:t.name,projects:pj};CAN.del=false;document.body.classList.add('nodel');go('home')}
+function nfMerge(){if(!FULL)return;for(const t of ['entries','projects','clients']){const ids=new Set(FULL[t].map(x=>x.id));for(const x of S[t])if(!ids.has(x.id))FULL[t].push(x)}FULL.seq=S.seq}
+function exitAs(){const u=DEMO_AS&&DEMO_AS.uid;nfMerge();if(FULL)S=FULL;FULL=null;DEMO_AS=null;setCan();save();go(u?'staff':'home',u)}
+const _saveNF=save;save=function(){if(FULL){nfMerge();const cur=S;S=FULL;try{_saveNF()}finally{S=cur}}else _saveNF()};
+
+/* ---- ربط الشاشات الموجودة ---- */
+const _homeNF=VIEWS.home;VIEWS.home=a=>{if(AS)return workerHome();let h=_homeNF(a);
+  if(CAN.admin){const m=today().slice(0,7),R=netOf(m+'-01',m+'-31');
+    h=h.replace('<div class="sec"><h2>مشاريع زبائنك</h2>',`<button class="card nfmini" onclick="NP.k='m';NP.m='${m}';go('net')"><div><span>صافيي هذا الشهر</span><b class="amt ${R.n<0?'neg':''}">${sfmt(R.n)} <small>د.ع</small></b><small>أتعابي <span class="num">${fmt(R.f)}</span> − مصاريف المكتب <span class="num">${fmt(R.e)}</span></small></div><i>‹</i></button>
+   <div class="sec"><h2>مشاريع زبائنك</h2>`)}
+  return h};
+const _projNF=VIEWS.project;VIEWS.project=id=>{let h=_projNF(id);if(AS)h=h.replace(/<div><span>الأتعاب[\s\S]*?<\/b><\/div>/,'');return h};
+const _clientsNF=VIEWS.clients;VIEWS.clients=()=>{let h=_clientsNF();if(AS)h=h.replace(/(?: · )?أتعاب [^<]*/g,'');return h};
+const _repNF=VIEWS.reports;VIEWS.reports=()=>{let h=_repNF();
+  if(AS)return h.replace(/<div class="sec"><h2>التقرير الشهري[\s\S]*?(?=<div class="sec"><h2>آخر الحركات)/,'');
+  if(CAN.admin)h=h.replace('<div class="wrap" style="margin-top:14px">',`<div class="wrap" style="margin-top:14px">
+   <div class="sec"><h2>صافي أتعابي</h2></div>
+   <button class="card nfmini" onclick="go('net')"><div><span>كم ربحت بعد مصاريف المكتب؟</span><b>صافيي</b><small>لشهر، لسنة كاملة، أو لأي فترة تختارها</small></div><i>‹</i></button>`);
+  return h};
+const _moreNF=VIEWS.more;VIEWS.more=()=>{let h=_moreNF();
+  const li=(on,ic,t,s)=>`<button class="li" onclick="${on}"><div class="ic">${ic}</div><div class="mid"><div class="t">${t}</div><div class="s">${s}</div></div></button>`;
+  if(DEMO_AS)return h.replace('<div class="wrap menu" style="margin-top:14px">',`<div class="wrap menu" style="margin-top:14px"><div class="nfas"><span>👁️ هذا ما يشوفه ${esc(AS.name)}</span><button onclick="exitAs()">رجوع لحسابي</button></div>`);
+  if(!AS&&CAN.admin)h=h.replace('<div class="wrap menu" style="margin-top:14px">',`<div class="wrap menu" style="margin-top:14px"><div class="list">${li("go('net')",'💰','صافيي','أتعابي − مصاريف المكتب، لأي فترة')}${li("go('team')",'👷','الموظفون والعهدة','مشاريع كل موظف، وكم أعطيته وكم صرف')}</div>`);
+  return h};
+const _renderNF=render;render=function(){_renderNF();
+  if(MODE==='cloud'&&['team','staff'].includes(V.v)&&!TM_LOADED){TM_LOADED=true;loadMembers().then(()=>{if(['team','staff'].includes(V.v))render()})}};
 
 boot();
 </script>
