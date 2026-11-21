@@ -1,0 +1,50 @@
+name: Monthly restore check
+# أول كل شهر: ينزّل آخر نسخة ليلية مشفّرة، يفك تشفيرها، ويتأكد إنها كاملة. النتيجة تظهر بلوحة الإدارة.
+on:
+  schedule:
+    - cron: "0 3 1 * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+  id-token: write
+  issues: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      FN: https://nlwlopwewqebdawkgtbk.supabase.co/functions/v1/asas-offsite
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Download latest nightly backup
+        run: |
+          set -e
+          RUN=$(gh run list -R "$GITHUB_REPOSITORY" -w "Nightly offsite backup" -s success -L 1 --json databaseId -q '.[0].databaseId')
+          test -n "$RUN"
+          gh run download "$RUN" -R "$GITHUB_REPOSITORY" -D dl
+          F=$(find dl -name '*.enc' | head -1); test -n "$F"; echo "F=$F" >> $GITHUB_ENV
+      - name: Decrypt and verify
+        run: |
+          set -e
+          TOK=$(curl -sf -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=asas-backup" | jq -r .value)
+          echo "::add-mask::$TOK"
+          K=$(curl -sf -X POST -H "x-gh-oidc: $TOK" -H "Content-Type: application/json" -d '{"action":"key"}' "$FN" | jq -r .key)
+          echo "::add-mask::$K"
+          openssl enc -d -aes-256-cbc -pbkdf2 -pass "pass:$K" -in "$F" | gunzip > b.json
+          jq -e '.app=="asas" and (.tables.asas_orgs|length)>0 and (.tables.asas_members|length)>0' b.json
+          jq -c '.counts' b.json > counts.json
+          echo "### فحص الاسترجاع" >> $GITHUB_STEP_SUMMARY; cat counts.json >> $GITHUB_STEP_SUMMARY
+          rm -f b.json
+      - name: Report
+        if: always()
+        run: |
+          TOK=$(curl -sf -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=asas-backup" | jq -r .value)
+          echo "::add-mask::$TOK"
+          OK=$([ "${{ job.status }}" = success ] && echo true || echo false)
+          C=$(cat counts.json 2>/dev/null || echo null); [ -n "$C" ] || C=null
+          curl -s -X POST -H "x-gh-oidc: $TOK" -H "Content-Type: application/json" \
+            -d "{\"action\":\"restore_check\",\"ok\":$OK,\"run\":\"$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID\",\"counts\":$C}" "$FN" || true
+      - name: Alert on failure
+        if: failure()
+        run: gh issue create -R "$GITHUB_REPOSITORY" --title "⚠️ فشل فحص استرجاع نسخة أسس الشهري" --body "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
