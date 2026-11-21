@@ -527,6 +527,56 @@ details.stopt summary{cursor:pointer;list-style:none}details.stopt summary::-web
 @media print{html,body{height:auto!important;min-height:0!important}body:has(#doc.show) #app,body:has(#doc.show) .tabbar,body:has(#doc.show) #layer{display:none!important}#doc{position:static!important}.book .apage.rcpage{height:auto!important;overflow:visible;break-inside:avoid;page-break-inside:avoid}}
 /* كل الأوراق المطبوعة: تصغير بسيط حتى ما تنقص الحواف مع هوامش الآيفون والطابعات */
 @media print{.pscale .book{zoom:.84;margin:0 auto!important;width:794px!important}}
+/* الإدارة الموحّدة */
+.srvnote{background:#FFF6DA;color:#6b4e00;border-radius:14px;padding:10px 12px;font-size:13px;line-height:1.8}
+.atabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:#E7ECF4;border-radius:14px;padding:4px}
+.atabs button{border:0;background:none;border-radius:11px;padding:9px 2px;font:inherit;font-weight:800;font-size:12.5px;color:var(--mut);line-height:1.3}
+.atabs button.on{background:#fff;color:var(--navy);box-shadow:0 1px 3px rgba(20,41,74,.12)}
+.hero{background:var(--navy);color:#fff;border-radius:18px;padding:16px 18px;border-bottom:4px solid var(--yel)}
+.hero .hl{font-size:13px;opacity:.8}.hero .hv{font-size:30px;font-weight:800;margin:2px 0 6px}.hero .hv small{font-size:14px;opacity:.8}
+.hero .hs{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:13px}.hero .hs b{color:var(--yel)}
+.gw{border-radius:10px;padding:1px 8px;font-weight:700}.gw.up{background:rgba(22,156,85,.25);color:#7ff0b1}.gw.dn{background:rgba(180,35,24,.3);color:#ffb4ad}
+.alist{display:flex;flex-direction:column;background:var(--card);border-radius:16px;overflow:hidden}
+.alist button{display:flex;align-items:center;gap:10px;border:0;border-bottom:1px solid var(--line);background:none;padding:12px 14px;font:inherit;text-align:right}
+.alist button:last-child{border-bottom:0}.alist b{flex:1;font-size:14.5px;color:var(--ink)}.alist em,.tl2 em{font-style:normal;color:var(--mut);font-size:20px}
+.callc{display:flex;align-items:center;gap:10px;background:var(--card);border-radius:16px;padding:12px 14px;border-right:4px solid var(--yeld)}
+.callc .ci{font-size:24px}.callc b{display:block}.callc small{color:var(--mut);font-size:12.5px;line-height:1.6;display:block}
+.callc button{border:0;border-radius:12px;background:#25D366;color:#fff;font:inherit;font-weight:800;font-size:13px;padding:9px 10px;flex:none}
+.dorm{background:var(--card);border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.dorm .dh{display:flex;gap:10px;align-items:flex-start}.dorm .dh span{font-size:22px}.dorm .dh small{display:block;color:var(--mut);font-size:12.5px;line-height:1.6}
+.dr{display:flex;align-items:center;gap:10px}.dr .av,.li .av{width:36px;height:36px;border-radius:11px;font-size:15px;color:#fff}
+.dr .dn{flex:1;min-width:0;cursor:pointer}.dr .dn b{display:block;font-size:14px}.dr .dn small{color:var(--mut);font-size:12px}
+.ib{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;text-decoration:none;font-size:17px}.ib.wa{background:#E6F7EE}
+.dorm .more{border:0;background:var(--soft);border-radius:12px;padding:8px;font:inherit;font-weight:700;color:var(--navy)}
+.fn{color:var(--mut);font-size:12px;line-height:1.7}
+.rep{background:var(--card);border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.rep .rh{display:flex;justify-content:space-between;align-items:center}.rep .rm{display:flex;align-items:center;gap:6px;font-weight:700;font-size:14px}
+.rep .rm button{border:1px solid var(--line);background:#fff;border-radius:10px;width:32px;height:32px;font-size:18px;color:var(--navy)}.rep .rm button:disabled{opacity:.35}
+.rep .rg,.tl3{display:grid;grid-template-columns:1fr 1fr;gap:8px}.tl3{grid-template-columns:1fr 1fr 1fr}
+.rep .rg div,.tl3 div{background:var(--soft);border-radius:12px;padding:10px;text-align:center}.tl3 div{background:var(--card)}
+.rep .rg b,.tl3 b{display:block;font-size:19px;color:var(--navy);font-weight:800}.rep .rg span,.tl3 span{font-size:12px;color:var(--mut)}
+.srow{display:flex;gap:8px;align-items:stretch}
+.stc{display:inline-block;color:#fff;border-radius:8px;padding:0 7px;font-size:11.5px;font-weight:700;vertical-align:middle}
+.bars{background:var(--card);border-radius:16px;padding:12px 14px}.bars h4{margin:0 0 8px;font-size:14px}
+.bi{display:grid;grid-template-columns:92px 1fr auto;gap:8px;align-items:center;font-size:12.5px;margin:6px 0}.bi i{background:var(--soft);border-radius:8px;height:12px;overflow:hidden}
+.bi u{display:block;height:100%;background:var(--green);border-radius:8px}.bi b{font-size:13px}
+.pa{display:flex;flex-direction:column;align-items:flex-end;gap:4px}.pa b{font-size:15px;color:var(--green)}
+.pa span,.pe{display:inline-flex;gap:6px}.pa button,.pe button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:2px 9px;font:inherit;font-size:12px;font-weight:700;color:var(--navy)}
+.pa button.r,.pe button.r{color:var(--red)}.pe{margin-right:6px}
+.tl2{display:flex;flex-direction:column;background:var(--card);border-radius:16px;overflow:hidden}
+.tl2 button{display:flex;align-items:center;gap:12px;border:0;border-bottom:1px solid var(--line);background:none;padding:12px 14px;font:inherit;text-align:right}
+.tl2 button:last-child{border-bottom:0}.tl2 span{font-size:22px;width:30px;text-align:center}.tl2 div{flex:1}.tl2 b{display:block;font-size:15px;color:var(--ink)}.tl2 small{color:var(--mut);font-size:12.5px}
+.ptab{width:100%;border-collapse:separate;border-spacing:4px}.ptab th{font-size:12px;color:var(--mut);font-weight:700}.ptab td b{font-size:14px}
+.pin{width:100%;border:1px solid var(--line);border-radius:10px;padding:8px 4px;text-align:center;font:inherit;font-size:14px;background:var(--soft);min-width:0}
+.okbox{background:#E8F7EE;color:#1D6B3A;border-radius:14px;padding:10px 12px;font-size:13px;line-height:1.9}
+.ck{display:flex;gap:8px;align-items:center;font-weight:700;font-size:14px}.ck input{width:20px;height:20px}
+.annbar{display:flex;align-items:flex-start;gap:8px;background:#EEF5FF;color:#1C3D7A;border-radius:14px;padding:10px 12px;font-size:14px;font-weight:700;line-height:1.7}
+.annbar p{margin:0;flex:1;white-space:pre-wrap}.annbar button{border:0;background:none;font-size:22px;line-height:1;color:#1C3D7A;padding:0 4px}
+.chip.snd{background:#25D366;color:#fff;text-decoration:none;padding:6px 14px;font-weight:800}.chip.snd.done{background:#E6F7EE;color:#169C55}
+.bkm{font-size:18px}.bkm.ok{color:var(--green)}.bkm.no{color:var(--red)}.bkm.na{color:var(--mut)}
+.bkopt{flex-direction:column;gap:2px;line-height:1.4}.bkopt small{font-size:12.5px;font-weight:600;opacity:.85}
+.stc .num,.dorm small .num,.callc small .num,.alist .num{font-size:inherit}
+.bi{grid-template-columns:118px 1fr auto}
 </style>
 
 <div id="app"></div>
@@ -931,7 +981,7 @@ function backupSheet(){sheet(`<h3>النسخ الاحتياطي</h3><p class="no
   <div class="row2"><button class="btn sm" style="width:100%" onclick="const t=$('#bk');t.select();(navigator.clipboard?navigator.clipboard.writeText(t.value):Promise.reject()).then(()=>toast('نُسخ ✓')).catch(()=>toast('حدّد النص وانسخه'))">نسخ</button>
   <button class="btn sm ghost" style="width:100%" onclick="try{const x=JSON.parse($('#bk').value);if(x.v!==1)throw 0;S=x;save();closeSheet();go('home');toast('تم الاستيراد ✓')}catch(e){toast('النص غير صالح')}">استيراد</button></div>`)}
 function subSheet(){sheet(`<h3>اشتراك أسس</h3><div class="hook in">مبلغٌ واحد تنسى تسجيله قد يكلّفك أكثر من اشتراك سنة كاملة.<br><b>أسس يحفظ لك كل دينار.</b></div><p class="note">الأسعار بالدينار العراقي · الدفع بتحويل ماستر كارد إلى الرقم <b class="num">${PLATFORM.phone}</b></p>
-  <div class="list">${PLANS.map(([n,d,a,b,c])=>`<div class="li"><div class="mid"><div class="t">${n}</div><div class="s" style="white-space:normal">${d.split(' · ')[0]}</div><div class="s" style="white-space:normal;font-weight:700;color:var(--ink,#13294b)">📁 ${d.split(' · ')[1]||''}</div>${n==='مكتب'?'<div class="s" style="white-space:normal;font-size:12px">➕ مهندس إضافي: <span class="num">25,000</span> / 3 أشهر · <span class="num">45,000</span> / 6 أشهر · <span class="num">80,000</span> / سنة</div>':''}</div><div style="text-align:left;font-size:12.5px;line-height:1.6"><div>3 أشهر <b class="num">${a},000</b></div><div>6 أشهر <b class="num">${b},000</b></div><div>سنة <b class="num">${c},000</b></div></div></div>`).join('')}</div>
+  <div class="list">${PLANS.map(([n,d,a,b,c])=>`<div class="li"><div class="mid"><div class="t">${n}</div><div class="s" style="white-space:normal">${d.split(' · ')[0]}</div><div class="s" style="white-space:normal;font-weight:700;color:var(--ink,#13294b)">📁 ${d.split(' · ')[1]||''}</div>${n==='مكتب'?'<div class="s" style="white-space:normal;font-size:12px">➕ مهندس إضافي: '+addonTxt()+'</div>':''}</div><div style="text-align:left;font-size:12.5px;line-height:1.6"><div>3 أشهر <b class="num">${pfmt(a)}</b></div><div>6 أشهر <b class="num">${pfmt(b)}</b></div><div>سنة <b class="num">${pfmt(c)}</b></div></div></div>`).join('')}</div>
   <button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)}
 
 
@@ -1428,12 +1478,13 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.8.7',APP_T='2026-11-21 00:35';
+var APP_V='1.8.8',APP_T='2026-11-21 11:45';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='تحسينات بإدارة الاشتراكات وحالة الحساب';
+var APP_NEWS='الطباعة صارت ملف PDF بحجم A4 كامل وبدقة عالية، ترسله للطابعة أو لأي شخص بالواتساب|الوصل: النسختين بورقة وحدة، والختم والتوقيع مرتبين|ما أكو قص بالحواف ولا ورقة زايدة بالطباعة';
 var APP_NEWS_186='اضغط على أي حركة بالمشروع حتى تعدّلها أو تحذفها|الحذف يطلب تأكيد، والمحذوف يروح لسلة المحذوفات وتكدر ترجعه خلال 30 يوم|حذف الزبون أو المشروع صار يطلب تأكيد، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.8.7',d:'2026-11-21',n:APP_NEWS.split('|')},
+ {v:'1.8.8',d:'2026-11-21',n:APP_NEWS.split('|')},
+ {v:'1.8.7',d:'2026-11-21',n:['تحسينات بإدارة الاشتراكات وحالة الحساب']},
  {v:'1.8.6',d:'2026-11-21',n:APP_NEWS_186.split('|')},
  {v:'1.8.5',d:'2026-11-20',n:['الضغط السريع على الأرقام ما يكبّر الشاشة بعد', 'بالآيفون: الضغط على خانة الكتابة أو التاريخ ما يكبّر الشاشة']},
  {v:'1.8.4',d:'2026-11-20',n:['كل التواريخ صارت اختيار يوم وشهر وسنة بدل الكتابة باليد', 'شاشة اختيار الكشف صارت أرتب: كل دفعة وكل كشف بزر «عرض الكشف» موحّد']},
@@ -1524,11 +1575,13 @@ function bkSheet(id){const b=(BK.list||[]).find(x=>x.id===id);sheet(`<h3>نسخ�
 async function bkGet(id){const{data,error}=await SB.rpc('asas_backup_get',{p_org:ME.org,p_id:id});if(error||!data){toast('تعذّر تحميل النسخة');return null}return data}
 function saveFile(name,obj){const b=new Blob([JSON.stringify(obj)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();a.remove()}
 async function bkDl(id){const d=await bkGet(id);if(!d)return;saveFile('asas-backup-'+String(d.at||'').slice(0,10)+'.json',Object.assign({app:'asas'},d));dlMark();toast('تم التنزيل ✓');if(V.v==='backups')render()}
-function bkAskRestore(id){ask('استرجاع هذه النسخة؟ ستعود البيانات كما كانت وقتها، وما أُضيف بعدها يُنقل إلى السلة. تُؤخذ نسخة من وضعك الحالي قبل الاسترجاع.','استرجاع',async()=>{const d=await bkGet(id);if(d)bkRestore(d)})}
+function bkAskRestore(id){(async()=>{const d=await bkGet(id);if(d)bkMode(d)})()}
 function bkFile(inp){const f=inp.files&&inp.files[0];inp.value='';if(!f)return;const r=new FileReader();r.onload=()=>{let d=null;try{d=JSON.parse(r.result)}catch(e){}
   if(d&&d.v===1&&Array.isArray(d.clients)&&Array.isArray(d.projects)&&Array.isArray(d.entries)){d={co:d.co,clients:d.clients,projects:d.projects,entries:d.entries}}else d=null;
-  if(!d)return toast('الملف غير صالح');ask('استرجاع البيانات من هذا الملف؟ ما ليس في الملف يُنقل إلى السلة، وتُؤخذ نسخة من وضعك الحالي قبل الاسترجاع.','استرجاع',()=>bkRestore(d))};r.readAsText(f)}
-async function bkRestore(d){toast('جارٍ الاسترجاع…');await push();const{error}=await SB.rpc('asas_backup_now',{p_org:ME.org,p_kind:'before_restore'});if(error)return toast('تعذّر أخذ نسخة قبل الاسترجاع، لم يتغيّر شيء');
+  if(!d)return toast('الملف غير صالح');bkMode(d)};r.readAsText(f)}
+async function bkRestore(d,mode){if(mode==='del'&&!bkDelCount(d))return toast('ماكو شي محذوف يرجع');toast('جارٍ الاسترجاع…');await push();const{error}=await SB.rpc('asas_backup_now',{p_org:ME.org,p_kind:'before_restore'});if(error)return toast('تعذّر أخذ نسخة قبل الاسترجاع، لم يتغيّر شيء');
+  if(mode==='del'){let n=0;for(const t of ['clients','projects','entries'])for(const x of (d[t]||[])){if(!x||!x.id||x.del)continue;const i=S[t].findIndex(r=>r.id===x.id);if(i<0){S[t].push(JSON.parse(JSON.stringify(x)));n++}else if(S[t][i].del){S[t][i]=JSON.parse(JSON.stringify(x));n++}}
+    save();await push();BK.list=null;go('home');return toast(pendingCount()?'رجع '+n+' عنصر وراح ينحفظ على السيرفر عند توفر الإنترنت':'رجع '+n+' عنصر محذوف ✓ وباقي بياناتك ما تغيّرت')}
   const by=S.me||'استرجاع';for(const t of ['clients','projects','entries']){const src=(d[t]||[]).filter(x=>x&&x.id);const ids=new Set(src.map(x=>x.id));
     for(const r of S[t])if(!ids.has(r.id)&&!r.del)r.del={at:today(),by:'استرجاع نسخة'};
     for(const x of src){const i=S[t].findIndex(r=>r.id===x.id);if(i>=0)S[t][i]=JSON.parse(JSON.stringify(x));else S[t].push(JSON.parse(JSON.stringify(x)))}}
@@ -1619,7 +1672,8 @@ function bkPanel(admin){const fresh=x=>x&&Date.now()-Date.parse(x)<2.2*864e5;
    ${row('📱',man?fresh(man)||null:false,'نسخة يدوية على جهازك',man?'آخر تنزيل <span class="num">'+man.slice(0,10)+'</span> · '+agoTxt(man):'لم تُنزَّل بعد · اضغط «تنزيل على جوالي»')}
    ${can?row('☁️',auto?fresh(auto.created_at):false,'نسخة سحابية تلقائية (يومياً)',auto?'<span class="num">'+String(auto.created_at).slice(0,10)+'</span> · '+agoTxt(auto.created_at)+' · تُحفظ 30 يوماً':(admin||BK.list)?'تُؤخذ أول نسخة الليلة':'…'):''}
    ${can?row('🔐',off?(off.ok&&fresh(off.at)):null,'نسخة خارجية مشفّرة (GitHub، ليلياً)',off?'<span class="num">'+String(off.at).slice(0,10)+'</span> · '+agoTxt(off.at)+' · تُحفظ 90 يوماً'+(off.ok?'':' · <b style="color:var(--red)">فشلت آخر محاولة</b>'):'…'):''}
-   <div class="bkacts">${admin?`<button class="y" onclick="admExport()">⬇️ تنزيل نسخة كاملة على جوالي</button><button onclick="offKey()">🔑 مفتاح النسخة الخارجية</button>`
+   ${admin?row('🔁',HL.d&&HL.d.restore_check?(HL.d.restore_check.ok&&Date.now()-Date.parse(HL.d.restore_check.at)<35*864e5):null,'فحص الاسترجاع الشهري',HL.d&&HL.d.restore_check?(HL.d.restore_check.ok?'آخر فحص ناجح '+agoTxt(HL.d.restore_check.at):'<b style="color:var(--red)">فشل آخر فحص</b>'):'يتأكد أول كل شهر إن النسخة تنفتح وكاملة · بعد «ارفع»')+row('📁',HL.d&&HL.d.drive?(HL.d.drive.ok&&Date.now()-Date.parse(HL.d.drive.at)<8*864e5):null,'نسخة أسبوعية على Google Drive',HL.d&&HL.d.drive?'آخرها '+agoTxt(HL.d.drive.at):'غير مفعّلة · من «💾 كل طبقات الحماية»'):''}
+   <div class="bkacts">${admin?`<button class="y" onclick="admExport()">⬇️ تنزيل نسخة كاملة على جوالي</button><button onclick="bkToolSheet()">💾 كل طبقات الحماية</button><button onclick="offKey()">🔑 مفتاح النسخة الخارجية</button>`
      :`<button class="y" onclick="dlBackup()">⬇️ تنزيل على جوالي</button>${can?`<button onclick="bkNow()">☁️ حفظ سحابي الآن</button><button onclick="bkRestoreMenu()">↩️ استرجاع</button>`:''}`}</div></div>`}
 function bkRestoreMenu(){sheet(`<h3>↩️ استرجاع نسخة</h3><p class="note" style="margin:0">قبل أي استرجاع تُؤخذ نسخة من وضعك الحالي، فلا يضيع شيء.</p>
   <button class="btn" onclick="closeSheet();document.getElementById('bk-srv')&&document.getElementById('bk-srv').scrollIntoView({behavior:'smooth'})">☁️ من النسخ على السيرفر (اختر التاريخ)</button>
@@ -1739,7 +1793,7 @@ function memberRows(){if(!MEMBERS.length)return '<div class="empty">لحظة…<
     <div class="s"><span class="num">${esc(m.phone||'')}</span> · ${ROLE_N[roleOf(m)]}${m.active?'':' · موقوف'}</div></div>
     ${m.role==='owner'?'':`<button class="chip n" onclick="memberSheet('${m.user_id}')">تعديل</button>`}</div>`).join('')}
 async function loadMembers(){const{data}=await SB.from('asas_members').select('user_id,role,name,phone,active,created_at,is_engineer').eq('org_id',ME.org).order('created_at');MEMBERS=data||[];const l=$('#mlist');if(l)l.innerHTML=memberRows();const si=$('#seatinfo');if(si)si.textContent=seatInfo()}
-const _render=render;render=function(){_render();if(V.v==='members'&&MODE==='cloud')loadMembers();ensureBadge();trialBar();adminBtn();netBar()};
+const _render=render;render=function(){_render();if(V.v==='members'&&MODE==='cloud')loadMembers();ensureBadge();trialBar();adminBtn();netBar();if(typeof SETS!=='undefined'){annBar();if(MODE==='cloud'&&ME&&ME.org&&!SETS.tried)setsLoad()}};
 function trialBar(){const n=subLeft();if(n!==null&&S.sub.susp&&V.v==='home'&&!$('#trialbar')){const w=$('#app .wrap');if(!w)return;const d=document.createElement('div');d.id='trialbar';d.className='trialbar end';d.innerHTML=`<span>⛔ الحساب موقوف مؤقتاً من إدارة أسس. بياناتك محفوظة وللعرض فقط</span><a href="https://wa.me/964${PLATFORM.phone.replace(/^0/,'')}" target="_blank" rel="noopener" style="border:0;border-radius:10px;padding:6px 12px;background:#B42318;color:#fff;text-decoration:none;white-space:nowrap">تواصل</a>`;const sy=$('#sync');if(sy&&sy.parentNode===w)sy.after(d);else w.prepend(d);return}if(n===null||V.v!=='home'||S.sub.susp||(S.sub.paid&&n>7)||(!S.sub.paid&&n>30))return;const w=$('#app .wrap');if(!w||$('#trialbar'))return;
   const d=document.createElement('div');d.id='trialbar';d.className='trialbar'+(n<=0?' end':'');
   d.innerHTML=n<=0?`<span>انتهت ${S.sub.paid?'مدة الاشتراك':'الفترة التجريبية'}. الحساب للعرض فقط</span><button onclick="subSheet()">اشترك</button>`:`<span>${S.sub.paid?'الاشتراك':'الفترة التجريبية المجانية'}: متبقٍّ <span class="num">${n}</span> يوماً</span><button onclick="subSheet()">الاشتراك</button>`;
@@ -1783,8 +1837,8 @@ subSheet=function(){if(MODE!=='cloud')return _subSheet();const n=subLeft();
   const msg=encodeURIComponent('مرحباً، أرغب بالاشتراك في أسس\nالمكتب: '+(S.co.short||S.co.name||'')+'\nرقمي: '+(ME.phone||'')+'\nالباقة: ');
   sheet(`<h3>اشتراك أسس</h3><div class="hook in">مبلغٌ واحد تنسى تسجيله قد يكلّفك أكثر من اشتراك سنة كاملة.<br><b>أسس يحفظ لك كل دينار.</b></div>
    <div class="trialbar ${n!==null&&n<=0?'end':''}"><span>${subLabel()}${S.sub&&S.sub.until?' · ينتهي <span class="num">'+String(S.sub.until).slice(0,10)+'</span>':''}</span></div>
-   <div class="list">${PLANS.map(([n,d,a,b,c])=>`<div class="li"><div class="mid"><div class="t">${n}</div><div class="s" style="white-space:normal">${d.split(' · ')[0]}</div><div class="s" style="white-space:normal;font-weight:700;color:var(--ink,#13294b)">📁 ${d.split(' · ')[1]||''}</div>${n==='مكتب'?'<div class="s" style="white-space:normal;font-size:12px">➕ مهندس إضافي: <span class="num">25,000</span> / 3 أشهر · <span class="num">45,000</span> / 6 أشهر · <span class="num">80,000</span> / سنة</div>':''}</div><div style="text-align:left;font-size:12.5px;line-height:1.6"><div>3 أشهر <b class="num">${a},000</b></div><div>6 أشهر <b class="num">${b},000</b></div><div>سنة <b class="num">${c},000</b></div></div></div>`).join('')}</div>
-   <div class="card" style="padding:12px 14px;font-size:14px;line-height:1.9"><b>طريقة الاشتراك:</b><br>١. حوِّل المبلغ عبر ماستر كارد إلى الرقم <b class="num">${PLATFORM.phone}</b><br>٢. صوّر الوصل وأرسله عبر الواتساب<br>٣. يُفعَّل اشتراكك خلال ساعات، دون أن تفقد الأيام المتبقية من مدتك</div>
+   <div class="list">${PLANS.map(([n,d,a,b,c])=>`<div class="li"><div class="mid"><div class="t">${n}</div><div class="s" style="white-space:normal">${d.split(' · ')[0]}</div><div class="s" style="white-space:normal;font-weight:700;color:var(--ink,#13294b)">📁 ${d.split(' · ')[1]||''}</div>${n==='مكتب'?'<div class="s" style="white-space:normal;font-size:12px">➕ مهندس إضافي: '+addonTxt()+'</div>':''}</div><div style="text-align:left;font-size:12.5px;line-height:1.6"><div>3 أشهر <b class="num">${pfmt(a)}</b></div><div>6 أشهر <b class="num">${pfmt(b)}</b></div><div>سنة <b class="num">${pfmt(c)}</b></div></div></div>`).join('')}</div>
+   <div class="card" style="padding:12px 14px;font-size:14px;line-height:1.9"><b>طريقة الاشتراك:</b><br>١. حوِّل المبلغ عبر ماستر كارد إلى الرقم <b class="num">${payPhone()}</b><br>٢. صوّر الوصل وأرسله عبر الواتساب<br>٣. يُفعَّل اشتراكك خلال ساعات، دون أن تفقد الأيام المتبقية من مدتك${SETS.pay&&SETS.pay.note?'<br>'+esc(SETS.pay.note):''}${SETS.pay&&SETS.pay.video?'<br><a href="'+esc(SETS.pay.video)+'" target="_blank" rel="noopener">▶️ فيديو شرح طريقة الاشتراك</a>':''}</div>
    <a class="btn y" style="text-decoration:none" href="https://wa.me/${WA}?text=${msg}" target="_blank" rel="noopener" onclick="renewReq()">📲 أرسل الوصل عبر الواتساب</a>
    <button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)};
 function remind(){const n=subLeft();if(n===null||n<=0||n>7||!CAN.admin)return;const step=n<=3?3:7;const k='asas_rem_'+ME.org+'_'+String(S.sub.until).slice(0,10)+'_'+step;
@@ -1796,7 +1850,7 @@ function remind(){const n=subLeft();if(n===null||n<=0||n>7||!CAN.admin)return;co
 /* --- لوحة إدارة أسس (لصاحب المنصة فقط) --- */
 var IS_ADMIN=false,ADM={orgs:null,q:'',f:'all'};
 async function checkAdmin(){try{const{data}=await SB.functions.invoke('asas-admin',{body:{action:'check'}});IS_ADMIN=!!(data&&data.admin);if(IS_ADMIN){setCan();render()}}catch(e){IS_ADMIN=false}}
-async function admLoad(){const{data,error}=await SB.functions.invoke('asas-admin',{body:{action:'list'}});if(error){toast('تعذّر التحميل');return}ADM.orgs=data.orgs;if(V.v==='admin')render()}
+async function admLoad(){const{data,error}=await SB.functions.invoke('asas-admin',{body:{action:'list'}});if(error){toast('تعذّر التحميل');return}ADM.orgs=data.orgs;ADM.v6=(data.v||0)>=6;if(V.v==='admin')render()}
 const dLeft=o=>{const u=[o.trial_until,o.paid_until].filter(Boolean).sort().pop();return Math.ceil((Date.parse(u)-Date.now())/864e5)};
 function admState(o){const n=dLeft(o);if(o.suspended_at)return['موقوف','r'];const paid=o.paid_until&&o.paid_until>=o.trial_until;
   if(n<=0)return['انتهى','r'];if(paid)return[n<=7?'مشترك · متبقٍّ '+n+' يوماً':'مشترك'+(o.plan?' · '+o.plan:''),n<=7?'':'g'];return['تجريبي · متبقٍّ '+n+' يوماً',n<=7?'':'n']}
@@ -1874,7 +1928,7 @@ function admSheet(id){const o=ADM.orgs.find(x=>x.id===id);if(!o)return;ADM.cur=i
    <details class="stopt" ${last?'':'open'}><summary><b>⭐ تفعيل باقة جديدة</b></summary>
     <div class="cats" id="adm-plan">${['فرد','فريق','مكتب'].map(k=>`<button class="${(o.plan||'فرد')===k?'on':''}" data-k="${k}" onclick="admPick(this,'plan')">${k}</button>`).join('')}</div>
     <div class="cats" id="adm-months">${[[3,'3 أشهر'],[6,'6 أشهر'],[12,'سنة']].map(([m,t])=>`<button class="${m===12?'on':''}" data-k="${m}" onclick="admPick(this,'months')">${t}</button>`).join('')}</div>
-    <div id="adm-xwrap" style="display:flex;align-items:center;gap:10px;justify-content:space-between;background:var(--soft);border-radius:12px;padding:10px 12px"><div><b style="font-size:14px">مهندسون إضافيون (فوق الخمسة)</b><div class="mut" style="font-size:12px;line-height:1.7">للمهندس: <span class="num">25,000</span> / 3 أشهر · <span class="num">45,000</span> / 6 أشهر · <span class="num">80,000</span> / سنة</div></div><div style="display:flex;align-items:center;gap:8px"><button class="chip n" style="font-size:18px;min-width:36px" onclick="admX(1)">+</button><b id="adm-xv" class="num" style="font-size:18px;min-width:22px;text-align:center">${o.extra_eng||0}</b><button class="chip n" style="font-size:18px;min-width:36px" onclick="admX(-1)">−</button></div><input type="hidden" id="adm-x" value="${o.extra_eng||0}"></div>
+    <div id="adm-xwrap" style="display:flex;align-items:center;gap:10px;justify-content:space-between;background:var(--soft);border-radius:12px;padding:10px 12px"><div><b style="font-size:14px">مهندسون إضافيون (فوق الخمسة)</b><div class="mut" style="font-size:12px;line-height:1.7">للمهندس: ${addonTxt()}</div></div><div style="display:flex;align-items:center;gap:8px"><button class="chip n" style="font-size:18px;min-width:36px" onclick="admX(1)">+</button><b id="adm-xv" class="num" style="font-size:18px;min-width:22px;text-align:center">${o.extra_eng||0}</b><button class="chip n" style="font-size:18px;min-width:36px" onclick="admX(-1)">−</button></div><input type="hidden" id="adm-x" value="${o.extra_eng||0}"></div>
     <div class="cats" id="adm-method"><button class="on" data-k="ماستر كارد" onclick="admPick(this,'method')">ماستر كارد</button></div>
     <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="adm-rc">رقم الوصل أو ملاحظة (اختياري)</label><input id="adm-rc" class="num" style="text-align:right"></div></div>
     <div class="note" id="adm-sum" style="margin:0;font-size:14px"></div>
@@ -1884,7 +1938,7 @@ function admSheet(id){const o=ADM.orgs.find(x=>x.id===id);if(!o)return;ADM.cur=i
     <textarea id="adm-note" placeholder="مثلاً: وعد بالدفع يوم الخميس" style="width:100%;min-height:70px;border-radius:12px;border:1px solid var(--line);padding:10px;font:inherit;background:var(--soft)">${esc(o.note||'')}</textarea>
     <button class="btn ghost" style="margin:0" onclick="admDo('${id}','note',{note:$('#adm-note').value},'حُفظت الملاحظة ✓',1)">حفظ الملاحظة</button></div>
 
-   <div class="stopt"><b>💳 آخر الدفعات</b>${(o.payments||[]).length?o.payments.map(p=>p.months>0?`<div class="s" style="font-size:13px">${esc(p.plan)} · ${p.months===12?'سنة':p.months+' أشهر'} · <span class="num">${fmt(p.amount)}</span> د.ع · ${esc(p.method||'')} ${p.receipt?'· '+esc(p.receipt):''} ${p.extra_eng?' · +'+p.extra_eng+' مهندس':''} · حتى <span class="num">${p.to_date.slice(0,10)}</span></div>`:`<div class="s" style="font-size:13px;color:var(--red)">أُلغي التفعيل · <span class="num">${p.created_at.slice(0,10)}</span></div>`).join(''):'<div class="mut" style="font-size:13px">لا توجد دفعات مسجّلة</div>'}</div>
+   <div class="stopt"><b>💳 الدفعات</b>${(o.payments||[]).length?o.payments.map(p=>p.months>0?`<div class="s" style="font-size:13px">${esc(p.plan)} · ${p.months===12?'سنة':p.months+' أشهر'} · <span class="num">${fmt(p.amount)}</span> د.ع · ${esc(p.method||'')} ${p.receipt?'· '+esc(p.receipt):''} ${p.extra_eng?' · +'+p.extra_eng+' مهندس':''} · حتى <span class="num">${p.to_date.slice(0,10)}</span><span class="pe"><button onclick="payEdit(${p.id||0},'${id}')">تعديل</button><button class="r" onclick="payDel(${p.id||0},'${id}')">حذف</button></span></div>`:`<div class="s" style="font-size:13px;color:var(--red)">أُلغي التفعيل · <span class="num">${p.created_at.slice(0,10)}</span></div>`).join(''):'<div class="mut" style="font-size:13px">لا توجد دفعات مسجّلة</div>'}</div>
 
    <a class="btn" style="text-decoration:none;background:#169C55;color:#fff;margin:0" href="https://wa.me/964${esc(String(o.phone).replace(/^0/,''))}?text=${encodeURIComponent(remindMsg(o))}" target="_blank" rel="noopener">💬 إرسال رسالة تذكير واتساب</a>
    <div class="aacts">
@@ -1900,10 +1954,10 @@ function admYears(){const s=$('#adm-exp');if(!s)return;const ys=s.closest('.dpk'
 async function admCall(body){const{data,error}=await SB.functions.invoke('asas-admin',{body});if(error){let m='تعذّر تنفيذ العملية';try{const j=await error.context.json();if(j.msg)m=j.msg}catch(e){}toast(m);return null}return data||{}}
 async function admDo(id,action,extra,msg,keep){const d=await admCall(Object.assign({action,org_id:id},extra));if(!d)return null;toast(msg);
   if(!keep){await admReload();if(ADM.orgs.find(x=>x.id===id))admSheet(id);else closeSheet()}else{const o=ADM.orgs.find(x=>x.id===id);if(o&&action==='note')o.note=extra.note}return d}
-async function admReload(){const{data}=await SB.functions.invoke('asas-admin',{body:{action:'list'}});if(data&&data.orgs)ADM.orgs=data.orgs;if(V.v==='admin')render()}
+async function admReload(){const{data}=await SB.functions.invoke('asas-admin',{body:{action:'list'}});if(data&&data.orgs){ADM.orgs=data.orgs;ADM.v6=(data.v||0)>=6}if(V.v==='admin')render()}
 function admRenew(id){const o=ADM.orgs.find(x=>x.id===id);const p=(o.payments||[]).find(x=>x.months>0);if(!p)return;
   admConfirm(`🔄 تجديد اشتراك ${esc(o.owner||o.name)}`,`باقة <b>${esc(p.plan)}</b> لمدة <b>${p.months===12?'سنة':p.months+' أشهر'}</b> بمبلغ <b class="num">${fmt(p.amount)}</b> د.ع (ماستر كارد).<br>المدة تبدأ من نهاية اشتراكه الحالي.`,'تجديد',
-    ()=>admDo(id,'activate',{plan:p.plan,months:p.months,method:'ماستر كارد',receipt:'تجديد',extra_eng:p.extra_eng||0},'تم التجديد ✓'),'y')}
+    async()=>{const d=await admCall({action:'activate',org_id:id,plan:p.plan,months:p.months,method:'ماستر كارد',receipt:'تجديد',extra_eng:p.extra_eng||0});if(d){toast('تم التجديد ✓');await admReload();PAYS=null;actDone(id,d.paid_until,p.plan)}},'y')}
 const ADM_ASK={
   suspend:['⏸️ إيقاف الحساب','يصير الحساب <b>للعرض فقط</b>: يقدر يفتح ويشوف بياناته، بس ما يقدر يضيف أو يعدّل لحد ما تشغّله. البيانات ما تنحذف.','إيقاف','تم إيقاف الحساب'],
   resume:['▶️ تشغيل الحساب','يرجع الحساب يشتغل طبيعي حسب مدة اشتراكه.','تشغيل','تم تشغيل الحساب ✓'],
@@ -1930,13 +1984,308 @@ async function admDel(id){const b=$('#adm-delgo');b.disabled=true;b.textContent=
 function admX(d){const i=$('#adm-x');const v=Math.max(0,Math.min(50,(parseInt(i.value)||0)+d));i.value=v;$('#adm-xv').textContent=v;admSum()}
 function admPick(b,k){b.parentNode.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));admSum()}
 function admVal(id){const b=$('#'+id+' button.on');return b&&b.dataset.k}
-function admSum(){const P={'فرد':{3:30000,6:55000,12:100000},'فريق':{3:65000,6:120000,12:220000},'مكتب':{3:135000,6:250000,12:450000}};const A={3:25000,6:45000,12:80000};const el=$('#adm-sum');if(!el)return;
+function admSum(){const P=SETS.prices,A=SETS.addon;const el=$('#adm-sum');if(!el)return;
   const pl=admVal('adm-plan'),mo=admVal('adm-months'),w=$('#adm-xwrap');if(w)w.style.display=pl==='مكتب'?'flex':'none';
   const x=pl==='مكتب'?Math.max(0,Math.min(50,parseInt($('#adm-x').value)||0)):0;
   el.innerHTML=`المبلغ: <b class="num">${fmt(P[pl][mo]+x*A[mo])}</b> د.ع${x?` (الباقة <span class="num">${fmt(P[pl][mo])}</span> + <span class="num">${x}</span> مهندس إضافي <span class="num">${fmt(x*A[mo])}</span>)`:''}${pl==='مكتب'?` · المهندسون: <b class="num">${5+x}</b>`:''}<br>تبدأ المدة من نهاية مدته الحالية`}
 async function admActivate(id){const body={action:'activate',org_id:id,plan:admVal('adm-plan'),months:+admVal('adm-months'),method:admVal('adm-method'),receipt:$('#adm-rc').value.trim(),extra_eng:admVal('adm-plan')==='مكتب'?(parseInt($('#adm-x').value)||0):0};
   const{data,error}=await SB.functions.invoke('asas-admin',{body});if(error){let m='تعذّر التفعيل';try{const j=await error.context.json();if(j.msg)m=j.msg}catch(e){}return toast(m)}
-  toast('تم التفعيل حتى '+data.paid_until.slice(0,10)+' ✓');await admReload();admSheet(id)}
+  toast('تم التفعيل حتى '+data.paid_until.slice(0,10)+' ✓');await admReload();PAYS=null;actDone(id,data.paid_until,body.plan)}
+
+function addonTxt(){const A=(typeof SETS!=='undefined'?SETS.addon:{3:25000,6:45000,12:80000});return `<span class="num">${fmt(A[3])}</span> / 3 أشهر · <span class="num">${fmt(A[6])}</span> / 6 أشهر · <span class="num">${fmt(A[12])}</span> / سنة`}
+
+/* ===== الإدارة الموحّدة (نفس نظام مندوبي): الدخل، المتابعة، الدفعات، الأدوات ===== */
+var SETS_D={prices:{'فرد':{3:30000,6:55000,12:100000},'فريق':{3:65000,6:120000,12:220000},'مكتب':{3:135000,6:250000,12:450000}},addon:{3:25000,6:45000,12:80000},pay:{phone:'07713275983',note:'',video:''},ann:{text:''}};
+var SETS=JSON.parse(JSON.stringify(SETS_D));SETS.tpl={};SETS.notify={};
+const PLANS0=PLANS.map(r=>r.slice());
+function setsLocal(){try{return JSON.parse(localStorage.getItem('asas_sets_local')||'{}')}catch(e){return{}}}
+function setsApply(o){for(const k in (o||{})){const v=o[k];if(v==null)continue;SETS[k]=(typeof v==='object'&&!Array.isArray(v))?Object.assign({},SETS_D[k]||{},v):v}
+  for(const r of PLANS){const p=SETS.prices[r[0]]||{};r[2]=(+p[3]||0)/1000;r[3]=(+p[6]||0)/1000;r[4]=(+p[12]||0)/1000}}
+function payPhone(){return (SETS.pay&&SETS.pay.phone)||PLATFORM.phone}
+function pfmt(k){return fmt(Math.round(k*1000))}
+async function setsLoad(){if(MODE!=='cloud')return;SETS.tried=1;let ok=false;
+  try{const{data,error}=await SB.rpc('asas_public_settings');if(!error&&data){setsApply(data);ok=true;SETS.srv=true}}catch(e){}
+  if(!ok){const l=setsLocal();if(Object.keys(l).length)setsApply(l)}render()}
+
+/* --- إعلان لكل المشتركين: شريط أعلى الرئيسية يقدر يسدّه --- */
+function annBar(){const t=(SETS.ann&&SETS.ann.text||'').trim();if(V.v!=='home'||!t||$('#annbar'))return;if(lsGet('asas_ann_seen')===t)return;const w=$('#app .wrap');if(!w)return;
+  const d=document.createElement('div');d.id='annbar';d.className='annbar';d.innerHTML=`<span>📢</span><p>${esc(t)}</p><button aria-label="إغلاق" onclick="lsSet('asas_ann_seen',${esc(JSON.stringify(t))});this.parentNode.remove()">×</button>`;
+  const a=$('#admbtn')||$('#trialbar')||$('#sync');if(a&&a.parentNode===w)a.after(d);else w.prepend(d)}
+
+/* --- أدوات مساعدة --- */
+const NEEDSRV='هذي الميزة تشتغل بعد «ارفع» (تحتاج تحديث السيرفر)';
+async function admTry(body){try{const{data,error}=await SB.functions.invoke('asas-admin',{body});if(error){let j={};try{j=await error.context.json()}catch(e){}return{_err:1,msg:j.msg||'تعذّر تنفيذ العملية'}}return data||{}}catch(e){return{_err:1,msg:'تعذّر الاتصال'}}}
+const bgd=t=>t?new Date(Date.parse(t)+3*36e5).toISOString().slice(0,10):'';
+const isAdmOrg=o=>String(o.phone||'').replace(/^0/,'')===PLATFORM.phone.replace(/^0/,'');
+const DORM=14;
+function idleDays(o){const r=[o.last_login,o.last_entry,o.created_at].filter(Boolean).sort().pop();return r?Math.max(0,Math.floor((Date.now()-Date.parse(r))/864e5)):0}
+function akey(o){const n=dLeft(o),paid=o.paid_until&&o.paid_until>=o.trial_until;if(o.suspended_at)return 'stop';if(n<=0)return 'end';if(n<=7)return 'soon';return paid?'paid':'trial'}
+const AK_L={stop:'موقوف',end:'منتهي',soon:'ينتهي قريباً',paid:'مشترك',trial:'تجريبي'};
+const AK_C={stop:'#8b95a7',end:'#B42318',soon:'#C98A00',paid:'#169C55',trial:'#14294A'};
+const realOrgs=()=>(ADM.orgs||[]).filter(o=>!isAdmOrg(o));
+const isDorm=o=>!o.suspended_at&&dLeft(o)>0&&idleDays(o)>DORM;
+const isCall=o=>!o.suspended_at&&(!!o.renew||dLeft(o)<=7);
+function callList(){return realOrgs().filter(isCall).sort((a,b)=>(!!b.renew-!!a.renew)||(dLeft(a)>0&&dLeft(b)>0?dLeft(a)-dLeft(b):dLeft(b)-dLeft(a)))}
+const waTo=(o,t)=>`https://wa.me/${waNum(o.phone)}?text=${encodeURIComponent(t)}`;
+function dlText(name,txt,type){const b=new Blob([txt],{type});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();a.remove()}
+function copyTxt(t,ok){const done=()=>toast(ok||'تم النسخ ✓');(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(done).catch(()=>{const x=document.createElement('textarea');x.value=t;document.body.appendChild(x);x.select();try{document.execCommand('copy');done()}catch(e){toast('حدّد النص وانسخه')}x.remove()})}
+const numIn=v=>+(String(v||'').replace(/[^\d]/g,''))||0;
+
+/* --- قوالب الرسائل --- */
+const TPL_N={soon:'قرب انتهاء الاشتراك',end:'اشتراك منتهٍ',dorm:'مكتب راكد (ما يستخدم الحساب)',done:'تأكيد التفعيل'};
+const TPL_D={
+ soon:'السلام عليكم م. {الاسم}\nنودّ تذكيركم بأن {المدة} في نظام أسس تنتهي بعد {الأيام} يوم (بتاريخ {التاريخ}).\nبياناتكم محفوظة بالكامل، وللاستمرار في إضافة المبالغ يرجى التجديد بتحويل المبلغ عبر ماستر كارد إلى الرقم {رقم_الدفع} وإرسال صورة الوصل.\nالأسعار: {الأسعار} (لثلاثة أشهر).\nمع التقدير، إدارة أسس',
+ end:'السلام عليكم م. {الاسم}\nنودّ إعلامكم بأن {المدة} في نظام أسس انتهت بتاريخ {التاريخ}.\nبياناتكم محفوظة بالكامل وللعرض فقط، وللاستمرار في إضافة المبالغ يرجى التجديد بتحويل المبلغ عبر ماستر كارد إلى الرقم {رقم_الدفع} وإرسال صورة الوصل.\nالأسعار: {الأسعار} (لثلاثة أشهر).\nمع التقدير، إدارة أسس',
+ dorm:'السلام عليكم م. {الاسم}\nلاحظنا أنكم لم تستخدموا حسابكم في نظام أسس منذ {الخمول} يوماً. إذا تحتاجون مساعدة في البداية أو عندكم أي سؤال، نحن بالخدمة.\nمع التقدير، إدارة أسس',
+ done:'السلام عليكم م. {الاسم}\nتم تفعيل اشتراككم في نظام أسس (باقة {الباقة}) وينتهي بتاريخ {التاريخ}.\nشكراً لثقتكم، إدارة أسس'};
+function tplGet(k){return (SETS.tpl&&SETS.tpl[k])||TPL_D[k]}
+function tplFill(k,o,x){const n=dLeft(o),paid=o.paid_until&&o.paid_until>=o.trial_until;x=x||{};
+  const pr='فرد '+fmt(SETS.prices['فرد'][3])+' · فريق '+fmt(SETS.prices['فريق'][3])+' · مكتب '+fmt(SETS.prices['مكتب'][3]);
+  const M={'الاسم':(o.owner||'').replace(/^م\.\s*/,''),'المكتب':o.name||'','التاريخ':(x.until||admEnd(o)||'').slice(0,10),'الأيام':Math.max(0,n),'المدة':paid?'مدة اشتراككم':'الفترة التجريبية','رقم_الدفع':payPhone(),'الأسعار':pr,'الخمول':idleDays(o),'الباقة':x.plan||o.plan||''};
+  return tplGet(k).replace(/\{([^}]+)\}/g,(m,a)=>a in M?String(M[a]):m)}
+remindMsg=function(o){return tplFill(dLeft(o)>0?'soon':'end',o)};
+
+/* --- الدفعات والدخل --- */
+var PAYS=null;
+async function paysLoad(){let d=ADM.v6?await admTry({action:'payments'}):null;
+  if(d&&!d._err&&d.payments){PAYS=d.payments;PAYS.part=false}
+  else{PAYS=[];for(const o of ADM.orgs||[])for(const p of o.payments||[])PAYS.push(Object.assign({},p,{org_id:o.id,org_name:o.name,owner:o.owner}));PAYS.sort((a,b)=>String(b.created_at).localeCompare(String(a.created_at)));PAYS.part=true}
+  if(V.v==='admin')render()}
+const realPays=()=>(PAYS||[]).filter(p=>p.months>0);
+const incOf=pre=>realPays().filter(p=>bgd(p.created_at).startsWith(pre)).reduce((s,p)=>s+(+p.amount||0),0);
+function ymShift(ym,d){const[y,m]=ym.split('-').map(Number);const t=new Date(y,m-1+d,1);return t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')}
+function repData(ym){const P=realPays().filter(p=>bgd(p.created_at).startsWith(ym));const O=realOrgs();
+  return{inc:P.reduce((s,p)=>s+(+p.amount||0),0),ren:P.length,nw:O.filter(o=>bgd(o.created_at).startsWith(ym)).length,end:O.filter(o=>bgd(admEnd(o)).startsWith(ym)&&dLeft(o)<=0).length,act:O.filter(o=>!o.suspended_at&&dLeft(o)>0).length}}
+function repTxt(ym){const d=repData(ym);return `تقرير «أسس» · ${monthName(ym)}\nالدخل: ${fmt(d.inc)} دينار\nعدد التجديدات: ${d.ren}\nمكاتب جديدة: ${d.nw}\nاشتراكات انتهت ولم تُجدَّد: ${d.end}\nالفعّالون الآن: ${d.act}`}
+
+/* --- لوحة الإدارة (تبويبات مثل مندوبي) --- */
+ADM.tab=ADM.tab||'ov';ADM.s=ADM.s||'pri';ADM.rm=ADM.rm||today().slice(0,7);
+VIEWS.admin=()=>{const H=(p)=>`<header class="top short"><div class="hdr"><div><h1>لوحة إدارة أسس</h1><p>${p}</p></div><button class="back" onclick="go('more')">→</button></div></header>`;
+  if(!ADM.orgs){admLoad();return H('لحظة…')+`<div class="wrap" style="margin-top:14px"><div class="card empty">جارٍ التحميل…</div></div>`}
+  if(!PAYS){paysLoad()}
+  if(!SETS.adm){SETS.adm=1;admSetsLoad()}
+  const O=realOrgs(),call=callList().length;
+  const tabs=[['ov','📊 نظرة عامة'],['orgs','🏢 المكاتب <span class="num">'+O.length+'</span>'],['pay','💳 الدفعات'],['tools','🛠️ الأدوات']];
+  const body={ov:admOv,orgs:admOrgs,pay:admPay,tools:admTools}[ADM.tab]();
+  return H(`<span class="num">${O.length}</span> مكتب مسجّل${call?' · <span class="num">'+call+'</span> يحتاجون متابعة':''}`)+`<div class="wrap" style="margin-top:14px">
+   ${ADM.v6?'':'<div class="srvnote">🧪 <b>النسخة التجريبية:</b> الأرقام والتقارير والمتابعة والتصدير شغّالة. حفظ الأسعار والقوالب والإعلان والإشعارات، وتعديل الدفعات وسجل النشاط تشتغل بعد «ارفع».</div>'}
+   <div class="atabs">${tabs.map(([k,t])=>`<button class="${ADM.tab===k?'on':''}" onclick="ADM.tab='${k}';render();window.scrollTo(0,0)">${t}</button>`).join('')}</div>
+   ${body}</div>`};
+function admGo(f){ADM.tab='orgs';ADM.f=f;render();window.scrollTo(0,0)}
+
+function admOv(){const t=today(),m=t.slice(0,7),pm=ymShift(m,-1),inc=incOf(m),pinc=incOf(pm),y=incOf(t.slice(0,4));
+  let g='';if(pinc>0){const d=Math.round((inc-pinc)/pinc*100);g=`<span class="gw ${d>=0?'up':'dn'}">${d>=0?'↑':'↓'} <span class="num">${Math.abs(d)}%</span> عن الشهر الماضي</span>`}else if(inc>0)g='<span class="gw up">↑ أول دخل مسجّل</span>';
+  const O=realOrgs();const rn=O.filter(o=>o.renew&&!o.suspended_at).length,soon=O.filter(o=>akey(o)==='soon').length,end=O.filter(o=>akey(o)==='end').length,nw=O.filter(o=>Date.now()-Date.parse(o.created_at)<7*864e5).length;
+  const al=[];if(rn)al.push(['🔔',`<span class="num">${rn}</span> طلب تجديد بانتظار التفعيل`,'call']);if(soon)al.push(['⏰',`<span class="num">${soon}</span> ${soon===1?'اشتراك ينتهي':'اشتراكات تنتهي'} خلال 7 أيام`,'soon']);if(end)al.push(['⛔',`<span class="num">${end}</span> ${end===1?'اشتراك منتهٍ':'اشتراكات منتهية'} لم تُجدَّد`,'end']);if(nw)al.push(['🆕',`<span class="num">${nw}</span> ${nw===1?'مكتب جديد':'مكاتب جديدة'} هذا الأسبوع`,'new']);
+  const cl=callList(),D=O.filter(isDorm).sort((a,b)=>idleDays(b)-idleDays(a));const r=repData(ADM.rm),cur=ADM.rm===m;
+  return `<div class="hero"><div class="hl">دخل هذا الشهر</div><div class="hv"><span class="num">${fmt(inc)}</span> <small>دينار</small></div><div class="hs">${g}<span>هذه السنة: <b class="num">${fmt(y)}</b></span></div></div>
+   ${al.length?`<div class="alist">${al.map(x=>`<button onclick="admGo('${x[2]}')"><span>${x[0]}</span><b>${x[1]}</b><em>‹</em></button>`).join('')}</div>`:''}
+   ${cl.length?`<div class="callc"><span class="ci">📞</span><div style="flex:1" onclick="admGo('call')"><b>قائمة المتابعة</b><small><span class="num">${cl.length}</span> مكتب يحتاجون متابعة: ينتهي قريباً أو منتهي أو طلب تجديد</small></div><button onclick="bulkSheet()">تذكير جماعي</button></div>`:''}
+   ${D.length?`<div class="dorm"><div class="dh"><span>💤</span><div><b>مكاتب راكدة (<span class="num">${D.length}</span>)</b><small>ما استخدموا حساباتهم أكثر من <span class="num">${DORM}</span> يوماً. راسلهم حتى ما يضيعون.</small></div></div>
+     ${D.slice(0,4).map(o=>`<div class="dr"><span class="av" style="background:#8b95a7">${esc((o.owner||o.name||'؟').replace(/^م\.\s*/,'').trim().charAt(0))}</span><div class="dn" onclick="admSheet('${o.id}')"><b>${esc(o.name)}</b><small>راكد منذ <span class="num">${idleDays(o)}</span> يوم · ${esc(AK_L[akey(o)])}</small></div><a class="ib wa" href="${waTo(o,tplFill('dorm',o))}" target="_blank" rel="noopener" aria-label="واتساب">💬</a></div>`).join('')}
+     ${D.length>4?`<button class="more" onclick="admGo('dorm')">عرض الكل (<span class="num">${D.length}</span>) ‹</button>`:''}
+     <div class="fn">يُحسب الخمول من آخر دخول أو آخر إضافة مبلغ أو تاريخ التسجيل.</div></div>`:''}
+   <div class="rep"><div class="rh"><b>التقرير الشهري</b><div class="rm"><button onclick="ADM.rm=ymShift(ADM.rm,-1);render()" aria-label="الشهر السابق">›</button><span>${monthName(ADM.rm)}</span><button onclick="ADM.rm=ymShift(ADM.rm,1);render()" ${cur?'disabled':''} aria-label="الشهر التالي">‹</button></div></div>
+    <div class="rg"><div><b class="num">${fmt(r.inc)}</b><span>الدخل (دينار)</span></div><div><b class="num">${r.ren}</b><span>تجديدات</span></div><div><b class="num">${r.nw}</b><span>مكاتب جديدة</span></div><div><b class="num" style="${r.end?'color:var(--red)':''}">${r.end}</b><span>انتهت ولم تُجدَّد</span></div></div>
+    <div class="row2"><button class="btn ghost" style="margin:0" onclick="copyTxt(repTxt(ADM.rm),'نُسخ التقرير ✓')">📋 نسخ التقرير</button><a class="btn" style="margin:0;text-decoration:none;background:#25D366;color:#fff" href="https://wa.me/?text=${encodeURIComponent(repTxt(ADM.rm))}" target="_blank" rel="noopener">💬 واتساب</a></div>
+    ${PAYS&&PAYS.part?'<div class="fn">الدخل محسوب من آخر 5 دفعات لكل مكتب. بعد «ارفع» يُحسب من السجل الكامل.</div>':''}</div>
+   <div class="row2"><button class="btn" onclick="go('health')">🩺 صحة النظام</button><button class="btn y" onclick="inviteSheet()">📨 دعوة مهندس</button></div>`}
+
+function admOrgs(){const O=realOrgs();const all=ADM.orgs;ADM.f=ADM.f||'all';
+  const F={all:()=>true,call:isCall,paid:o=>akey(o)==='paid'||(akey(o)==='soon'&&o.paid_until>=o.trial_until),trial:o=>akey(o)==='trial'||(akey(o)==='soon'&&!(o.paid_until>=o.trial_until)),soon:o=>akey(o)==='soon',end:o=>akey(o)==='end',dorm:isDorm,stop:o=>!!o.suspended_at,new:o=>Date.now()-Date.parse(o.created_at)<7*864e5};
+  const chips=[['all','الكل'],['call','متابعة'],['paid','مشترك'],['trial','تجريبي'],['soon','ينتهي قريباً'],['end','منتهي'],['dorm','راكد'],['stop','موقوف']].concat(ADM.f==='new'?[['new','جدد هذا الأسبوع']]:[]);
+  const cnt=k=>(k==='all'?all:O).filter(F[k]).length;
+  const so=[['pri','الأولوية'],['end','الأقرب انتهاءً'],['new','الأحدث تسجيلاً'],['ent','الأكثر مبالغ'],['paid','الأكثر دفعاً'],['idle','الأقدم نشاطاً']];
+  const pri=o=>({end:1,soon:0,stop:4,trial:2,paid:3})[akey(o)]-(o.renew?1:0);
+  const S_={pri:(a,b)=>pri(a)-pri(b)||dLeft(a)-dLeft(b),end:(a,b)=>dLeft(a)-dLeft(b),new:(a,b)=>String(b.created_at).localeCompare(String(a.created_at)),ent:(a,b)=>(b.entries||0)-(a.entries||0),paid:(a,b)=>(b.paid_total||0)-(a.paid_total||0),idle:(a,b)=>idleDays(b)-idleDays(a)};
+  const q=(ADM.q||'').trim();const list=(ADM.f==='all'?all:O).filter(F[ADM.f]).filter(o=>!q||(o.name+' '+o.owner+' '+o.phone).includes(q)).sort(S_[ADM.s]);
+  return `<div class="cats">${chips.map(([k,t])=>`<button class="${ADM.f===k?'on':''}" onclick="ADM.f='${k}';render()">${t} <span class="num">${cnt(k)}</span></button>`).join('')}</div>
+   <div class="srow"><div class="fld" style="flex:1;margin:0"><div class="bx"><label for="adm-q">بحث بالاسم أو الرقم</label><input id="adm-q" value="${esc(ADM.q||'')}" oninput="ADM.q=this.value;clearTimeout(ADM.t);ADM.t=setTimeout(()=>{render();const i=$('#adm-q');i.focus();i.setSelectionRange(i.value.length,i.value.length)},300)"></div></div>
+    <div class="fld" style="margin:0;min-width:124px"><div class="bx"><label for="adm-s">ترتيب</label><select id="adm-s" onchange="ADM.s=this.value;render()">${so.map(([k,t])=>`<option value="${k}" ${ADM.s===k?'selected':''}>${t}</option>`).join('')}</select></div></div></div>
+   ${ADM.f==='call'&&list.length?'<button class="btn" style="background:#25D366;color:#fff" onclick="bulkSheet()">💬 تذكير جماعي للكل</button>':''}
+   <div class="list">${list.map(o=>{const k=akey(o);return `<button class="li" onclick="admSheet('${o.id}')"><div class="ic">🏢</div><div class="mid"><div class="t">${esc(o.name)} <span class="stc" style="background:${AK_C[k]}">${AK_L[k]}${k==='soon'?' · <span class="num">'+dLeft(o)+'</span> يوم':''}</span>${isDorm(o)?' <span class="stc" style="background:#8b95a7">💤 راكد</span>':''}</div>
+     <div class="s">${esc(o.owner)} · <span class="num">${esc(o.phone)}</span> · <span class="num">${o.projects||0}</span> مشروع · <span class="num">${o.entries}</span> مبلغ · ${o.members} ${o.members===1?'مستخدم':'مستخدمين'}<br>🕒 آخر دخول: ${o.last_login?agoTxt(o.last_login):'—'}${o.paid_total?' · 💰 <span class="num">'+fmt(o.paid_total)+'</span>':''}${o.renew?'<br><b style="color:var(--yeld)">🔔 طلب تجديد · <span class="num">'+String(o.renew).slice(0,10)+'</span></b>':''}<br>💾 ${o.last_backup?'آخر نسخة <span class="num">'+bkWhen(o.last_backup).split(' · ')[0]+'</span> · '+o.backups+' نسخة':'<span style="color:var(--red)">لا توجد نسخة احتياطية</span>'}${o.note?'<br>📝 '+esc(o.note.slice(0,60)):''}</div></div><span class="chip n">‹</span></button>`}).join('')||'<div class="empty">لا توجد نتائج</div>'}</div>
+   <div class="row2"><button class="btn ghost" onclick="csvOrgs()">⬇️ تصدير Excel</button><button class="btn ghost" onclick="ADM.orgs=null;PAYS=null;render()">↻ تحديث</button></div>`}
+
+function admPay(){if(!PAYS)return '<div class="card empty">جارٍ التحميل…</div>';const t=today(),R=realPays();const tot=R.reduce((s,p)=>s+(+p.amount||0),0);
+  const mon={};R.forEach(p=>{const k=bgd(p.created_at).slice(0,7);mon[k]=(mon[k]||0)+(+p.amount||0)});const ks=Object.keys(mon).sort().reverse().slice(0,6),mx=Math.max(1,...ks.map(k=>mon[k]));
+  return `<div class="tl3"><div><b class="num">${fmt(incOf(t.slice(0,7)))}</b><span>هذا الشهر</span></div><div><b class="num">${fmt(incOf(t.slice(0,4)))}</b><span>هذه السنة</span></div><div><b class="num">${fmt(tot)}</b><span>الإجمالي</span></div></div>
+   ${ks.length?`<div class="bars"><h4>الدخل الشهري</h4>${ks.map(k=>`<div class="bi"><span>${monthName(k)}</span><i><u style="width:${Math.max(4,mon[k]/mx*100)}%"></u></i><b class="num">${fmt(mon[k])}</b></div>`).join('')}</div>`:''}
+   <div class="sec"><h2>سجل الدفعات</h2><button class="chip n" style="display:inline-block!important" onclick="csvPays()">⬇️ Excel</button></div>
+   ${PAYS.part?'<div class="fn" style="margin:0">يظهر آخر 5 دفعات لكل مكتب. السجل الكامل بعد «ارفع».</div>':''}
+   <div class="list">${PAYS.length?PAYS.slice(0,200).map(p=>p.months>0?`<div class="li"><div class="mid"><div class="t">${esc(p.org_name||'')}</div><div class="s"><span class="num">${bgd(p.created_at)}</span> · ${esc(p.plan)} · ${p.months===12?'سنة':'<span class="num">'+p.months+'</span> أشهر'} · ${esc(p.method||'')}${p.receipt?' · '+esc(p.receipt):''}${p.extra_eng?' · +<span class="num">'+p.extra_eng+'</span> مهندس':''}</div></div>
+     <div class="pa"><b class="num">${fmt(p.amount)}</b><span><button onclick="payEdit(${p.id||0},'${p.org_id}')">تعديل</button><button class="r" onclick="payDel(${p.id||0},'${p.org_id}')">حذف</button></span></div></div>`
+     :`<div class="li"><div class="mid"><div class="t">${esc(p.org_name||'')}</div><div class="s" style="color:var(--red)">أُلغي التفعيل · <span class="num">${bgd(p.created_at)}</span></div></div></div>`).join(''):'<div class="empty">💰 لا توجد دفعات مسجّلة بعد<br><small>تظهر هنا بعد أول تفعيل</small></div>'}</div>`}
+
+const TOOLS=[['prices','⚙️','الباقات والأسعار','سعر كل باقة ومدة، والمهندس الإضافي'],['pay','💳','بيانات الدفع والمساعدة','رقم التحويل اللي يظهر للمشترك وفيديو الشرح'],['tpl','✉️','قوالب الرسائل','عدّل نص رسائل الواتساب لكل حالة'],['ann','📢','إعلان للمشتركين','شريط يظهر بتطبيق الجميع'],['ntf','🔔','الإشعارات (تيليجرام / واتساب)','تنبيه فوري لكل مكتب جديد أو طلب تجديد'],['health','🩺','صحة النظام','حجم القاعدة والنشاط والأخطاء'],['audit','🧾','سجل النشاط','منو غيّر شنو ومتى'],['bk','💾','النسخ الاحتياطي','نسخة كاملة، Google Drive، فحص الاسترجاع الشهري'],['up','🚨','تنبيه توقف الموقع','يوصلك تنبيه إذا الموقع وقف'],['csvo','⬇️','تصدير المكاتب (Excel)','ملف يفتح بـ Excel'],['csvp','⬇️','تصدير الدفعات (Excel)','ملف يفتح بـ Excel'],['inv','📨','دعوة مهندس','رسالة جاهزة للواتساب']];
+function admTools(){return `<div class="tl2">${TOOLS.map(x=>`<button onclick="toolOpen('${x[0]}')"><span>${x[1]}</span><div><b>${x[2]}</b><small>${x[3]}</small></div><em>‹</em></button>`).join('')}</div>`}
+function toolOpen(k){({prices:pricesSheet,pay:payInfoSheet,tpl:tplSheet,ann:annSheet,ntf:ntfSheet,health:()=>go('health'),audit:auditSheet,bk:bkToolSheet,up:upSheet,csvo:csvOrgs,csvp:csvPays,inv:inviteSheet})[k]()}
+
+/* --- الإعدادات (السيرفر بعد «ارفع»، وقبلها على هذا الجهاز للتجربة) --- */
+async function admSetsLoad(){if(ADM.v6){const d=await admTry({action:'settings_get'});if(d&&!d._err&&d.settings){setsApply(d.settings);SETS.srv=true}}else{const l=setsLocal();if(Object.keys(l).length)setsApply(l)}}
+async function setSave(key,value,msg){if(ADM.v6){const d=await admTry({action:'settings_set',key,value});if(d._err){toast(d.msg);return false}const o={};o[key]=value;setsApply(o);toast(msg||'حُفظ ✓');return true}
+  const l=setsLocal();l[key]=value;try{localStorage.setItem('asas_sets_local',JSON.stringify(l))}catch(e){}const o={};o[key]=value;setsApply(o);toast('🧪 حُفظ على هذا الجهاز للتجربة · يصير للكل بعد «ارفع»');return true}
+const shd=(t,sub)=>`<h3>${t}</h3>${sub?`<p class="note" style="margin:0">${sub}</p>`:''}`;
+const fin=(id,lab,val,extra)=>`<div class="fld" style="box-shadow:none;background:var(--soft);margin:0"><div class="bx"><label for="${id}">${lab}</label><input id="${id}" value="${esc(val==null?'':String(val))}" ${extra||''}></div></div>`;
+const closeB='<button class="btn ghost" onclick="closeSheet()">إغلاق</button>';
+const backB='<button class="btn ghost" onclick="admBackT()">رجوع</button>';
+function admBackT(){ADM.tab='tools';closeSheet();render()}
+
+function pricesSheet(){const P=SETS.prices,A=SETS.addon;const ni=(id,v)=>`<input id="${id}" class="num pin" inputmode="numeric" value="${fmt(v||0)}" oninput="this.value=fmt(numIn(this.value))">`;
+  sheet(shd('⚙️ الباقات والأسعار','الأسعار بالدينار. تظهر للمشترك بشاشة الاشتراك، وبالرسائل، وتنعبّأ تلقائياً عند التفعيل.')+`
+   <table class="ptab"><thead><tr><th>الباقة</th><th>3 أشهر</th><th>6 أشهر</th><th>سنة</th></tr></thead><tbody>
+   ${['فرد','فريق','مكتب'].map(k=>`<tr><td><b>${k}</b></td>${[3,6,12].map(m=>`<td>${ni('pr-'+k+'-'+m,P[k][m])}</td>`).join('')}</tr>`).join('')}
+   <tr><td><b>مهندس إضافي</b><br><small class="mut">باقة مكتب، لكل مهندس</small></td>${[3,6,12].map(m=>`<td>${ni('pr-x-'+m,A[m])}</td>`).join('')}</tr></tbody></table>
+   <button class="btn y" onclick="pricesSave()">✓ حفظ الأسعار</button><button class="btn ghost" onclick="pricesReset()">استرجاع الأسعار الأصلية</button>${backB}`)}
+async function pricesSave(){const P={},A={};for(const k of ['فرد','فريق','مكتب']){P[k]={};for(const m of [3,6,12]){const v=numIn($('#pr-'+k+'-'+m).value);if(v<1000)return toast('اكتب سعر '+k+' بشكل صحيح');P[k][m]=v}}
+  for(const m of [3,6,12])A[m]=numIn($('#pr-x-'+m).value);if(await setSave('prices',P,'حُفظت الأسعار ✓'))await setSave('addon',A,'حُفظت الأسعار ✓');pricesSheet()}
+function pricesReset(){ask('ترجع الأسعار مثل ما كانت (فرد 30,000 · فريق 65,000 · مكتب 135,000 لثلاثة أشهر)؟','استرجاع',async()=>{await setSave('prices',SETS_D.prices);await setSave('addon',SETS_D.addon);pricesSheet()})}
+
+function payInfoSheet(){const p=SETS.pay||{};sheet(shd('💳 بيانات الدفع والمساعدة','تظهر للمشترك لما يضغط «الاشتراك»، وبرسائل التذكير. الأسعار من «الباقات والأسعار».')+`
+   ${fin('pi-ph','رقم التحويل (ماستر كارد)',p.phone||PLATFORM.phone,'class="num" inputmode="tel" style="text-align:right"')}
+   <div class="fld" style="box-shadow:none;background:var(--soft);margin:0"><div class="bx"><label for="pi-n">ملاحظة إضافية للمشترك (اختياري)</label><textarea id="pi-n" rows="3" style="border:0;background:none;width:100%;font:inherit;resize:vertical" placeholder="مثلاً: اكتب اسم مكتبك بملاحظة التحويل">${esc(p.note||'')}</textarea></div></div>
+   ${fin('pi-v','رابط فيديو الشرح (اختياري)',p.video||'','dir="ltr" placeholder="https://youtube.com/..."')}
+   <button class="btn y" onclick="payInfoSave()">✓ حفظ</button>${backB}`)}
+async function payInfoSave(){const ph=normPhone($('#pi-ph').value);if(!ph)return toast('رقم الهاتف غير صحيح');const v=$('#pi-v').value.trim();if(v&&!/^https:\/\//.test(v))return toast('الرابط لازم يبدأ بـ https://');
+  if(await setSave('pay',{phone:'0'+ph,note:$('#pi-n').value.trim().slice(0,300),video:v.slice(0,300)},'حُفظت بيانات الدفع ✓'))payInfoSheet()}
+
+function tplSheet(){sheet(shd('✉️ قوالب الرسائل','عدّل نص رسالة الواتساب لكل حالة. تقدر تستعمل: <b>{الاسم}</b> اسم المهندس، <b>{المكتب}</b>، <b>{التاريخ}</b> تاريخ الانتهاء، <b>{الأيام}</b> المتبقية، <b>{المدة}</b> (مدة اشتراككم/الفترة التجريبية)، <b>{رقم_الدفع}</b>، <b>{الأسعار}</b>، <b>{الخمول}</b> أيام الركود، <b>{الباقة}</b>.')+
+   Object.keys(TPL_D).map(k=>`<div class="stopt" style="background:var(--soft)"><b>${TPL_N[k]}</b><textarea id="tp-${k}" rows="6" style="width:100%;border:1px solid var(--line);border-radius:12px;padding:10px;font:inherit;font-size:14px;line-height:1.7;background:#fff">${esc(tplGet(k))}</textarea></div>`).join('')+
+   `<button class="btn y" onclick="tplSave()">✓ حفظ القوالب</button><button class="btn ghost" onclick="ask('ترجع كل النصوص مثل ما كانت؟','استرجاع',async()=>{await setSave('tpl',{});tplSheet()})">استرجاع النصوص الأصلية</button>${backB}`)}
+async function tplSave(){const t={};for(const k of Object.keys(TPL_D)){const v=$('#tp-'+k).value.trim();if(v&&v!==TPL_D[k])t[k]=v.slice(0,1500)}if(await setSave('tpl',t,'حُفظت القوالب ✓'))tplSheet()}
+
+function annSheet(){const t=(SETS.ann&&SETS.ann.text)||'';sheet(shd('📢 إعلان للمشتركين','يظهر شريط أعلى الرئيسية عند كل المكاتب، ويقدرون يسدّوه. اتركه فارغاً حتى تخفي الإعلان.')+`
+   <textarea id="an-t" rows="4" maxlength="400" oninput="$('#an-pv').innerHTML=this.value.trim()?'<div class=\\'annbar\\'><span>📢</span><p>'+esc(this.value.trim())+'</p><button>×</button></div>':'<div class=\\'mut\\' style=\\'font-size:13px\\'>لا يوجد إعلان</div>'" placeholder="مثلاً: تحديث جديد بالتطبيق، أو عطلة العيد…" style="width:100%;border:1px solid var(--line);border-radius:12px;padding:10px;font:inherit;background:var(--soft)">${esc(t)}</textarea>
+   <div class="mut" style="font-size:13px;font-weight:700">ما يشوفه المشترك:</div><div id="an-pv">${t?`<div class="annbar"><span>📢</span><p>${esc(t)}</p><button>×</button></div>`:'<div class="mut" style="font-size:13px">لا يوجد إعلان</div>'}</div>
+   <button class="btn y" onclick="annSave()">📢 نشر الإعلان</button>${t?'<button class="btn ghost" onclick="$(\'#an-t\').value=\'\';annSave()">إخفاء الإعلان</button>':''}${backB}`)}
+async function annSave(){const t=$('#an-t').value.trim().slice(0,400);if(await setSave('ann',{text:t,at:new Date().toISOString()},t?'نُشر الإعلان ✓':'أُخفي الإعلان')){const b=$('#annbar');if(b)b.remove();annSheet()}}
+
+function ntfSheet(){const n=SETS.notify||{};sheet(shd('🔔 الإشعارات','يوصلك تنبيه فوري لما يسجّل مكتب جديد، أو يضغط مكتب «أرسل الوصل» (طلب تجديد).')+`
+   <div class="okbox"><b>✈️ تيليجرام (موصى به: فوري ومجاني)</b><br>١. افتح تيليجرام وابحث عن <b dir="ltr">@BotFather</b> ← أرسل <b dir="ltr">/newbot</b> واختر أي اسم. يعطيك رمز طويل (Token) انسخه هنا.<br>٢. افتح البوت الجديد اللي سويته وأرسل له كلمة <b dir="ltr">start</b>.<br>٣. اضغط «جلب المعرّف» ثم «حفظ».</div>
+   ${fin('tg-t','رمز البوت (Token)',n.tg_token||'','dir="ltr" placeholder="123456:ABC..."')}
+   <div class="row2" style="align-items:end">${fin('tg-c','معرّف المحادثة (Chat ID)',n.tg_chat||'','dir="ltr" inputmode="numeric"')}<button class="btn ghost" style="margin:0" onclick="tgFind()">جلب المعرّف</button></div>
+   <label class="ck"><input type="checkbox" id="tg-on" ${n.tg_on?'checked':''}> تفعيل إشعارات تيليجرام</label>
+   <div class="row2"><button class="btn ghost" style="margin:0" onclick="tgTest()">إرسال رسالة تجربة</button><button class="btn y" style="margin:0" onclick="ntfSave()">✓ حفظ</button></div>
+   <hr style="border:0;border-top:1px solid var(--line);margin:4px 0">
+   <div class="okbox" style="background:#EEF5FF;color:#1C3D7A"><b>💬 واتساب (بديل)</b><br>يشتغل عبر خدمة CallMeBot المجانية. للتفعيل مرة وحدة: من واتسابك أرسل الرسالة <b dir="ltr">I allow callmebot to send me messages</b> إلى الرقم <b dir="ltr" class="num">+34 644 71 81 99</b>، يرد عليك برمز (apikey) انسخه هنا.</div>
+   ${fin('wa-p','رقم واتسابك مع رمز الدولة',n.wa_phone||'9647713275983','dir="ltr" class="num" inputmode="tel"')}
+   ${fin('wa-k','الرمز (apikey)',n.wa_key||'','dir="ltr" inputmode="numeric"')}
+   <label class="ck"><input type="checkbox" id="wa-on" ${n.wa_on?'checked':''}> تفعيل إشعارات الواتساب</label>
+   <div class="row2"><button class="btn ghost" style="margin:0" onclick="waTest()">إرسال رسالة تجربة</button><button class="btn y" style="margin:0" onclick="ntfSave()">✓ حفظ</button></div>
+   ${backB}`)}
+async function tgFind(){const t=$('#tg-t').value.trim();if(!t)return toast('الصق رمز البوت أولاً');
+  try{const r=await fetch('https://api.telegram.org/bot'+encodeURIComponent(t)+'/getUpdates');const d=await r.json();if(!d.ok)throw 0;const u=(d.result||[]).map(x=>x.message||x.my_chat_member||x.channel_post).filter(Boolean).pop();
+    if(!u||!u.chat)return toast('أرسل كلمة start للبوت أولاً ثم أعد المحاولة');$('#tg-c').value=String(u.chat.id);toast('تم جلب المعرّف ✓')}catch(e){toast('الرمز غير صحيح أو لا يوجد اتصال')}}
+async function tgTest(){const t=$('#tg-t').value.trim(),c=$('#tg-c').value.trim();if(!t||!c)return toast('أدخل الرمز والمعرّف أولاً');
+  try{const r=await fetch('https://api.telegram.org/bot'+encodeURIComponent(t)+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:c,text:'✅ تجربة إشعارات لوحة إدارة أسس'})});const d=await r.json();toast(d.ok?'أُرسلت رسالة التجربة ✓ تحقق من تيليجرام':'ما وصلت: تأكد من الرمز والمعرّف')}catch(e){toast('لا يوجد اتصال')}}
+function waTest(){const p=$('#wa-p').value.replace(/\D/g,''),k=$('#wa-k').value.trim();if(!p||!k)return toast('أدخل الرقم والرمز أولاً');
+  fetch('https://api.callmebot.com/whatsapp.php?phone='+p+'&apikey='+encodeURIComponent(k)+'&text='+encodeURIComponent('✅ تجربة إشعارات لوحة إدارة أسس'),{mode:'no-cors'}).then(()=>toast('أُرسلت ✓ تحقق من الواتساب خلال دقيقة'),()=>toast('لا يوجد اتصال'))}
+async function ntfSave(){const v={tg_token:$('#tg-t').value.trim(),tg_chat:$('#tg-c').value.trim(),tg_on:$('#tg-on').checked,wa_phone:$('#wa-p').value.replace(/\D/g,''),wa_key:$('#wa-k').value.trim(),wa_on:$('#wa-on').checked};
+  if(v.tg_on&&(!v.tg_token||!v.tg_chat))return toast('أدخل رمز البوت والمعرّف أولاً');if(v.wa_on&&(!v.wa_phone||!v.wa_key))return toast('أدخل الرقم والرمز أولاً');
+  if(await setSave('notify',v,(v.tg_on||v.wa_on)?'فُعّلت الإشعارات ✓':'أُوقفت الإشعارات'))ntfSheet()}
+
+const AUD_L={activate:'تفعيل / تجديد',info:'تعديل بيانات',expiry:'ضبط تاريخ الانتهاء',extend:'تمديد مجاني',suspend:'إيقاف',resume:'تشغيل',cancel:'إلغاء التفعيل',password:'كلمة مرور مؤقتة',note:'ملاحظة',delete:'حذف حساب',pay_edit:'تعديل دفعة',pay_del:'حذف دفعة',settings_set:'تغيير الإعدادات',drive_token:'رمز Google Drive'};
+async function auditSheet(){sheet(shd('🧾 سجل النشاط','آخر العمليات اللي سويتها على المكاتب والإعدادات.')+`<div id="aud" class="list"><div class="empty">جارٍ التحميل…</div></div>${backB}`);
+  if(!ADM.v6){$('#aud').innerHTML=`<div class="empty">🧾 ${NEEDSRV}.<br><small>من بعدها كل تفعيل، تمديد، إيقاف، تعديل دفعة أو إعداد ينسجّل هنا بالوقت.</small></div>`;return}
+  const d=await admTry({action:'audit'});const L=d&&d.audit;const el=$('#aud');if(!el)return;
+  el.innerHTML=d._err?'<div class="empty">تعذّر التحميل</div>':L.length?L.map(x=>`<div class="li"><div class="mid"><div class="t">${esc(AUD_L[x.action]||x.action)}${x.org_name?' · '+esc(x.org_name):''}</div><div class="s">${esc(x.detail||'')}</div></div><span class="num mut" style="font-size:12px;white-space:nowrap">${bkWhen(x.at)}</span></div>`).join(''):'<div class="empty">🧾 لا توجد عمليات مسجّلة بعد</div>'}
+
+/* --- تعديل وحذف الدفعة (مثل مندوبي) --- */
+function payFind(id,org){if(PAYS){const p=PAYS.find(x=>x.id===id);if(p)return p}const o=(ADM.orgs||[]).find(x=>x.id===org);return o&&(o.payments||[]).find(x=>x.id===id)}
+function payEdit(id,org){if(!id||!ADM.v6)return toast(NEEDSRV);const p=payFind(id,org);if(!p)return;const o=(ADM.orgs||[]).find(x=>x.id===org)||{};ADM.pe={id,org,m:p.months};
+  sheet(shd('✏️ تعديل دفعة',esc(o.name||p.org_name||'')+' · بتاريخ <span class="num">'+bgd(p.created_at)+'</span>')+`
+   <div class="mut" style="font-size:13px;font-weight:700">المدة</div><div class="cats" id="pe-m">${[[3,'3 أشهر'],[6,'6 أشهر'],[12,'سنة']].map(([m,t])=>`<button class="${p.months===m?'on':''}" data-k="${m}" onclick="admPick(this);ADM.pe.m=${m};peHint()">${t}</button>`).join('')}</div>
+   ${fin('pe-a','المبلغ (دينار)',fmt(p.amount),'class="num" inputmode="numeric" oninput="this.value=fmt(numIn(this.value))"')}
+   ${fin('pe-r','رقم الوصل أو ملاحظة',p.receipt||'')}
+   <label class="ck"><input type="checkbox" id="pe-adj" checked onchange="peHint()"> عدّل تاريخ الاشتراك تلقائياً بفرق المدة</label>
+   <div class="note" id="pe-h" style="margin:0"></div>
+   <button class="btn y" onclick="paySave()">✓ حفظ التعديل</button><button class="btn ghost" onclick="${ADM.tab==='pay'&&V.v==='admin'?'closeSheet()':`admSheet('${org}')`}">رجوع</button>`);peHint()}
+function peHint(){const p=payFind(ADM.pe.id,ADM.pe.org);const d=ADM.pe.m-p.months,adj=$('#pe-adj').checked;$('#pe-h').innerHTML=!d?'المدة نفسها، تاريخ الانتهاء ما يتغيّر.':adj?`تاريخ الانتهاء ${d>0?'يزيد':'ينقص'} <b class="num">${Math.abs(d)}</b> ${Math.abs(d)===1?'شهر':'أشهر'}.`:'تاريخ الانتهاء يبقى مثل ما هو.'}
+async function paySave(){const a=numIn($('#pe-a').value);const d=await admTry({action:'pay_edit',id:ADM.pe.id,org_id:ADM.pe.org,months:ADM.pe.m,amount:a,receipt:$('#pe-r').value.trim(),adjust:$('#pe-adj').checked});
+  if(d._err)return toast(d.msg);toast('تم تعديل الدفعة ✓');await admReload();PAYS=null;await paysLoad();if(ADM.tab==='pay'&&V.v==='admin')closeSheet();else admSheet(ADM.pe.org)}
+function payDel(id,org){if(!id||!ADM.v6)return toast(NEEDSRV);const p=payFind(id,org);if(!p)return;
+  sheet(`<h3 style="color:var(--red)">🗑️ حذف دفعة</h3><p style="margin:0;line-height:1.9">${esc(p.org_name||'')} · ${esc(p.plan)} · ${p.months===12?'سنة':p.months+' أشهر'} · <b class="num">${fmt(p.amount)}</b> د.ع · <span class="num">${bgd(p.created_at)}</span><br>الدفعة تنشال من السجل ومن حساب الدخل.</p>
+   <label class="ck"><input type="checkbox" id="pd-adj" checked> انقص <span class="num">${p.months}</span> ${p.months===1?'شهر':'أشهر'} من تاريخ انتهاء الاشتراك</label>
+   <button class="btn" style="background:var(--red);color:#fff" id="pd-go" onclick="payDelGo(${id},'${org}')">حذف الدفعة</button><button class="btn ghost" onclick="${ADM.tab==='pay'&&V.v==='admin'?'closeSheet()':`admSheet('${org}')`}">رجوع</button>`)}
+async function payDelGo(id,org){const b=$('#pd-go');b.disabled=true;b.textContent='لحظة…';const d=await admTry({action:'pay_del',id,org_id:org,adjust:$('#pd-adj').checked});
+  if(d._err){b.disabled=false;b.textContent='حذف الدفعة';return toast(d.msg)}toast('حُذفت الدفعة');await admReload();PAYS=null;await paysLoad();if(ADM.tab==='pay'&&V.v==='admin')closeSheet();else admSheet(org)}
+
+/* --- تذكير جماعي --- */
+function bulkSheet(){const L=callList();const sent=k=>lsGet('asas_sent_'+k+'_'+today());
+  sheet(shd('💬 تذكير جماعي','اضغط «إرسال» جنب كل مكتب، يفتح الواتساب برسالة جاهزة من القوالب. تطلع علامة ✓ بعد الفتح.')+
+   (L.length?`<div class="list">${L.map(o=>{const k=akey(o);return `<div class="li"><span class="av" style="background:${AK_C[k]}">${esc((o.owner||o.name||'؟').replace(/^م\.\s*/,'').trim().charAt(0))}</span><div class="mid"><div class="t">${esc(o.name)}</div><div class="s" style="color:${AK_C[k]};font-weight:700">${o.renew?'🔔 طلب تجديد':AK_L[k]+(dLeft(o)>0?' · باقٍ <span class="num">'+dLeft(o)+'</span> يوم':'')}</div></div>
+    <a class="chip snd ${sent(o.id)?'done':''}" href="${waTo(o,remindMsg(o))}" target="_blank" rel="noopener" onclick="lsSet('asas_sent_${o.id}_'+today(),'1');this.classList.add('done');this.textContent='✓ فُتح'">${sent(o.id)?'✓ فُتح':'إرسال'}</a></div>`}).join('')}</div>`:'<div class="empty">🎉 لا يوجد من يحتاج تذكير الآن</div>')+
+   `<button class="btn ghost" onclick="tplSheet()">✉️ تعديل نص الرسائل</button>${closeB}`)}
+
+/* --- تصدير Excel (CSV يفتح بـ Excel) --- */
+function csvOut(name,h,rows){const q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';dlText(name,'﻿'+[h].concat(rows).map(r=>r.map(q).join(',')).join('\r\n'),'text/csv;charset=utf-8');toast('تم التنزيل ✓')}
+function csvOrgs(){if(!ADM.orgs)return;csvOut('asas-offices-'+today()+'.csv',['المكتب','المهندس','الهاتف','الحالة','الباقة','ينتهي في','الأيام المتبقية','الزبائن','المشاريع','المبالغ','المستخدمون','إجمالي المدفوع','آخر دخول','آخر إضافة مبلغ','سُجّل في','ملاحظة'],
+  realOrgs().map(o=>[o.name,o.owner,o.phone,AK_L[akey(o)]+(isDorm(o)?' (راكد)':''),o.plan||'',bgd(admEnd(o)),dLeft(o),o.clients||0,o.projects||0,o.entries||0,o.members||0,o.paid_total||0,bgd(o.last_login),bgd(o.last_entry),bgd(o.created_at),o.note||'']))}
+async function csvPays(){if(!PAYS)await paysLoad();csvOut('asas-payments-'+today()+'.csv',['التاريخ','المكتب','المهندس','الباقة','المدة (شهر)','المبلغ','الطريقة','الوصل / ملاحظة','من','إلى','مهندس إضافي'],
+  realPays().map(p=>[bgd(p.created_at),p.org_name||'',p.owner||'',p.plan,p.months,p.amount,p.method||'',p.receipt||'',bgd(p.from_date),bgd(p.to_date),p.extra_eng||0]))}
+
+/* --- حماية النسخ: Drive أسبوعي، فحص الاسترجاع، تنبيه توقف الموقع --- */
+const fresh2=(x,d)=>x&&Date.now()-Date.parse(x)<d*864e5;
+function bkToolSheet(){const d=HL.d||{};const rc=d.restore_check,dr=d.drive;if(!HL.d)hlLoad().then(()=>{if($('#bkt'))bkToolSheet()});
+  const row=(ic,ok,t,sub,fn)=>`<button class="li" ${fn?`onclick="${fn}"`:''}><div class="ic">${ic}</div><div class="mid"><div class="t">${t}</div><div class="s" style="white-space:normal">${sub}</div></div><b class="${ok===true?'ok':ok===false?'no':'na'} bkm">${ok===true?'✓':ok===false?'✕':'—'}</b></button>`;
+  sheet(`<div id="bkt"></div>`+shd('💾 النسخ الاحتياطي','كل طبقات الحماية بمكان واحد.')+`<div class="list">
+   ${row('☁️',d.last_backup?fresh2(d.last_backup,2.2):null,'نسخة يومية على السيرفر','كل مكتب، تُحفظ 30 يوماً'+(d.last_backup?' · آخرها '+agoTxt(d.last_backup):''))}
+   ${row('🔐',d.offsite?(d.offsite.ok&&fresh2(d.offsite.at,2.2)):null,'نسخة ليلية مشفّرة (GitHub)','تُحفظ 90 يوماً'+(d.offsite?' · آخرها '+agoTxt(d.offsite.at):''))}
+   ${row('🔁',rc?(rc.ok&&fresh2(rc.at,35)):null,'فحص الاسترجاع الشهري',rc?(rc.ok?'آخر فحص ناجح '+agoTxt(rc.at):'<b style="color:var(--red)">فشل آخر فحص</b> · '+agoTxt(rc.at)):'أول كل شهر يتأكد تلقائياً إن النسخة تنفتح وكاملة · يبدأ بعد «ارفع»')}
+   ${row('📁',dr?(dr.ok&&fresh2(dr.at,8)):null,'نسخة أسبوعية على Google Drive',dr?(dr.ok?'آخرها '+agoTxt(dr.at):'<b style="color:var(--red)">فشلت آخر محاولة</b>'):'غير مفعّلة · اضغط للتفعيل','driveSheet()')}
+   ${row('🚨',d.uptime?d.uptime.ok:null,'تنبيه توقف الموقع',d.uptime?(d.uptime.ok?'الموقع شغّال · آخر فحص '+agoTxt(d.uptime.at):'<b style="color:var(--red)">الموقع كان واقف</b> · '+agoTxt(d.uptime.at)):'اضغط للتفاصيل','upSheet()')}
+   </div>
+   <button class="btn y" onclick="admExport()">⬇️ تنزيل نسخة كاملة على جوالي</button><button class="btn ghost" onclick="offKey()">🔑 مفتاح فك التشفير</button>${backB}`)}
+function driveScript(tok){return `// نسخة أسس الأسبوعية إلى Google Drive — لا تشارك هذا السكربت مع أحد
+const URL_ = 'https://nlwlopwewqebdawkgtbk.supabase.co/functions/v1/asas-offsite';
+const TOKEN = '${tok||'ضع_الرمز_هنا'}';
+const KEEP = 8; // عدد النسخ اللي تبقى بالمجلد
+
+function weeklyBackup() {
+  const call = (body) => UrlFetchApp.fetch(URL_, {method: 'post', contentType: 'application/json',
+    headers: {'x-drive-token': TOKEN}, payload: JSON.stringify(body), muteHttpExceptions: true});
+  const r = call({action: 'drive'});
+  const ok = r.getResponseCode() === 200;
+  let bytes = 0;
+  if (ok) {
+    const it = DriveApp.getFoldersByName('نسخ أسس');
+    const folder = it.hasNext() ? it.next() : DriveApp.createFolder('نسخ أسس');
+    const name = 'asas-backup-' + Utilities.formatDate(new Date(), 'Asia/Baghdad', 'yyyy-MM-dd') + '.json.gz.enc';
+    const blob = r.getBlob().setName(name); bytes = blob.getBytes().length;
+    folder.createFile(blob);
+    const files = []; const fi = folder.getFiles(); while (fi.hasNext()) files.push(fi.next());
+    files.sort((a, b) => b.getDateCreated() - a.getDateCreated()).slice(KEEP).forEach(f => f.setTrashed(true));
+  }
+  call({action: 'drive_report', ok: ok, bytes: bytes});
+  if (!ok) throw new Error('فشلت نسخة أسس الأسبوعية: ' + r.getResponseCode());
+}`}
+function driveSheet(tok){sheet(shd('📁 نسخة أسبوعية على Google Drive','سكربت صغير بحسابك على Google يسحب نسخة كاملة مشفّرة كل أسبوع لمجلد «نسخ أسس» بالـ Drive، ويخلّي آخر 8 نسخ. نفس «مفتاح فك التشفير» يفتحها. إذا فشلت، Google يرسلك إيميل تلقائياً.')+`
+   <div class="okbox" style="background:#EEF5FF;color:#1C3D7A;line-height:2"><b>الخطوات (مرة وحدة، من الحاسبة أسهل):</b><br>١. اضغط «إنشاء رمز Drive» تحت، وبعدها «نسخ السكربت».<br>٢. افتح <b dir="ltr">script.google.com</b> بحساب Google مالتك ← «مشروع جديد».<br>٣. امسح الموجود والصق السكربت، واحفظ.<br>٤. اضغط ▶️ «تشغيل» مرة وحدة ووافق على الصلاحيات.<br>٥. من ⏰ «المشغّلات» أضف مشغّل: الدالة <b dir="ltr">weeklyBackup</b> · حسب الوقت · أسبوعي · يوم الجمعة.</div>
+   ${tok?`<div class="pwbox num" style="font-size:15px;word-break:break-all">${esc(tok)}</div><p class="note" style="margin:0">احفظه، ما يطلع مرة ثانية. إنشاء رمز جديد يبطّل القديم.</p>`:`<button class="btn y" onclick="driveTok()">🔑 إنشاء رمز Drive</button>`}
+   <textarea id="drv-s" readonly style="width:100%;height:190px;direction:ltr;text-align:left;font:12px/1.5 monospace;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--soft)">${esc(driveScript(tok))}</textarea>
+   <button class="btn ${tok?'y':'ghost'}" onclick="copyTxt($('#drv-s').value,'نُسخ السكربت ✓')">📋 نسخ السكربت</button>
+   <button class="btn ghost" onclick="bkToolSheet()">رجوع</button>`)}
+async function driveTok(){if(!ADM.v6)return toast(NEEDSRV);const d=await admTry({action:'drive_token'});if(d._err)return toast(d.msg);driveSheet(d.token)}
+function upSheet(){const u=HL.d&&HL.d.uptime;sheet(shd('🚨 تنبيه توقف الموقع','حتى تعرف أول ما يوقف الموقع أو قاعدة البيانات، قبل ما يكلّمك مشترك.')+`
+   ${u?`<div class="trialbar ${u.ok?'':'end'}"><span>${u.ok?'✅ الموقع شغّال':'⛔ الموقع كان واقف'} · آخر فحص ${agoTxt(u.at)}</span></div>`:''}
+   <div class="okbox"><b>١. فحص تلقائي كل 30 دقيقة (بعد «ارفع»)</b><br>GitHub يفتح الموقع وقاعدة البيانات كل نص ساعة. إذا واحد منهم وقف: يوصلك تنبيه تيليجرام/واتساب (من «الإشعارات») وإيميل من GitHub، والحالة تبيّن هنا.</div>
+   <div class="okbox" style="background:#EEF5FF;color:#1C3D7A"><b>٢. احتياط إضافي مجاني (UptimeRobot)</b><br>أنشئ حساب مجاني بـ <b dir="ltr">uptimerobot.com</b> ← Add New Monitor ← HTTP(s) ← ضع الرابط:<br><b dir="ltr" class="num" style="font-size:12.5px">${APP_URL}</b><br>فيوصلك إيميل أو تيليجرام فور توقفه.</div>
+   <button class="btn ghost" onclick="copyTxt(APP_URL,'نُسخ الرابط ✓')">📋 نسخ رابط الموقع</button>${backB}`)}
+
+/* --- تأكيد التفعيل للمشترك بعد التجديد --- */
+function actDone(id,until,plan){const o=(ADM.orgs||[]).find(x=>x.id===id);if(!o)return;
+  sheet(`<h3>✅ تم التفعيل</h3><p class="note" style="margin:0;font-size:14px">${esc(o.name)} · ينتهي <b class="num">${String(until||admEnd(o)).slice(0,10)}</b></p>
+   <a class="btn" style="text-decoration:none;background:#25D366;color:#fff" href="${waTo(o,tplFill('done',o,{until,plan}))}" target="_blank" rel="noopener">📲 أرسل له تأكيد بالواتساب</a>
+   <button class="btn ghost" onclick="admSheet('${id}')">رجوع لصفحة المكتب</button>`)}
+
+/* --- استرجاع: «المحذوف فقط» أو «الكل» (مثل مكتبي) --- */
+var BKD=null;
+function bkDelCount(d){let n=0;for(const t of ['clients','projects','entries'])for(const x of (d[t]||[])){if(!x||!x.id||x.del)continue;const r=S[t].find(y=>y.id===x.id);if(!r||r.del)n++}return n}
+function bkMode(d){BKD=d;const n=bkDelCount(d);
+  sheet(`<h3>↩️ طريقة الاسترجاع</h3><p class="note" style="margin:0">قبل أي استرجاع تُؤخذ نسخة من وضعك الحالي، فلا يضيع شيء.</p>
+   <button class="btn y bkopt" ${n?'':'disabled'} onclick="closeSheet();bkRestore(BKD,'del')">♻️ استرجاع المحذوف فقط<small>${n?'يرجّع <b class="num">'+n+'</b> '+(n===1?'عنصر':'عنصر')+' انحذف بعد النسخة، وما يمس باقي بياناتك':'ماكو شي محذوف بهاي النسخة يحتاج يرجع'}</small></button>
+   <button class="btn bkopt" onclick="closeSheet();bkRestore(BKD,'all')">↩️ استرجاع الكل<small>ترجع البيانات مثل ما كانت وقت النسخة، وما أُضيف بعدها يُنقل إلى السلة</small></button>
+   <button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
 
 /* --- الإقلاع --- */
 function offUid(se){if(!(se||navigator.onLine===false))return null;if(se&&!isNetErr(se))return null; // الجلسة محفوظة لكن لا يوجد نت لتجديدها
