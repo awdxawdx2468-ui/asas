@@ -744,6 +744,7 @@ details.stopt summary{cursor:pointer;list-style:none}details.stopt summary::-web
 .htt .s{line-height:1.5}
 .htg{grid-auto-rows:1fr}
 .htt{height:100%;box-sizing:border-box}
+.htseg{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.htseg button{padding:9px 2px;font-size:13.5px}
 
 </style>
 
@@ -1670,9 +1671,10 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.5',APP_T='2026-11-22 02:50';
+var APP_V='1.9.6',APP_T='2026-11-22 03:00';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='مربعات الرئيسية الستة بطول واحد، وكل مربع يعرض تفاصيله كاملة|نافذة «تم التحديث» تعرض الجديد فقط، والإصدارات السابقة في «المزيد» ← «ما الجديد؟»';
+var APP_NEWS='زر «صرفت مبلغ» أصبح على اليمين و«استلمت مبلغ» على اليسار، في الرئيسية وصفحة المشروع|ملخص الرئيسية يعرض «الكل» منذ البداية، وتختار شهراً أو سنة أو فترة من زر صغير|التواريخ في اختيار الفترة بصيغة يوم/شهر/سنة';
+var APP_NEWS_195='مربعات الرئيسية الستة بطول واحد، وكل مربع يعرض تفاصيله كاملة|نافذة «تم التحديث» تعرض الجديد فقط، والإصدارات السابقة في «المزيد» ← «ما الجديد؟»';
 var APP_NEWS_194='أصبح مستطيل القاصة تحت الشريط العلوي بالكامل|مربع «أتعابي» يبيّن طريقة الحساب، مثل: 10% من المستلم|كل المربعات في الرئيسية تفتح تفاصيلها عند الضغط، ومنها صافيي وعهدة الموظفين|كلمة «القاصة» بدل «الصندوق» في كل التطبيق';
 var APP_NEWS_193='الرئيسية أوضح: القاصة في الأعلى، ثم ستة مربعات (المستلم من الزبائن، مصاريف الزبائن، أتعابي، مصاريف المكتب، صافيي، العهدة لدى الموظفين) تُفتح تفاصيلها عند الضغط|زر «✔ إنهاء المشروع»: يبيّن الرصيد الباقي قبل الإنهاء، وينقل المشروع إلى «المشاريع المنتهية» التي لا تُحسب ضمن حد الباقة، مع الكشف النهائي وزر «إعادة فتح»|دعوة المهندس أو المساعد برابط واتساب: يختار كلمة المرور بنفسه، وتحدد له المسمى والصلاحيات والمشاريع|كل نصوص التطبيق صارت بالفصحى|إصلاح تكرار نافذة «جديد في النظام» للمدير';
 var APP_NEWS_192='أصبحت شاشة «صافيي» أوضح: الصافي في الأعلى مع أتعابي والمصاريف، وتختار الشهر أو السنة أو أي فترة من زر صغير|مربع المصاريف بكل تفاصيلها، ومربع أتعابي يبيّن كيف احتُسبت الأتعاب من كل دفعة';
@@ -1682,7 +1684,8 @@ var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة 
 var APP_NEWS_188='أصبحت الطباعة ملف PDF بحجم A4 كامل وبدقة عالية، ترسله إلى الطابعة أو إلى أي شخص عبر الواتساب|الوصل: النسختان في ورقة واحدة، والختم والتوقيع مرتبان|لا يوجد قص في الحواف ولا ورقة زائدة في الطباعة';
 var APP_NEWS_186='اضغط على أي حركة في المشروع لتعديلها أو حذفها|الحذف يطلب تأكيداً، والمحذوف ينتقل إلى سلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً|أصبح حذف الزبون أو المشروع يطلب تأكيداً، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.5',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.6',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.5',d:'2026-11-22',n:APP_NEWS_195.split('|')},
  {v:'1.9.4',d:'2026-11-22',n:APP_NEWS_194.split('|')},
  {v:'1.9.3',d:'2026-11-22',n:APP_NEWS_193.split('|')},
  {v:'1.9.2',d:'2026-11-21',n:APP_NEWS_192.split('|')},
@@ -3189,9 +3192,10 @@ function htNums(){const[a,b]=npRange();let inn=0,out=0,ni=0,no=0;const ins=[],ou
   const R=netOf(a,b);const us=[...new Set(live(S.entries).filter(e=>e.cu).map(e=>e.cu))];let cust=0,cn=0;for(const u of us){const l=custOf(u).left;if(l){cust+=l;cn++}}
   const srt=x=>x.sort((p,q)=>q.date.localeCompare(p.date)||(q.ts||0)-(p.ts||0));
   return{a,b,inn,out,ins:srt(ins),outs:srt(outs),R,cust,cn}}
-function htTiles(){const N=htNums();const am=(v,c)=>`<b class="amt ${c||''}">${sfmt(v)}<small>د.ع</small></b>`;
+function htTiles(){return htWith(htTiles0)}
+function htTiles0(){const N=htNums();const am=(v,c)=>`<b class="amt ${c||''}">${sfmt(v)}<small>د.ع</small></b>`;
   const t=(n,fn,l,v,s)=>`<button class="htt n${n}" onclick="${fn}"><i>‹</i><span class="l">${l}</span>${v}<span class="s">${s}</span></button>`;
-  return `<div class="htsec"><h2>الملخص</h2><button class="htper" onclick="npSheet()">${npChip()} <span aria-hidden="true">▾</span></button></div>
+  return `<div class="htsec"><h2>الملخص</h2><button class="htper" onclick="htpSheet()">${npChip()} <span aria-hidden="true">▾</span></button></div>
    <div class="htg">
     ${t(1,"htShow('in')",'المستلم من الزبائن',am(N.inn,'g'),`<span class="num">${N.ins.length}</span> دفعة`)}
     ${t(2,"htShow('out')",'مصاريف الزبائن',am(N.out,'r'),'على مشاريع الزبائن')}
@@ -3203,7 +3207,8 @@ function htTiles(){const N=htNums();const am=(v,c)=>`<b class="amt ${c||''}">${s
 function htFeeHow(a,b){const rs=feeRows(a,b);if(!rs.length)return 'لا توجد أتعاب في هذه الفترة';const pr=rs.filter(r=>!r.fixed);const pcs=[...new Set(pr.map(r=>r.pc))];const fx=rs.some(r=>r.fixed);
   if(pcs.length===1&&!fx)return `<span class="num">${pcs[0]}%</span> من المستلم <span class="num">${fmt(pr.reduce((x,r)=>x+r.e.amt,0))}</span>`;
   const q=[];if(pcs.length)q.push(pcs.map(x=>'<span class="num">'+x+'%</span>').join(' و ')+' من المستلم');if(fx)q.push('أتعاب مقطوعة');return q.join(' + ')}
-function htShow(k){const N=htNums();const per=npChip();let h='';
+function htShow(k){return htWith(()=>htShow0(k))}
+function htShow0(k){const N=htNums();const per=npChip();let h='';
   const box=(lbl,v,c)=>`<div class="tot"><span>${lbl}</span><b class="amt ${c||''}">${sfmt(v)} <small>د.ع</small></b></div>`;
   const lst=(rows,empty)=>`<div class="list">${rows||`<div class="empty" style="padding:18px;text-align:center;color:var(--mut)">${empty}</div>`}</div>`;
   if(k==='in')h=`<h3>المستلم من الزبائن</h3><p class="note">${per}</p>${box('المجموع',N.inn,'g')}${lst(N.ins.map(entryRow).join(''),'لا توجد مبالغ مستلمة في هذه الفترة')}`;
@@ -3227,6 +3232,27 @@ const _homeHT=VIEWS.home;VIEWS.home=a=>{let h=_homeHT(a);if(AS||!CAN.admin)retur
   return h};
 adminBtn=function(){};
 
+/* فترة الرئيسية: الافتراضي «الكل»، مستقلة عن فترة شاشة صافيي */
+const HP={k:'a',m:today().slice(0,7),y:+today().slice(0,4),from:today().slice(0,8)+'01',to:today()};
+function htWith(fn){const sv=Object.assign({},NP);Object.assign(NP,HP);try{return fn()}finally{Object.assign(NP,sv)}}
+const dmy=d=>{const p=String(d||'').split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:d};
+const _npRangeHT=npRange;npRange=function(){if(NP.k==='a')return['0000-01-01','9999-12-31'];return _npRangeHT()};
+npChip=function(){if(NP.k==='a')return 'الكل';if(NP.k==='m')return NP.m===today().slice(0,7)?'هذا الشهر':monthName(NP.m);if(NP.k==='y')return 'سنة '+NP.y;const r=npRange();return dmy(r[0])+' – '+dmy(r[1])};
+const _npLabelHT=npLabel;npLabel=function(){if(NP.k==='a')return 'الكل';if(NP.k==='r'){const r=npRange();return 'من '+dmy(r[0])+' إلى '+dmy(r[1])}return _npLabelHT()};
+function htpBody(){const cy=new Date().getFullYear();const ys=[...new Set(live(S.entries).map(e=>+String(e.date).slice(0,4)).filter(Boolean).concat([cy]))].sort((x,y)=>y-x);
+  const on=k=>k==='tm'?(HP.k==='m'&&HP.m===today().slice(0,7)):(HP.k===k&&!(k==='m'&&HP.m===today().slice(0,7)));
+  return `<h3>اختر الفترة</h3><p class="note">«الكل» يعرض المجموع منذ بداية العمل</p>
+  <div class="nfseg htseg">${[['a','الكل'],['tm','هذا الشهر'],['m','شهر'],['y','سنة'],['r','فترة']].map(([k,n])=>`<button class="${on(k)?'on':''}" onclick="htpK('${k}')">${n}</button>`).join('')}</div>
+  <div style="margin-top:12px">
+  ${HP.k==='m'?`<div class="dpw"><label>الشهر</label>${dpk('hp-m',HP.m,'m')}</div>`:''}
+  ${HP.k==='y'?`<div class="dpw"><label for="hp-y">السنة</label><select id="hp-y" class="num">${ys.map(y=>`<option value="${y}" ${y===HP.y?'selected':''}>${y}</option>`).join('')}</select></div>`:''}
+  ${HP.k==='r'?`<div class="dpw"><label>من</label>${dpk('hp-from',HP.from)}</div><div class="dpw"><label>إلى</label>${dpk('hp-to',HP.to)}</div>`:''}
+  </div>${['m','y','r'].includes(HP.k)&&!on('tm')?`<button class="btn" style="margin-top:14px;width:100%" onclick="htpApply()">عرض</button>`:''}`}
+function htpSheet(){sheet(htpBody())}
+function htpGrab(){const g=id=>{const el=$('#'+id);return el?el.value:null};if(HP.k==='m'&&g('hp-m'))HP.m=g('hp-m');if(HP.k==='y'&&g('hp-y'))HP.y=+g('hp-y');if(HP.k==='r'){if(g('hp-from'))HP.from=g('hp-from');if(g('hp-to'))HP.to=g('hp-to')}}
+function htpK(k){htpGrab();if(k==='a'||k==='tm'){HP.k=k==='a'?'a':'m';if(k==='tm')HP.m=today().slice(0,7);closeSheet();render();return}HP.k=k;if(k==='m'&&HP.m===today().slice(0,7))HP.m=prevYm(HP.m);sheet(htpBody())}
+function htpApply(){htpGrab();if(HP.k==='r'&&HP.from>HP.to){const t=HP.from;HP.from=HP.to;HP.to=t}closeSheet();render()}
+
 boot();
 </script>
 <style>#admNBox{position:fixed;inset:0;z-index:2147483100;background:rgba(10,20,40,.55);display:grid;place-items:center;padding:20px}
@@ -3240,6 +3266,8 @@ boot();
 #admNBox li .t{color:#6b7a90;font-size:12px;white-space:nowrap}#admNBox li.more{justify-content:center;color:var(--navy,#14284b);font-weight:700}
 #admNBox .admn-b{display:flex;gap:8px;margin-top:14px}#admNBox .admn-b button{flex:1;padding:12px;border-radius:12px;border:0;background:var(--navy,#14284b);color:#fff;font:700 15px inherit;font-family:inherit}
 #admNBox .admn-b button.g{background:#eef2f8;color:inherit}
+/* صرفت يمين (لليد اليمنى)، استلمت يسار */
+.acts .act.out,.pj-acts .pj-out{order:-1}
 </style>
 
 <script>if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}</script>
