@@ -646,6 +646,28 @@ details.stopt summary{cursor:pointer;list-style:none}details.stopt summary::-web
 .nfyt td{padding:8px 4px;border-bottom:1px solid var(--line)}
 .nfyt .n{text-align:left}
 .nfg{color:var(--green)}.nfr{color:var(--red)}
+.nftop{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.nfchip{border:1px solid var(--line);background:var(--soft);color:var(--navy);border-radius:999px;padding:5px 12px;font-weight:700;font-size:13px;white-space:nowrap}
+.nfeq{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px;font-size:13px;color:var(--mut)}
+.nfeq b{font-size:14px}
+.nfsec{display:flex;align-items:center;justify-content:space-between}
+.nfsec b{font-size:16px}
+.nf4{grid-template-columns:repeat(4,1fr)}
+.nfwrap{white-space:normal!important;overflow:visible!important;text-overflow:clip!important}
+.nfbox{margin-top:14px}
+.nfbh{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.nfbh h2{font-size:17px;font-weight:800;margin:0}
+.nfbh b{font-size:18px}
+.nfin{margin:0 -16px;box-shadow:none!important;border-radius:0!important;background:transparent!important}
+.nfeq{justify-content:flex-start;font-size:16px}
+.nfeq{direction:ltr;justify-content:flex-end}
+.nfhb{margin-top:18px;padding:14px 16px;margin-bottom:8px}
+.nfl{margin-top:0}
+.nfsc{margin-top:16px;padding:0!important;overflow:hidden}
+.nfband{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line)}
+.nfband h2{margin:0;font-size:17px;font-weight:800}.nfband b{font-size:18px}
+.nfband.r{background:#FDECEC}.nfband.g{background:#E7F6EC}
+.nfsc .nfin{margin:0!important}
 
 </style>
 
@@ -1570,15 +1592,17 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.1',APP_T='2026-11-21 16:50';
+var APP_V='1.9.2',APP_T='2026-11-21 19:05';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='شاشة «صافيي»: أتعابك ناقص مصاريف المكتب، لشهر أو سنة أو أي فترة، وين صرفت، وكشف أرباح للطباعة|الموظفون والعهدة: تحدد لكل موظف مشاريعه، وتعطيه مبلغ وتشوف شكد صرف ووين وشكد باقي بيده، مع كشف عهدة|الموظف يشوف بس مشاريعه، ويصرف على المشروع أو على المكتب، ويعدّل صرفه بنفس اليوم فقط|الأشهر صارت أرقام بكل التطبيق';
+var APP_NEWS='شاشة «صافيي» صارت أوضح: الصافي فوق مع أتعابي والمصاريف، وتختار الشهر أو السنة أو أي فترة من زر صغير|مربع المصاريف بكل تفاصيلها، ومربع أتعابي يبيّن شلون طلعت الأتعاب من كل دفعة';
+var APP_NEWS_191='شاشة «صافيي»: أتعابك ناقص مصاريف المكتب، لشهر أو سنة أو أي فترة، وين صرفت، وكشف أرباح للطباعة|الموظفون والعهدة: تحدد لكل موظف مشاريعه، وتعطيه مبلغ وتشوف شكد صرف ووين وشكد باقي بيده، مع كشف عهدة|الموظف يشوف بس مشاريعه، ويصرف على المشروع أو على المكتب، ويعدّل صرفه بنفس اليوم فقط|الأشهر صارت أرقام بكل التطبيق';
 var APP_NEWS_190='تحسينات بالسرعة والثبات';
 var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة والمدة وتشوف المبلغ قبل ما ترسل الوصل|إشعار من الإدارة يظهر لك بأعلى التطبيق عند وجود خبر مهم|تحسينات بالسرعة والثبات';
 var APP_NEWS_188='الطباعة صارت ملف PDF بحجم A4 كامل وبدقة عالية، ترسله للطابعة أو لأي شخص بالواتساب|الوصل: النسختين بورقة وحدة، والختم والتوقيع مرتبين|ما أكو قص بالحواف ولا ورقة زايدة بالطباعة';
 var APP_NEWS_186='اضغط على أي حركة بالمشروع حتى تعدّلها أو تحذفها|الحذف يطلب تأكيد، والمحذوف يروح لسلة المحذوفات وتكدر ترجعه خلال 30 يوم|حذف الزبون أو المشروع صار يطلب تأكيد، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.1',d:'2026-11-21',n:APP_NEWS.split('|')},
+ {v:'1.9.2',d:'2026-11-21',n:APP_NEWS.split('|')},
+ {v:'1.9.1',d:'2026-11-21',n:APP_NEWS_191.split('|')},
  {v:'1.9.0',d:'2026-11-21',n:APP_NEWS_190.split('|')},
  {v:'1.8.9',d:'2026-11-21',n:APP_NEWS_189.split('|')},
  {v:'1.8.8',d:'2026-11-21',n:APP_NEWS_188.split('|')},
@@ -2735,31 +2759,43 @@ function npRead(){const g=id=>{const el=$('#'+id);return el?el.value:null};
 function npSet(k){NP.k=k;render()}
 function npQuick(w){if(w==='tm'){NP.k='m';NP.m=today().slice(0,7)}else if(w==='pm'){NP.k='m';NP.m=prevYm(today().slice(0,7))}render()}
 
-VIEWS.net=()=>{if(AS||!CAN.admin)return VIEWS.home();const[a,b]=npRange();const R=netOf(a,b);
-  const multi=a.slice(0,7)!==b.slice(0,7);const cy=new Date().getFullYear();const ys=[...new Set(live(S.entries).map(e=>+String(e.date).slice(0,4)).filter(Boolean).concat([cy]))].sort((x,y)=>y-x);
-  const G=grpDet(R.ex);
-  return `<header class="top short"><div class="hdr"><div><h1>صافيي</h1><p>${esc(npLabel())}</p></div><button class="back" aria-label="رجوع" onclick="go('reports')">→</button></div></header>
+function feeRows(a,b){const rows=[];
+  for(const p of live(S.projects)){const es=live(S.entries).filter(e=>e.pid===p.id&&e.kind==='in').sort((x,y)=>x.date.localeCompare(y.date)||(x.ts||0)-(y.ts||0));if(!es.length)continue;
+    if(p.feeType==='pct'){const pc=+p.feeVal||0;for(const e of es)if(e.date>=a&&e.date<=b){const f=Math.round(e.amt*pc/100);if(f)rows.push({p,e,f,pc})}}
+    else if(+p.feeVal&&es[0].date>=a&&es[0].date<=b)rows.push({p,e:es[0],f:+p.feeVal,fixed:true})}
+  return rows.sort((x,y)=>y.e.date.localeCompare(x.e.date))}
+function npBody(){const cy=new Date().getFullYear();const ys=[...new Set(live(S.entries).map(e=>+String(e.date).slice(0,4)).filter(Boolean).concat([cy]))].sort((x,y)=>y-x);
+  return `<h3>اختر الفترة</h3>
+  <div class="nfseg nf4">${[['tm','هذا الشهر'],['m','شهر'],['y','سنة'],['r','فترة']].map(([k,n])=>`<button class="${(k==='tm'?(NP.k==='m'&&NP.m===today().slice(0,7)):(NP.k===k&&!(k==='m'&&NP.m===today().slice(0,7))))?'on':''}" onclick="npK('${k}')">${n}</button>`).join('')}</div>
+  <div style="margin-top:12px">
+  ${NP.k==='m'?`<div class="dpw"><label>الشهر</label>${dpk('np-m',NP.m,'m')}</div>`:''}
+  ${NP.k==='y'?`<div class="dpw"><label for="np-y">السنة</label><select id="np-y" class="num">${ys.map(y=>`<option value="${y}" ${y===NP.y?'selected':''}>${y}</option>`).join('')}</select></div>`:''}
+  ${NP.k==='r'?`<div class="dpw"><label>من</label>${dpk('np-from',NP.from)}</div><div class="dpw"><label>إلى</label>${dpk('np-to',NP.to)}</div>`:''}
+  </div><button class="btn" style="margin-top:14px;width:100%" onclick="npApply()">عرض</button>`}
+function npSheet(){sheet(npBody())}
+function npK(k){npGrab();if(k==='tm'){NP.k='m';NP.m=today().slice(0,7);closeSheet();render();return}NP.k=k;sheet(npBody())}
+function npGrab(){const g=id=>{const el=$('#'+id);return el?el.value:null};
+  if(NP.k==='m'&&g('np-m'))NP.m=g('np-m');if(NP.k==='y'&&g('np-y'))NP.y=+g('np-y');if(NP.k==='r'){if(g('np-from'))NP.from=g('np-from');if(g('np-to'))NP.to=g('np-to')}}
+function npApply(){npGrab();closeSheet();render()}
+function npChip(){if(NP.k==='m')return NP.m===today().slice(0,7)?'هذا الشهر':monthName(NP.m);if(NP.k==='y')return 'سنة '+NP.y;const r=npRange();return r[0]+' — '+r[1]}
+
+VIEWS.net=()=>{if(AS||!CAN.admin)return VIEWS.home();const[a,b]=npRange();const R=netOf(a,b);const FR=feeRows(a,b);
+  const multi=a.slice(0,7)!==b.slice(0,7);
+  return `<header class="top short"><div class="hdr"><div><h1>صافيي</h1><p>أتعابي − المصاريف</p></div><button class="back" aria-label="رجوع" onclick="go('reports')">→</button></div></header>
   <div class="wrap" style="margin-top:14px">
-   <section class="card nfper" onchange="npRead()">
-    <div class="nfseg">${[['m','شهر'],['y','سنة كاملة'],['r','فترة']].map(([k,n])=>`<button class="${NP.k===k?'on':''}" onclick="npSet('${k}')">${n}</button>`).join('')}</div>
-    ${NP.k==='m'?`<div class="dpw"><label>الشهر</label>${dpk('np-m',NP.m,'m')}</div><div class="quick"><button onclick="npQuick('tm')">هذا الشهر</button><button onclick="npQuick('pm')">الشهر الماضي</button></div>`:''}
-    ${NP.k==='y'?`<div class="dpw"><label for="np-y">السنة</label><select id="np-y" class="num">${ys.map(y=>`<option value="${y}" ${y===NP.y?'selected':''}>${y}</option>`).join('')}</select></div>`:''}
-    ${NP.k==='r'?`<div class="dpw"><label>من</label>${dpk('np-from',NP.from)}</div><div class="dpw"><label>إلى</label>${dpk('np-to',NP.to)}</div>`:''}
-   </section>
-   <section class="card cash"><div class="lbl">صافيي · ${esc(npLabel())}</div>
+   <section class="card cash"><div class="nftop"><span class="lbl">صافيي</span><button class="nfchip" onclick="npSheet()"><span class="num">${esc(npChip())}</span> ▾</button></div>
     <div class="big"><span class="amt ${R.n<0?'neg':''}">${sfmt(R.n)}</span><small>د.ع</small></div>
-    <div class="duo"><div class="mini"><span>أتعابي</span><b class="amt nfg">${fmt(R.f)}</b></div><div class="mini"><span>مصاريف المكتب</span><b class="amt nfr">${fmt(R.e)}</b></div></div>
-    </section>
-   <div class="row2"><button class="btn y" onclick="qStart('out','office')">+ مصروف مكتب</button><button class="btn ghost" onclick="showProfit()">🖨️ طباعة الكشف</button></div>
+    <div class="duo"><div class="mini"><span>أتعابي</span><b class="amt nfg">${fmt(R.f)}</b></div><div class="mini"><span>المصاريف</span><b class="amt nfr">${fmt(R.e)}</b></div></div>
+   </section>
+   <section class="card nfsc"><div class="nfband r"><h2>المصاريف</h2><b class="num nfr">${fmt(R.e)}</b></div>
+    <div class="list nfin">${R.ex.map(custRow).join('')||'<div class="empty">ما في مصاريف مكتب بهذه الفترة</div>'}</div>
+    <div style="padding:10px 14px 14px"><button class="btn ghost" style="width:100%" onclick="qStart('out','office')">+ مصروف مكتب</button></div></section>
+   <section class="card nfsc"><div class="nfband g"><h2>أتعابي</h2><b class="num nfg">${fmt(R.f)}</b></div>
+    <div class="list nfin">${FR.map(x=>`<button class="li" onclick="go('project','${x.p.id}')"><div class="ic">💰</div><div class="mid"><div class="t">${esc(cName(C(x.p.cid)||{}))} · ${esc(x.p.name)}</div><div class="s nfwrap">${x.fixed?'أتعاب مقطوعة · أول دفعة <span class="num">'+x.e.date+'</span>':'<span class="num">'+x.pc+'%</span> من دفعة <span class="num">'+fmt(x.e.amt)+'</span> · <span class="num" style="white-space:nowrap">'+x.e.date+'</span>'}</div></div><b class="a amt pos">${fmt(x.f)}</b></button>`).join('')||'<div class="empty">لا أتعاب بهذه الفترة</div>'}</div></section>
    ${multi?`<div class="sec"><h2>حسب الشهر</h2></div><section class="card"><table class="nfyt"><thead><tr><th>الشهر</th><th class="n">الأتعاب</th><th class="n">المصاريف</th><th class="n">الصافي</th></tr></thead><tbody>
-    ${monthsIn(a,b).filter(q=>q.f||q.e).map(q=>`<tr><td>${monthName(q.ym)}</td><td class="n num nfg">${fmt(q.f)}</td><td class="n num nfr">${fmt(q.e)}</td><td class="n num"><b>${sfmt(q.n)}</b></td></tr>`).join('')||'<tr><td colspan="4" class="mut">لا حركات</td></tr>'}</tbody></table></section>`:''}
-   <div class="sec"><h2>وين صرفت</h2><span class="num">${R.ex.length}</span></div>
-   <div class="list">${G.map(g=>`<div class="li"><div class="ic">🏢</div><div class="mid"><div class="t">${esc(g.k)}</div><div class="s">${g.n>1?'<span class="num">'+g.n+'</span> مرات':'مرة واحدة'}</div></div><b class="a amt neg">${fmt(g.a)}</b></div>`).join('')||'<div class="empty">ما في مصاريف مكتب بهذه الفترة</div>'}</div>
-   <div class="sec"><h2>أتعابي حسب المشروع</h2></div>
-   <div class="list">${R.fr.map(x=>`<button class="li" onclick="go('project','${x.p.id}')"><div class="ic">🏗️</div><div class="mid"><div class="t">${esc(cName(C(x.p.cid)||{}))} · ${esc(x.p.name)}</div><div class="s">${esc(feeLabel(x.p))}</div></div><b class="a amt pos">${fmt(x.f)}</b></button>`).join('')||'<div class="empty">لا أتعاب بهذه الفترة</div>'}</div>
-   <div class="sec"><h2>تفاصيل مصاريف المكتب</h2></div>
-   <div class="list">${R.ex.slice(0,60).map(custRow).join('')||'<div class="empty">—</div>'}</div>
-   <p class="note">الأتعاب بالنسبة تُحسب بتاريخ كل دفعة يستلمها المكتب، والأتعاب المقطوعة بتاريخ أول دفعة من المشروع. مصاريف المكتب لا تظهر للزبون ولا للموظفين.</p>
+    ${monthsIn(a,b).filter(q=>q.f||q.e).map(q=>`<tr><td class="num">${monthName(q.ym)}</td><td class="n num nfg">${fmt(q.f)}</td><td class="n num nfr">${fmt(q.e)}</td><td class="n num"><b>${sfmt(q.n)}</b></td></tr>`).join('')||'<tr><td colspan="4" class="mut">لا حركات</td></tr>'}</tbody></table></section>`:''}
+   <button class="btn ghost" style="width:100%;margin-top:16px" onclick="showProfit()">🖨️ طباعة كشف الأرباح</button>
+   <p class="note">الأتعاب بالنسبة تُحسب بتاريخ كل دفعة، والأتعاب المقطوعة بتاريخ أول دفعة. مصاريف المكتب لا تظهر للزبون ولا للموظفين.</p>
   </div>`};
 
 function showProfit(){const[a,b]=npRange();const R=netOf(a,b);const G=grpDet(R.ex);const multi=a.slice(0,7)!==b.slice(0,7);
