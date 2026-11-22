@@ -962,6 +962,47 @@ details.stopt summary{cursor:pointer;list-style:none}details.stopt summary::-web
 
 .fp-acts{margin:6px 0 4px}
 
+/* 1.9.15 اختيار المشروع بمربعات */
+.pgw{display:flex;flex-direction:column;gap:10px}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pgt{border:2px solid transparent;background:var(--card);border-radius:14px;padding:12px 12px;text-align:right;display:flex;flex-direction:column;gap:3px;box-shadow:0 2px 8px rgba(20,41,74,.05);min-width:0;font-family:inherit;color:var(--navy)}
+.pgt[hidden],.pgall[hidden]{display:none}
+.pgt b{font-size:15px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.pgt span{font-size:12.5px;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pgt.off{grid-column:1/-1}
+.pgt.off span{white-space:normal}
+.pgt.on{border-color:var(--yel);background:#FFFBEF}
+.pgall{border:1.5px solid var(--navy);background:transparent;color:var(--navy);border-radius:14px;padding:12px;font-family:inherit;font-weight:800;font-size:15px}
+.pgs{width:100%;border:1.5px solid #dfe4ec;background:var(--card);border-radius:12px;padding:11px 14px;font-size:15px;font-family:inherit;outline:none}
+.pgs:focus{border-color:var(--yel)}
+.pgnone{text-align:center;color:var(--mut);padding:14px}
+.pgf{cursor:pointer}
+.pgv{font-weight:700;font-size:16.5px;padding:3px 0}
+.qon{display:flex;align-items:center;gap:12px;border:1.5px solid var(--yel);background:#FFFBEF;border-radius:16px;padding:12px 16px;margin:6px 0 14px}
+.qon-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;text-align:right}
+.qon-t small{font-size:12.5px;color:var(--mut)}
+.qon-t b{font-size:17px;color:var(--navy);line-height:1.35}
+.qon-t span{font-size:13.5px;color:var(--mut)}
+.qon button{flex:none;border:1.5px solid var(--navy);background:#fff;color:var(--navy);border-radius:10px;padding:7px 14px;font-family:inherit;font-weight:800;font-size:14px}
+.pgf{border:1.5px solid var(--yel);background:#FFFBEF}
+.qh:empty{display:none}
+.cnh{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:800;color:var(--navy);margin:4px 0 2px}
+.cnh .num{width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex:none}
+.cnh small{font-weight:500;color:var(--mut);font-size:12.5px}
+.cngrid{display:grid!important;grid-template-columns:1fr 1fr;gap:8px}
+.cngrid button{display:flex!important;align-items:center;gap:10px;border:2px solid transparent!important;background:var(--card)!important;color:var(--navy)!important;border-radius:14px!important;padding:12px 12px!important;box-shadow:0 2px 8px rgba(20,41,74,.06)!important;text-align:right;font-family:inherit;min-width:0}
+.cngrid button i{font-style:normal;font-size:20px;line-height:1}
+.cngrid button b{font-size:15px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cngrid button.on{background:var(--navy)!important;color:#fff!important}
+.cngrid button.on::after{content:'✓';font-weight:800;font-size:16px;color:var(--yel)}
+.cngrid .cn-add{border:2px dashed #cfd6e2!important;box-shadow:none!important;background:transparent!important}
+.cnbox .cngrid button{background:var(--soft,#f3f5f9)!important;box-shadow:none!important}
+.cnbox .cngrid button.on{background:var(--navy)!important}
+.cnbox .cngrid{margin:8px 0 12px}
+.cn-in{width:100%;border:1.5px solid #dfe4ec!important;border-radius:12px;padding:10px 12px!important;margin-top:6px;background:#fff}
+.cnbox label.cnh{font-size:15px;color:var(--navy);margin-top:2px}
+.cnbox .cn-in{font-size:15.5px;font-weight:600}
+
 </style>
 
 <div id="app"></div>
@@ -1219,8 +1260,7 @@ VIEWS.entry=(a={})=>{
    <div class="card amtcard"><label for="f-amt">المبلغ</label>
     <input id="f-amt" inputmode="numeric" autocomplete="off" placeholder="0" value="${F.amt?fmt(F.amt):''}" style="color:${isIn?'var(--green)':'var(--red)'}">
     <div class="w" id="f-words">${F.amt?words(F.amt)+' دينار':'اكتب المبلغ بالدينار'}</div></div>
-   <div class="fld"><div class="ic">🏠</div><div class="bx"><label for="f-pid">${isIn?'الزبون / المشروع':'يُحسب هذا المصروف على'}</label>
-     <select id="f-pid" onchange="if(F.kind==='out'){readF();render()}">${!isIn&&(!pvSolo()||F.pid==='office')?`<option value="office" ${F.pid==='office'?'selected':''}>🏢 المكتب (يُخصم من الأتعاب، ولا يظهر للزبون)</option>`:''}${ps.map(p=>`<option value="${p.id}" ${p.id===F.pid?'selected':''}>${esc((C(p.cid)||{}).name)} · ${esc(p.name)}</option>`).join('')}</select></div><span class="mut">▾</span></div>
+   <div class="fld pgf" role="button" tabindex="0" onclick="pgOpen()"><div class="ic">🏠</div><div class="bx"><label>${isIn?'الزبون / المشروع':'يُحسب هذا المصروف على'}</label><input type="hidden" id="f-pid" value="${esc(F.pid)}"><div class="pgv">${pgLabel(F.pid)}</div></div><span class="mut">▾</span></div>
    ${entCatBox(isIn)}
    ${!isIn&&F.pid!=='office'?`<div class="row3" id="f-matrow" ${F.cat==='mat'?'':'hidden'}>
      <div class="fld"><div class="bx"><label for="f-mat">المادة</label><input id="f-mat" value="${esc(F.mat)}" placeholder="سمنت"></div></div>
@@ -1271,7 +1311,7 @@ function entrySave(){if(!F.quick)readF();if(F.id&&!canEditE(S.entries.find(e=>e.
       if(ch.length)rec.log=[...(old.log||[]),{at:new Date().toISOString().slice(0,16).replace('T',' '),by:S.me,ch:ch.join(' · ')}];
       S.entries[i]=rec}
     else{const rec=Object.assign({},F,{id:uid(),no:nextNo(F.kind),ts:Date.now(),by:S.me,log:[]});if(NOFIX)rec.nf=1;if(AS)rec.cu=AS.uid;delete rec.catSet;delete rec.quick;S.entries.push(rec)}
-    const nid=F.id||S.entries[S.entries.length-1].id,wasIn=F.kind==='in',isNew=!F.id;save();toast(isOff()?'✓ حُفظ على جهازك ⏳ ويُرفع إلى السيرفر فور عودة الاتصال':'تم حفظ المبلغ ✓');(F.pid==='office'?go(AS?'home':'net'):go('project',F.pid));if(wasIn&&isNew)setTimeout(()=>rcptSheet(nid,true),250)};
+    const nid=F.id||S.entries[S.entries.length-1].id,wasIn=F.kind==='in',isNew=!F.id;save();toast(isOff()?'✓ حُفظ على جهازك ⏳ ويُرفع إلى السيرفر فور عودة الاتصال':'تم حفظ المبلغ ✓ على '+pgName(F.pid).replace(/&amp;/g,'&'));(F.pid==='office'?go(AS?'home':'net'):go('project',F.pid));if(wasIn&&isNew)setTimeout(()=>rcptSheet(nid,true),250)};
   // كشف التكرار
   const dup=!F.id&&live(S.entries).find(e=>e.pid===F.pid&&e.kind===F.kind&&e.date===F.date&&e.amt===F.amt&&(e.det===F.det||(!F.det&&e.party===F.party)));
   if(dup)return ask('يوجد مبلغ مسجّل بنفس التاريخ والمبلغ والبيان. هل هذا تكرار؟','احفظه على أي حال',doSave);
@@ -1881,9 +1921,10 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.14',APP_T='2026-11-22 15:05';
+var APP_V='1.9.15',APP_T='2026-11-22 20:00';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='الأعداد بالفصحى في كل النظام، مثل «8 حركات» و«موظفان»|التواريخ في القوائم والكشوف بصيغة يوم/شهر/سنة|حماية أقوى لحسابات الموظفين: التعديل والحذف حسب الصلاحيات من السيرفر نفسه|تحسين صياغة بعض الرسائل';
+var APP_NEWS='اختيار المشروع أسرع: مربعات صغيرة تظهر فيها أحدث 20 مشروعاً، مع بحث في الأعلى وزر «عرض كل المشاريع»|بعد اختيار المشروع يبقى اسمه ظاهراً في كل الخطوات، مع زر «تغيير»';
+var APP_NEWS_1914='الأعداد بالفصحى في كل النظام، مثل «8 حركات» و«موظفان»|التواريخ في القوائم والكشوف بصيغة يوم/شهر/سنة|حماية أقوى لحسابات الموظفين: التعديل والحذف حسب الصلاحيات من السيرفر نفسه|تحسين صياغة بعض الرسائل';
 var APP_NEWS_1913='إصلاح ظهور شاشة الدخول: تظهر الآن بشكل صحيح عند فتح التطبيق دون تسجيل دخول وبعد تسجيل الخروج';
 var APP_NEWS_1912='زر «+ إضافة مبلغ» في الشريط السفلي يسألك أولاً: استلمت مبلغ أم صرفت مبلغ';
 var APP_NEWS_1911='الصنف والملاحظة في مربع واحد: تختار الصنف (مواد، عمالة، آليات، نقل، أخرى، أو صنفاً خاصاً تضيفه)، وتكتب تحته الملاحظة|حُذف حقل «المستند»، فرقم السند يُسجَّل تلقائياً، وصورة الفاتورة اختيارية|التاريخ أصبح زراً واحداً يعرض تاريخ اليوم بالأرقام، وعند الضغط عليه تختار اليوم والشهر والسنة، في كل شاشات التطبيق';
@@ -1902,7 +1943,8 @@ var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة 
 var APP_NEWS_188='أصبحت الطباعة ملف PDF بحجم A4 كامل وبدقة عالية، ترسله إلى الطابعة أو إلى أي شخص عبر الواتساب|الوصل: النسختان في ورقة واحدة، والختم والتوقيع مرتبان|لا يوجد قص في الحواف ولا ورقة زائدة في الطباعة';
 var APP_NEWS_186='اضغط على أي حركة في المشروع لتعديلها أو حذفها|الحذف يطلب تأكيداً، والمحذوف ينتقل إلى سلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً|أصبح حذف الزبون أو المشروع يطلب تأكيداً، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.14',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.15',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.14',d:'2026-11-22',n:APP_NEWS_1914.split('|')},
  {v:'1.9.13',d:'2026-11-22',n:APP_NEWS_1913.split('|')},
  {v:'1.9.12',d:'2026-11-22',n:APP_NEWS_1912.split('|')},
  {v:'1.9.11',d:'2026-11-22',n:APP_NEWS_1911.split('|')},
@@ -2051,14 +2093,14 @@ VIEWS.quick=()=>{if(!Q)return VIEWS.home();const st=qSteps(),k=st[Q.step],isIn=Q
     body=`<div class="qamt ${isIn?'in':'out'}"><b id="q-amt">${Q.amt?fmt(Q.amt):'0'}</b><span>د.ع</span></div><div class="qw" id="q-w">${Q.amt?words(Q.amt)+' دينار':'اكتب المبلغ'}</div>
      <div class="qpad">${['1','2','3','4','5','6','7','8','9','000','0','⌫'].map(x=>`<button onclick="qKey('${x}')" class="${x==='⌫'?'bk':''}">${x}</button>`).join('')}</div>
      <div class="qdate"><span>التاريخ</span>${dpk('q-date',Q.date)}</div>`}
-  else if(k==='pid'){const ps=qProjects();body=`<div class="qlist">${!isIn&&!pvSolo()?`<button class="qopt qoff ${Q.pid==='office'?'on':''}" onclick="Q.pid='office';qNext()"><b>🏢 المكتب</b><span>يُخصم من الأتعاب، ولا يظهر للزبون</span></button>`:''}${ps.map(p=>{const c=C(p.cid)||{};return `<button class="qopt ${Q.pid===p.id?'on':''}" onclick="Q.pid='${p.id}';qNext()"><b>${esc(cName(c))}</b><span>${esc(p.name)}</span></button>`}).join('')||'<div class="empty">أضف مشروعاً أولاً</div>'}</div>`}
+  else if(k==='pid'){body=pgGrid({ps:qProjects(),cur:Q.pid,office:!isIn&&!pvSolo(),all:!!Q.all,fn:'qPick',allFn:'qAll'})}
   else if(k==='det'){body=qDetBody()}
   else if(k==='att'){body=`<label class="qcam" for="q-att">${Q.att?`<img src="${Q.att}" alt="">`:'📷<b>صوّر الوصل</b><span>اختياري</span>'}</label><input id="q-att" type="file" accept="image/*" capture="environment" hidden onchange="qAtt(this)">`}
   else if(k==='note'){body=`<textarea id="q-note" class="qin" rows="3" placeholder="اختياري: أي تفصيل تريد تتذكره">${esc(Q.note)}</textarea>`}
   else if(k==='src'){body=`<div class="qlist">${[['الصندوق','💵 نقداً'],['حساب المصرف','🏦 تحويل للمصرف']].map(([v,t])=>`<button class="qopt ${Q.src===v?'on':''}" onclick="Q.src='${v}';qNext()"><b>${t}</b></button>`).join('')}</div>`}
   const req=k==='amt'||k==='pid';const p=P(Q.pid),c=p&&C(p.cid);
-  return `<header class="top short"><div class="hdr"><div><h1>${isIn?'استلمت مبلغ':'صرفت مبلغ'}</h1><p>خطوة <span class="num">${Q.step+1}</span> من <span class="num">${st.length}</span>${Q.amt&&k!=='amt'?' · <b class="num">'+fmt(Q.amt)+'</b> د.ع':''}${p&&k!=='pid'&&k!=='amt'?' · '+esc(cName(c||{})):''}</p></div><button class="back" aria-label="إغلاق" onclick="Q=null;go('home')">✕</button></div></header>
-  <div class="wrap qwrap"><div class="qdots">${dots}</div><h2 class="qh">${k==='pid'&&!isIn?'يُحسب هذا المصروف على:':k==='det'&&Q.pid==='office'?'التفاصيل (مثلاً: أجور العامل أحمد)':QT[k]}</h2>${body}
+  return `<header class="top short"><div class="hdr"><div><h1>${isIn?'استلمت مبلغ':'صرفت مبلغ'}</h1><p>خطوة <span class="num">${Q.step+1}</span> من <span class="num">${st.length}</span>${Q.amt&&k!=='amt'?' · <b class="num">'+fmt(Q.amt)+'</b> د.ع':''}</p></div><button class="back" aria-label="إغلاق" onclick="Q=null;go('home')">✕</button></div></header>
+  <div class="wrap qwrap"><div class="qdots">${dots}</div>${qOnBar(k)}<h2 class="qh">${k==='pid'&&!isIn?'يُحسب هذا المصروف على:':k==='det'&&Q.pid==='office'?'التفاصيل (مثلاً: أجور العامل أحمد)':QT[k]}</h2>${body}
    <button class="btn ${isIn?'gin':'y'} qgo" onclick="${last?'qSave()':'qNext()'}">${last?'✓ حفظ':'التالي ←'}</button>${!last&&Q.step>=2?`<button class="btn qnow" onclick="qSave()">✓ حفظ الآن <small>بدون ${st.slice(Q.step+1).map(x=>x==='att'?'صورة':x==='note'?'ملاحظة':QT[x]).join(' و')}</small></button>`:''}
    <div class="qnav"><button onclick="qBack()" ${Q.step?'':'disabled'}>→ رجوع</button>${req?'':`<button onclick="qSkip()">تخطي</button>`}<button onclick="qFull()">النموذج الكامل</button></div></div>`};
 function qRead(){const d=$('#q-det');if(d)Q.det=d.value.trim();const n=$('#q-note');if(n)Q.note=n.value.trim()}
@@ -4068,6 +4110,53 @@ function ltWalk(root){if(!root)return;if(root.nodeType===3)return ltText(root);i
   const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;const L=[];while((n=w.nextNode()))L.push(n);L.forEach(ltText)}
 try{const ltObs=new MutationObserver(ms=>{ltObs.disconnect();for(const m of ms){if(m.type==='characterData')ltText(m.target);else m.addedNodes.forEach(ltWalk)}ltObs.observe(document.body,{childList:true,subtree:true,characterData:true})});
   ltObs.observe(document.body,{childList:true,subtree:true,characterData:true});ltWalk(document.body)}catch(e){}
+
+/* ===== 1.9.15 اختيار المشروع بمربعات (20 حسب آخر حركة + عرض الكل + بحث في الأعلى) ===== */
+const PG_TOP=20,PG_SEARCH=8;
+function pgOrder(ps){const last={};for(const e of live(S.entries))last[e.pid]=Math.max(last[e.pid]||0,e.ts||0);return ps.slice().sort((a,b)=>(last[b.id]||0)-(last[a.id]||0))}
+function pgTile(p,cur,fn,x){const c=C(p.cid)||{};return `<button class="pgt ${p.id===cur?'on':''} ${x?'pgx':''}" ${x?'hidden':''} data-q="${esc((cName(c)+' '+p.name).toLowerCase())}" onclick="${fn}('${p.id}')"><b>${esc(cName(c))}</b><span>${esc(p.name)}</span></button>`}
+function pgGrid(o){const ps=pgOrder(o.ps),n=ps.length,many=n>PG_TOP&&!o.all;let top=ps;
+  if(many){top=ps.slice(0,PG_TOP);if(o.cur&&o.cur!=='office'&&!top.some(p=>p.id===o.cur)){const x=ps.find(p=>p.id===o.cur);if(x)top[PG_TOP-1]=x}}
+  const rest=many?ps.filter(p=>!top.includes(p)):[];
+  const off=o.office?`<button class="pgt off ${o.cur==='office'?'on':''}" data-q="المكتب" onclick="${o.fn}('office')"><b>🏢 المكتب</b><span>يُخصم من الأتعاب، ولا يظهر للزبون</span></button>`:'';
+  return `<div class="pgw">${n>PG_SEARCH?`<input class="pgs" type="search" enterkeyhint="search" placeholder="🔍 ابحث باسم الزبون أو المشروع" oninput="pgFilter(this)">`:''}
+   <div class="pgrid">${off}${top.map(p=>pgTile(p,o.cur,o.fn)).join('')}${rest.map(p=>pgTile(p,o.cur,o.fn,1)).join('')}</div>${n?'':'<div class="empty">أضف مشروعاً أولاً</div>'}
+   <div class="pgnone" hidden>لا توجد نتيجة</div>
+   ${many?`<button class="pgall" onclick="${o.allFn}()">عرض كل المشاريع (<span class="num">${n}</span>)</button>`:''}</div>`}
+/* البحث يشمل كل المشاريع حتى غير الظاهرة */
+function pgFilter(inp){const t=inp.value.trim().toLowerCase(),w=inp.parentNode;let k=0;
+  w.querySelectorAll('.pgt').forEach(b=>{const ok=t?b.dataset.q.includes(t):!b.classList.contains('pgx');b.hidden=!ok;if(ok)k++});
+  const z=w.querySelector('.pgnone');if(z)z.hidden=!!k||!t;const a=w.querySelector('.pgall');if(a)a.hidden=!!t}
+/* الإدخال السريع */
+function qPick(id){Q.pid=id;qNext()}
+function qAll(){Q.all=true;render()}
+/* النموذج الكامل */
+function pgLabel(id){if(id==='office')return '🏢 المكتب';const p=P(id);if(!p)return 'اختر';return esc(cName(C(p.cid)||{}))+' · '+esc(p.name)}
+function pgFormOpts(){const isIn=F.kind==='in';return{ps:live(S.projects).filter(p=>!p.done||p.id===F.pid),cur:F.pid,office:!isIn&&(!pvSolo()||F.pid==='office'),fn:'pgSet',allFn:'pgOpenAll'}}
+function pgOpen(all){if(!all)readF();const isIn=F.kind==='in';
+  sheet(`<h3>${isIn?'الزبون / المشروع':'يُحسب هذا المصروف على:'}</h3>${pgGrid(Object.assign(pgFormOpts(),{all:!!all}))}<button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)}
+function pgOpenAll(){pgOpen(true)}
+function pgSet(id){F.pid=id;closeSheet();render()}
+/* شريط «على:» يُظهر المشروع المختار في كل الخطوات بعد الاختيار */
+function pgName(id){if(id==='office')return '🏢 المكتب';const p=P(id);if(!p)return '';return esc(cName(C(p.cid)||{}))+' · '+esc(p.name)}
+function qOnBar(k){if(!Q||!Q.pid||k==='pid')return '';const st=qSteps(),ip=st.indexOf('pid');if(Q.step<ip&&!Q.fixP)return '';
+  const p=P(Q.pid),off=Q.pid==='office';
+  return `<div class="qon"><div class="qon-t"><small>${Q.kind==='in'?'المبلغ من':'يُحسب على'}</small><b>${off?'🏢 المكتب':esc(cName(C(p&&p.cid)||{}))}</b>${off?'<span>يُخصم من الأتعاب، ولا يظهر للزبون</span>':p?`<span>${esc(p.name)}</span>`:''}</div><button onclick="qToPid()">تغيير</button></div>`}
+function qToPid(){qRead();Q.fixP=false;Q.step=qSteps().indexOf('pid');render()}
+/* الصنف والملاحظة: ① اختر الصنف (مربعات بأيقونات) ② اكتب ملاحظة */
+const CN_IC={mat:'🧱',lab:'👷',eq:'🚜',tr:'🚚',oth:'📦'};
+QT.det='';
+function cnChips(T){const on=(k,x)=>x?T.catx===x:(!T.catx&&T.cat===k);
+  return CATS.map(c=>`<button type="button" data-k="${c.k}" class="${on(c.k)?'on':''}" onclick="cnSet('${c.k}','')"><i>${CN_IC[c.k]||'🏷️'}</i><b>${c.n}</b></button>`).join('')
+   +cnCustoms().map(x=>`<button type="button" data-x="${esc(x)}" class="${on('oth',x)?'on':''}" onclick="cnSet('oth',this.dataset.x)"><i>🏷️</i><b>${esc(x)}</b></button>`).join('')
+   +`<button type="button" class="cn-add" onclick="cnAdd()"><i>➕</i><b>صنف جديد</b></button>`}
+function qDetBody(){if(Q.pid==='office')return `<input id="q-det" class="qin" placeholder="مثلاً: أجور العامل أحمد" value="${esc(Q.det)}" autocomplete="off">`;
+  return `<div class="qdet-box"><div class="cnh"><span class="num">1</span>اختر الصنف</div><div class="qcats cngrid" id="f-cats">${cnChips(Q)}</div>
+   <div class="cnh"><span class="num">2</span>اكتب ملاحظة <small>(اختياري)</small></div><input id="q-det" class="qin" placeholder="مثلاً: 3 عمال لصب السقف" value="${esc(Q.det&&Q.det!==catLab(Q)?Q.det:'')}" autocomplete="off"></div>`}
+function entCatBox(isIn){
+  if(isIn||F.pid==='office')return `<div class="fld"><div class="ic">📝</div><div class="bx"><label for="f-det">${F.pid==='office'?'التفاصيل':'البيان'}</label><input id="f-det" value="${esc(F.det)}" placeholder="${isIn?'دفعة أولى':'مثلاً: أجور العامل أحمد، إيجار المكتب'}"></div></div>`;
+  return `<div class="fld cnbox"><div class="bx"><div class="cnh"><span class="num">1</span>اختر الصنف</div><div class="cats cn-cats cngrid" id="f-cats">${cnChips(F)}</div>
+   <label for="f-det" class="cnh"><span class="num">2</span>اكتب ملاحظة <small>(اختياري)</small></label><input id="f-det" class="cn-in" value="${esc(F.det===catLab(F)?'':F.det)}" placeholder="مثلاً: 3 عمال لصب السقف" autocomplete="off"></div></div>`}
 
 boot();
 </script>
