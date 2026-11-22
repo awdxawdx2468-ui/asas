@@ -22,7 +22,7 @@ jobs:
           TOK=$(curl -sf -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=asas-backup" | jq -r .value)
           echo "::add-mask::$TOK"
           F=asas-backup-$(date -u +%Y-%m-%d).json.gz.enc
-          curl -sf -X POST -H "x-gh-oidc: $TOK" -H "Content-Type: application/json" -d '{"action":"dump"}' -D headers.txt -o "$F" "$FN"
+          curl -sS --fail-with-body -X POST -H "x-gh-oidc: $TOK" -H "Content-Type: application/json" -d '{"action":"dump"}' -D headers.txt -o "$F" "$FN" || { echo "سبب الفشل: $(head -c 300 "$F")"; exit 1; }
           test "$(head -c 8 "$F")" = "Salted__"
           SIZE=$(stat -c %s "$F"); test "$SIZE" -gt 200
           echo "F=$F" >> $GITHUB_ENV; echo "SIZE=$SIZE" >> $GITHUB_ENV
