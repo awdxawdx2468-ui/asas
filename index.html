@@ -1003,6 +1003,13 @@ details.stopt summary{cursor:pointer;list-style:none}details.stopt summary::-web
 .cnbox label.cnh{font-size:15px;color:var(--navy);margin-top:2px}
 .cnbox .cn-in{font-size:15.5px;font-weight:600}
 
+.fd-ban{background:var(--cream);border:1.5px solid var(--yeld);border-radius:14px;padding:10px 12px;margin:6px 0 8px;font-size:13.5px;line-height:1.85;color:var(--ink)}
+.fd-ban b{font-size:15px}
+.pv-pr s{font-size:11.5px;color:var(--mut);font-weight:600;line-height:1.2}
+.fd-adm{background:var(--cream);border:1.5px solid var(--yeld);border-radius:12px;padding:10px 12px;margin:8px 0;font-size:13.5px;line-height:1.85}
+.fd-adm .w{color:var(--red);font-weight:700}
+.fd-adm button{margin-top:6px;border:1.5px solid var(--red);color:var(--red);background:transparent;border-radius:10px;padding:6px 12px;font:700 13px var(--f)}
+
 </style>
 
 <div id="app"></div>
@@ -1921,9 +1928,10 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.15',APP_T='2026-11-22 20:00';
+var APP_V='1.9.16',APP_T='2026-11-23 01:45';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='اختيار المشروع أسرع: مربعات صغيرة تظهر فيها أحدث 20 مشروعاً، مع بحث في الأعلى وزر «عرض كل المشاريع»|بعد اختيار المشروع يبقى اسمه ظاهراً في كل الخطوات، مع زر «تغيير»';
+var APP_NEWS='عرض «المؤسسون»: أول 50 مكتباً يحصلون تلقائياً على 3 أشهر مجاناً بباقة «فريق»، ثم نصف السعر لأول سنة مدفوعة|يظهر خصم المؤسس وسعر الاشتراك بعد الخصم في نافذة الاشتراك|تبسيط شرح الإضافات في الباقات';
+var APP_NEWS_1915='اختيار المشروع أسرع: مربعات صغيرة تظهر فيها أحدث 20 مشروعاً، مع بحث في الأعلى وزر «عرض كل المشاريع»|بعد اختيار المشروع يبقى اسمه ظاهراً في كل الخطوات، مع زر «تغيير»';
 var APP_NEWS_1914='الأعداد بالفصحى في كل النظام، مثل «8 حركات» و«موظفان»|التواريخ في القوائم والكشوف بصيغة يوم/شهر/سنة|حماية أقوى لحسابات الموظفين: التعديل والحذف حسب الصلاحيات من السيرفر نفسه|تحسين صياغة بعض الرسائل';
 var APP_NEWS_1913='إصلاح ظهور شاشة الدخول: تظهر الآن بشكل صحيح عند فتح التطبيق دون تسجيل دخول وبعد تسجيل الخروج';
 var APP_NEWS_1912='زر «+ إضافة مبلغ» في الشريط السفلي يسألك أولاً: استلمت مبلغ أم صرفت مبلغ';
@@ -1943,7 +1951,8 @@ var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة 
 var APP_NEWS_188='أصبحت الطباعة ملف PDF بحجم A4 كامل وبدقة عالية، ترسله إلى الطابعة أو إلى أي شخص عبر الواتساب|الوصل: النسختان في ورقة واحدة، والختم والتوقيع مرتبان|لا يوجد قص في الحواف ولا ورقة زائدة في الطباعة';
 var APP_NEWS_186='اضغط على أي حركة في المشروع لتعديلها أو حذفها|الحذف يطلب تأكيداً، والمحذوف ينتقل إلى سلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً|أصبح حذف الزبون أو المشروع يطلب تأكيداً، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.15',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.16',d:'2026-11-23',n:APP_NEWS.split('|')},
+ {v:'1.9.15',d:'2026-11-22',n:APP_NEWS_1915.split('|')},
  {v:'1.9.14',d:'2026-11-22',n:APP_NEWS_1914.split('|')},
  {v:'1.9.13',d:'2026-11-22',n:APP_NEWS_1913.split('|')},
  {v:'1.9.12',d:'2026-11-22',n:APP_NEWS_1912.split('|')},
@@ -4157,6 +4166,63 @@ function entCatBox(isIn){
   if(isIn||F.pid==='office')return `<div class="fld"><div class="ic">📝</div><div class="bx"><label for="f-det">${F.pid==='office'?'التفاصيل':'البيان'}</label><input id="f-det" value="${esc(F.det)}" placeholder="${isIn?'دفعة أولى':'مثلاً: أجور العامل أحمد، إيجار المكتب'}"></div></div>`;
   return `<div class="fld cnbox"><div class="bx"><div class="cnh"><span class="num">1</span>اختر الصنف</div><div class="cats cn-cats cngrid" id="f-cats">${cnChips(F)}</div>
    <label for="f-det" class="cnh"><span class="num">2</span>اكتب ملاحظة <small>(اختياري)</small></label><input id="f-det" class="cn-in" value="${esc(F.det===catLab(F)?'':F.det)}" placeholder="مثلاً: 3 عمال لصب السقف" autocomplete="off"></div></div>`}
+
+/* ===== 1.9.16 عرض «المؤسسون»: أول 50 مكتباً 3 أشهر مجاناً + خصم 50% على أول 12 شهراً مدفوعاً ===== */
+var FD_MAX=50;
+function fdOn(){return !!(S&&S.fd&&S.fd.no&&S.fd.left>0)}
+/* الخصم على مبلغ مدة m أشهر: النسبة على الأشهر الداخلة ضمن أول 12 شهراً مدفوعاً فقط */
+function fdCut(amt,m,F){F=F||(S&&S.fd);if(!F||!F.no||!(F.left>0)||!amt)return 0;return Math.round(amt*(F.pct||50)/100*Math.min(m,F.left)/m)}
+async function fdLoad(){if(MODE!=='cloud'||IS_ADMIN||!ME||!ME.org)return;try{const{data}=await SB.rpc('asas_founder_info',{p_org:ME.org});if(data)S.fd=data}catch(e){}}
+const _pullFD=pull;pull=async function(f){const r=await _pullFD(f);if(S&&S.fd===undefined){S.fd=null;fdLoad()}return r};
+const _subLabelFD=subLabel;subLabel=function(){const t=_subLabelFD();return S&&S.fd&&S.fd.no&&S.sub&&!S.sub.paid?t.replace('فترة تجريبية','فترة المؤسسين المجانية'):t};
+function fdBan(){if(!S||!S.fd||!S.fd.no)return '';const F=S.fd;
+  return `<div class="fd-ban">🏅 <b>أنت من المؤسسين</b> (رقم <span class="num">${F.no}</span> من <span class="num">${F.max||FD_MAX}</span>)<br>${F.left>0?`خصم <b class="num">${F.pct||50}%</b> على اشتراكك في أول ${F.left>=12?'سنة':'<span class="num">'+F.left+'</span> أشهر'} مدفوعة. الأسعار أدناه بعد الخصم.`:'انتهت مدة خصم المؤسسين، والأسعار الآن بالسعر العادي.'}</div>`}
+pvCard=function(k){const I=PV_INFO[k],P=SETS.prices[k]||{},m=PV.m,on=PV.pl===k,cur=pvCurPlan()===k;
+  return `<div class="pv-card${on?' on':''}${I.tag&&k==='فريق'?' star':''}" role="radio" aria-checked="${on}" tabindex="0" onclick="PV.pl='${k}';pvDraw()">
+   <div class="pv-h"><div style="display:flex;gap:10px"><span class="pv-rd"></span><div><b class="pv-n">${k}</b><span class="pv-t">${I.t}</span></div></div>${cur?'<span class="pv-tag cur">✓ باقتك الحالية</span>':I.tag?`<span class="pv-tag">${I.tag}</span>`:''}</div>
+   <div class="pv-pr">${PV_M.map(([mm,t])=>{const v=+P[mm]||0,c=fdCut(v,mm),s=pvSave(k,mm)+c,sel=on&&PV.m===mm,f=v-c;return `<button class="${sel?'on':''}" onclick="event.stopPropagation();PV.pl='${k}';PV.m=${mm};pvDraw()"><span class="pt">${t}</span>${c?`<s class="num">${fmt(v)}</s>`:''}<b class="num">${fmt(f)}</b><small>${mm>1?'أي <span class="num">'+fmt(Math.round(f/mm))+'</span> شهرياً':'دينار'}</small>${s?`<i>وفّر <span class="num">${fmt(s)}</span></i>`:'<i class="n">&nbsp;</i>'}</button>`}).join('')}</div>
+   <div class="pv-lim">${I.lim.map(x=>`<span>${x.replace(/(\d+)/g,'<span class="num">$1</span>')}</span>`).join('')}</div>
+   ${I.plus?`<div class="pv-plus">${I.plus}</div>`:''}<ul>${I.f.map(x=>`<li>${x}</li>`).join('')}</ul>
+   ${I.hook?`<div class="pv-hook">💡 ${I.hook}</div>`:''}</div>`};
+/* رسالة الواتساب تحمل المبلغ بعد الخصم */
+const _pvBodyFD=pvBody;pvBody=function(){let h=_pvBodyFD();if(!S||!S.fd||!S.fd.no)return h;
+  h=h.replace('<div class="pv-hint">',fdBan()+'<div class="pv-hint">');
+  const full=pvMsgAmt(),c=fdCut(full,PV.m);if(!c)return h;
+  return h.replace(/href="https:\/\/wa\.me\/(\d+)\?text=([^"]*)"/,(all,n,t)=>{let msg=decodeURIComponent(t).replace('\n(الوصل مرفق)','');
+    msg+='\nخصم المؤسسين ('+(S.fd.pct||50)+'%): − '+fmt(c)+' دينار\nالمبلغ المحوَّل: '+fmt(full-c)+' دينار\n(الوصل مرفق)';return `href="https://wa.me/${n}?text=${encodeURIComponent(msg)}"`})};
+const _subSheetFD=subSheet;subSheet=function(){_subSheetFD();if(S&&S.fd===null&&MODE==='cloud'&&!IS_ADMIN)fdLoad().then(()=>{if(S.fd)pvDraw()})};
+
+/* ===== لوحة الإدارة ===== */
+ADM.fd=ADM.fd||null;
+async function fdAdmLoad(){try{const{data}=await SB.rpc('asas_founders_admin');if(data){const m={};(data.list||[]).forEach(x=>m[x.org]=Object.assign({max:data.max,pct:data.pct},x));ADM.fd={max:data.max,pct:data.pct,n:(data.list||[]).length,m}}}catch(e){}}
+function fdOf(id){return ADM.fd&&ADM.fd.m[id]||null}
+const _admReloadFD=admReload;admReload=async function(){await fdAdmLoad();return _admReloadFD()};
+function fdAdmBox(o){const F=fdOf(o.id);if(!F)return '';const days=Math.floor((Date.now()-Date.parse(o.created_at))/864e5);const idle=!F.used&&!(o.entries>0);
+  return `<div class="fd-adm">🏅 <b>مؤسس رقم <span class="num">${F.no}</span> من <span class="num">${F.max}</span></b><br>${F.left>0?`خصم <span class="num">${F.pct}%</span> باقٍ على <span class="num">${F.left}</span> شهراً مدفوعاً`:'انتهى خصم المؤسس'}
+   ${idle?`<div class="w">⚠️ لم يسجّل أي دفعة أو مصروف منذ تسجيله قبل <span class="num">${days}</span> يوماً${days>=30?'، وانتهت مهلة الـ30 يوماً':''}.</div><button onclick="fdRevoke('${o.id}')">سحب عرض المؤسس</button>`:''}</div>`}
+function fdRevoke(id){const o=ADM.orgs.find(x=>x.id===id);admConfirm('سحب عرض المؤسس','سيعود مقعده لمهندس آخر، وتصبح فترته التجريبية شهراً واحداً من تاريخ تسجيله، دون خصم. بياناته تبقى محفوظة.<br><b>'+esc(o?o.name:'')+'</b>','سحب العرض',
+  async()=>{const{error}=await SB.rpc('asas_founder_revoke',{p_org:id});if(error)return toast('تعذّر التنفيذ');toast('سُحب العرض ✓');await admReload();admSheet(id)},'r')}
+const _admSheetFD=admSheet;admSheet=function(id,tab){_admSheetFD(id,tab);const o=(ADM.orgs||[]).find(x=>x.id===id);const h=document.querySelector('#layer .sheet h3');if(o&&h&&fdOf(id)&&!document.querySelector('#layer .fd-adm')){let el=h;while(el.parentElement&&!el.parentElement.classList.contains('sheet'))el=el.parentElement;el.insertAdjacentHTML('afterend',fdAdmBox(o))}};
+/* المبلغ عند التفعيل بعد خصم المؤسس */
+function fdAmt(id,pl,mo,x,a){const t=planPrice(pl,mo,x,a);return t-fdCut(t,mo,fdOf(id))}
+const _admSumFD=admSum;admSum=function(){_admSumFD();const el=$('#adm-sum'),F=fdOf(ADM.cur);if(!el||!F||!(F.left>0))return;const pl=admVal('adm-plan'),mo=+admVal('adm-months'),off=pl!=='فرد';
+  const x=off?Math.max(0,parseInt(($('#adm-x')||{}).value)||0):0,a=off?Math.max(0,parseInt(($('#adm-xa')||{}).value)||0):0;const t=planPrice(pl,mo,x,a),c=fdCut(t,mo,F);
+  el.insertAdjacentHTML('afterbegin',`🏅 خصم المؤسس <span class="num">${F.pct}%</span>: − <b class="num">${fmt(c)}</b> · المطلوب <b class="num">${fmt(t-c)}</b> د.ع<br>`)};
+const _admActivateFD=admActivate;admActivate=async function(id){if(!fdOf(id))return _admActivateFD(id);const off=admVal('adm-plan')!=='فرد';const pl=admVal('adm-plan'),mo=+admVal('adm-months');
+  const x=off?(parseInt($('#adm-x').value)||0):0,a=off&&$('#adm-xa')?(parseInt($('#adm-xa').value)||0):0;
+  const body={action:'activate',org_id:id,plan:pl,months:mo,method:admVal('adm-method'),receipt:$('#adm-rc').value.trim(),extra_eng:x,extra_asst:a,amount:fdAmt(id,pl,mo,x,a)};
+  const{data,error}=await SB.functions.invoke('asas-admin',{body});if(error){let m='تعذّر التفعيل';try{const j=await error.context.json();if(j.msg)m=j.msg}catch(e){}return toast(m)}
+  toast('تم التفعيل حتى '+data.paid_until.slice(0,10)+' ✓');await admReload();PAYS=null;actDone(id,data.paid_until,body.plan)};
+admReq=(function(prev){return function(id){const F=fdOf(id);if(!F||!(F.left>0))return prev(id);const o=ADM.orgs.find(x=>x.id===id);const R=renewOf(o);if(!R||!R.plan)return;
+  const full=planPrice(R.plan,R.months,R.x||0,R.a||0),amt=fdAmt(id,R.plan,R.months,R.x||0,R.a||0);
+  admConfirm(`✓ تفعيل طلب ${esc(o.owner||o.name)}`,`🏅 مؤسس رقم <span class="num">${F.no}</span><br>باقة <b>${esc(R.plan)}</b> لمدة <b>${moTxt(R.months)}</b>${R.x?' + <span class="num">'+R.x+'</span> مهندس':''}${R.a?' + <span class="num">'+R.a+'</span> مساعد':''}<br>السعر <span class="num">${fmt(full)}</span> − خصم المؤسس <span class="num">${F.pct}%</span> = <b class="num">${fmt(amt)}</b> د.ع (ماستر كارد).<br>المدة تبدأ من نهاية اشتراكه الحالي.`,'تفعيل',
+    ()=>admDo(id,'activate',{plan:R.plan,months:R.months,method:'ماستر كارد',receipt:'طلب تجديد',extra_eng:R.x||0,extra_asst:R.a||0,amount:amt},'تم التفعيل ✓'),'y')}})(admReq);
+admRenew=(function(prev){return function(id){const F=fdOf(id);if(!F||!(F.left>0))return prev(id);const o=ADM.orgs.find(x=>x.id===id);const p=(o.payments||[]).find(x=>x.months>0);if(!p)return;const mo=[1,6,12].includes(p.months)?p.months:12;
+  const amt=fdAmt(id,p.plan,mo,p.extra_eng||0,p.extra_asst||0);
+  admConfirm(`🔄 تجديد اشتراك ${esc(o.owner||o.name)}`,`🏅 مؤسس · باقة <b>${esc(p.plan)}</b> لمدة <b>${moTxt(mo)}</b> بمبلغ <b class="num">${fmt(amt)}</b> د.ع بعد خصم المؤسس (ماستر كارد).<br>المدة تبدأ من نهاية اشتراكه الحالي.`,'تجديد',
+    async()=>{const d=await admCall({action:'activate',org_id:id,plan:p.plan,months:mo,method:'ماستر كارد',receipt:'تجديد',extra_eng:p.extra_eng||0,extra_asst:p.extra_asst||0,amount:amt});if(d){toast('تم التجديد ✓');await admReload();PAYS=null;actDone(id,d.paid_until,p.plan)}},'y')}})(admRenew);
+/* المرفق المؤشَّر: نافذة الإضافات مختصرة (سطر واحد فقط) */
+const _pvAddSecFD=pvAddSec;pvAddSec=function(){return _pvAddSecFD().replace(/<br>• تُحسب بمدة باقتك[^<]*<br>• إذا أضفتها لاحقاً[^<]*/,'')};
 
 boot();
 </script>
