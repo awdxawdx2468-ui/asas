@@ -746,6 +746,83 @@ details.stopt summary{cursor:pointer;list-style:none}details.stopt summary::-web
 .htt{height:100%;box-sizing:border-box}
 .htseg{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.htseg button{padding:9px 2px;font-size:13.5px}
 
+/* ===== الباقات الجديدة (1.9.7) ===== */
+.pv-per{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--soft);border-radius:14px;padding:5px;margin:4px 0 2px}
+.pv-per button{position:relative;border:0;background:transparent;border-radius:10px;padding:10px 4px;font:800 15px var(--f);color:var(--mut)}
+.pv-per button.on{background:var(--navy);color:#fff}
+.pv-per button em{position:absolute;top:-9px;left:50%;transform:translateX(-50%);white-space:nowrap;background:var(--green);color:#fff;font:800 10.5px var(--f);font-style:normal;border-radius:999px;padding:1px 7px}
+.pv-hint{font-size:12.5px;color:var(--mut);text-align:center;margin:2px 0 4px}
+.pv-card{position:relative;display:block;width:100%;text-align:right;background:#fff;border:2px solid var(--line);border-radius:18px;padding:14px 14px 12px;margin:0 0 10px;cursor:pointer;color:var(--ink)}
+.pv-card.on{border-color:var(--yel);box-shadow:0 6px 18px rgba(224,162,0,.18)}
+.pv-card.star{border-color:#cfd8e6}
+.pv-card.star.on{border-color:var(--yel)}
+.pv-h{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.pv-n{display:block;font-size:19px;font-weight:800}
+.pv-t{display:block;font-size:13px;color:var(--mut);font-weight:700;margin-top:1px}
+.pv-tag{white-space:nowrap;font-size:12px;font-weight:800;border-radius:999px;padding:3px 10px;background:var(--cream);color:#7a5800}
+.pv-tag.cur{background:var(--greenbg);color:var(--green)}
+.pv-rd{flex:0 0 auto;width:22px;height:22px;border-radius:50%;border:2px solid var(--line);margin-top:3px;display:grid;place-items:center}
+.pv-card.on .pv-rd{border-color:var(--yeld);background:var(--yel)}
+.pv-card.on .pv-rd::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff}
+.pv-p{margin:10px 0 0;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.pv-p b{font-size:28px;font-weight:800;line-height:1.1}
+.pv-p small{font-size:13.5px;color:var(--mut);font-weight:700}
+.pv-sv{margin-top:3px;font-size:13px;font-weight:700;color:var(--mut)}
+.pv-sv i{font-style:normal;color:var(--green);font-weight:800}
+.pv-lim{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 8px}
+.pv-lim>span{background:var(--soft);border-radius:10px;padding:5px 10px;font-size:13px;font-weight:800}
+.pv-plus{font-size:12.5px;color:var(--mut);font-weight:700;margin:2px 0 4px}
+.pv-card ul{list-style:none;margin:0;padding:0}
+.pv-card li{position:relative;padding:3px 22px 3px 0;font-size:14px;line-height:1.6}
+.pv-card li::before{content:'✓';position:absolute;right:0;top:3px;color:var(--yeld);font-weight:800}
+.pv-hook{margin-top:8px;border-radius:12px;padding:8px 10px;background:var(--cream);font-size:13px;font-weight:700;line-height:1.6}
+.pv-add{margin-top:10px;border-top:1px dashed var(--line);padding-top:10px}
+.pv-add .pv-ar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 0}
+.pv-add .pv-ar div{font-size:14px;font-weight:800}
+.pv-add .pv-ar small{display:block;font-size:12px;color:var(--mut);font-weight:700}
+.pv-st{display:flex;align-items:center;gap:6px}
+.pv-st button{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--soft);font:800 18px var(--f);color:var(--ink)}
+.pv-st b{min-width:22px;text-align:center;font-size:17px}
+.pv-pay{background:#fff;border-radius:16px;padding:12px 14px;margin:4px 0 10px;font-size:14px;line-height:1.9}
+.pv-pay h4{margin:0 0 4px;font-size:15px}
+.pv-tot{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:8px}
+.pv-tot span{font-weight:800}
+.pv-tot b{font-size:22px}
+.pv-tot small{display:block;font-size:12px;color:var(--mut);font-weight:700}
+.pv-note{font-size:12.5px;color:var(--mut);text-align:center;margin:0 0 8px;line-height:1.7}
+.pv-lk{background:var(--soft);border-radius:14px;padding:10px 12px;margin:8px 0}
+.pv-lk li{list-style:none;position:relative;padding:3px 22px 3px 0;font-size:14px}
+.pv-lk li::before{content:'✓';position:absolute;right:0;color:var(--yeld);font-weight:800}
+.pv-lk ul{margin:0;padding:0}
+.pv-pr{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0 2px}
+.pv-pr button{display:flex;flex-direction:column;align-items:center;gap:1px;border:1.5px solid var(--line);background:var(--soft);border-radius:12px;padding:8px 4px;font-family:var(--f);color:var(--ink)}
+.pv-pr .pt{font-size:13px;font-weight:800;color:var(--mut)}
+.pv-pr b{font-size:17px;font-weight:800;line-height:1.3}
+.pv-pr small{font-size:11px;color:var(--mut);font-weight:700}
+.pv-pr i{font-style:normal;font-size:11.5px;font-weight:800;color:var(--green)}
+.pv-pr button.on{background:var(--cream);border-color:var(--yeld);box-shadow:0 0 0 1px var(--yeld) inset}
+.pv-pr button.on .pt{color:#7a5800}
+.pv-hint{font-size:13px}
+.pv-ad{background:#fff;border-radius:16px;padding:12px 14px;margin:0 0 10px}
+.pv-ad h4{margin:0 0 2px;font-size:16px}
+.pv-adn{margin:0 0 6px;font-size:12.5px;color:var(--mut);line-height:1.7}
+.pv-ad.off .pv-arow{opacity:.45}
+.pv-adn b{color:#7a5800}
+.pv-arow{border-top:1px dashed var(--line);padding-top:8px;margin-top:6px}
+.pv-ad .pv-ar{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.pv-ad .pv-ar>div:first-child{font-size:15px;font-weight:800}
+.pv-pr.sm{margin-top:6px}.pv-pr.sm b{font-size:15px}
+.pv-ad .pv-ar small{display:block;font-size:12.5px;color:var(--mut);font-weight:700}
+.pv-note{background:var(--cream);border:1px solid rgba(224,162,0,.45);border-radius:14px;padding:10px 12px;color:var(--ink)!important;font-size:14.5px!important;font-weight:700;text-align:right!important;line-height:1.8!important;margin:0 0 10px!important}
+.pv-note b{color:#7a5800}
+.pv-adn{color:var(--ink)!important;font-size:14px!important;font-weight:600;line-height:1.9!important;background:var(--soft);border-radius:12px;padding:8px 10px}
+.pv-pr .pc{display:flex;flex-direction:column;align-items:center;gap:1px;border:1.5px solid var(--line);background:var(--soft);border-radius:12px;padding:7px 4px;color:var(--ink)}
+.pv-pr .pc.on{background:var(--cream);border-color:var(--yeld)}
+.pv-pr .pc .pt{font-size:13px;font-weight:800;color:var(--mut)}
+.pv-pr .pc b{font-size:15px;font-weight:800;line-height:1.3}
+.pv-pr .pc i{font-style:normal;font-size:11.5px;font-weight:800;color:var(--green)}
+.pv-ad .pv-ad-d{display:block;font-size:12.5px;color:var(--mut);font-weight:700;margin-top:2px;line-height:1.5}
+
 </style>
 
 <div id="app"></div>
@@ -755,8 +832,8 @@ details.stopt summary{cursor:pointer;list-style:none}details.stopt summary::-web
 <script>
 'use strict';
 /* ============ ثوابت المنصة (لا يغيّرها المهندس) ============ */
-const PLANS=[['فرد','مهندس واحد + مساعد واحد · 10 مشاريع فقط',30,55,100],['فريق','مهندس واحد + 3 مساعدين · 30 مشروعاً',65,120,220],['مكتب','5 مهندسين + 10 مساعدين · مشاريع غير محدودة',135,250,450]];
-const PROJ_LIM={'فرد':10,'فريق':30,'مكتب':0};
+const PLANS=[['فرد','مهندس واحد · 5 مشاريع نشطة',10,50,90],['فريق','مهندس واحد + 3 مساعدين · 20 مشروعاً نشطاً',30,150,250],['مكتب','5 مهندسين + 10 مساعدين · مشاريع غير محدودة',50,250,450]];
+const PROJ_LIM={'فرد':5,'فريق':20,'مكتب':0};
 const curPlan=()=>S.sub&&S.sub.paid&&PROJ_LIM[S.sub.plan]!==undefined?S.sub.plan:'فريق';
 const activeProjects=()=>live(S.projects).filter(p=>!p.done);
 function projFull(){if(MODE!=='cloud'||IS_ADMIN)return false;const l=PROJ_LIM[curPlan()];return !!l&&activeProjects().length>=l}
@@ -1004,7 +1081,7 @@ VIEWS.entry=(a={})=>{
     <input id="f-amt" inputmode="numeric" autocomplete="off" placeholder="0" value="${F.amt?fmt(F.amt):''}" style="color:${isIn?'var(--green)':'var(--red)'}">
     <div class="w" id="f-words">${F.amt?words(F.amt)+' دينار':'اكتب المبلغ بالدينار'}</div></div>
    <div class="fld"><div class="ic">🏠</div><div class="bx"><label for="f-pid">${isIn?'الزبون / المشروع':'يُحسب هذا المصروف على'}</label>
-     <select id="f-pid" onchange="if(F.kind==='out'){readF();render()}">${!isIn?`<option value="office" ${F.pid==='office'?'selected':''}>🏢 المكتب (يُخصم من الأتعاب، ولا يظهر للزبون)</option>`:''}${ps.map(p=>`<option value="${p.id}" ${p.id===F.pid?'selected':''}>${esc((C(p.cid)||{}).name)} · ${esc(p.name)}</option>`).join('')}</select></div><span class="mut">▾</span></div>
+     <select id="f-pid" onchange="if(F.kind==='out'){readF();render()}">${!isIn&&(!pvSolo()||F.pid==='office')?`<option value="office" ${F.pid==='office'?'selected':''}>🏢 المكتب (يُخصم من الأتعاب، ولا يظهر للزبون)</option>`:''}${ps.map(p=>`<option value="${p.id}" ${p.id===F.pid?'selected':''}>${esc((C(p.cid)||{}).name)} · ${esc(p.name)}</option>`).join('')}</select></div><span class="mut">▾</span></div>
    <div class="fld"><div class="ic">📝</div><div class="bx"><label for="f-det">${F.pid==='office'?'التفاصيل':'البيان'}</label><input id="f-det" value="${esc(F.det)}" placeholder="${isIn?'دفعة أولى':F.pid==='office'?'مثلاً: أجور العامل أحمد، إيجار المكتب':'سمنت 150 كيس'}"></div>${!isIn&&F.pid!=='office'?`<span class="chip" id="f-catchip">${F.cat?CATN[F.cat]:'—'}</span>`:''}</div>
    ${!isIn&&F.pid!=='office'?`<div class="cats" id="f-cats">${CATS.map(c=>`<button data-k="${c.k}" class="${F.cat===c.k?'on':''}" onclick="setCat('${c.k}')">${c.n}</button>`).join('')}</div>`:''}
    ${!isIn&&F.pid!=='office'?`<div class="row3" id="f-matrow" ${F.cat==='mat'?'':'hidden'}>
@@ -1544,10 +1621,10 @@ async function push(){if(MODE!=='cloud')return;if(SYNC.busy){SYNC.again=true;ret
   if(SYNC.again){SYNC.again=false;schedPush()}else if(bad)setTimeout(schedPush,net?10000:15000)}
 async function pageAll(q){const out=[];for(let from=0;;from+=1000){const{data,error}=await q().range(from,from+999);if(error)throw error;out.push(...data);if(data.length<1000)break}return out}
 async function pull(force){if(MODE!=='cloud')return false;
-  try{const{data:org,error:oe}=await SB.from('asas_orgs').select('co,created_at,trial_until,paid_until,plan,extra_eng,suspended_at').eq('id',ME.org).single();if(oe)throw oe;
+  try{const{data:org,error:oe}=await SB.from('asas_orgs').select('co,created_at,trial_until,paid_until,plan,extra_eng,extra_asst,suspended_at').eq('id',ME.org).single();if(oe)throw oe;
     if(force||BASE.co===''||J(S.co)===BASE.co){S.co=Object.assign({eng:'',name:'',short:'',city:'',phone:'',logo:'',stamp:'',stampText:''},org.co||{});BASE.co=J(S.co)}
     S.created=(org.created_at||'').slice(0,10)||S.created;
-    const until=[org.trial_until,org.paid_until].filter(Boolean).sort().pop();const was=subEnded();S.sub={until,paid:!!org.paid_until&&org.paid_until>=org.trial_until,plan:org.plan||'',xe:org.extra_eng||0,susp:!!org.suspended_at};setCan();if(was!==subEnded())render();
+    const until=[org.trial_until,org.paid_until].filter(Boolean).sort().pop();const was=subEnded();S.sub={until,paid:!!org.paid_until&&org.paid_until>=org.trial_until,plan:org.plan||'',xe:org.extra_eng||0,xa:org.extra_asst||0,susp:!!org.suspended_at};setCan();if(was!==subEnded())render();
     let changed=false;
     for(const t in TBL){const since=force?null:SINCE[t];
       const rows=await pageAll(()=>{let q=SB.from(TBL[t]).select('id,data,updated_at').eq('org_id',ME.org).order('updated_at').order('id');return since?q.gte('updated_at',since):q});
@@ -1671,9 +1748,10 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.6',APP_T='2026-11-22 03:00';
+var APP_V='1.9.7',APP_T='2026-11-22 04:00';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='زر «صرفت مبلغ» أصبح على اليمين و«استلمت مبلغ» على اليسار، في الرئيسية وصفحة المشروع|ملخص الرئيسية يعرض «الكل» منذ البداية، وتختار شهراً أو سنة أو فترة من زر صغير|التواريخ في اختيار الفترة بصيغة يوم/شهر/سنة';
+var APP_NEWS='شاشة الاشتراك الجديدة: الباقات بالتفصيل، والدفع في الأسفل|مدد الاشتراك: شهر، أو 6 أشهر، أو سنة بسعر أوفر|باقة مكتب: إضافة مهندسين ومساعدين عند الحاجة';
+var APP_NEWS_196='زر «صرفت مبلغ» أصبح على اليمين و«استلمت مبلغ» على اليسار، في الرئيسية وصفحة المشروع|ملخص الرئيسية يعرض «الكل» منذ البداية، وتختار شهراً أو سنة أو فترة من زر صغير|التواريخ في اختيار الفترة بصيغة يوم/شهر/سنة';
 var APP_NEWS_195='مربعات الرئيسية الستة بطول واحد، وكل مربع يعرض تفاصيله كاملة|نافذة «تم التحديث» تعرض الجديد فقط، والإصدارات السابقة في «المزيد» ← «ما الجديد؟»';
 var APP_NEWS_194='أصبح مستطيل القاصة تحت الشريط العلوي بالكامل|مربع «أتعابي» يبيّن طريقة الحساب، مثل: 10% من المستلم|كل المربعات في الرئيسية تفتح تفاصيلها عند الضغط، ومنها صافيي وعهدة الموظفين|كلمة «القاصة» بدل «الصندوق» في كل التطبيق';
 var APP_NEWS_193='الرئيسية أوضح: القاصة في الأعلى، ثم ستة مربعات (المستلم من الزبائن، مصاريف الزبائن، أتعابي، مصاريف المكتب، صافيي، العهدة لدى الموظفين) تُفتح تفاصيلها عند الضغط|زر «✔ إنهاء المشروع»: يبيّن الرصيد الباقي قبل الإنهاء، وينقل المشروع إلى «المشاريع المنتهية» التي لا تُحسب ضمن حد الباقة، مع الكشف النهائي وزر «إعادة فتح»|دعوة المهندس أو المساعد برابط واتساب: يختار كلمة المرور بنفسه، وتحدد له المسمى والصلاحيات والمشاريع|كل نصوص التطبيق صارت بالفصحى|إصلاح تكرار نافذة «جديد في النظام» للمدير';
@@ -1684,7 +1762,8 @@ var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة 
 var APP_NEWS_188='أصبحت الطباعة ملف PDF بحجم A4 كامل وبدقة عالية، ترسله إلى الطابعة أو إلى أي شخص عبر الواتساب|الوصل: النسختان في ورقة واحدة، والختم والتوقيع مرتبان|لا يوجد قص في الحواف ولا ورقة زائدة في الطباعة';
 var APP_NEWS_186='اضغط على أي حركة في المشروع لتعديلها أو حذفها|الحذف يطلب تأكيداً، والمحذوف ينتقل إلى سلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً|أصبح حذف الزبون أو المشروع يطلب تأكيداً، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.6',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.7',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.6',d:'2026-11-22',n:APP_NEWS_196.split('|')},
  {v:'1.9.5',d:'2026-11-22',n:APP_NEWS_195.split('|')},
  {v:'1.9.4',d:'2026-11-22',n:APP_NEWS_194.split('|')},
  {v:'1.9.3',d:'2026-11-22',n:APP_NEWS_193.split('|')},
@@ -1825,7 +1904,7 @@ VIEWS.quick=()=>{if(!Q)return VIEWS.home();const st=qSteps(),k=st[Q.step],isIn=Q
     body=`<div class="qamt ${isIn?'in':'out'}"><b id="q-amt">${Q.amt?fmt(Q.amt):'0'}</b><span>د.ع</span></div><div class="qw" id="q-w">${Q.amt?words(Q.amt)+' دينار':'اكتب المبلغ'}</div>
      <div class="qpad">${['1','2','3','4','5','6','7','8','9','000','0','⌫'].map(x=>`<button onclick="qKey('${x}')" class="${x==='⌫'?'bk':''}">${x}</button>`).join('')}</div>
      <div class="qdate"><span>التاريخ:</span><button class="${Q.date===today()?'on':''}" onclick="qDate(0)">اليوم</button><button class="${dl==='أمس'?'on':''}" onclick="qDate(1)">أمس</button><button class="qother ${dl!=='اليوم'&&dl!=='أمس'?'on':''}" onclick="qDatePick()">📅 ${dl!=='اليوم'&&dl!=='أمس'?'<span class="num">'+Q.date+'</span>':'تاريخ سابق'}</button></div>`}
-  else if(k==='pid'){const ps=qProjects();body=`<div class="qlist">${!isIn?`<button class="qopt qoff ${Q.pid==='office'?'on':''}" onclick="Q.pid='office';qNext()"><b>🏢 المكتب</b><span>يُخصم من الأتعاب، ولا يظهر للزبون</span></button>`:''}${ps.map(p=>{const c=C(p.cid)||{};return `<button class="qopt ${Q.pid===p.id?'on':''}" onclick="Q.pid='${p.id}';qNext()"><b>${esc(cName(c))}</b><span>${esc(p.name)}</span></button>`}).join('')||'<div class="empty">أضف مشروعاً أولاً</div>'}</div>`}
+  else if(k==='pid'){const ps=qProjects();body=`<div class="qlist">${!isIn&&!pvSolo()?`<button class="qopt qoff ${Q.pid==='office'?'on':''}" onclick="Q.pid='office';qNext()"><b>🏢 المكتب</b><span>يُخصم من الأتعاب، ولا يظهر للزبون</span></button>`:''}${ps.map(p=>{const c=C(p.cid)||{};return `<button class="qopt ${Q.pid===p.id?'on':''}" onclick="Q.pid='${p.id}';qNext()"><b>${esc(cName(c))}</b><span>${esc(p.name)}</span></button>`}).join('')||'<div class="empty">أضف مشروعاً أولاً</div>'}</div>`}
   else if(k==='det'){const R=qRecentDets();body=`<input id="q-det" class="qin" placeholder="مثلاً: سمنت 50 كيس" value="${esc(Q.det)}" autocomplete="off">
      ${R.length?`<div class="qsub">آخر ما صُرف عليه (اضغط للاختيار)</div><div class="qchips">${R.map(d=>`<button onclick="Q.det=this.textContent;qNext()">${esc(d)}</button>`).join('')}</div>`:''}`}
   else if(k==='att'){body=`<label class="qcam" for="q-att">${Q.att?`<img src="${Q.att}" alt="">`:'📷<b>صوّر الوصل</b><span>اختياري</span>'}</label><input id="q-att" type="file" accept="image/*" capture="environment" hidden onchange="qAtt(this)">`}
@@ -1994,7 +2073,7 @@ VIEWS.members=()=>`<header class="top short"><div class="hdr"><div><h1>فريق 
     <b>مساعد:</b> يضيف ويعدّل الزبائن والمشاريع والمبالغ ويطبع الكشوف، ولا يحذف.<br>
     <b>مشاهدة فقط:</b> يعرض الكشوف ويطبعها فقط.<br><b>صاحب الحساب:</b> جميع الصلاحيات.</div>
   </div>`;
-function seatInfo(){if(IS_ADMIN)return 'حساب الإدارة · بلا حدود للمهندسين والمساعدين والمشاريع';const paid=S.sub&&S.sub.paid&&S.sub.plan;const pl=paid?S.sub.plan:'فريق';const L=({'فرد':[0,1],'فريق':[0,3],'مكتب':[4+(paid&&S.sub.xe||0),10]}[pl]||[0,3]).slice();
+function seatInfo(){if(IS_ADMIN)return 'حساب الإدارة · بلا حدود للمهندسين والمساعدين والمشاريع';const paid=S.sub&&S.sub.paid&&S.sub.plan;const pl=paid?S.sub.plan:'فريق';const L=({'فرد':[0,0],'فريق':[(paid&&S.sub.xe||0),3+(paid&&S.sub.xa||0)],'مكتب':[4+(paid&&S.sub.xe||0),10+(paid&&S.sub.xa||0)]}[pl]||[0,3]).slice();
   const e=MEMBERS.filter(m=>m.role!=='owner'&&m.is_engineer).length,a=MEMBERS.filter(m=>m.role!=='owner'&&!m.is_engineer).length;
   return (paid?'باقة '+pl:'الفترة التجريبية (حدود باقة فريق)')+' · المهندسون '+(1+e)+'/'+(1+L[0])+' · المساعدون '+a+'/'+L[1]}
 function memberRows(){if(!MEMBERS.length)return '<div class="empty">لحظة…</div>';
@@ -2137,8 +2216,8 @@ function admSheet(id){const o=ADM.orgs.find(x=>x.id===id);if(!o)return;ADM.cur=i
 
    <details class="stopt" ${last?'':'open'}><summary><b>⭐ تفعيل باقة جديدة</b></summary>
     <div class="cats" id="adm-plan">${['فرد','فريق','مكتب'].map(k=>`<button class="${(o.plan||'فرد')===k?'on':''}" data-k="${k}" onclick="admPick(this,'plan')">${k}</button>`).join('')}</div>
-    <div class="cats" id="adm-months">${[[3,'3 أشهر'],[6,'6 أشهر'],[12,'سنة']].map(([m,t])=>`<button class="${m===12?'on':''}" data-k="${m}" onclick="admPick(this,'months')">${t}</button>`).join('')}</div>
-    <div id="adm-xwrap" style="display:flex;align-items:center;gap:10px;justify-content:space-between;background:var(--soft);border-radius:12px;padding:10px 12px"><div><b style="font-size:14px">مهندسون إضافيون (فوق الخمسة)</b><div class="mut" style="font-size:12px;line-height:1.7">للمهندس: ${addonTxt()}</div></div><div style="display:flex;align-items:center;gap:8px"><button class="chip n" style="font-size:18px;min-width:36px" onclick="admX(1)">+</button><b id="adm-xv" class="num" style="font-size:18px;min-width:22px;text-align:center">${o.extra_eng||0}</b><button class="chip n" style="font-size:18px;min-width:36px" onclick="admX(-1)">−</button></div><input type="hidden" id="adm-x" value="${o.extra_eng||0}"></div>
+    <div class="cats" id="adm-months">${[[1,'شهر'],[6,'6 أشهر'],[12,'سنة']].map(([m,t])=>`<button class="${m===12?'on':''}" data-k="${m}" onclick="admPick(this,'months')">${t}</button>`).join('')}</div>
+    <div id="adm-xwrap" style="display:flex;align-items:center;gap:10px;justify-content:space-between;background:var(--soft);border-radius:12px;padding:10px 12px"><div><b style="font-size:14px">مهندسون إضافيون</b><div class="mut" style="font-size:12px;line-height:1.7">للمهندس: ${addonTxt()}</div></div><div style="display:flex;align-items:center;gap:8px"><button class="chip n" style="font-size:18px;min-width:36px" onclick="admX(1)">+</button><b id="adm-xv" class="num" style="font-size:18px;min-width:22px;text-align:center">${o.extra_eng||0}</b><button class="chip n" style="font-size:18px;min-width:36px" onclick="admX(-1)">−</button></div><input type="hidden" id="adm-x" value="${o.extra_eng||0}"></div>
     <div class="cats" id="adm-method"><button class="on" data-k="ماستر كارد" onclick="admPick(this,'method')">ماستر كارد</button></div>
     <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="adm-rc">رقم الوصل أو ملاحظة (اختياري)</label><input id="adm-rc" class="num" style="text-align:right"></div></div>
     <div class="note" id="adm-sum" style="margin:0;font-size:14px"></div>
@@ -2148,7 +2227,7 @@ function admSheet(id){const o=ADM.orgs.find(x=>x.id===id);if(!o)return;ADM.cur=i
     <textarea id="adm-note" placeholder="مثلاً: وعد بالدفع يوم الخميس" style="width:100%;min-height:70px;border-radius:12px;border:1px solid var(--line);padding:10px;font:inherit;background:var(--soft)">${esc(o.note||'')}</textarea>
     <button class="btn ghost" style="margin:0" onclick="admDo('${id}','note',{note:$('#adm-note').value},'حُفظت الملاحظة ✓',1)">حفظ الملاحظة</button></div>
 
-   <div class="stopt"><b>💳 الدفعات</b>${(o.payments||[]).length?o.payments.map(p=>p.months>0?`<div class="s" style="font-size:13px">${esc(p.plan)} · ${p.months===12?'سنة':p.months+' أشهر'} · <span class="num">${fmt(p.amount)}</span> د.ع · ${esc(p.method||'')} ${p.receipt?'· '+esc(p.receipt):''} ${p.extra_eng?' · +'+p.extra_eng+' مهندس':''} · حتى <span class="num">${p.to_date.slice(0,10)}</span><span class="pe"><button onclick="payEdit(${p.id||0},'${id}')">تعديل</button><button class="r" onclick="payDel(${p.id||0},'${id}')">حذف</button></span></div>`:`<div class="s" style="font-size:13px;color:var(--red)">أُلغي التفعيل · <span class="num">${p.created_at.slice(0,10)}</span></div>`).join(''):'<div class="mut" style="font-size:13px">لا توجد دفعات مسجّلة</div>'}</div>
+   <div class="stopt"><b>💳 الدفعات</b>${(o.payments||[]).length?o.payments.map(p=>p.months>0?`<div class="s" style="font-size:13px">${esc(p.plan)} · ${moTxt(p.months)} · <span class="num">${fmt(p.amount)}</span> د.ع · ${esc(p.method||'')} ${p.receipt?'· '+esc(p.receipt):''} ${p.extra_eng?' · +'+p.extra_eng+' مهندس':''} · حتى <span class="num">${p.to_date.slice(0,10)}</span><span class="pe"><button onclick="payEdit(${p.id||0},'${id}')">تعديل</button><button class="r" onclick="payDel(${p.id||0},'${id}')">حذف</button></span></div>`:`<div class="s" style="font-size:13px;color:var(--red)">أُلغي التفعيل · <span class="num">${p.created_at.slice(0,10)}</span></div>`).join(''):'<div class="mut" style="font-size:13px">لا توجد دفعات مسجّلة</div>'}</div>
 
    <a class="btn" style="text-decoration:none;background:#169C55;color:#fff;margin:0" href="https://wa.me/964${esc(String(o.phone).replace(/^0/,''))}?text=${encodeURIComponent(remindMsg(o))}" target="_blank" rel="noopener">💬 إرسال رسالة تذكير واتساب</a>
    <div class="aacts">
@@ -2166,7 +2245,7 @@ async function admDo(id,action,extra,msg,keep){const d=await admCall(Object.assi
   if(!keep){await admReload();if(ADM.orgs.find(x=>x.id===id))admSheet(id);else closeSheet()}else{const o=ADM.orgs.find(x=>x.id===id);if(o&&action==='note')o.note=extra.note}return d}
 async function admReload(){const{data}=await SB.functions.invoke('asas-admin',{body:{action:'list'}});if(data&&data.orgs){ADM.orgs=data.orgs;ADM.v6=(data.v||0)>=6}if(V.v==='admin')render()}
 function admRenew(id){const o=ADM.orgs.find(x=>x.id===id);const p=(o.payments||[]).find(x=>x.months>0);if(!p)return;
-  admConfirm(`🔄 تجديد اشتراك ${esc(o.owner||o.name)}`,`باقة <b>${esc(p.plan)}</b> لمدة <b>${p.months===12?'سنة':p.months+' أشهر'}</b> بمبلغ <b class="num">${fmt(p.amount)}</b> د.ع (ماستر كارد).<br>المدة تبدأ من نهاية اشتراكه الحالي.`,'تجديد',
+  admConfirm(`🔄 تجديد اشتراك ${esc(o.owner||o.name)}`,`باقة <b>${esc(p.plan)}</b> لمدة <b>${moTxt(p.months)}</b> بمبلغ <b class="num">${fmt(p.amount)}</b> د.ع (ماستر كارد).<br>المدة تبدأ من نهاية اشتراكه الحالي.`,'تجديد',
     async()=>{const d=await admCall({action:'activate',org_id:id,plan:p.plan,months:p.months,method:'ماستر كارد',receipt:'تجديد',extra_eng:p.extra_eng||0});if(d){toast('تم التجديد ✓');await admReload();PAYS=null;actDone(id,d.paid_until,p.plan)}},'y')}
 const ADM_ASK={
   suspend:['⏸️ إيقاف الحساب','يصير الحساب <b>للعرض فقط</b>: يمكنه فتح بياناته ومشاهدتها، ولا يمكنه الإضافة أو التعديل حتى تعيد تفعيله. البيانات لا تُحذف.','إيقاف','تم إيقاف الحساب'],
@@ -2202,15 +2281,15 @@ async function admActivate(id){const body={action:'activate',org_id:id,plan:admV
   const{data,error}=await SB.functions.invoke('asas-admin',{body});if(error){let m='تعذّر التفعيل';try{const j=await error.context.json();if(j.msg)m=j.msg}catch(e){}return toast(m)}
   toast('تم التفعيل حتى '+data.paid_until.slice(0,10)+' ✓');await admReload();PAYS=null;actDone(id,data.paid_until,body.plan)}
 
-function addonTxt(){const A=(typeof SETS!=='undefined'?SETS.addon:{3:25000,6:45000,12:80000});return `<span class="num">${fmt(A[3])}</span> / 3 أشهر · <span class="num">${fmt(A[6])}</span> / 6 أشهر · <span class="num">${fmt(A[12])}</span> / سنة`}
+function addonTxt(){const A=(typeof SETS!=='undefined'?SETS.addon:{1:5000,6:25000,12:40000});return `<span class="num">${fmt(A[1])}</span> / شهر · <span class="num">${fmt(A[6])}</span> / 6 أشهر · <span class="num">${fmt(A[12])}</span> / سنة`}
 
 /* ===== الإدارة الموحّدة (نفس نظام مندوبي): الدخل، المتابعة، الدفعات، الأدوات ===== */
-var SETS_D={prices:{'فرد':{3:30000,6:55000,12:100000},'فريق':{3:65000,6:120000,12:220000},'مكتب':{3:135000,6:250000,12:450000}},addon:{3:25000,6:45000,12:80000},pay:{phone:'07713275983',note:'',video:''},ann:{text:''}};
+var SETS_D={prices:{'فرد':{1:10000,6:50000,12:90000},'فريق':{1:30000,6:150000,12:250000},'مكتب':{1:50000,6:250000,12:450000}},addon:{1:5000,6:25000,12:40000},addon_a:{1:3000,6:15000,12:25000},pay:{phone:'07713275983',note:'',video:''},ann:{text:''}};
 var SETS=JSON.parse(JSON.stringify(SETS_D));SETS.tpl={};SETS.notify={};
 const PLANS0=PLANS.map(r=>r.slice());
 function setsLocal(){try{return JSON.parse(localStorage.getItem('asas_sets_local')||'{}')}catch(e){return{}}}
 function setsApply(o){for(const k in (o||{})){const v=o[k];if(v==null)continue;SETS[k]=(typeof v==='object'&&!Array.isArray(v))?Object.assign({},SETS_D[k]||{},v):v}
-  for(const r of PLANS){const p=SETS.prices[r[0]]||{};r[2]=(+p[3]||0)/1000;r[3]=(+p[6]||0)/1000;r[4]=(+p[12]||0)/1000}}
+  for(const r of PLANS){const p=SETS.prices[r[0]]||{};r[2]=(+p[1]||0)/1000;r[3]=(+p[6]||0)/1000;r[4]=(+p[12]||0)/1000}}
 function payPhone(){return (SETS.pay&&SETS.pay.phone)||PLATFORM.phone}
 function pfmt(k){return fmt(Math.round(k*1000))}
 async function setsLoad(){if(MODE!=='cloud')return;SETS.tried=1;let ok=false;
@@ -2323,7 +2402,7 @@ function admPay(){if(!PAYS)return '<div class="card empty">جارٍ التحمي
    ${ks.length?`<div class="bars"><h4>الدخل الشهري</h4>${ks.map(k=>`<div class="bi"><span>${monthName(k)}</span><i><u style="width:${Math.max(4,mon[k]/mx*100)}%"></u></i><b class="num">${fmt(mon[k])}</b></div>`).join('')}</div>`:''}
    <div class="sec"><h2>سجل الدفعات</h2><button class="chip n" style="display:inline-block!important" onclick="csvPays()">⬇️ Excel</button></div>
    ${PAYS.part?'<div class="fn" style="margin:0">يظهر آخر 5 دفعات لكل مكتب. السجل الكامل بعد «ارفع».</div>':''}
-   <div class="list">${PAYS.length?PAYS.slice(0,200).map(p=>p.months>0?`<div class="li"><div class="mid"><div class="t">${esc(p.org_name||'')}</div><div class="s"><span class="num">${bgd(p.created_at)}</span> · ${esc(p.plan)} · ${p.months===12?'سنة':'<span class="num">'+p.months+'</span> أشهر'} · ${esc(p.method||'')}${p.receipt?' · '+esc(p.receipt):''}${p.extra_eng?' · +<span class="num">'+p.extra_eng+'</span> مهندس':''}</div></div>
+   <div class="list">${PAYS.length?PAYS.slice(0,200).map(p=>p.months>0?`<div class="li"><div class="mid"><div class="t">${esc(p.org_name||'')}</div><div class="s"><span class="num">${bgd(p.created_at)}</span> · ${esc(p.plan)} · ${moTxt(p.months)} · ${esc(p.method||'')}${p.receipt?' · '+esc(p.receipt):''}${p.extra_eng?' · +<span class="num">'+p.extra_eng+'</span> مهندس':''}</div></div>
      <div class="pa"><b class="num">${fmt(p.amount)}</b><span><button onclick="payEdit(${p.id||0},'${p.org_id}')">تعديل</button><button class="r" onclick="payDel(${p.id||0},'${p.org_id}')">حذف</button></span></div></div>`
      :`<div class="li"><div class="mid"><div class="t">${esc(p.org_name||'')}</div><div class="s" style="color:var(--red)">أُلغي التفعيل · <span class="num">${bgd(p.created_at)}</span></div></div></div>`).join(''):'<div class="empty">💰 لا توجد دفعات مسجّلة بعد<br><small>تظهر هنا بعد أول تفعيل</small></div>'}</div>`}
 
@@ -2343,13 +2422,13 @@ function admBackT(){ADM.tab='tools';closeSheet();render()}
 
 function pricesSheet(){const P=SETS.prices,A=SETS.addon;const ni=(id,v)=>`<input id="${id}" class="num pin" inputmode="numeric" value="${fmt(v||0)}" oninput="this.value=fmt(numIn(this.value))">`;
   sheet(shd('⚙️ الباقات والأسعار','الأسعار بالدينار. تظهر للمشترك بشاشة الاشتراك، وبالرسائل، وتنعبّأ تلقائياً عند التفعيل.')+`
-   <table class="ptab"><thead><tr><th>الباقة</th><th>3 أشهر</th><th>6 أشهر</th><th>سنة</th></tr></thead><tbody>
-   ${['فرد','فريق','مكتب'].map(k=>`<tr><td><b>${k}</b></td>${[3,6,12].map(m=>`<td>${ni('pr-'+k+'-'+m,P[k][m])}</td>`).join('')}</tr>`).join('')}
-   <tr><td><b>مهندس إضافي</b><br><small class="mut">باقة مكتب، لكل مهندس</small></td>${[3,6,12].map(m=>`<td>${ni('pr-x-'+m,A[m])}</td>`).join('')}</tr></tbody></table>
+   <table class="ptab"><thead><tr><th>الباقة</th><th>شهر</th><th>6 أشهر</th><th>سنة</th></tr></thead><tbody>
+   ${['فرد','فريق','مكتب'].map(k=>`<tr><td><b>${k}</b></td>${[1,6,12].map(m=>`<td>${ni('pr-'+k+'-'+m,P[k][m])}</td>`).join('')}</tr>`).join('')}
+   <tr><td><b>مهندس إضافي</b><br><small class="mut">باقتا فريق ومكتب، لكل مهندس</small></td>${[1,6,12].map(m=>`<td>${ni('pr-x-'+m,A[m])}</td>`).join('')}</tr></tbody></table>
    <button class="btn y" onclick="pricesSave()">✓ حفظ الأسعار</button><button class="btn ghost" onclick="pricesReset()">استرجاع الأسعار الأصلية</button>${backB}`)}
-async function pricesSave(){const P={},A={};for(const k of ['فرد','فريق','مكتب']){P[k]={};for(const m of [3,6,12]){const v=numIn($('#pr-'+k+'-'+m).value);if(v<1000)return toast('اكتب سعر '+k+' بشكل صحيح');P[k][m]=v}}
-  for(const m of [3,6,12])A[m]=numIn($('#pr-x-'+m).value);if(await setSave('prices',P,'حُفظت الأسعار ✓'))await setSave('addon',A,'حُفظت الأسعار ✓');pricesSheet()}
-function pricesReset(){ask('إعادة الأسعار كما كانت (فرد 30,000 · فريق 65,000 · مكتب 135,000 لثلاثة أشهر)؟','استرجاع',async()=>{await setSave('prices',SETS_D.prices);await setSave('addon',SETS_D.addon);pricesSheet()})}
+async function pricesSave(){const P={},A={};for(const k of ['فرد','فريق','مكتب']){P[k]={};for(const m of [1,6,12]){const v=numIn($('#pr-'+k+'-'+m).value);if(v<1000)return toast('اكتب سعر '+k+' بشكل صحيح');P[k][m]=v}}
+  for(const m of [1,6,12])A[m]=numIn($('#pr-x-'+m).value);if(await setSave('prices',P,'حُفظت الأسعار ✓'))await setSave('addon',A,'حُفظت الأسعار ✓');setTimeout(pricesSheet,0);return true}
+function pricesReset(){ask('إعادة الأسعار كما كانت (فرد 10,000 · فريق 30,000 · مكتب 50,000 للشهر)؟','استرجاع',async()=>{await setSave('prices',SETS_D.prices);await setSave('addon',SETS_D.addon);pricesSheet()})}
 
 function payInfoSheet(){const p=SETS.pay||{};sheet(shd('💳 بيانات الدفع والمساعدة','تظهر للمشترك لما يضغط «الاشتراك»، وبرسائل التذكير. الأسعار من «الباقات والأسعار».')+`
    ${fin('pi-ph','رقم التحويل (ماستر كارد)',p.phone||PLATFORM.phone,'class="num" inputmode="tel" style="text-align:right"')}
@@ -2404,7 +2483,7 @@ async function auditSheet(){sheet(shd('🧾 سجل النشاط','آخر الع�
 function payFind(id,org){if(PAYS){const p=PAYS.find(x=>x.id===id);if(p)return p}const o=(ADM.orgs||[]).find(x=>x.id===org);return o&&(o.payments||[]).find(x=>x.id===id)}
 function payEdit(id,org){if(!id||!ADM.v6)return toast(NEEDSRV);const p=payFind(id,org);if(!p)return;const o=(ADM.orgs||[]).find(x=>x.id===org)||{};ADM.pe={id,org,m:p.months};
   sheet(shd('✏️ تعديل دفعة',esc(o.name||p.org_name||'')+' · بتاريخ <span class="num">'+bgd(p.created_at)+'</span>')+`
-   <div class="mut" style="font-size:13px;font-weight:700">المدة</div><div class="cats" id="pe-m">${[[3,'3 أشهر'],[6,'6 أشهر'],[12,'سنة']].map(([m,t])=>`<button class="${p.months===m?'on':''}" data-k="${m}" onclick="admPick(this);ADM.pe.m=${m};peHint()">${t}</button>`).join('')}</div>
+   <div class="mut" style="font-size:13px;font-weight:700">المدة</div><div class="cats" id="pe-m">${[[1,'شهر'],[6,'6 أشهر'],[12,'سنة']].map(([m,t])=>`<button class="${p.months===m?'on':''}" data-k="${m}" onclick="admPick(this);ADM.pe.m=${m};peHint()">${t}</button>`).join('')}</div>
    ${fin('pe-a','المبلغ (دينار)',fmt(p.amount),'class="num" inputmode="numeric" oninput="this.value=fmt(numIn(this.value))"')}
    ${fin('pe-r','رقم الوصل أو ملاحظة',p.receipt||'')}
    <label class="ck"><input type="checkbox" id="pe-adj" checked onchange="peHint()"> عدّل تاريخ الاشتراك تلقائياً بفرق المدة</label>
@@ -2414,7 +2493,7 @@ function peHint(){const p=payFind(ADM.pe.id,ADM.pe.org);const d=ADM.pe.m-p.month
 async function paySave(){const a=numIn($('#pe-a').value);const d=await admTry({action:'pay_edit',id:ADM.pe.id,org_id:ADM.pe.org,months:ADM.pe.m,amount:a,receipt:$('#pe-r').value.trim(),adjust:$('#pe-adj').checked});
   if(d._err)return toast(d.msg);toast('تم تعديل الدفعة ✓');await admReload();PAYS=null;await paysLoad();if(ADM.tab==='pay'&&V.v==='admin')closeSheet();else admSheet(ADM.pe.org)}
 function payDel(id,org){if(!id||!ADM.v6)return toast(NEEDSRV);const p=payFind(id,org);if(!p)return;
-  sheet(`<h3 style="color:var(--red)">🗑️ حذف دفعة</h3><p style="margin:0;line-height:1.9">${esc(p.org_name||'')} · ${esc(p.plan)} · ${p.months===12?'سنة':p.months+' أشهر'} · <b class="num">${fmt(p.amount)}</b> د.ع · <span class="num">${bgd(p.created_at)}</span><br>تُحذف الدفعة من السجل ومن حساب الدخل.</p>
+  sheet(`<h3 style="color:var(--red)">🗑️ حذف دفعة</h3><p style="margin:0;line-height:1.9">${esc(p.org_name||'')} · ${esc(p.plan)} · ${moTxt(p.months)} · <b class="num">${fmt(p.amount)}</b> د.ع · <span class="num">${bgd(p.created_at)}</span><br>تُحذف الدفعة من السجل ومن حساب الدخل.</p>
    <label class="ck"><input type="checkbox" id="pd-adj" checked> انقص <span class="num">${p.months}</span> ${p.months===1?'شهر':'أشهر'} من تاريخ انتهاء الاشتراك</label>
    <button class="btn" style="background:var(--red);color:#fff" id="pd-go" onclick="payDelGo(${id},'${org}')">حذف الدفعة</button><button class="btn ghost" onclick="${ADM.tab==='pay'&&V.v==='admin'?'closeSheet()':`admSheet('${org}')`}">رجوع</button>`)}
 async function payDelGo(id,org){const b=$('#pd-go');b.disabled=true;b.textContent='لحظة…';const d=await admTry({action:'pay_del',id,org_id:org,adjust:$('#pd-adj').checked});
@@ -2496,7 +2575,7 @@ function bkMode(d){BKD=d;const n=bkDelCount(d);
    <button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
 
 /* ===== بعد الفحص (2026-11-21): حدود الباقة، طلب التجديد بالباقة، أيام الراكد، بطاقة المكتب بتبويبات ===== */
-const LIM={'فرد':{u:2,p:10},'فريق':{u:4,p:30},'مكتب':{u:15,p:0}};
+const LIM={'فرد':{u:1,p:5},'فريق':{u:4,p:20},'مكتب':{u:15,p:0}};
 function usage(o){const paid=o.paid_until&&o.paid_until>=o.trial_until;const pl=paid&&LIM[o.plan]?o.plan:'فريق';const L=LIM[pl];
   const u=L.u+(pl==='مكتب'?(o.extra_eng||0):0),pr=o.active_projects!=null?o.active_projects:(o.projects||0);
   return {pl,trial:!paid,u,used:o.members||0,p:L.p,pr}}
@@ -2504,7 +2583,7 @@ const pct=(a,b)=>b?a/b:0;
 function useBox(l,a,b){const full=b&&a>=b,near=b&&pct(a,b)>=.8;return `<div class="ab${full?' warn':near?' near':''}"><span>${l}</span><b><span class="num">${a}</span>${b?` <small>من <span class="num">${b}</span></small>`:' <small>· غير محدود</small>'}</b>${b?`<i class="ub"><i style="width:${Math.min(100,Math.round(pct(a,b)*100))}%"></i></i>`:''}</div>`}
 /* طلب التجديد: الباقة والمدة اللي اختارها المشترك تنحفظ ويا الطلب */
 function renewOf(o){if(!o.renew)return null;const m=/\[plan:([^;\]]+);m:(\d+)(?:;x:(\d+))?\]/.exec(o.renew_note||'');return {at:o.renew,plan:m?m[1]:null,months:m?+m[2]:null,x:m&&m[3]?+m[3]:0}}
-const moTxt=m=>m===12?'سنة':m+' أشهر';
+const moTxt=m=>m===12?'سنة':m===1?'شهر':m+' أشهر';
 function planPrice(pl,m,x){const P=SETS.prices[pl]||{},A=SETS.addon||{};return (+P[m]||0)+(pl==='مكتب'?(x||0)*(+A[m]||0):0)}
 var SUBP={pl:'فريق',m:12};
 const _subSheetUA=subSheet;
@@ -2512,7 +2591,7 @@ subSheet=function(){_subSheetUA();if(MODE!=='cloud')return;const a=document.quer
   if(S.sub&&S.sub.plan&&LIM[S.sub.plan])SUBP.pl=S.sub.plan;
   a.insertAdjacentHTML('beforebegin',`<div class="card spick" style="padding:12px 14px"><b>اختر الباقة التي تريدها</b>
     <div class="cats" id="sp-pl">${['فرد','فريق','مكتب'].map(k=>`<button data-k="${k}" class="${SUBP.pl===k?'on':''}" onclick="SUBP.pl='${k}';spSet()">${k}</button>`).join('')}</div>
-    <div class="cats" id="sp-m">${[3,6,12].map(m=>`<button data-k="${m}" class="${SUBP.m===m?'on':''}" onclick="SUBP.m=${m};spSet()">${moTxt(m)}</button>`).join('')}</div>
+    <div class="cats" id="sp-m">${[1,6,12].map(m=>`<button data-k="${m}" class="${SUBP.m===m?'on':''}" onclick="SUBP.m=${m};spSet()">${moTxt(m)}</button>`).join('')}</div>
     <div id="sp-sum" class="note" style="margin:0;font-size:14.5px"></div></div>`);spSet()};
 function spSet(){document.querySelectorAll('#sp-pl button').forEach(b=>b.classList.toggle('on',b.dataset.k===SUBP.pl));document.querySelectorAll('#sp-m button').forEach(b=>b.classList.toggle('on',+b.dataset.k===SUBP.m));
   const amt=planPrice(SUBP.pl,SUBP.m,0);const s=$('#sp-sum');if(s)s.innerHTML=`المبلغ: <b class="num">${fmt(amt)}</b> دينار · حوّله وأرسل الوصل`;
@@ -2563,8 +2642,8 @@ admSheet=function(id,tab){const o=ADM.orgs.find(x=>x.id===id);if(!o)return;if(AD
     ${last&&!(R&&R.plan)?`<button class="btn y" style="margin:0" onclick="admRenew('${id}')">🔄 تجديد بنفس الباقة · ${esc(last.plan)} · ${moTxt(last.months)} · <span class="num">${fmt(last.amount)}</span> د.ع</button>`:''}</div>
    <details class="stopt" ${last||R&&R.plan?'':'open'}><summary><b>⭐ تفعيل باقة أخرى</b></summary>
     <div class="cats" id="adm-plan">${['فرد','فريق','مكتب'].map(k=>`<button class="${pl===k?'on':''}" data-k="${k}" onclick="admPick(this,'plan')">${k}</button>`).join('')}</div>
-    <div class="cats" id="adm-months">${[[3,'3 أشهر'],[6,'6 أشهر'],[12,'سنة']].map(([m,t])=>`<button class="${m===mo?'on':''}" data-k="${m}" onclick="admPick(this,'months')">${t}</button>`).join('')}</div>
-    <div id="adm-xwrap" style="display:flex;align-items:center;gap:10px;justify-content:space-between;background:var(--soft);border-radius:12px;padding:10px 12px"><div><b style="font-size:14px">مهندسون إضافيون (فوق الخمسة)</b><div class="mut" style="font-size:12.5px;line-height:1.7">للمهندس: ${addonTxt()}</div></div><div style="display:flex;align-items:center;gap:8px"><button class="chip n" style="font-size:18px;min-width:40px;min-height:40px" onclick="admX(1)">+</button><b id="adm-xv" class="num" style="font-size:18px;min-width:22px;text-align:center">${o.extra_eng||0}</b><button class="chip n" style="font-size:18px;min-width:40px;min-height:40px" onclick="admX(-1)">−</button></div><input type="hidden" id="adm-x" value="${o.extra_eng||0}"></div>
+    <div class="cats" id="adm-months">${[[1,'شهر'],[6,'6 أشهر'],[12,'سنة']].map(([m,t])=>`<button class="${m===mo?'on':''}" data-k="${m}" onclick="admPick(this,'months')">${t}</button>`).join('')}</div>
+    <div id="adm-xwrap" style="display:flex;align-items:center;gap:10px;justify-content:space-between;background:var(--soft);border-radius:12px;padding:10px 12px"><div><b style="font-size:14px">مهندسون إضافيون</b><div class="mut" style="font-size:12.5px;line-height:1.7">للمهندس: ${addonTxt()}</div></div><div style="display:flex;align-items:center;gap:8px"><button class="chip n" style="font-size:18px;min-width:40px;min-height:40px" onclick="admX(1)">+</button><b id="adm-xv" class="num" style="font-size:18px;min-width:22px;text-align:center">${o.extra_eng||0}</b><button class="chip n" style="font-size:18px;min-width:40px;min-height:40px" onclick="admX(-1)">−</button></div><input type="hidden" id="adm-x" value="${o.extra_eng||0}"></div>
     <div class="cats" id="adm-method"><button class="on" data-k="ماستر كارد" onclick="admPick(this,'method')">ماستر كارد</button></div>
     <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="adm-rc">رقم الوصل أو ملاحظة (اختياري)</label><input id="adm-rc" class="num" style="text-align:right"></div></div>
     <div class="note" id="adm-sum" style="margin:0;font-size:14px"></div>
@@ -3252,6 +3331,99 @@ function htpSheet(){sheet(htpBody())}
 function htpGrab(){const g=id=>{const el=$('#'+id);return el?el.value:null};if(HP.k==='m'&&g('hp-m'))HP.m=g('hp-m');if(HP.k==='y'&&g('hp-y'))HP.y=+g('hp-y');if(HP.k==='r'){if(g('hp-from'))HP.from=g('hp-from');if(g('hp-to'))HP.to=g('hp-to')}}
 function htpK(k){htpGrab();if(k==='a'||k==='tm'){HP.k=k==='a'?'a':'m';if(k==='tm')HP.m=today().slice(0,7);closeSheet();render();return}HP.k=k;if(k==='m'&&HP.m===today().slice(0,7))HP.m=prevYm(HP.m);sheet(htpBody())}
 function htpApply(){htpGrab();if(HP.k==='r'&&HP.from>HP.to){const t=HP.from;HP.from=HP.to;HP.to=t}closeSheet();render()}
+
+/* ===== الباقات الجديدة (1.9.7 · 2026-11-22): شهر / 6 أشهر / سنة، بطاقات مفصّلة، إضافات باقتي فريق ومكتب، ميزات كل باقة ===== */
+var PV={pl:'فريق',m:12,xe:0,xa:0};
+const PV_INFO={
+ 'فرد':{t:'المهندس المستقل',lim:['👷 مهندس واحد','📁 5 مشاريع نشطة'],
+   f:['المشاريع والزبائن والقبض والصرف','الكشوف والوصولات باسم شركتك وختمها','إرسال الوصل والتذكير بالدفعة عبر الواتساب','صور الوصولات والنسخ الاحتياطي اليومي'],
+   hook:'سجّل كل دينار تستلمه أو تصرفه، وأرسل الوصل والكشف لزبونك خلال ثوانٍ.'},
+ 'فريق':{t:'المهندس ومساعدوه',tag:'⭐ الأكثر اختياراً',lim:['👷 مهندس + 3 مساعدين','📁 20 مشروعاً نشطاً'],plus:'كل ما في باقة فرد، إضافةً إلى:',
+   f:['مساعدون بصلاحيات تحدّدها أنت','الموظفون والعهدة: ما أعطيته، وما صرفه، والباقي لديه','«صافيي»: أتعابك بعد مصاريف المكتب','التقرير الشهري','إضافة مهندس أو مساعد متى احتجت'],
+   hook:'تابِع أين صُرف كل دينار سلّمته لموظفيك، واعرف صافي ربحك كل شهر.'},
+ 'مكتب':{t:'المكاتب والشركات',tag:'🏢 للمكاتب',lim:['👷 5 مهندسين + 10 مساعدين','📁 مشاريع غير محدودة'],plus:'كل ما في باقة فريق، إضافةً إلى:',
+   f:['عدة مهندسين في حساب واحد','دعم فني بأولوية'],
+   hook:'أدِر مكتبك كاملاً بمهندسيه ومساعديه ومشاريعه في حساب واحد، ودون حدّ للمشاريع.'}};
+const PV_M=[[1,'شهر'],[6,'6 أشهر'],[12,'سنة']];
+function pvA(){return SETS.addon_a||{1:3000,6:15000,12:25000}}
+planPrice=function(pl,m,x,a){const P=SETS.prices[pl]||{},A=SETS.addon||{},B=pvA();return (+P[m]||0)+(pl!=='فرد'?(x||0)*(+A[m]||0)+(a||0)*(+B[m]||0):0)};
+function pvSave(pl,m){const P=SETS.prices[pl]||{};return m>1?Math.max(0,(+P[1]||0)*m-(+P[m]||0)):0}
+function pvMaxPct(m){let x=0;for(const k of ['فرد','فريق','مكتب']){const P=SETS.prices[k]||{};if(+P[1])x=Math.max(x,Math.round(pvSave(k,m)/((+P[1])*m)*100))}return x}
+function pvCurPlan(){return S.sub&&S.sub.paid&&PV_INFO[S.sub.plan]?S.sub.plan:''}
+function pvCard(k){const I=PV_INFO[k],P=SETS.prices[k]||{},m=PV.m,on=PV.pl===k,cur=pvCurPlan()===k,sv=pvSave(k,m),per=m===1?'شهر':m===12?'سنة':'6 أشهر';
+  return `<div class="pv-card${on?' on':''}${I.tag&&k==='فريق'?' star':''}" role="radio" aria-checked="${on}" tabindex="0" onclick="PV.pl='${k}';pvDraw()">
+   <div class="pv-h"><div style="display:flex;gap:10px"><span class="pv-rd"></span><div><b class="pv-n">${k}</b><span class="pv-t">${I.t}</span></div></div>${cur?'<span class="pv-tag cur">✓ باقتك الحالية</span>':I.tag?`<span class="pv-tag">${I.tag}</span>`:''}</div>
+   <div class="pv-pr">${PV_M.map(([mm,t])=>{const v=+P[mm]||0,s=pvSave(k,mm),sel=on&&PV.m===mm;return `<button class="${sel?'on':''}" onclick="event.stopPropagation();PV.pl='${k}';PV.m=${mm};pvDraw()"><span class="pt">${t}</span><b class="num">${fmt(v)}</b><small>${mm>1?'أي <span class="num">'+fmt(Math.round(v/mm))+'</span> شهرياً':'دينار'}</small>${s?`<i>وفّر <span class="num">${fmt(s)}</span></i>`:'<i class="n">&nbsp;</i>'}</button>`}).join('')}</div>
+   <div class="pv-lim">${I.lim.map(x=>`<span>${x.replace(/(\d+)/g,'<span class="num">$1</span>')}</span>`).join('')}</div>
+   ${I.plus?`<div class="pv-plus">${I.plus}</div>`:''}<ul>${I.f.map(x=>`<li>${x}</li>`).join('')}</ul>
+   ${I.hook?`<div class="pv-hook">💡 ${I.hook}</div>`:''}</div>`}
+function pvX(k,d){if(PV.pl==='فرد'&&d>0)return toast('الإضافات لباقة فريق أو مكتب فقط');PV[k]=Math.max(0,Math.min(50,PV[k]+d));pvDraw()}
+function pvAddAmt(){if(PV.pl==='فرد')return 0;const A=SETS.addon||{},B=pvA();return PV.xe*(+A[PV.m]||0)+PV.xa*(+B[PV.m]||0)}
+function pvMsgAmt(){return planPrice(PV.pl,PV.m,0,0)+pvAddAmt()}
+function pvAddTxt(){if(PV.pl==='فرد')return '';const q=[];if(PV.xe)q.push('مهندس إضافي: '+PV.xe);if(PV.xa)q.push('مساعد إضافي: '+PV.xa);return q.join(' · ')}
+function pvAddSec(){const off=PV.pl==='فرد';const row=(k,t,T,d)=>`<div class="pv-arow"><div class="pv-ar"><div>${t}<small class="pv-ad-d">${d}</small></div><div class="pv-st"><button onclick="pvX('${k}',1)">+</button><b class="num">${PV[k]}</b><button onclick="pvX('${k}',-1)">−</button></div></div>
+   <div class="pv-pr sm">${PV_M.map(([mm,tt])=>{const v=+T[mm]||0,sv=mm>1?Math.max(0,(+T[1]||0)*mm-v):0;return `<div class="pc${!off&&PV.m===mm?' on':''}"><span class="pt">${tt}</span><b class="num">${fmt(v)}</b>${sv?`<i>وفّر <span class="num">${fmt(sv)}</span></i>`:'<i class="n">&nbsp;</i>'}</div>`}).join('')}</div></div>`;
+  return `<div class="pv-ad card${off?' off':''}"><h4>➕ إضافات لباقة فريق أو مكتب</h4>
+   <div class="pv-adn">${off?'<b>⚠️ اختر باقة فريق أو مكتب أولاً.</b><br>':''}• تُضاف إلى باقة فريق أو مكتب فقط، ولا تُضاف إلى باقة فرد.<br>• تُحسب بمدة باقتك نفسها وتتجدّد معها: الشهري يتجدّد شهرياً، و6 أشهر كل 6 أشهر، والسنوي كل سنة.<br>• إذا أضفتها لاحقاً تدفع عن الأشهر المتبقية فقط.</div>
+   ${row('xe','👷 مهندس إضافي',SETS.addon||{},'يدير المشاريع كاملة، ويملك صلاحية الحذف')}${row('xa','🧑‍💼 مساعد إضافي',pvA(),'يسجّل ويستلم ضمن ما تسمح له به، ولا يحذف')}</div>`}
+function pvBody(){const n=typeof subLeft==='function'?subLeft():null;const amt=pvMsgAmt(),add=pvAddTxt(),aa=pvAddAmt();
+  const msg='مرحباً، أرغب بالاشتراك في أسس\nالمكتب: '+(S.co.short||S.co.name||'')+(typeof ME!=='undefined'&&ME&&ME.phone?'\nرقمي: '+ME.phone:'')+'\nالباقة: '+PV.pl+' · '+moTxt(PV.m)+' · '+fmt(planPrice(PV.pl,PV.m,0,0))+' دينار'+(add&&aa?'\nالإضافات: '+add+' · '+fmt(aa)+' دينار\nالمجموع: '+fmt(amt)+' دينار':'')+'\n(الوصل مرفق)';
+  return `<h3>اشتراك أسس</h3>
+   ${n!==null&&S.sub?`<div class="trialbar ${n<=0?'end':''}"><span>${subLabel()}${S.sub.until?' · ينتهي <span class="num">'+String(S.sub.until).slice(0,10)+'</span>':''}</span></div>`:''}
+   <div class="pv-hint">اضغط على السعر المناسب لك (شهر، أو 6 أشهر، أو سنة)</div>
+   ${['فرد','فريق','مكتب'].map(pvCard).join('')}
+   ${pvAddSec()}
+   <div class="pv-note">📁 <b>المشروع المنتهي لا يُحسب</b> ضمن عدد المشاريع في باقتك، ويبقى محفوظاً للعرض وطباعة الكشوف.</div>
+   <div class="pv-pay card"><h4>طريقة الاشتراك</h4>١. حوِّل المبلغ عبر ماستر كارد إلى الرقم <b class="num">${payPhone()}</b><br>٢. صوّر الوصل وأرسله عبر الواتساب<br>٣. يُفعَّل اشتراكك خلال ساعات، دون أن تفقد الأيام المتبقية من مدتك${SETS.pay&&SETS.pay.note?'<br>'+esc(SETS.pay.note):''}${SETS.pay&&SETS.pay.video?'<br><a href="'+esc(SETS.pay.video)+'" target="_blank" rel="noopener">▶️ فيديو شرح طريقة الاشتراك</a>':''}</div>
+   <a class="btn y" style="text-decoration:none" href="https://wa.me/${waNum(payPhone())}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener" onclick="renewReq()">📲 أرسل الوصل عبر الواتساب</a>
+   <button class="btn ghost" onclick="closeSheet()">إغلاق</button>`}
+function pvDraw(){const sh=document.querySelector('#layer .sheet');if(!sh||!sh.classList.contains('pvs'))return;const y=sh.scrollTop;sh.innerHTML=pvBody();sh.scrollTop=y}
+subSheet=function(){const c=pvCurPlan();if(c)PV.pl=c;if(c&&c!=='فرد'&&S.sub){PV.xe=S.sub.xe||0;PV.xa=S.sub.xa||0}
+  sheet(pvBody());const sh=document.querySelector('#layer .sheet');if(sh)sh.classList.add('pvs')};
+renewReq=function(){if(MODE==='cloud'&&CAN.admin)SB.rpc('asas_renew_request',{p_org:ME.org,p_note:(S.co.short||S.co.name||'')+' [plan:'+PV.pl+';m:'+PV.m+(PV.pl!=='فرد'?';x:'+PV.xe+';a:'+PV.xa+'':'')+']'}).then(()=>{},()=>{})};
+renewOf=function(o){if(!o.renew)return null;const m=/\[plan:([^;\]]+);m:(\d+)(?:;x:(\d+))?(?:;a:(\d+))?(?:;am:(\d+))?\]/.exec(o.renew_note||'');return {at:o.renew,plan:m?m[1]:null,months:m?+m[2]:null,x:m&&m[3]?+m[3]:0,a:m&&m[4]?+m[4]:0,am:m&&m[5]?+m[5]:(m?+m[2]:12)}};
+
+/* --- حدود الباقات للإدارة والمستخدم --- */
+usage=function(o){const paid=o.paid_until&&o.paid_until>=o.trial_until;const pl=paid&&LIM[o.plan]?o.plan:'فريق';const L=LIM[pl];
+  const u=L.u+(pl!=='فرد'?(o.extra_eng||0)+(o.extra_asst||0):0),pr=o.active_projects!=null?o.active_projects:(o.projects||0);
+  return {pl,trial:!paid,u,used:o.members||0,p:L.p,pr}};
+
+/* --- لوحة الإدارة: مساعد إضافي بجانب المهندس الإضافي --- */
+function admXA(d){const i=$('#adm-xa');if(!i)return;const v=Math.max(0,Math.min(100,(parseInt(i.value)||0)+d));i.value=v;$('#adm-xav').textContent=v;admSum()}
+const _admSheetPV=admSheet;admSheet=function(id,tab){_admSheetPV(id,tab);const o=(ADM.orgs||[]).find(x=>x.id===id);const w=$('#adm-xwrap');if(!o||!w||$('#adm-awrap'))return;
+  const B=pvA();w.insertAdjacentHTML('afterend',`<div id="adm-awrap" style="display:flex;align-items:center;gap:10px;justify-content:space-between;background:var(--soft);border-radius:12px;padding:10px 12px"><div><b style="font-size:14px">مساعدون إضافيون</b><div class="mut" style="font-size:12.5px;line-height:1.7">للمساعد: <span class="num">${fmt(B[1])}</span> / شهر · <span class="num">${fmt(B[6])}</span> / 6 أشهر · <span class="num">${fmt(B[12])}</span> / سنة</div></div><div style="display:flex;align-items:center;gap:8px"><button class="chip n" style="font-size:18px;min-width:40px;min-height:40px" onclick="admXA(1)">+</button><b id="adm-xav" class="num" style="font-size:18px;min-width:22px;text-align:center">${o.extra_asst||0}</b><button class="chip n" style="font-size:18px;min-width:40px;min-height:40px" onclick="admXA(-1)">−</button></div><input type="hidden" id="adm-xa" value="${o.extra_asst||0}"></div>`);admSum()};
+admSum=function(){const el=$('#adm-sum');if(!el)return;const pl=admVal('adm-plan'),mo=+admVal('adm-months');const off=pl!=='فرد';const bE=pl==='مكتب'?5:1,bA=pl==='مكتب'?10:3;
+  [['adm-xwrap'],['adm-awrap']].forEach(([i])=>{const w=$('#'+i);if(w)w.style.display=off?'flex':'none'});
+  const x=off?Math.max(0,parseInt(($('#adm-x')||{}).value)||0):0,a=off?Math.max(0,parseInt(($('#adm-xa')||{}).value)||0):0;
+  const base=planPrice(pl,mo,0,0),tot=planPrice(pl,mo,x,a);
+  el.innerHTML=`المبلغ: <b class="num">${fmt(tot)}</b> د.ع${x||a?` (الباقة <span class="num">${fmt(base)}</span>${x?` + <span class="num">${x}</span> مهندس إضافي`:''}${a?` + <span class="num">${a}</span> مساعد إضافي`:''})`:''}${off?` · المهندسون: <b class="num">${bE+x}</b> · المساعدون: <b class="num">${bA+a}</b>`:''}<br>تبدأ المدة من نهاية مدته الحالية`};
+admActivate=async function(id){const off=admVal('adm-plan')!=='فرد';const body={action:'activate',org_id:id,plan:admVal('adm-plan'),months:+admVal('adm-months'),method:admVal('adm-method'),receipt:$('#adm-rc').value.trim(),extra_eng:off?(parseInt($('#adm-x').value)||0):0,extra_asst:off&&$('#adm-xa')?(parseInt($('#adm-xa').value)||0):0};
+  const{data,error}=await SB.functions.invoke('asas-admin',{body});if(error){let m='تعذّر التفعيل';try{const j=await error.context.json();if(j.msg)m=j.msg}catch(e){}return toast(m)}
+  toast('تم التفعيل حتى '+data.paid_until.slice(0,10)+' ✓');await admReload();PAYS=null;actDone(id,data.paid_until,body.plan)};
+admReq=function(id){const o=ADM.orgs.find(x=>x.id===id);const R=renewOf(o);if(!R||!R.plan)return;const A=SETS.addon||{},B=pvA(),am=R.months;const amt=planPrice(R.plan,R.months,0,0)+(R.plan!=='فرد'?(R.x||0)*(+A[am]||0)+(R.a||0)*(+B[am]||0):0);
+  admConfirm(`✓ تفعيل طلب ${esc(o.owner||o.name)}`,`باقة <b>${esc(R.plan)}</b> لمدة <b>${moTxt(R.months)}</b>${R.x?' + <span class="num">'+R.x+'</span> مهندس':''}${R.a?' + <span class="num">'+R.a+'</span> مساعد':''} بمبلغ <b class="num">${fmt(amt)}</b> د.ع (ماستر كارد).<br>المدة تبدأ من نهاية اشتراكه الحالي.`,'تفعيل',
+    ()=>admDo(id,'activate',{plan:R.plan,months:R.months,method:'ماستر كارد',receipt:'طلب تجديد',extra_eng:R.x||0,extra_asst:R.a||0,amount:amt},'تم التفعيل ✓'),'y')};
+admRenew=function(id){const o=ADM.orgs.find(x=>x.id===id);const p=(o.payments||[]).find(x=>x.months>0);if(!p)return;const mo=[1,6,12].includes(p.months)?p.months:12;
+  admConfirm(`🔄 تجديد اشتراك ${esc(o.owner||o.name)}`,`باقة <b>${esc(p.plan)}</b> لمدة <b>${moTxt(mo)}</b> بمبلغ <b class="num">${fmt(planPrice(p.plan,mo,p.extra_eng||0,p.extra_asst||0))}</b> د.ع (ماستر كارد).<br>المدة تبدأ من نهاية اشتراكه الحالي.`,'تجديد',
+    async()=>{const d=await admCall({action:'activate',org_id:id,plan:p.plan,months:mo,method:'ماستر كارد',receipt:'تجديد',extra_eng:p.extra_eng||0,extra_asst:p.extra_asst||0});if(d){toast('تم التجديد ✓');await admReload();PAYS=null;actDone(id,d.paid_until,p.plan)}},'y')};
+/* أسعار المساعد الإضافي ضمن شاشة الأسعار */
+const _pricesSheetPV=pricesSheet;pricesSheet=function(){_pricesSheetPV();const tb=document.querySelector('#layer .ptab tbody');if(!tb)return;const B=pvA();
+  tb.insertAdjacentHTML('beforeend',`<tr><td><b>مساعد إضافي</b><br><small class="mut">باقتا فريق ومكتب، لكل مساعد</small></td>${[1,6,12].map(m=>`<td><input id="pr-a-${m}" class="num pin" inputmode="numeric" value="${fmt(B[m]||0)}" oninput="this.value=fmt(numIn(this.value))"></td>`).join('')}</tr>`)};
+const _pricesSavePV=pricesSave;pricesSave=async function(){const B={};for(const m of [1,6,12]){const el=$('#pr-a-'+m);if(el)B[m]=numIn(el.value)}const ok=await _pricesSavePV();if(Object.keys(B).length)await setSave('addon_a',B,'حُفظت الأسعار ✓');return ok};
+
+/* --- ميزات باقة فريق فما فوق: تُقفل لمشترك باقة فرد مع عرض الترقية --- */
+function pvSolo(){return !IS_ADMIN&&!AS&&!!S.sub&&!!S.sub.paid&&S.sub.plan==='فرد'}
+function pvLock(what){const I=PV_INFO['فريق'];sheet(`<h3>🔒 ${what}</h3><p class="note">هذه الميزة متاحة في باقة «فريق» فما فوق. باقتك الحالية «فرد» مخصّصة للمهندس وحده.</p>
+  <div class="pv-lk"><b>باقة فريق تضيف لك:</b><ul>${I.lim.map(x=>x.replace(/^\S+ /,'')).concat(I.f).map(x=>`<li>${x}</li>`).join('')}</ul></div>
+  <button class="btn y" onclick="closeSheet();PV.pl='فريق';subSheet();PV.pl='فريق';pvDraw()">عرض الباقات</button><button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)}
+const PV_LOCK={net:'صافيي',team:'الموظفون والعهدة',staff:'الموظفون والعهدة',members:'فريق العمل'};
+const _goPV=go;go=function(v,a){if(pvSolo()&&PV_LOCK[v])return pvLock(PV_LOCK[v]);return _goPV(v,a)};
+const _htShowPV=htShow;htShow=function(k){if(pvSolo()&&({cust:'عهدة الموظفين',off:'مصاريف المكتب',net:'صافيي'})[k])return pvLock(({cust:'عهدة الموظفين',off:'مصاريف المكتب',net:'صافيي'})[k]);return _htShowPV(k)};
+const _qStartPV=qStart;qStart=function(kind,pid){if(pvSolo()&&pid==='office')return pvLock('مصاريف المكتب');return _qStartPV(kind,pid)};
+const _showMonthlyPV=showMonthly;showMonthly=function(ym){if(pvSolo())return pvLock('التقرير الشهري');return _showMonthlyPV(ym)};
+/* علامة القفل على مربعات الرئيسية */
+const _homePV=VIEWS.home;VIEWS.home=a=>{let h=_homePV(a);if(!pvSolo())return h;
+  for(const k of ['cust','off','net'])h=h.replace(new RegExp(`(onclick="htShow\\('${k}'\\)"><i>‹</i><span class="l">)`),'$1🔒 ');return h};
 
 boot();
 </script>
