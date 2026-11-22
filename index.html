@@ -1271,7 +1271,7 @@ function entrySave(){if(!F.quick)readF();if(F.id&&!canEditE(S.entries.find(e=>e.
       if(ch.length)rec.log=[...(old.log||[]),{at:new Date().toISOString().slice(0,16).replace('T',' '),by:S.me,ch:ch.join(' · ')}];
       S.entries[i]=rec}
     else{const rec=Object.assign({},F,{id:uid(),no:nextNo(F.kind),ts:Date.now(),by:S.me,log:[]});if(NOFIX)rec.nf=1;if(AS)rec.cu=AS.uid;delete rec.catSet;delete rec.quick;S.entries.push(rec)}
-    const nid=F.id||S.entries[S.entries.length-1].id,wasIn=F.kind==='in',isNew=!F.id;save();toast(isOff()?'✓ انحفظ على جهازك ⏳ وينرفع للسيرفر أول ما يرجع النت':'تم حفظ المبلغ ✓');(F.pid==='office'?go(AS?'home':'net'):go('project',F.pid));if(wasIn&&isNew)setTimeout(()=>rcptSheet(nid,true),250)};
+    const nid=F.id||S.entries[S.entries.length-1].id,wasIn=F.kind==='in',isNew=!F.id;save();toast(isOff()?'✓ حُفظ على جهازك ⏳ ويُرفع إلى السيرفر فور عودة الاتصال':'تم حفظ المبلغ ✓');(F.pid==='office'?go(AS?'home':'net'):go('project',F.pid));if(wasIn&&isNew)setTimeout(()=>rcptSheet(nid,true),250)};
   // كشف التكرار
   const dup=!F.id&&live(S.entries).find(e=>e.pid===F.pid&&e.kind===F.kind&&e.date===F.date&&e.amt===F.amt&&(e.det===F.det||(!F.det&&e.party===F.party)));
   if(dup)return ask('يوجد مبلغ مسجّل بنفس التاريخ والمبلغ والبيان. هل هذا تكرار؟','احفظه على أي حال',doSave);
@@ -1616,7 +1616,7 @@ function showFinal(pid){readSTM();const annex=STM.annex;const p=P(pid),c=C(p.cid
   docOpen('كشف حساب نهائي',html,{no:'ك-'+stNo(p),who:whoOf(p),client:cliSig(p),pid:p.id})}
 
 /* كشف حسب فترة */
-function showPeriod(pid,from,to){readSTM();if(!okDate(from)||!okDate(to))return toast('اختر التاريخ');if(from>to)return toast('تاريخ «من» لازم يكون قبل «إلى»');
+function showPeriod(pid,from,to){readSTM();if(!okDate(from)||!okDate(to))return toast('اختر التاريخ');if(from>to)return toast('يجب أن يكون تاريخ «من» قبل «إلى»');
   const p=P(pid),c=C(p.cid)||{},es=entriesOf(pid);const pct=p.feeType==='pct'?(+p.feeVal||0)/100:0;closeSheet();
   let open=0;for(const e of es)if(e.date<from)open+=e.kind==='in'?e.amt-Math.round(e.amt*pct):-e.amt;
   const r=es.filter(e=>e.date>=from&&e.date<=to),ins=r.filter(e=>e.kind==='in'),outs=r.filter(e=>e.kind==='out');
@@ -1653,7 +1653,7 @@ function showStatement(pid){const p=P(pid),c=C(p.cid)||{},L=pays(p),k=calc(p);co
     <div class="dpw"><label>إلى</label>${dpk('sp-to',today())}</div>
     ${stvBtn(`showPeriod('${pid}',$('#sp-from').value.trim(),$('#sp-to').value.trim())`)}</div></div>
    <button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)}
-function showCashbook(from,to){if(!okDate(from)||!okDate(to))return toast('اختر التاريخ');if(from>to)return toast('تاريخ «من» لازم يكون قبل «إلى»');
+function showCashbook(from,to){if(!okDate(from)||!okDate(to))return toast('اختر التاريخ');if(from>to)return toast('يجب أن يكون تاريخ «من» قبل «إلى»');
   const all=live(S.entries).filter(e=>((P(e.pid)&&!P(e.pid).del)||e.pid==='office')&&!e.cu).map(e=>e.kind==='cg'||e.kind==='cr'?Object.assign({},e,{kind:e.kind==='cr'?'in':'out',party:tmName(e.cu),det:e.kind==='cg'?'عهدة إلى '+tmName(e.cu):'إرجاع عهدة من '+tmName(e.cu),docType:'دون مستند'}):e).sort((a,b)=>a.date.localeCompare(b.date)||a.ts-b.ts);
   let open=0;for(const e of all)if(e.date<from)open+=e.kind==='in'?e.amt:-e.amt;
   const rows=all.filter(e=>e.date>=from&&e.date<=to);let bal=open,ti=0,to2=0;
@@ -1881,9 +1881,10 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.13',APP_T='2026-11-22 14:05';
+var APP_V='1.9.14',APP_T='2026-11-22 15:05';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='إصلاح ظهور شاشة الدخول: تظهر الآن بشكل صحيح عند فتح التطبيق دون تسجيل دخول وبعد تسجيل الخروج';
+var APP_NEWS='الأعداد بالفصحى في كل النظام، مثل «8 حركات» و«موظفان»|التواريخ في القوائم والكشوف بصيغة يوم/شهر/سنة|حماية أقوى لحسابات الموظفين: التعديل والحذف حسب الصلاحيات من السيرفر نفسه|تحسين صياغة بعض الرسائل';
+var APP_NEWS_1913='إصلاح ظهور شاشة الدخول: تظهر الآن بشكل صحيح عند فتح التطبيق دون تسجيل دخول وبعد تسجيل الخروج';
 var APP_NEWS_1912='زر «+ إضافة مبلغ» في الشريط السفلي يسألك أولاً: استلمت مبلغ أم صرفت مبلغ';
 var APP_NEWS_1911='الصنف والملاحظة في مربع واحد: تختار الصنف (مواد، عمالة، آليات، نقل، أخرى، أو صنفاً خاصاً تضيفه)، وتكتب تحته الملاحظة|حُذف حقل «المستند»، فرقم السند يُسجَّل تلقائياً، وصورة الفاتورة اختيارية|التاريخ أصبح زراً واحداً يعرض تاريخ اليوم بالأرقام، وعند الضغط عليه تختار اليوم والشهر والسنة، في كل شاشات التطبيق';
 var APP_NEWS_1910='أصبحت شاشة «المزيد» مرتبة بأقسام: العمل، الشركة والاشتراك، البيانات والحماية، التطبيق|«فريق العمل» و«الموظفون والعهدة» صارا مكاناً واحداً باسم «الموظفون»: العهدة والصلاحيات والدعوات في صفحة كل موظف|في الرئيسية: أحدث 3 مشاريع، وتحتها «الموظفون» أول 3، ولكلٍّ زر «عرض الكل»|«صافيي» أصبح اسمه «صافي الأرباح»';
@@ -1897,11 +1898,12 @@ var APP_NEWS_193='الرئيسية أوضح: القاصة في الأعلى، ث
 var APP_NEWS_192='أصبحت شاشة «صافي الأرباح» أوضح: الصافي في الأعلى مع أتعابي والمصاريف، وتختار الشهر أو السنة أو أي فترة من زر صغير|مربع المصاريف بكل تفاصيلها، ومربع أتعابي يبيّن كيف احتُسبت الأتعاب من كل دفعة';
 var APP_NEWS_191='شاشة «صافي الأرباح»: أتعابك مطروحاً منها مصاريف المكتب، لشهر أو سنة أو أي فترة، وأين صرفت، وكشف أرباح للطباعة|الموظفون والعهدة: تحدد لكل موظف مشاريعه، وتعطيه مبلغاً وتشاهد كم صرف وأين وكم المتبقي لديه، مع كشف عهدة|يشاهد الموظف مشاريعه فقط، ويصرف على المشروع أو على المكتب، ويعدّل صرفه في اليوم نفسه فقط|أصبحت الأشهر أرقاماً في كل التطبيق';
 var APP_NEWS_190='تحسينات بالسرعة والثبات';
-var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة والمدة وتشوف المبلغ قبل ما ترسل الوصل|إشعار من الإدارة يظهر لك بأعلى التطبيق عند وجود خبر مهم|تحسينات بالسرعة والثبات';
+var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة والمدة وتشاهد المبلغ قبل إرسال الوصل|إشعار من الإدارة يظهر لك بأعلى التطبيق عند وجود خبر مهم|تحسينات بالسرعة والثبات';
 var APP_NEWS_188='أصبحت الطباعة ملف PDF بحجم A4 كامل وبدقة عالية، ترسله إلى الطابعة أو إلى أي شخص عبر الواتساب|الوصل: النسختان في ورقة واحدة، والختم والتوقيع مرتبان|لا يوجد قص في الحواف ولا ورقة زائدة في الطباعة';
 var APP_NEWS_186='اضغط على أي حركة في المشروع لتعديلها أو حذفها|الحذف يطلب تأكيداً، والمحذوف ينتقل إلى سلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً|أصبح حذف الزبون أو المشروع يطلب تأكيداً، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.13',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.14',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.13',d:'2026-11-22',n:APP_NEWS_1913.split('|')},
  {v:'1.9.12',d:'2026-11-22',n:APP_NEWS_1912.split('|')},
  {v:'1.9.11',d:'2026-11-22',n:APP_NEWS_1911.split('|')},
  {v:'1.9.10',d:'2026-11-22',n:APP_NEWS_1910.split('|')},
@@ -2392,10 +2394,10 @@ function admRenew(id){const o=ADM.orgs.find(x=>x.id===id);const p=(o.payments||[
   admConfirm(`🔄 تجديد اشتراك ${esc(o.owner||o.name)}`,`باقة <b>${esc(p.plan)}</b> لمدة <b>${moTxt(p.months)}</b> بمبلغ <b class="num">${fmt(p.amount)}</b> د.ع (ماستر كارد).<br>المدة تبدأ من نهاية اشتراكه الحالي.`,'تجديد',
     async()=>{const d=await admCall({action:'activate',org_id:id,plan:p.plan,months:p.months,method:'ماستر كارد',receipt:'تجديد',extra_eng:p.extra_eng||0});if(d){toast('تم التجديد ✓');await admReload();PAYS=null;actDone(id,d.paid_until,p.plan)}},'y')}
 const ADM_ASK={
-  suspend:['⏸️ إيقاف الحساب','يصير الحساب <b>للعرض فقط</b>: يمكنه فتح بياناته ومشاهدتها، ولا يمكنه الإضافة أو التعديل حتى تعيد تفعيله. البيانات لا تُحذف.','إيقاف','تم إيقاف الحساب'],
+  suspend:['⏸️ إيقاف الحساب','يصبح الحساب <b>للعرض فقط</b>: يمكنه فتح بياناته ومشاهدتها، ولا يمكنه الإضافة أو التعديل حتى تعيد تفعيله. البيانات لا تُحذف.','إيقاف','تم إيقاف الحساب'],
   resume:['▶️ تشغيل الحساب','يعود الحساب للعمل بشكل طبيعي حسب مدة اشتراكه.','تشغيل','تم تشغيل الحساب ✓'],
   cancel:['✖️ إلغاء التفعيل','يُلغى الاشتراك المدفوع (مثلاً إذا تبيّن أن الوصل خاطئ). إذا انتهت فترته التجريبية يصبح الحساب منتهياً وللعرض فقط. البيانات لا تُحذف.','إلغاء التفعيل','أُلغي التفعيل'],
-  password:['🔑 كلمة مرور مؤقتة','تنعمل كلمة مرور جديدة من 6 أرقام لصاحب الحساب، والقديمة تبطل. ترسلها له بالواتساب ويغيّرها بعدين.','إنشاء كلمة مرور','']};
+  password:['🔑 كلمة مرور مؤقتة','تُنشأ كلمة مرور جديدة من 6 أرقام لصاحب الحساب، وتُلغى القديمة. أرسلها له بالواتساب ليغيّرها لاحقاً.','إنشاء كلمة مرور','']};
 function admAsk(id,a){const o=ADM.orgs.find(x=>x.id===id);const[t,txt,btn,msg]=ADM_ASK[a];
   admConfirm(t+' · '+esc(o.owner||o.name),txt,btn,async()=>{if(a!=='password')return admDo(id,a,{},msg);
     const d=await admCall({action:'password',org_id:id});if(!d)return;const m=`السلام عليكم م. ${o.owner}\nكلمة المرور المؤقتة لحسابك في أسس: ${d.password}\nرقم الدخول: ${o.phone}\nيرجى تغييرها بعد الدخول.\nإدارة أسس`;
@@ -2408,7 +2410,7 @@ $('#adm-go').onclick=async e=>{e.target.disabled=true;e.target.textContent='لح
 function admBack(){if(ADM.cur)admSheet(ADM.cur);else closeSheet()}
 function admDelAsk(id){const o=ADM.orgs.find(x=>x.id===id);
   sheet(`<h3 style="color:var(--red)">🗑️ حذف الحساب نهائياً</h3>
-   <div class="trialbar end" style="display:block;line-height:1.9">راح ينحذف <b>${esc(o.name)}</b> وكل بياناته: <span class="num">${o.clients||0}</span> زبون، <span class="num">${o.projects||0}</span> مشروع، <span class="num">${o.entries||0}</span> مبلغ، الصور، النسخ الاحتياطية، والمستخدمين (<span class="num">${o.members||0}</span>).<br><b>لا يمكن استرجاعه.</b> يبقى رقمه محجوزاً ولا يحصل على تجربة مجانية أخرى.</div>
+   <div class="trialbar end" style="display:block;line-height:1.9">سيُحذف <b>${esc(o.name)}</b> وكل بياناته: <span class="num">${o.clients||0}</span> زبون، <span class="num">${o.projects||0}</span> مشروع، <span class="num">${o.entries||0}</span> مبلغ، الصور، النسخ الاحتياطية، والمستخدمين (<span class="num">${o.members||0}</span>).<br><b>لا يمكن استرجاعه.</b> يبقى رقمه محجوزاً ولا يحصل على تجربة مجانية أخرى.</div>
    <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="adm-del">للتأكيد اكتب رقم هاتفه: <span class="num">${esc(o.phone)}</span></label><input id="adm-del" class="num" inputmode="tel" style="text-align:right" oninput="$('#adm-delgo').disabled=this.value.replace(/\\D/g,'').replace(/^0/,'')!=='${esc(String(o.phone).replace(/^0/,''))}'"></div></div>
    <button class="btn" id="adm-delgo" disabled style="background:var(--red);color:#fff" onclick="admDel('${id}')">حذف نهائي</button>
    <button class="btn ghost" onclick="admSheet('${id}')">رجوع</button>`)}
@@ -2579,7 +2581,7 @@ function payInfoSheet(){const p=SETS.pay||{};sheet(shd('💳 بيانات الد
    <div class="fld" style="box-shadow:none;background:var(--soft);margin:0"><div class="bx"><label for="pi-n">ملاحظة إضافية للمشترك (اختياري)</label><textarea id="pi-n" rows="3" style="border:0;background:none;width:100%;font:inherit;resize:vertical" placeholder="مثلاً: اكتب اسم مكتبك بملاحظة التحويل">${esc(p.note||'')}</textarea></div></div>
    ${fin('pi-v','رابط فيديو الشرح (اختياري)',p.video||'','dir="ltr" placeholder="https://youtube.com/..."')}
    <button class="btn y" onclick="payInfoSave()">✓ حفظ</button>${backB}`)}
-async function payInfoSave(){const ph=normPhone($('#pi-ph').value);if(!ph)return toast('رقم الهاتف غير صحيح');const v=$('#pi-v').value.trim();if(v&&!/^https:\/\//.test(v))return toast('الرابط لازم يبدأ بـ https://');
+async function payInfoSave(){const ph=normPhone($('#pi-ph').value);if(!ph)return toast('رقم الهاتف غير صحيح');const v=$('#pi-v').value.trim();if(v&&!/^https:\/\//.test(v))return toast('يجب أن يبدأ الرابط بـ https://');
   if(await setSave('pay',{phone:'0'+ph,note:$('#pi-n').value.trim().slice(0,300),video:v.slice(0,300)},'حُفظت بيانات الدفع ✓'))payInfoSheet()}
 
 function tplSheet(){sheet(shd('✉️ قوالب الرسائل','عدّل نص رسالة الواتساب لكل حالة. يمكنك استخدام: <b>{الاسم}</b> اسم المهندس، <b>{المكتب}</b>، <b>{التاريخ}</b> تاريخ الانتهاء، <b>{الأيام}</b> المتبقية، <b>{المدة}</b> (مدة اشتراككم/الفترة التجريبية)، <b>{رقم_الدفع}</b>، <b>{الأسعار}</b>، <b>{الخمول}</b> أيام الركود، <b>{الباقة}</b>.')+
@@ -2691,7 +2693,7 @@ function weeklyBackup() {
   call({action: 'drive_report', ok: ok, bytes: bytes});
   if (!ok) throw new Error('فشلت نسخة أسس الأسبوعية: ' + r.getResponseCode());
 }`}
-function driveSheet(tok){sheet(shd('📁 نسخة أسبوعية على Google Drive','سكربت صغير بحسابك على Google يسحب نسخة كاملة مشفّرة كل أسبوع لمجلد «نسخ أسس» بالـ Drive، ويخلّي آخر 8 نسخ. نفس «مفتاح فك التشفير» يفتحها. إذا فشلت، Google يرسلك إيميل تلقائياً.')+`
+function driveSheet(tok){sheet(shd('📁 نسخة أسبوعية على Google Drive','سكربت صغير بحسابك على Google يسحب نسخة كاملة مشفّرة كل أسبوع لمجلد «نسخ أسس» بالـ Drive، ويحتفظ بآخر 8 نسخ. نفس «مفتاح فك التشفير» يفتحها. إذا فشلت، يرسل لك Google رسالة بريد تلقائياً.')+`
    <div class="okbox" style="background:#EEF5FF;color:#1C3D7A;line-height:2"><b>الخطوات (مرة واحدة، والأسهل من الحاسبة):</b><br>١. اضغط «إنشاء رمز Drive» تحت، وبعدها «نسخ السكربت».<br>٢. افتح <b dir="ltr">script.google.com</b> بحساب Google مالتك ← «مشروع جديد».<br>٣. امسح الموجود والصق السكربت، واحفظ.<br>٤. اضغط ▶️ «تشغيل» مرة واحدة ووافق على الصلاحيات.<br>٥. من ⏰ «المشغّلات» أضف مشغّل: الدالة <b dir="ltr">weeklyBackup</b> · حسب الوقت · أسبوعي · يوم الجمعة.</div>
    ${tok?`<div class="pwbox num" style="font-size:15px;word-break:break-all">${esc(tok)}</div><p class="note" style="margin:0">احفظه، فلن يظهر مرة أخرى. إنشاء رمز جديد يُلغي القديم.</p>`:`<button class="btn y" onclick="driveTok()">🔑 إنشاء رمز Drive</button>`}
    <textarea id="drv-s" readonly style="width:100%;height:190px;direction:ltr;text-align:left;font:12px/1.5 monospace;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--soft)">${esc(driveScript(tok))}</textarea>
@@ -2847,15 +2849,15 @@ const IGP={
  win:()=>IGP.frame(`<rect x="6" y="6" width="74" height="46" rx="5" fill="#EEF2F8" stroke="#C3CCDA"/><rect x="6" y="6" width="74" height="7" rx="3" fill="#14294A"/><text x="73" y="11.6" font-size="5.5" text-anchor="end" fill="#fff" font-family="Tajawal,Arial">أسس</text><rect x="62" y="15" width="16" height="35" fill="#fff"/><rect x="64" y="18" width="12" height="4" rx="2" fill="#F5B800"/><rect x="10" y="16" width="48" height="10" rx="2.5" fill="#fff"/><rect x="10" y="29" width="23" height="9" rx="2.5" fill="#1DB45F"/><rect x="35" y="29" width="23" height="9" rx="2.5" fill="#F06262"/><rect x="10" y="41" width="48" height="8" rx="2.5" fill="#fff"/><rect x="28" y="54" width="30" height="7" rx="2" fill="#D3DAE6"/><rect x="40" y="55" width="6" height="5" rx="1.2" fill="#14294A"/>`)};
 const IGS={
  android:{n:'أندرويد',i:'🤖',st:[
-  ['افتح رابط أسس بمتصفح <b>Chrome</b>','إذا فتحته من الواتساب: اضغط '+igK('dots')+' فوق واختار «فتح في Chrome».',IGP.url()],
+  ['افتح رابط أسس بمتصفح <b>Chrome</b>','إذا فتحته من الواتساب: اضغط '+igK('dots')+' في الأعلى واختر «فتح في Chrome».',IGP.url()],
   ['اضغط زر النقاط الثلاث '+igK('dots')+' بأعلى الشاشة','',IGP.topDots()],
   ['اختار <b>«تثبيت التطبيق»</b> أو <b>«إضافة إلى الشاشة الرئيسية»</b>','',IGP.menu('تثبيت التطبيق')],
   ['اضغط <b>«تثبيت»</b>','',IGP.dlg('تثبيت')],
   ['تم! أصبحت أيقونة أسس (الخوذة الصفراء) على شاشتك','افتحه منها مثل أي تطبيق، دون كتابة الرابط في كل مرة.',IGP.home()]]},
  ios:{n:'آيفون',i:'📱',st:[
   ['افتح رابط أسس بمتصفح <b>Safari</b> 🧭','يلزم متصفح Safari. إذا فُتح داخل الواتساب، اضغط أيقونة البوصلة 🧭 أو «فتح في Safari».',IGP.url()],
-  ['اضغط زر المشاركة '+igK('share')+' بأسفل الشاشة','في أجهزة الآيفون الحديثة إذا لم يظهر لك: اضغط '+igK('hdots')+' أولاً، بعدين «مشاركة».',IGP.botShare()],
-  ['انزل لتحت واختار <b>«إضافة إلى الشاشة الرئيسية»</b> '+igK('plus'),'',IGP.menu('إضافة إلى الشاشة الرئيسية')],
+  ['اضغط زر المشاركة '+igK('share')+' بأسفل الشاشة','في أجهزة الآيفون الحديثة إذا لم يظهر لك: اضغط '+igK('hdots')+' أولاً، ثم «مشاركة».',IGP.botShare()],
+  ['انزل إلى الأسفل واختر <b>«إضافة إلى الشاشة الرئيسية»</b> '+igK('plus'),'',IGP.menu('إضافة إلى الشاشة الرئيسية')],
   ['اضغط <b>«إضافة»</b> بأعلى الشاشة','',IGP.dlg('إضافة',1)],
   ['تم! أصبحت أيقونة أسس (الخوذة الصفراء) على شاشتك','افتحه منها مثل أي تطبيق، دون كتابة الرابط في كل مرة.',IGP.home()]]},
  pc:{n:'الحاسبة',i:'💻',st:[
@@ -3698,7 +3700,7 @@ function bellBody(){const sn=abSeen();const R=abReqs(),A=abActs(),M=abMoney(),Y=
   const sec=(k,t,arr)=>(AB_TAB==='all'||AB_TAB===k)&&arr.length?`${AB_TAB==='all'?`<h4 class="ab-s">${t}</h4>`:''}${arr.join('')}`:'';
   let h=sec('rq','طلبات تنتظر موافقتك',R.map(abReqCard))+sec('ed','تعديلات وحذف الفريق',A.slice(0,AB_TAB==='ed'?60:8).map(x=>abActCard(x,sn)))+sec('mn','المبالغ: العهد ومطالبة الزبائن',M)+sec('sy','النظام',Y.map(y=>`<div class="ab-it"${y.go?` onclick="${y.go}" style="cursor:pointer"`:''}><div class="ab-h"><b>${y.ic} ${y.t}</b></div><div class="ab-w">${y.s}</div></div>`));
   if(!h)h=`<div class="empty">لا توجد إشعارات ${AB_TAB==='all'?'':'في هذا القسم'}</div>`;
-  return `<div id="ab-bell"><h3>🔔 الإشعارات</h3><p class="sb">الشغلات المهمة فقط. صرفيات كل موظف بالتفصيل في صفحته من «الموظفون والعهدة».</p>
+  return `<div id="ab-bell"><h3>🔔 الإشعارات</h3><p class="sb">الأمور المهمة فقط. مصروفات كل موظف بالتفصيل في صفحته من «الموظفون».</p>
    <div class="ab-tabs">${AB_T.map(([k,n])=>`<button class="${AB_TAB===k?'on':''}" onclick="AB_TAB='${k}';bellPaint()">${n}${cnt[k]?` <b class="num">${cnt[k]}</b>`:''}</button>`).join('')}</div>
    <div class="ab-l">${h}</div><button class="btn" onclick="bellDone()">تم</button></div>`}
 function abTabVis(){const o=$('.ab-tabs .on');if(o)o.scrollIntoView({inline:'nearest',block:'nearest'})}
@@ -4042,6 +4044,30 @@ function fabPick(){if(typeof CAN!=='undefined'&&CAN.inn===false)return qStart('o
   sheet(`<h3 style="text-align:center">إضافة مبلغ</h3><div class="acts fp-acts"><button class="act in" onclick="closeSheet();qStart('in')"><span>استلمت مبلغ</span><i>↓</i></button>
    <button class="act out" onclick="closeSheet();qStart('out')"><span>صرفت مبلغ</span><i>↑</i></button></div>
    <button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
+
+/* ===== 1.9.14: العدد مع المعدود بالفصحى + التواريخ يوم/شهر/سنة بكل النظام ===== */
+/* «8 حركة» ← «8 حركات»، «2 موظف» ← «موظفان»، «15 مشروع» ← «15 مشروعاً». «2026-11-19» ← «19/11/2026». يعمل على النص المعروض فقط. */
+const LT_W={'حركة':['حركتان','حركات','حركة'],'مشروع':['مشروعان','مشاريع','مشروعاً'],'موظف':['موظفان','موظفين','موظفاً'],'زبون':['زبونان','زبائن','زبوناً'],
+ 'دفعة':['دفعتان','دفعات','دفعة'],'عنصر':['عنصران','عناصر','عنصراً'],'طلب':['طلبان','طلبات','طلباً'],'يوم':['يومان','أيام','يوماً'],'صورة':['صورتان','صور','صورة'],'مهندس':['مهندسان','مهندسين','مهندساً'],'مساعد':['مساعدان','مساعدين','مساعداً']};
+function ltForm(n,w){const f=LT_W[w];if(!f)return null;const m=n%100;if(n===1||(n>100&&(m===1||m===2))||(n>=100&&m===0))return [String(n),w];if(n===2)return ['',f[0]];
+  if(m>=3&&m<=10)return [String(n),f[1]];if(m===0)return [String(n),f[1]];return [String(n),f[2]]}
+const LT_RE=new RegExp('(^|[^\\d\\u0600-\\u06FF])(\\d+) ('+Object.keys(LT_W).join('|')+')(?![\\u0600-\\u06FF\\u064B-\\u0652])','g');
+const LT_LEAD=new RegExp('^(\\s)('+Object.keys(LT_W).join('|')+')(?![\\u0600-\\u06FF\\u064B-\\u0652])');
+const LT_DATE=/(^|[^\w\-\/])(\d{4})-(\d{2})-(\d{2})(?![\w\-])/g;
+function ltNum(s){return +String(s).replace(/[٠-٩]/g,c=>'٠١٢٣٤٥٦٧٨٩'.indexOf(c)).replace(/[^\d]/g,'')}
+function ltText(t){if(!t.nodeValue||!/\d/.test(t.nodeValue+(t.previousSibling&&t.previousSibling.textContent||'')))return;
+  const p=t.parentNode;if(!p||/^(SCRIPT|STYLE|TEXTAREA|INPUT|OPTION|SELECT|TITLE)$/.test(p.nodeName)||p.isContentEditable)return;
+  let v=t.nodeValue;const o=v;
+  v=v.replace(LT_DATE,(a,b,y,m,d)=>b+d+'/'+m+'/'+y);
+  v=v.replace(LT_RE,(a,b,n,w)=>{const f=ltForm(+n,w);return f?b+(f[0]?f[0]+' ':'')+f[1]:a});
+  const ps=t.previousSibling;const mm=v.match(LT_LEAD);
+  if(mm&&ps&&ps.nodeType===1&&/^\s*[\d٠-٩][\d٠-٩,،]*\s*$/.test(ps.textContent)){const f=ltForm(ltNum(ps.textContent),mm[2]);
+    if(f){v=v.replace(LT_LEAD,(f[0]?'$1':'')+f[1]);if(!f[0])ps.textContent=''}}
+  if(v!==o)t.nodeValue=v}
+function ltWalk(root){if(!root)return;if(root.nodeType===3)return ltText(root);if(root.nodeType!==1)return;
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;const L=[];while((n=w.nextNode()))L.push(n);L.forEach(ltText)}
+try{const ltObs=new MutationObserver(ms=>{ltObs.disconnect();for(const m of ms){if(m.type==='characterData')ltText(m.target);else m.addedNodes.forEach(ltWalk)}ltObs.observe(document.body,{childList:true,subtree:true,characterData:true})});
+  ltObs.observe(document.body,{childList:true,subtree:true,characterData:true});ltWalk(document.body)}catch(e){}
 
 boot();
 </script>
