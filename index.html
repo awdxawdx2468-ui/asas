@@ -900,6 +900,27 @@ details.stopt summary{cursor:pointer;list-style:none}details.stopt summary::-web
 #rp-wa .pdf{display:flex;gap:8px;align-items:center;background:#fff;border-radius:8px;padding:8px;margin-bottom:6px;font-size:13px}
 #rp-wa a{color:#0b6bcb;text-decoration:underline;word-break:break-all}
 
+/* طلب ميزة جديدة */
+.frq{display:flex;gap:14px;align-items:center;background:var(--card);border-radius:18px;padding:14px 16px;box-shadow:0 3px 10px rgba(20,41,74,.05)}
+.frq-n{min-width:74px;height:74px;border-radius:50%;background:#FFF6DA;border:3px solid var(--yel,#F5B800);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.frq-n b{font-size:28px;color:var(--navy,#14294A)}.frq-n span{font-size:12px;color:var(--mut,#5b6b85);margin-top:3px}
+.frq-t b{display:block;font-size:16px;color:var(--navy,#14294A)}.frq-t small{display:block;font-size:12.5px;line-height:1.8;color:var(--mut,#5b6b85);margin-top:3px}
+.frdots{display:flex;gap:6px;justify-content:center;margin:12px 0 4px}.frdots i{width:26px;height:8px;border-radius:6px;background:#F5B800}.frdots i.u{background:#d9dee7}
+.frlock{background:var(--card);border-radius:18px;padding:16px;text-align:center;box-shadow:0 3px 10px rgba(20,41,74,.05)}
+.frlock .frl-i{font-size:34px}.frlock>b{display:block;font-size:17px;color:var(--navy,#14294A);margin:4px 0}
+.frlock p{margin:4px 0 10px;font-size:13.5px;color:var(--mut,#5b6b85)}.frlock small{display:block;font-size:12.5px;color:var(--mut,#5b6b85);margin:8px 0 4px}
+.frl-r{display:flex;justify-content:space-between;align-items:center;background:var(--soft,#F3F6FB);border-radius:12px;padding:9px 12px;margin:6px 0;font-size:14px}.frl-r b{color:var(--navy,#14294A)}
+.frc{background:var(--card);border-radius:16px;padding:12px 14px;margin:0 0 10px;box-shadow:0 3px 10px rgba(20,41,74,.04)}
+.frc-h{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.frc-h b{font-size:15px;color:var(--navy,#14294A);line-height:1.6}.frc-h .stc{flex:none;margin-top:2px}
+.frc-d{font-size:13.5px;line-height:1.8;color:#334;margin-top:4px}.frc-m{font-size:12px;color:var(--mut,#5b6b85);margin-top:6px}
+.frc-n{background:var(--soft,#F3F6FB);border-radius:10px;padding:7px 10px;margin-top:8px;font-size:13px;line-height:1.7}
+.frhow{background:var(--card);border-radius:16px;padding:12px 14px;margin-top:14px;font-size:13px;line-height:1.9;color:#334}.frhow b{color:var(--navy,#14294A)}.frhow ol{margin:4px 0 0;padding-right:18px}
+.fra{margin:0 0 14px}.fra-o{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;padding:0 4px 4px;font-size:13px}.fra-o b{color:var(--navy,#14294A)}.fra-o span{color:var(--mut,#5b6b85)}
+.fra .frc{margin:0;border-radius:16px 16px 0 0}
+.fra-b{display:flex;gap:8px;background:var(--card);border-top:1px solid var(--line);border-radius:0 0 16px 16px;padding:8px 10px}
+.fra-b button{flex:1;border:1px solid var(--line);background:var(--soft,#F3F6FB);border-radius:12px;padding:9px 6px;font:800 14px inherit;font-family:inherit;color:var(--navy,#14294A)}
+.fra-b button.g{background:var(--green);border-color:var(--green);color:#fff}.fra-b button.r{background:#fff;border-color:#e3b4b0;color:var(--red,#B42318)}
+
 </style>
 
 <div id="app"></div>
@@ -1825,9 +1846,10 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.8',APP_T='2026-11-22 12:50';
+var APP_V='1.9.9',APP_T='2026-11-22 13:20';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='جرس الإشعارات للمهندس المالك: طلبات التعديل والحذف، وما عدّله الفريق قبل وبعد، والعهد، والزبائن الذين يستحقون مطالبة بدفعة|المساعد يرسل طلب تعديل أو حذف، والمهندس الموظف يصحّح حركته خلال 24 ساعة، وبعدها بطلب يوافق عليه المهندس المسؤول|عمود «صورة الوصل» في كشف الزبون: يضغط الزبون «🧾 عرض» ليشاهد الوصل|إرسال الكشف بالواتساب: ملف PDF مع رابط لمشاهدة صور الوصولات';
+var APP_NEWS='اطلب ميزة جديدة: مشتركو الاشتراك السنوي يطلبون إضافات جديدة على النظام، طلبان لباقة فريق و5 طلبات لباقة مكتب كل سنة|تتابع حالة طلبك: قيد المراجعة، أو مقبول، أو تمّ التنفيذ، مع ردّ فريق أسس، والطلب المرفوض لا يُحسب من عددك';
+var APP_NEWS_198='جرس الإشعارات للمهندس المالك: طلبات التعديل والحذف، وما عدّله الفريق قبل وبعد، والعهد، والزبائن الذين يستحقون مطالبة بدفعة|المساعد يرسل طلب تعديل أو حذف، والمهندس الموظف يصحّح حركته خلال 24 ساعة، وبعدها بطلب يوافق عليه المهندس المسؤول|عمود «صورة الوصل» في كشف الزبون: يضغط الزبون «🧾 عرض» ليشاهد الوصل|إرسال الكشف بالواتساب: ملف PDF مع رابط لمشاهدة صور الوصولات';
 var APP_NEWS_197='شاشة الاشتراك الجديدة: الباقات بالتفصيل، والدفع في الأسفل|مدد الاشتراك: شهر، أو 6 أشهر، أو سنة بسعر أوفر|باقة مكتب: إضافة مهندسين ومساعدين عند الحاجة';
 var APP_NEWS_196='زر «صرفت مبلغ» أصبح على اليمين و«استلمت مبلغ» على اليسار، في الرئيسية وصفحة المشروع|ملخص الرئيسية يعرض «الكل» منذ البداية، وتختار شهراً أو سنة أو فترة من زر صغير|التواريخ في اختيار الفترة بصيغة يوم/شهر/سنة';
 var APP_NEWS_195='مربعات الرئيسية الستة بطول واحد، وكل مربع يعرض تفاصيله كاملة|نافذة «تم التحديث» تعرض الجديد فقط، والإصدارات السابقة في «المزيد» ← «ما الجديد؟»';
@@ -1840,7 +1862,8 @@ var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة 
 var APP_NEWS_188='أصبحت الطباعة ملف PDF بحجم A4 كامل وبدقة عالية، ترسله إلى الطابعة أو إلى أي شخص عبر الواتساب|الوصل: النسختان في ورقة واحدة، والختم والتوقيع مرتبان|لا يوجد قص في الحواف ولا ورقة زائدة في الطباعة';
 var APP_NEWS_186='اضغط على أي حركة في المشروع لتعديلها أو حذفها|الحذف يطلب تأكيداً، والمحذوف ينتقل إلى سلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً|أصبح حذف الزبون أو المشروع يطلب تأكيداً، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.8',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.9',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.8',d:'2026-11-22',n:APP_NEWS_198.split('|')},
  {v:'1.9.7',d:'2026-11-22',n:APP_NEWS_197.split('|')},
  {v:'1.9.6',d:'2026-11-22',n:APP_NEWS_196.split('|')},
  {v:'1.9.5',d:'2026-11-22',n:APP_NEWS_195.split('|')},
@@ -3734,6 +3757,89 @@ function rpSendSheet(){const x=RPS;sheet(`<h3>✓ الكشف جاهز للإرس
 function rpSendGo(){const x=RPS;if(!x)return;
   if(x.f&&navigator.canShare&&navigator.canShare({files:[x.f],text:x.t})){navigator.share({files:[x.f],text:x.t}).then(()=>closeSheet(),e=>{if(e&&e.name==='AbortError')return;closeSheet();waOpen(x.c,x.t)})}
   else{closeSheet();waOpen(x.c,x.t);if(x.f)setTimeout(()=>toast('أُرسل الرابط. لإرفاق ملف PDF استعمل «طباعة / PDF» ثم مشاركة'),600)}}
+
+/* ===== طلب ميزة جديدة (2026-11-22): مكتب سنوي 5 طلبات، فريق سنوي طلبان، بكل سنة مدفوعة. المرفوض لا يُحسب ===== */
+var FR={k:null,list:null,busy:false},FRA={list:null,f:'pending'};
+const FR_Q={'فريق':2,'مكتب':5};
+const FR_ST={pending:['قيد المراجعة','#B7791F'],accepted:['مقبول · قيد التنفيذ','#14294A'],done:['تمّ التنفيذ ✓','var(--green)'],rejected:['مرفوض · لا يُحسب من عددك','#8b95a7']};
+const frD=t=>{const d=bgd(t);return d?dmy(d):''};
+const frCan=()=>MODE==='cloud'&&ME&&ME.role==='owner'&&!(typeof AS!=='undefined'&&AS);
+const frLeft=()=>FR.k?Math.max(0,(+FR.k.quota||0)-(+FR.k.used||0)):0;
+async function frLoad(){if(!frCan()||FR.busy)return;FR.busy=true;
+  try{const[q,l]=await Promise.all([SB.rpc('asas_feature_quota',{p_org:ME.org}),SB.from('asas_feature_requests').select('*').eq('org_id',ME.org).order('created_at',{ascending:false})]);
+    FR.k=q.error?{quota:0,used:0,err:1}:q.data||{quota:0,used:0};FR.list=l.error?[]:(l.data||[])}catch(e){FR.k={quota:0,used:0,err:1};FR.list=[]}
+  FR.busy=false;if(V.v==='feat'||V.v==='more')render()}
+function frSub(){if(!FR.k)return 'طلب إضافة جديدة على النظام';const q=+FR.k.quota||0;
+  return q?`باقي لك <b class="num">${frLeft()}</b> من <b class="num">${q}</b> لهذه السنة`:'مع الاشتراك السنوي لباقتي فريق ومكتب'}
+{const _mFR=VIEWS.more;VIEWS.more=a=>{let h=_mFR(a);if(!frCan())return h;if(!FR.k&&!FR.busy)setTimeout(frLoad,0);
+  const it=`<button class="li" onclick="go('feat')"><div class="ic">💡</div><div class="mid"><div class="t">اطلب ميزة جديدة</div><div class="s">${frSub()}</div></div></button>`;
+  const i=h.indexOf('onclick="subSheet()"');if(i>0){const j=h.indexOf('</button>',i)+9;return h.slice(0,j)+it+h.slice(j)}
+  return h.replace('<div class="list">','<div class="list">'+it)}}
+
+VIEWS.feat=()=>{const H=`<header class="top short"><div class="hdr"><div><h1>اطلب ميزة جديدة</h1><p>اقترح إضافةً تحتاجها في عملك ولا توجد في النظام</p></div><button class="back" onclick="go('more')">→</button></div></header>`;
+  if(!FR.k){frLoad();return H+'<div class="wrap" style="margin-top:14px"><div class="card empty">جارٍ التحميل…</div></div>'}
+  const q=+FR.k.quota||0,L=FR.list||[],left=frLeft();
+  let top;
+  if(q){top=`<div class="frq"><div class="frq-n"><b class="num">${left}</b><span>من <span class="num">${q}</span></span></div><div class="frq-t"><b>${left?'باقي لك '+(left===1?'طلب واحد':left===2?'طلبان':'<span class="num">'+left+'</span> طلبات'):'استُخدمت طلبات هذه السنة'}</b>
+     <small>اشتراكك السنوي في باقة ${esc(FR.k.plan||'')} حتى <span class="num">${frD(FR.k.to)}</span>. يتجدّد العدد مع تجديد الاشتراك السنوي.</small></div></div>
+     <div class="frdots">${Array.from({length:q},(_,i)=>`<i class="${i<q-left?'u':''}"></i>`).join('')}</div>
+     ${left?`<button class="btn y" onclick="frNew()">✍️ اكتب طلبك</button>`:`<div class="srvnote">يمكنك طلب ميزات جديدة مرةً أخرى عند تجديد اشتراكك السنوي.</div>`}`}
+  else{top=`<div class="frlock"><div class="frl-i">💡</div><b>هذه الميزة مع الاشتراك السنوي</b>
+     <p>اطلب إضافات جديدة على النظام يبنيها فريق أسس لك:</p>
+     <div class="frl-r"><span>باقة فريق · سنة</span><b>طلبان كل سنة</b></div><div class="frl-r"><span>باقة مكتب · سنة</span><b><span class="num">5</span> طلبات كل سنة</b></div>
+     <small>الاشتراك الشهري و6 أشهر وباقة فرد لا تشمل طلب الميزات.</small>
+     <button class="btn y" onclick="subSheet()">⭐ عرض الباقات</button></div>`}
+  const how=`<div class="frhow"><b>كيف يعمل الطلب؟</b><ol><li>تكتب الميزة التي تحتاجها وسبب حاجتك إليها.</li><li>يراجعها فريق أسس ويردّ عليك بالقبول أو الرفض.</li><li>الطلب المرفوض لا يُحسب من عددك.</li><li>الميزة المقبولة تُضاف إلى النظام، فيستفيد منها جميع المشتركين في باقتك.</li></ol></div>`;
+  return H+`<div class="wrap" style="margin-top:14px">${top}
+   <div class="sec"><h2>طلباتي</h2></div>
+   ${L.length?L.map(frCard).join(''):'<div class="card empty">لم ترسل أي طلب بعد</div>'}
+   ${how}</div>`};
+function frCard(r,adm){const s=FR_ST[r.status]||FR_ST.pending;
+  return `<div class="frc"><div class="frc-h"><b>${esc(r.title)}</b><span class="stc" style="background:${s[1]}">${adm&&r.status==='rejected'?'مرفوض':s[0]}</span></div>
+   ${r.details?`<div class="frc-d">${esc(r.details).replace(/\n/g,'<br>')}</div>`:''}
+   <div class="frc-m">أُرسل في <span class="num">${frD(r.created_at)}</span>${r.done_at?' · نُفّذ في <span class="num">'+frD(r.done_at)+'</span>':r.decided_at?' · رُدّ عليه في <span class="num">'+frD(r.decided_at)+'</span>':''}</div>
+   ${r.admin_note?`<div class="frc-n"><b>ردّ فريق أسس:</b> ${esc(r.admin_note)}</div>`:''}</div>`}
+function frNew(){if(!frLeft())return toast('استُخدمت طلبات هذه السنة');
+  sheet(`<h3>💡 اطلب ميزة جديدة</h3><p class="note" style="margin-top:0">باقي لك <b class="num">${frLeft()}</b> من <b class="num">${FR.k.quota}</b>. الطلب المرفوض لا يُحسب.</p>
+   <div class="fld" style="box-shadow:none;background:var(--soft);margin-bottom:10px"><div class="bx"><label for="fr-t">اسم الميزة</label><input id="fr-t" maxlength="120" placeholder="مثلاً: جدول دفعات المقاول الفرعي"></div></div>
+   <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="fr-d">التفاصيل: ماذا تريد أن تعمل الميزة، ولماذا تحتاجها؟</label><textarea id="fr-d" rows="5" maxlength="2000" style="border:0;background:none;width:100%;font:inherit;resize:vertical" placeholder="اكتب بالتفصيل، وكلما كان الوصف أوضح كان التنفيذ أدق"></textarea></div></div>
+   <button class="btn y" style="margin-top:14px" onclick="frSend()">إرسال الطلب</button><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`);setTimeout(()=>{const i=$('#fr-t');if(i)i.focus()},150)}
+async function frSend(){const t=$('#fr-t').value.trim(),d=$('#fr-d').value.trim();if(t.length<3)return toast('اكتب اسم الميزة');if(d.length<10)return toast('اكتب تفاصيل أكثر عن الميزة');
+  const b=document.querySelector('.sheet .btn.y');if(b){b.disabled=true;b.textContent='جارٍ الإرسال…'}
+  try{const r=await SB.rpc('asas_feature_request',{p_org:ME.org,p_title:t,p_details:d});if(r.error)throw r.error;
+    closeSheet();FR.list=[r.data].concat(FR.list||[]);FR.k.used=(+FR.k.used||0)+1;render();toast('أُرسل طلبك ✓ سيصلك الردّ هنا')}
+  catch(e){if(b){b.disabled=false;b.textContent='إرسال الطلب'}toast(/no_quota/.test(e&&e.message||'')?'استُخدمت طلبات هذه السنة':'تعذّر الإرسال، تأكد من الإنترنت')}}
+
+/* ---- الباقات: سطر طلب الميزات ---- */
+if(typeof PV_INFO!=='undefined'){PV_INFO['فريق'].f.push('طلب ميزتين جديدتين كل سنة (مع الاشتراك السنوي)');PV_INFO['مكتب'].f.push('طلب 5 ميزات جديدة كل سنة (مع الاشتراك السنوي)')}
+
+/* ---- لوحة الإدارة: طلبات الميزات ---- */
+async function fraLoad(){try{const r=await SB.rpc('asas_feature_admin_list');FRA.list=r.error?[]:(r.data||[])}catch(e){FRA.list=[]}if(V.v==='feata'||V.v==='admin')render()}
+const fraN=()=>(FRA.list||[]).filter(r=>r.status==='pending').length;
+if(typeof TOOLS!=='undefined'){TOOLS.splice(1,0,['feat','💡','طلبات الميزات','ما يطلبه المشتركون من إضافات: قبول أو رفض']);
+  const _tO=toolOpen;toolOpen=function(k){if(k==='feat')return go('feata');return _tO(k)}}
+if(typeof admOv!=='undefined'){const _ov=admOv;admOv=function(){const h=_ov.apply(this,arguments);if(!FRA.list){setTimeout(fraLoad,0);return h}const n=fraN();if(!n)return h;
+  const c=`<button onclick="go('feata')"><span>💡</span><b><span class="num">${n}</span> ${n===1?'طلب ميزة جديدة ينتظر':'طلبات ميزات جديدة تنتظر'} الردّ</b><em>‹</em></button>`;
+  if(h.includes('<div class="alist">'))return h.replace('<div class="alist">','<div class="alist">'+c);
+  for(const k of ['<div class="callc">','<div class="dorm">','<div class="rep">']){if(h.includes(k))return h.replace(k,'<div class="alist">'+c+'</div>'+k)}return h}}
+VIEWS.feata=()=>{const H=`<header class="top short"><div class="hdr"><div><h1>طلبات الميزات</h1><p>${FRA.list?'<span class="num">'+fraN()+'</span> بانتظار الردّ':'لحظة…'}</p></div><button class="back" onclick="go('admin')">→</button></div></header>`;
+  if(!FRA.list){fraLoad();return H+'<div class="wrap" style="margin-top:14px"><div class="card empty">جارٍ التحميل…</div></div>'}
+  const A=FRA.list,ch=[['pending','بانتظار الردّ'],['accepted','مقبولة'],['done','نُفّذت'],['rejected','مرفوضة'],['all','الكل']];
+  const L=A.filter(r=>FRA.f==='all'||r.status===FRA.f);
+  return H+`<div class="wrap" style="margin-top:14px"><div class="cats">${ch.map(([k,t])=>`<button class="${FRA.f===k?'on':''}" onclick="FRA.f='${k}';render()">${t} <span class="num">${k==='all'?A.length:A.filter(r=>r.status===k).length}</span></button>`).join('')}</div>
+   ${L.length?L.map(r=>{const q=r.quota||{};return `<div class="fra"><div class="fra-o"><b>🏢 ${esc(r.org_name||'')}</b><span>${esc(q.plan||r.plan||'')} · سنوي · باقي له <span class="num">${Math.max(0,(q.quota||0)-(q.used||0))}</span> من <span class="num">${q.quota||0}</span></span></div>${frCard(r,1)}
+     <div class="fra-b">${r.status==='pending'?`<button class="g" onclick="fraDo(${r.id},'accepted')">✓ قبول</button><button class="r" onclick="fraRej(${r.id})">✕ رفض</button>`:r.status==='accepted'?`<button class="g" onclick="fraDo(${r.id},'done')">✔ تمّ التنفيذ</button><button onclick="fraNote(${r.id})">✏️ ردّ للمشترك</button>`:`<button onclick="fraNote(${r.id})">✏️ ردّ للمشترك</button>${r.status==='rejected'?`<button onclick="fraDo(${r.id},'pending')">↺ إعادة للمراجعة</button>`:''}`}</div></div>`}).join(''):'<div class="card empty">لا توجد طلبات هنا</div>'}
+   <p class="note">الطلب المرفوض لا يُحسب من عدد المشترك. الميزة المقبولة تُبنى للنظام كاملاً، لا لمكتب واحد.</p></div>`};
+async function fraDo(id,st,note){const r=(FRA.list||[]).find(x=>x.id===id);if(!r)return;
+  try{const d=await SB.rpc('asas_feature_decide',{p_id:id,p_status:st,p_note:note!=null?note:(r.admin_note||'')});if(d.error)throw d.error;Object.assign(r,d.data);
+    if(r.quota){r.quota.used=(FRA.list||[]).filter(x=>x.org_id===r.org_id&&x.status!=='rejected').length}
+    closeSheet();render();toast({accepted:'قُبل الطلب ✓',rejected:'رُفض الطلب، ولا يُحسب من عدده',done:'سُجّل التنفيذ ✓',pending:'أُعيد للمراجعة'}[st]||'تم ✓')}catch(e){toast('تعذّر الحفظ')}}
+function fraRej(id){sheet(`<h3 style="color:var(--red)">✕ رفض الطلب</h3><p class="note" style="margin-top:0">لا يُحسب الطلب المرفوض من عدد المشترك.</p>
+   <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="fra-n">سبب الرفض (يظهر للمشترك، اختياري)</label><textarea id="fra-n" rows="3" style="border:0;background:none;width:100%;font:inherit;resize:vertical" placeholder="مثلاً: الميزة موجودة في شاشة الكشوف"></textarea></div></div>
+   <button class="btn" style="margin-top:14px;background:var(--red);color:#fff" onclick="fraDo(${id},'rejected',$('#fra-n').value.trim())">رفض الطلب</button><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
+function fraNote(id){const r=(FRA.list||[]).find(x=>x.id===id);if(!r)return;sheet(`<h3>✏️ ردّ للمشترك</h3>
+   <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="fra-n">يظهر تحت الطلب في تطبيق المشترك</label><textarea id="fra-n" rows="3" style="border:0;background:none;width:100%;font:inherit;resize:vertical" placeholder="مثلاً: ستُضاف في التحديث القادم">${esc(r.admin_note||'')}</textarea></div></div>
+   <button class="btn y" style="margin-top:14px" onclick="fraDo(${id},'${r.status}',$('#fra-n').value.trim())">حفظ</button><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
 
 boot();
 </script>
