@@ -930,6 +930,36 @@ details.stopt summary{cursor:pointer;list-style:none}details.stopt summary::-web
 .msacc .msrow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
 .msacc .msrow>span{color:var(--mut)}.msacc .msok{color:var(--green);font-weight:800}.msacc .msoff{color:var(--red);font-weight:800}
 
+/* 1.9.11 زر التاريخ الموحّد */
+.dpk,.dpk.m{display:flex;grid-template-columns:none;width:auto}
+.dpb{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--navy);color:#fff;border:0;border-radius:999px;padding:9px 18px;font:inherit;font-weight:800;font-size:15px;min-width:118px;cursor:pointer;direction:ltr}
+.qdate{width:100%;justify-content:space-between!important;background:#fff;border-radius:16px;padding:8px 8px 8px 8px;padding-inline-start:18px;box-sizing:border-box;box-shadow:0 1px 2px rgba(20,41,74,.06)}
+.qdate>span{font-size:16px!important;font-weight:800!important;color:var(--navy)!important}
+.qdate .dpb{background:var(--navy);color:#fff;font-size:16px;padding:11px 22px;min-width:150px;border-radius:12px}
+.dpb{font-size:16px}
+.dpo{position:fixed;inset:0;z-index:2147482500;background:rgba(15,25,45,.45);display:flex;align-items:flex-end;justify-content:center}
+.dpo>div{background:#fff;width:100%;max-width:520px;border-radius:22px 22px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px}
+.dpo h3{margin:0;font-size:17px;color:var(--navy);text-align:center}
+.dpo .qdrow.m{grid-template-columns:1fr 1.3fr}
+.dpo .qds select{width:100%;text-align:center;text-align-last:center}
+.dpo .btn{margin:0}
+
+/* 1.9.11 مربع الصنف والملاحظة */
+.cnbox .bx>label{font-size:12.5px}
+.cn-cats{margin:6px 0 10px}
+.cn-cats button,.qcats button{font-size:14px;padding:7px 13px}
+.cats .cn-add{border:1.5px dashed var(--navy);color:var(--navy);background:#fff}
+.cn-l{display:block;margin-top:2px;border-top:1px solid var(--line);padding-top:10px}
+.qcats{display:flex;flex-wrap:wrap;gap:8px}.qcats button{border:0;border-radius:12px;padding:11px 15px;background:var(--card);font-weight:700;font-size:15px;color:var(--navy);box-shadow:0 2px 6px rgba(20,41,74,.06)}
+.qcats button.on{background:var(--navy);color:#fff}.qcats .cn-add{box-shadow:none}
+.qdet-box{display:flex;flex-direction:column;gap:10px}
+/* سطر التاريخ: الكلمة والزر بنفس الحجم */
+.bx.dprow{display:flex!important;flex-direction:row!important;align-items:center;justify-content:space-between;gap:10px}
+.dprow>label,.dpw>label{font-size:16px!important;font-weight:800!important;color:var(--navy)!important}
+.dpw{flex-direction:row!important;align-items:center;justify-content:space-between;gap:10px}
+.dpb{min-width:150px;border-radius:12px;padding:11px 22px}
+#f-matrow[hidden]{display:none!important}
+
 </style>
 
 <div id="app"></div>
@@ -1170,7 +1200,7 @@ VIEWS.project=(id)=>{const p=P(id);if(!p)return VIEWS.home();const c=C(p.cid)||{
   </div>`};
 function entryRow(e){const p=P(e.pid);const c=p&&C(p.cid);
   return `<button class="li" onclick="go('entry',{id:'${e.id}'})"><div class="dot ${e.kind}">${e.kind==='in'?'↓':'↑'}</div>
-   <div class="mid"><div class="t">${esc(e.det||'—')} ${e.kind==='out'&&e.cat?`<span class="chip">${CATN[e.cat]}</span>`:''}${e.att?' 📎':''}</div>
+   <div class="mid"><div class="t">${esc(e.det||'—')} ${e.kind==='out'&&e.cat?`<span class="chip">${catLab(e)}</span>`:''}${e.att?' 📎':''}</div>
    <div class="s"><span class="num">${e.date}</span> · ${esc(e.party||'')} ${e.docType&&e.docType!=='دون مستند'?'· '+esc(e.docType)+' '+esc(e.docNo||''):''}${V.v!=='project'&&c?' · '+esc(c.name):''}</div>${pendE(e)||(MODE==='cloud'&&String(e.att||'').startsWith('data:'))?`<div class="pl">${pendE(e)?'<span class="pend">⏳ بانتظار المزامنة</span>':''}${MODE==='cloud'&&String(e.att||'').startsWith('data:')?'<span class="pend ph">📷 الصورة بانتظار الرفع</span>':''}</div>`:''}</div>
    <b class="a amt ${e.kind==='in'?'pos':'neg'}">${e.kind==='in'?'+':'−'}${fmt(e.amt)}</b></button>`}
 
@@ -1189,8 +1219,7 @@ VIEWS.entry=(a={})=>{
     <div class="w" id="f-words">${F.amt?words(F.amt)+' دينار':'اكتب المبلغ بالدينار'}</div></div>
    <div class="fld"><div class="ic">🏠</div><div class="bx"><label for="f-pid">${isIn?'الزبون / المشروع':'يُحسب هذا المصروف على'}</label>
      <select id="f-pid" onchange="if(F.kind==='out'){readF();render()}">${!isIn&&(!pvSolo()||F.pid==='office')?`<option value="office" ${F.pid==='office'?'selected':''}>🏢 المكتب (يُخصم من الأتعاب، ولا يظهر للزبون)</option>`:''}${ps.map(p=>`<option value="${p.id}" ${p.id===F.pid?'selected':''}>${esc((C(p.cid)||{}).name)} · ${esc(p.name)}</option>`).join('')}</select></div><span class="mut">▾</span></div>
-   <div class="fld"><div class="ic">📝</div><div class="bx"><label for="f-det">${F.pid==='office'?'التفاصيل':'البيان'}</label><input id="f-det" value="${esc(F.det)}" placeholder="${isIn?'دفعة أولى':F.pid==='office'?'مثلاً: أجور العامل أحمد، إيجار المكتب':'سمنت 150 كيس'}"></div>${!isIn&&F.pid!=='office'?`<span class="chip" id="f-catchip">${F.cat?CATN[F.cat]:'—'}</span>`:''}</div>
-   ${!isIn&&F.pid!=='office'?`<div class="cats" id="f-cats">${CATS.map(c=>`<button data-k="${c.k}" class="${F.cat===c.k?'on':''}" onclick="setCat('${c.k}')">${c.n}</button>`).join('')}</div>`:''}
+   ${entCatBox(isIn)}
    ${!isIn&&F.pid!=='office'?`<div class="row3" id="f-matrow" ${F.cat==='mat'?'':'hidden'}>
      <div class="fld"><div class="bx"><label for="f-mat">المادة</label><input id="f-mat" value="${esc(F.mat)}" placeholder="سمنت"></div></div>
      <div class="fld"><div class="bx"><label for="f-qty">الكمية</label><input id="f-qty" inputmode="decimal" value="${esc(F.qty)}" placeholder="150"></div></div>
@@ -1198,15 +1227,10 @@ VIEWS.entry=(a={})=>{
      <datalist id="units"><option>كيس<option>طن<option>قطعة<option>م³<option>م²<option>لتر<option>حمل</datalist>`:''}
    <div class="fld"><div class="ic">${isIn?'👤':'🏭'}</div><div class="bx"><label for="f-party">${isIn?'المقبوض منه':'المدفوع له'}</label><input id="f-party" value="${esc(F.party)}" list="parties" placeholder="${isIn?'اسم الزبون':'معمل الفرات'}"></div></div>
    <datalist id="parties">${[...new Set(live(S.entries).map(e=>e.party).filter(Boolean))].map(x=>`<option>${esc(x)}`).join('')}</datalist>
-   <div class="row2">
-    <div class="fld"><div class="bx"><label>التاريخ</label>${dpk('f-date',F.date)}
-     <div class="quick"><button onclick="setDate(0)">اليوم</button><button onclick="setDate(1)">أمس</button></div></div></div>
-    <div class="fld"><div class="bx"><label for="f-dt">المستند (نوعه ورقمه)</label>
-     <div style="display:flex;gap:6px"><select id="f-dt" style="width:auto">${DOCTYPES.map(d=>`<option ${d===F.docType?'selected':''}>${d}</option>`).join('')}</select>
-     <input id="f-dn" class="num" inputmode="numeric" value="${esc(F.docNo)}" placeholder="رقم" style="text-align:right"></div></div></div></div>
+   <div class="fld"><div class="bx dprow"><label>التاريخ</label>${dpk('f-date',F.date)}</div></div>
    <div class="fld"><div class="ic">💼</div><div class="bx"><label for="f-src">${isIn?'استُلم إلى':'دُفع من'}</label><select id="f-src"><option value="الصندوق" ${F.src==='الصندوق'?'selected':''}>القاصة</option><option ${F.src==='حساب المصرف'?'selected':''}>حساب المصرف</option></select></div><span class="mut">▾</span></div>
    ${isIn?`<div class="fld"><div class="ic">🙋</div><div class="bx"><label for="f-rcv">المستلم (من استلم المبلغ)</label><input id="f-rcv" value="${esc(F.rcv||S.me||'')}"></div></div>`:''}
-   <div class="fld"><div class="ic">🗒️</div><div class="bx"><label for="f-note">ملاحظات</label><input id="f-note" value="${esc(F.note||'')}" placeholder="اختياري"></div></div>
+   ${isIn?`<div class="fld"><div class="ic">🗒️</div><div class="bx"><label for="f-note">ملاحظات</label><input id="f-note" value="${esc(F.note||'')}" placeholder="اختياري"></div></div>`:''}
    <label class="photo" for="f-att">${F.att?`<img ${String(F.att).startsWith('sb:')?'data-sb="'+esc(F.att.slice(3))+'" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" style="min-height:80px;background:var(--soft)"':'src="'+F.att+'"'} alt="صورة المستند">${MODE==='cloud'&&String(F.att).startsWith('data:')&&F.id?'<span class="pend ph">📷 الصورة محفوظة على جهازك وتُرفع فور عودة الاتصال</span>':''}تغيير الصورة`:'📷 صوّر الفاتورة (اختياري)'}</label>
    <input id="f-att" type="file" accept="image/*" capture="environment" hidden onchange="attPick(this)">
    <button class="btn" id="ent-save" onclick="entrySave()"><span class="ck">✓</span> حفظ المبلغ</button>
@@ -1526,17 +1550,17 @@ function stInfo(p,c,details){return `<div class="st-info"><div class="st-box"><h
 function stKpis(a){return `<div class="st-k" style="grid-template-columns:repeat(${a.length},1fr)">${a.map(([l,v,cls])=>`<div class="${cls||''} ${/السابقة|قبل الفترة/.test(l)?'eprev':/مصروف|المصروف/.test(l)?'eout':/أتعاب/.test(l)?'efee':/مقبوض|الدفعة/.test(l)?'ein':''}"><span>${l}</span><b>${v<0?'−':''}${fmt(Math.abs(v))}</b><small>د.ع</small></div>`).join('')}</div>`}
 function stDonut(b,t){return `<div class="donut">${donut(b,t)}<div class="leg">${CATS.filter(x=>b[x.k]).sort((x,y)=>b[y.k]-b[x.k]).map(x=>`<div><i style="background:${x.h}"></i>${x.n}<b>${fmt(b[x.k])} · ${Math.round(b[x.k]/t*100)}%</b></div>`).join('')||'<div>لا مصروفات</div>'}</div></div>`}
 function stOuts(outs,dense){let cum=0;return `<table class="t ${dense?'dense':''}"><thead><tr><th>ت</th><th>التاريخ</th><th>البيان</th><th>البند</th><th>المدفوع له</th><th>المستند</th><th class="n">المبلغ (د.ع)</th><th class="n">التراكمي</th></tr></thead><tbody>
-  ${outs.map((e,i)=>{cum+=e.amt;return `<tr><td>${i+1}</td><td class="num">${e.date}</td><td>${esc(e.det)}</td><td><span class="cat">${CATN[e.cat]||''}</span></td><td>${esc(e.party)}</td><td>${e.docType==='دون مستند'?'—':esc(e.docType)+' <span class="num">'+esc(e.docNo)+'</span>'}</td><td class="n r">${fmt(e.amt)}</td><td class="n mut">${fmt(cum)}</td></tr>`}).join('')||'<tr><td colspan="8" class="mut">لا توجد مصروفات</td></tr>'}
+  ${outs.map((e,i)=>{cum+=e.amt;return `<tr><td>${i+1}</td><td class="num">${e.date}</td><td>${esc(e.det)}</td><td><span class="cat">${catLab(e)}</span></td><td>${esc(e.party)}</td><td>${e.docType==='دون مستند'?'—':esc(e.docType)+' <span class="num">'+esc(e.docNo)+'</span>'}</td><td class="n r">${fmt(e.amt)}</td><td class="n mut">${fmt(cum)}</td></tr>`}).join('')||'<tr><td colspan="8" class="mut">لا توجد مصروفات</td></tr>'}
   <tr class="tot"><td colspan="6">مجموع المصروفات</td><td class="n">${fmt(cum)}</td><td></td></tr></tbody></table>`}
 let STM={mode:'sum',annex:false};
 /* مختصر: سطر لكل مادة أو بند */
 function itemKey(e){if(e.cat==='mat')return e.mat?e.mat.trim():String(e.det||'مواد').replace(/[\d.,]+/g,'').replace(/\b(كيس|طن|قطعة|م³|م²|حمل|لتر)\b/g,'').replace(/\s+/g,' ').trim()||'مواد';
   if(e.cat==='lab')return 'أجور '+(e.party||'عمال');if(e.cat==='eq')return 'آليات · '+(e.party||'');if(e.cat==='tr')return 'نقل';return String(e.det||'أخرى').replace(/[\d.,]+/g,'').trim()||'أخرى'}
-function stSum(outs){const g={};for(const e of outs){const k=e.cat+'|'+itemKey(e);const r=g[k]||(g[k]={cat:e.cat,name:itemKey(e),n:0,amt:0,qty:0,unit:'',from:e.date,to:e.date});
+function stSum(outs){const g={};for(const e of outs){const k=e.cat+'|'+(e.catx||'')+'|'+itemKey(e);const r=g[k]||(g[k]={cat:e.cat,catx:e.catx||'',name:itemKey(e),n:0,amt:0,qty:0,unit:'',from:e.date,to:e.date});
     r.n++;r.amt+=e.amt;if(e.qty){r.qty+=+e.qty;r.unit=e.unit||r.unit}if(e.date<r.from)r.from=e.date;if(e.date>r.to)r.to=e.date}
   const ord=Object.fromEntries(CATS.map((c,i)=>[c.k,i]));const rows=Object.values(g).sort((a,b)=>ord[a.cat]-ord[b.cat]||b.amt-a.amt);const t=outs.reduce((a,e)=>a+e.amt,0);
   return `<table class="t"><thead><tr><th>البند</th><th>المادة / العمل</th><th class="n">عدد الوصولات</th><th>الكمية</th><th>الفترة</th><th class="n">المبلغ (د.ع)</th><th class="n">النسبة</th></tr></thead><tbody>
-  ${rows.map(r=>`<tr><td><span class="cat">${CATN[r.cat]||''}</span></td><td><b>${esc(r.name)}</b></td><td class="n">${r.n}</td><td>${r.qty?'<span class="num">'+(+r.qty).toLocaleString('en-US')+'</span> '+esc(r.unit):'—'}</td><td class="mut" style="white-space:nowrap">${r.from===r.to?'<span class="num">'+r.from+'</span>':'<span class="num">'+r.from+'</span> إلى <span class="num">'+r.to+'</span>'}</td><td class="n r"><b>${fmt(r.amt)}</b></td><td class="n mut">${t?Math.round(r.amt/t*100):0}%</td></tr>`).join('')||'<tr><td colspan="7" class="mut">لا توجد مصروفات</td></tr>'}
+  ${rows.map(r=>`<tr><td><span class="cat">${r.catx||CATN[r.cat]||''}</span></td><td><b>${esc(r.name)}</b></td><td class="n">${r.n}</td><td>${r.qty?'<span class="num">'+(+r.qty).toLocaleString('en-US')+'</span> '+esc(r.unit):'—'}</td><td class="mut" style="white-space:nowrap">${r.from===r.to?'<span class="num">'+r.from+'</span>':'<span class="num">'+r.from+'</span> إلى <span class="num">'+r.to+'</span>'}</td><td class="n r"><b>${fmt(r.amt)}</b></td><td class="n mut">${t?Math.round(r.amt/t*100):0}%</td></tr>`).join('')||'<tr><td colspan="7" class="mut">لا توجد مصروفات</td></tr>'}
   <tr class="tot"><td colspan="2">مجموع المصروفات</td><td class="n">${outs.length}</td><td></td><td></td><td class="n">${fmt(t)}</td><td class="n">100%</td></tr></tbody></table>`}
 function stExp(outs,title){return STM.mode==='sum'?`<div class="st-h3">${title} <span class="mut" style="font-weight:500;font-size:10.5px">(مختصر: كل مادة أو بند بسطر)</span></div>${stSum(outs)}`
   :`<div class="st-h3">${title}</div>${stOuts(outs,true)}${stMats(matsOf(outs))}`}
@@ -1855,9 +1879,10 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.10',APP_T='2026-11-22 15:00';
+var APP_V='1.9.11',APP_T='2026-11-22 16:00';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='أصبحت شاشة «المزيد» مرتبة بأقسام: العمل، الشركة والاشتراك، البيانات والحماية، التطبيق|«فريق العمل» و«الموظفون والعهدة» صارا مكاناً واحداً باسم «الموظفون»: العهدة والصلاحيات والدعوات في صفحة كل موظف|في الرئيسية: أحدث 3 مشاريع، وتحتها «الموظفون» أول 3، ولكلٍّ زر «عرض الكل»|«صافيي» أصبح اسمه «صافي الأرباح»';
+var APP_NEWS='الصنف والملاحظة في مربع واحد: تختار الصنف (مواد، عمالة، آليات، نقل، أخرى، أو صنفاً خاصاً تضيفه)، وتكتب تحته الملاحظة|حُذف حقل «المستند»، فرقم السند يُسجَّل تلقائياً، وصورة الفاتورة اختيارية|التاريخ أصبح زراً واحداً يعرض تاريخ اليوم بالأرقام، وعند الضغط عليه تختار اليوم والشهر والسنة، في كل شاشات التطبيق';
+var APP_NEWS_1910='أصبحت شاشة «المزيد» مرتبة بأقسام: العمل، الشركة والاشتراك، البيانات والحماية، التطبيق|«فريق العمل» و«الموظفون والعهدة» صارا مكاناً واحداً باسم «الموظفون»: العهدة والصلاحيات والدعوات في صفحة كل موظف|في الرئيسية: أحدث 3 مشاريع، وتحتها «الموظفون» أول 3، ولكلٍّ زر «عرض الكل»|«صافيي» أصبح اسمه «صافي الأرباح»';
 var APP_NEWS_199='اطلب ميزة جديدة: مشتركو الاشتراك السنوي يطلبون إضافات جديدة على النظام، طلبان لباقة فريق و5 طلبات لباقة مكتب كل سنة|تتابع حالة طلبك: قيد المراجعة، أو مقبول، أو تمّ التنفيذ، مع ردّ فريق أسس، والطلب المرفوض لا يُحسب من عددك';
 var APP_NEWS_198='جرس الإشعارات للمهندس المالك: طلبات التعديل والحذف، وما عدّله الفريق قبل وبعد، والعهد، والزبائن الذين يستحقون مطالبة بدفعة|المساعد يرسل طلب تعديل أو حذف، والمهندس الموظف يصحّح حركته خلال 24 ساعة، وبعدها بطلب يوافق عليه المهندس المسؤول|عمود «صورة الوصل» في كشف الزبون: يضغط الزبون «🧾 عرض» ليشاهد الوصل|إرسال الكشف بالواتساب: ملف PDF مع رابط لمشاهدة صور الوصولات';
 var APP_NEWS_197='شاشة الاشتراك الجديدة: الباقات بالتفصيل، والدفع في الأسفل|مدد الاشتراك: شهر، أو 6 أشهر، أو سنة بسعر أوفر|باقة مكتب: إضافة مهندسين ومساعدين عند الحاجة';
@@ -1872,7 +1897,8 @@ var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة 
 var APP_NEWS_188='أصبحت الطباعة ملف PDF بحجم A4 كامل وبدقة عالية، ترسله إلى الطابعة أو إلى أي شخص عبر الواتساب|الوصل: النسختان في ورقة واحدة، والختم والتوقيع مرتبان|لا يوجد قص في الحواف ولا ورقة زائدة في الطباعة';
 var APP_NEWS_186='اضغط على أي حركة في المشروع لتعديلها أو حذفها|الحذف يطلب تأكيداً، والمحذوف ينتقل إلى سلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً|أصبح حذف الزبون أو المشروع يطلب تأكيداً، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.10',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.11',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.10',d:'2026-11-22',n:APP_NEWS_1910.split('|')},
  {v:'1.9.9',d:'2026-11-22',n:APP_NEWS_199.split('|')},
  {v:'1.9.8',d:'2026-11-22',n:APP_NEWS_198.split('|')},
  {v:'1.9.7',d:'2026-11-22',n:APP_NEWS_197.split('|')},
@@ -2013,13 +2039,12 @@ function qRecentDets(){const seen=new Set(),out=[];for(const e of live(S.entries
 function qProjects(){const last={};for(const e of live(S.entries))last[e.pid]=Math.max(last[e.pid]||0,e.ts||0);return activeProjects().slice().sort((a,b)=>(last[b.id]||0)-(last[a.id]||0))}
 VIEWS.quick=()=>{if(!Q)return VIEWS.home();const st=qSteps(),k=st[Q.step],isIn=Q.kind==='in',last=Q.step===st.length-1;
   const dots=st.map((s,i)=>`<i class="${i<Q.step?'d':i===Q.step?'on':''}"></i>`).join('');let body='';
-  if(k==='amt'){const dl=Q.date===today()?'اليوم':Q.date===today(new Date(Date.now()-864e5))?'أمس':Q.date;
+  if(k==='amt'){
     body=`<div class="qamt ${isIn?'in':'out'}"><b id="q-amt">${Q.amt?fmt(Q.amt):'0'}</b><span>د.ع</span></div><div class="qw" id="q-w">${Q.amt?words(Q.amt)+' دينار':'اكتب المبلغ'}</div>
      <div class="qpad">${['1','2','3','4','5','6','7','8','9','000','0','⌫'].map(x=>`<button onclick="qKey('${x}')" class="${x==='⌫'?'bk':''}">${x}</button>`).join('')}</div>
-     <div class="qdate"><span>التاريخ:</span><button class="${Q.date===today()?'on':''}" onclick="qDate(0)">اليوم</button><button class="${dl==='أمس'?'on':''}" onclick="qDate(1)">أمس</button><button class="qother ${dl!=='اليوم'&&dl!=='أمس'?'on':''}" onclick="qDatePick()">📅 ${dl!=='اليوم'&&dl!=='أمس'?'<span class="num">'+Q.date+'</span>':'تاريخ سابق'}</button></div>`}
+     <div class="qdate"><span>التاريخ</span>${dpk('q-date',Q.date)}</div>`}
   else if(k==='pid'){const ps=qProjects();body=`<div class="qlist">${!isIn&&!pvSolo()?`<button class="qopt qoff ${Q.pid==='office'?'on':''}" onclick="Q.pid='office';qNext()"><b>🏢 المكتب</b><span>يُخصم من الأتعاب، ولا يظهر للزبون</span></button>`:''}${ps.map(p=>{const c=C(p.cid)||{};return `<button class="qopt ${Q.pid===p.id?'on':''}" onclick="Q.pid='${p.id}';qNext()"><b>${esc(cName(c))}</b><span>${esc(p.name)}</span></button>`}).join('')||'<div class="empty">أضف مشروعاً أولاً</div>'}</div>`}
-  else if(k==='det'){const R=qRecentDets();body=`<input id="q-det" class="qin" placeholder="مثلاً: سمنت 50 كيس" value="${esc(Q.det)}" autocomplete="off">
-     ${R.length?`<div class="qsub">آخر ما صُرف عليه (اضغط للاختيار)</div><div class="qchips">${R.map(d=>`<button onclick="Q.det=this.textContent;qNext()">${esc(d)}</button>`).join('')}</div>`:''}`}
+  else if(k==='det'){body=qDetBody()}
   else if(k==='att'){body=`<label class="qcam" for="q-att">${Q.att?`<img src="${Q.att}" alt="">`:'📷<b>صوّر الوصل</b><span>اختياري</span>'}</label><input id="q-att" type="file" accept="image/*" capture="environment" hidden onchange="qAtt(this)">`}
   else if(k==='note'){body=`<textarea id="q-note" class="qin" rows="3" placeholder="اختياري: أي تفصيل تريد تتذكره">${esc(Q.note)}</textarea>`}
   else if(k==='src'){body=`<div class="qlist">${[['الصندوق','💵 نقداً'],['حساب المصرف','🏦 تحويل للمصرف']].map(([v,t])=>`<button class="qopt ${Q.src===v?'on':''}" onclick="Q.src='${v}';qNext()"><b>${t}</b></button>`).join('')}</div>`}
@@ -3709,14 +3734,14 @@ function rpNo(e){if(!RP.on||!STM.ph||!e||!e.att)return 0;if(RP.map[e.id])return 
 function rpMark(a,b){if(!a)return '<span class="rp-no">—</span>';const r=b&&b!==a;return `<a class="rp-m" data-a="${a}" data-b="${b||a}">🧾 عرض <span class="num">${r?a+'–'+b:a}</span></a>`}
 const RP_LEG='<div class="rp-leg"><b>صورة الوصل</b>: اضغط على «🧾 عرض» لمشاهدة صورة الوصل.</div>';
 stOuts=function(outs,dense){let cum=0;const ns=outs.map(rpNo),ph=ns.some(Boolean);return `<table class="t ${dense?'dense':''}"><thead><tr><th>ت</th><th>التاريخ</th><th>البيان</th><th>البند</th><th>المدفوع له</th><th>المستند</th><th class="n">المبلغ (د.ع)</th><th class="n">التراكمي</th>${ph?'<th class="rp-th">صورة الوصل</th>':''}</tr></thead><tbody>
-  ${outs.map((e,i)=>{cum+=e.amt;return `<tr><td>${i+1}</td><td class="num">${e.date}</td><td>${esc(e.det)}</td><td><span class="cat">${CATN[e.cat]||''}</span></td><td>${esc(e.party)}</td><td>${e.docType==='دون مستند'?'—':esc(e.docType)+' <span class="num">'+esc(e.docNo)+'</span>'}</td><td class="n r">${fmt(e.amt)}</td><td class="n mut">${fmt(cum)}</td>${ph?'<td class="rp-td">'+rpMark(ns[i])+'</td>':''}</tr>`}).join('')||'<tr><td colspan="8" class="mut">لا توجد مصروفات</td></tr>'}
+  ${outs.map((e,i)=>{cum+=e.amt;return `<tr><td>${i+1}</td><td class="num">${e.date}</td><td>${esc(e.det)}</td><td><span class="cat">${catLab(e)}</span></td><td>${esc(e.party)}</td><td>${e.docType==='دون مستند'?'—':esc(e.docType)+' <span class="num">'+esc(e.docNo)+'</span>'}</td><td class="n r">${fmt(e.amt)}</td><td class="n mut">${fmt(cum)}</td>${ph?'<td class="rp-td">'+rpMark(ns[i])+'</td>':''}</tr>`}).join('')||'<tr><td colspan="8" class="mut">لا توجد مصروفات</td></tr>'}
   <tr class="tot"><td colspan="6">مجموع المصروفات</td><td class="n">${fmt(cum)}</td><td></td>${ph?'<td></td>':''}</tr></tbody></table>${ph?RP_LEG:''}`};
-stSum=function(outs){const g={};for(const e of outs){const k=e.cat+'|'+itemKey(e);const r=g[k]||(g[k]={cat:e.cat,name:itemKey(e),n:0,amt:0,qty:0,unit:'',from:e.date,to:e.date,es:[]});
+stSum=function(outs){const g={};for(const e of outs){const k=e.cat+'|'+(e.catx||'')+'|'+itemKey(e);const r=g[k]||(g[k]={cat:e.cat,catx:e.catx||'',name:itemKey(e),n:0,amt:0,qty:0,unit:'',from:e.date,to:e.date,es:[]});
     r.n++;r.amt+=e.amt;r.es.push(e);if(e.qty){r.qty+=+e.qty;r.unit=e.unit||r.unit}if(e.date<r.from)r.from=e.date;if(e.date>r.to)r.to=e.date}
   const ord=Object.fromEntries(CATS.map((c,i)=>[c.k,i]));const rows=Object.values(g).sort((a,b)=>ord[a.cat]-ord[b.cat]||b.amt-a.amt);const t=outs.reduce((a,e)=>a+e.amt,0);
   for(const r of rows){const ns=r.es.map(rpNo).filter(Boolean);r.pa=ns.length?Math.min(...ns):0;r.pb=ns.length?Math.max(...ns):0}const ph=rows.some(r=>r.pa);
   return `<table class="t"><thead><tr><th>البند</th><th>المادة / العمل</th><th class="n">عدد الوصولات</th><th>الكمية</th><th>الفترة</th><th class="n">المبلغ (د.ع)</th><th class="n">النسبة</th>${ph?'<th class="rp-th">صورة الوصل</th>':''}</tr></thead><tbody>
-  ${rows.map(r=>`<tr><td><span class="cat">${CATN[r.cat]||''}</span></td><td><b>${esc(r.name)}</b></td><td class="n">${r.n}</td><td>${r.qty?'<span class="num">'+(+r.qty).toLocaleString('en-US')+'</span> '+esc(r.unit):'—'}</td><td class="mut" style="white-space:nowrap">${r.from===r.to?'<span class="num">'+r.from+'</span>':'<span class="num">'+r.from+'</span> إلى <span class="num">'+r.to+'</span>'}</td><td class="n r"><b>${fmt(r.amt)}</b></td><td class="n mut">${t?Math.round(r.amt/t*100):0}%</td>${ph?'<td class="rp-td">'+rpMark(r.pa,r.pb)+'</td>':''}</tr>`).join('')||'<tr><td colspan="7" class="mut">لا توجد مصروفات</td></tr>'}
+  ${rows.map(r=>`<tr><td><span class="cat">${r.catx||CATN[r.cat]||''}</span></td><td><b>${esc(r.name)}</b></td><td class="n">${r.n}</td><td>${r.qty?'<span class="num">'+(+r.qty).toLocaleString('en-US')+'</span> '+esc(r.unit):'—'}</td><td class="mut" style="white-space:nowrap">${r.from===r.to?'<span class="num">'+r.from+'</span>':'<span class="num">'+r.from+'</span> إلى <span class="num">'+r.to+'</span>'}</td><td class="n r"><b>${fmt(r.amt)}</b></td><td class="n mut">${t?Math.round(r.amt/t*100):0}%</td>${ph?'<td class="rp-td">'+rpMark(r.pa,r.pb)+'</td>':''}</tr>`).join('')||'<tr><td colspan="7" class="mut">لا توجد مصروفات</td></tr>'}
   <tr class="tot"><td colspan="2">مجموع المصروفات</td><td class="n">${outs.length}</td><td></td><td></td><td class="n">${fmt(t)}</td><td class="n">100%</td>${ph?'<td></td>':''}</tr></tbody></table>${ph?RP_LEG:''}`};
 function rpItems(){return RP.list.map((e,i)=>`<div class="rp-ph" data-n="${i+1}"><div class="rp-c"><b class="rp-n num">${i+1}</b><span>${esc(e.det||'—')}</span><span class="num">${fmt(e.amt)} د.ع</span><span class="num">${e.date}</span>${e.docType&&e.docType!=='دون مستند'?`<span>${esc(e.docType)} <span class="num">${esc(e.docNo||'')}</span></span>`:''}</div><img src="${e.att}" alt="صورة الوصل ${i+1}"></div>`).join('')}
 function rpAnnex(){if(!RP.list.length)return '';
@@ -3940,6 +3965,71 @@ const MS_GROUPS=[
     const first=lists[0];const box=document.createElement('div');box.innerHTML=(top.length?`<div class="list">${top.map(r=>r.el.outerHTML).join('')}</div>`:'')+out;
     w.insertBefore(box,first);for(const l of lists)l.remove();box.replaceWith(...box.childNodes);
     return T.innerHTML}catch(e){console.error(e);return h}}}
+
+/* ===== 1.9.11: زر تاريخ واحد بلون نيلي، يفتح اختيار اليوم/الشهر/السنة ===== */
+const DPK_NOFUT=['q-date','f-date','cs-date'],DPK_FUT={'adm-exp':3},DPK_ON={'q-date':v=>{if(Q)Q.date=v}};
+function dpkLab(v){const p=v.split('-');return p.length===2?p[1]+'/'+p[0]:p[2]+'/'+p[1]+'/'+p[0]}
+function dpk(id,v,mode){const m1=mode==='m';if(!v||!(m1?/^\d{4}-\d{2}$/:/^\d{4}-\d{2}-\d{2}$/).test(v))v=m1?today().slice(0,7):today();
+  return `<div class="dpk${m1?' m':''}" data-mode="${m1?'m':'d'}"><button type="button" class="dpb num" id="${id}-b" onclick="dpkOpen('${id}')">${dpkLab(v)}</button><input type="hidden" id="${id}" value="${v}"></div>`}
+function dpkPut(id,v){const i=$('#'+id);if(!i)return;i.value=v;const b=$('#'+id+'-b');if(b)b.textContent=dpkLab(v);if(DPK_ON[id])DPK_ON[id](v)}
+function dpkSet(){}
+function admYears(){}
+function dpkOpen(id){const i=$('#'+id);if(!i)return;const m1=i.closest('.dpk').dataset.mode==='m';const p=i.value.split('-').map(Number);const cy=new Date().getFullYear();
+  const y0=Math.min(p[0],cy-5),y1=Math.max(p[0],cy+(DPK_FUT[id]||(DPK_NOFUT.includes(id)?0:1)));
+  const sel=(k,a,b,cur,lab)=>`<div class="qds"><label for="dpo-${k}">${lab}</label><select id="dpo-${k}" class="num">${Array.from({length:b-a+1},(_,n)=>a+n).map(n=>`<option value="${n}" ${n===cur?'selected':''}>${n}</option>`).join('')}</select></div>`;
+  const o=document.createElement('div');o.className='dpo';o.id='dpo';o.onclick=e=>{if(e.target===o)o.remove()};
+  o.innerHTML=`<div role="dialog"><h3>${m1?'اختر الشهر':'اختر التاريخ'}</h3><div class="qdrow${m1?' m':''}">${m1?'':sel('d',1,31,p[2],'اليوم')}${sel('m',1,12,p[1],'الشهر')}${sel('y',y0,y1,p[0],'السنة')}</div>
+   <button class="btn y" onclick="dpkOk('${id}',${m1?1:0})">✓ اعتماد</button><button class="btn ghost" onclick="$('#dpo').remove()">إلغاء</button></div>`;
+  const old=$('#dpo');if(old)old.remove();document.body.appendChild(o)}
+function dpkOk(id,m1){const y=+$('#dpo-y').value,m=+$('#dpo-m').value;let v=y+'-'+String(m).padStart(2,'0');
+  if(!m1){const d=+$('#dpo-d').value,dim=new Date(y,m,0).getDate();if(d>dim)return toast('هذا الشهر فيه '+dim+' يوماً فقط');v+='-'+String(d).padStart(2,'0');
+    if(DPK_NOFUT.includes(id)&&v>today())return toast('لا يمكن اختيار تاريخ بعد اليوم')}
+  $('#dpo').remove();dpkPut(id,v)}
+
+/* ===== 1.9.11: الصنف + الملاحظة في مربع واحد، بدون «البيان» و«المستند» ===== */
+FIELDN.det='الملاحظة';FIELDN.cat='الصنف';FIELDN.catx='الصنف الخاص';QT.det='الصنف والملاحظة';
+function catLab(e){return (e&&(e.catx||CATN[e.cat]))||''}
+function cnCustoms(){let L=[];try{L=JSON.parse(localStorage.getItem('asas_cats')||'[]')}catch(e){}
+  for(const e of live(S.entries))if(e.catx)L.push(e.catx);return [...new Set(L.filter(Boolean))]}
+function cnT(){return V.v==='quick'&&Q?Q:F}
+function cnChips(T){const on=(k,x)=>x?T.catx===x:(!T.catx&&T.cat===k);
+  return CATS.map(c=>`<button type="button" data-k="${c.k}" class="${on(c.k)?'on':''}" onclick="cnSet('${c.k}','')">${c.n}</button>`).join('')
+   +cnCustoms().map(x=>`<button type="button" data-x="${esc(x)}" class="${on('oth',x)?'on':''}" onclick="cnSet('oth',this.dataset.x)">${esc(x)}</button>`).join('')
+   +`<button type="button" class="cn-add" onclick="cnAdd()">+ صنف جديد</button>`}
+function cnSet(k,x){const T=cnT();T.cat=k;T.catx=x||'';T.catSet=true;paintCat()}
+paintCat=function(){const T=cnT();document.querySelectorAll('#f-cats button').forEach(b=>{if(b.classList.contains('cn-add'))return;b.classList.toggle('on',b.dataset.x?T.catx===b.dataset.x:(!T.catx&&b.dataset.k===T.cat))});
+  const mr=$('#f-matrow');if(mr)mr.hidden=T.cat!=='mat'||!!T.catx};
+setCat=function(k){cnSet(k,'')};
+function cnAdd(){if(V.v==='quick'&&Q)qRead();else readF();
+  sheet(`<h3>صنف جديد</h3><div class="fld"><div class="bx"><label for="cn-new">اسم الصنف</label><input id="cn-new" placeholder="مثلاً: أعمال صحية" autocomplete="off"></div></div>
+   <button class="btn y" onclick="cnAddOk()">✓ إضافة</button><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`);setTimeout(()=>{const i=$('#cn-new');i&&i.focus()},60)}
+function cnAddOk(){const n=($('#cn-new').value||'').trim().replace(/\s+/g,' ');if(!n)return toast('اكتب اسم الصنف');
+  const std=CATS.find(c=>c.n===n);let L=[];try{L=JSON.parse(localStorage.getItem('asas_cats')||'[]')}catch(e){}
+  if(!std&&!L.includes(n)){L.push(n);try{localStorage.setItem('asas_cats',JSON.stringify(L))}catch(e){}}
+  closeSheet();const T=cnT();T.cat=std?std.k:'oth';T.catx=std?'':n;T.catSet=true;render()}
+function cnDets(){const seen=new Set(),out=[];for(const e of live(S.entries).filter(e=>e.kind==='out'&&e.pid!=='office').sort((a,b)=>(b.ts||0)-(a.ts||0))){const d=(e.det||'').trim();
+  if(d&&d!==catLab(e)&&!seen.has(d)){seen.add(d);out.push(e)}if(out.length>=8)break}return out}
+function entCatBox(isIn){
+  if(isIn||F.pid==='office')return `<div class="fld"><div class="ic">📝</div><div class="bx"><label for="f-det">${F.pid==='office'?'التفاصيل':'البيان'}</label><input id="f-det" value="${esc(F.det)}" placeholder="${isIn?'دفعة أولى':'مثلاً: أجور العامل أحمد، إيجار المكتب'}"></div></div>`;
+  return `<div class="fld cnbox"><div class="ic">🏷️</div><div class="bx"><label>الصنف</label><div class="cats cn-cats" id="f-cats">${cnChips(F)}</div>
+   <label for="f-det" class="cn-l">الملاحظة</label><input id="f-det" value="${esc(F.det===catLab(F)?'':F.det)}" placeholder="مثلاً: 3 عمال لصب السقف (اختياري)" autocomplete="off"></div></div>`}
+const _readF=readF;
+readF=function(){const g=id=>{const el=$('#'+id);return el?el.value:''};
+  F.amt=parseAmt(g('f-amt'));F.pid=g('f-pid')||F.pid;F.det=g('f-det').trim();F.party=g('f-party').trim();F.date=g('f-date').trim()||F.date;
+  if($('#f-dt')){F.docType=g('f-dt');F.docNo=g('f-dn').trim()}else if(!F.id){F.docType=F.att?'فاتورة':'دون مستند';F.docNo=''}
+  F.src=g('f-src')||F.src;if($('#f-note'))F.note=g('f-note').trim();if($('#f-rcv'))F.rcv=g('f-rcv').trim();
+  if($('#f-mat')){F.mat=g('f-mat').trim();F.qty=g('f-qty').trim();F.unit=g('f-unit').trim()}
+  if(F.kind!=='out'||F.pid==='office')F.catx='';
+  if(F.kind==='out'&&F.pid!=='office'&&!F.det){if(!F.cat)F.cat='oth';F.det=catLab(F)}};
+qSteps=function(){return Q.kind==='out'?['amt','pid','det','att']:['amt','pid','src']};
+function qPickDet(i){const e=cnDets()[i];if(!e)return;Q.det=e.det;Q.cat=e.cat;Q.catx=e.catx||'';Q.catSet=true;render()}
+function qDetBody(){if(Q.pid==='office')return `<input id="q-det" class="qin" placeholder="مثلاً: أجور العامل أحمد" value="${esc(Q.det)}" autocomplete="off">`;
+  return `<div class="qdet-box"><div class="qcats" id="f-cats">${cnChips(Q)}</div>
+   <div class="qsub">الملاحظة (اختياري)</div><input id="q-det" class="qin" placeholder="مثلاً: 3 عمال لصب السقف" value="${esc(Q.det&&Q.det!==catLab(Q)?Q.det:'')}" autocomplete="off"></div>`}
+const _qBase=qBase;
+qBase=function(){const b=_qBase();if(Q.kind==='out'&&Q.pid!=='office'){b.cat=Q.cat||autoCat(Q.det);b.catx=Q.catx||'';b.catSet=!!Q.cat;if(!Q.det)b.det=catLab(b)}b.note=b.note||'';return b};
+const _qNext=qNext;
+qNext=function(){const k=qSteps()[Q.step];if(k==='det'&&Q.kind==='out'&&Q.pid!=='office'){qRead();if(!Q.cat&&!Q.det)return toast('اختر الصنف')}return _qNext()};
 
 boot();
 </script>
