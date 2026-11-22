@@ -960,6 +960,8 @@ details.stopt summary{cursor:pointer;list-style:none}details.stopt summary::-web
 .dpb{min-width:150px;border-radius:12px;padding:11px 22px}
 #f-matrow[hidden]{display:none!important}
 
+.fp-acts{margin:6px 0 4px}
+
 </style>
 
 <div id="app"></div>
@@ -1119,7 +1121,7 @@ const IC={
 const MAINTABS=['home','clients','reports','more'];
 function tabbar(){if(!MAINTABS.includes(V.v))return '';const t=(k,n,ic)=>`<button class="tab ${V.v===k?'on':''}" onclick="go('${k}')">${IC[ic]}<span>${n}</span></button>`;
   return `<nav class="tabbar"><div class="in">${t('home','الرئيسية','home')}${t('clients','الزبائن','users')}
-  <div class="fabw"><button class="fab" aria-label="إضافة مبلغ" onclick="qStart('out')">+</button>إضافة مبلغ</div>
+  <div class="fabw"><button class="fab" aria-label="إضافة مبلغ" onclick="fabPick()">+</button>إضافة مبلغ</div>
   ${t('reports','الكشوف','doc')}${t('more','المزيد','more')}</div></nav>`}
 function logoHtml(){return S.co.logo?`<img src="${S.co.logo}" alt="">`:defLogo()}
 function defLogo(sz=34){return `<svg width="${sz}" height="${sz}" viewBox="0 0 40 40"><path d="M4 4h32v6H10v26H4z" fill="#14294A"/><path d="M14 14h22v5H19v17h-5z" fill="#14294A"/><rect x="23" y="23" width="13" height="13" fill="#E0A200"/></svg>`}
@@ -1879,9 +1881,10 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.11',APP_T='2026-11-22 16:00';
+var APP_V='1.9.12',APP_T='2026-11-22 14:00';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='الصنف والملاحظة في مربع واحد: تختار الصنف (مواد، عمالة، آليات، نقل، أخرى، أو صنفاً خاصاً تضيفه)، وتكتب تحته الملاحظة|حُذف حقل «المستند»، فرقم السند يُسجَّل تلقائياً، وصورة الفاتورة اختيارية|التاريخ أصبح زراً واحداً يعرض تاريخ اليوم بالأرقام، وعند الضغط عليه تختار اليوم والشهر والسنة، في كل شاشات التطبيق';
+var APP_NEWS='زر «+ إضافة مبلغ» في الشريط السفلي يسألك أولاً: استلمت مبلغ أم صرفت مبلغ';
+var APP_NEWS_1911='الصنف والملاحظة في مربع واحد: تختار الصنف (مواد، عمالة، آليات، نقل، أخرى، أو صنفاً خاصاً تضيفه)، وتكتب تحته الملاحظة|حُذف حقل «المستند»، فرقم السند يُسجَّل تلقائياً، وصورة الفاتورة اختيارية|التاريخ أصبح زراً واحداً يعرض تاريخ اليوم بالأرقام، وعند الضغط عليه تختار اليوم والشهر والسنة، في كل شاشات التطبيق';
 var APP_NEWS_1910='أصبحت شاشة «المزيد» مرتبة بأقسام: العمل، الشركة والاشتراك، البيانات والحماية، التطبيق|«فريق العمل» و«الموظفون والعهدة» صارا مكاناً واحداً باسم «الموظفون»: العهدة والصلاحيات والدعوات في صفحة كل موظف|في الرئيسية: أحدث 3 مشاريع، وتحتها «الموظفون» أول 3، ولكلٍّ زر «عرض الكل»|«صافيي» أصبح اسمه «صافي الأرباح»';
 var APP_NEWS_199='اطلب ميزة جديدة: مشتركو الاشتراك السنوي يطلبون إضافات جديدة على النظام، طلبان لباقة فريق و5 طلبات لباقة مكتب كل سنة|تتابع حالة طلبك: قيد المراجعة، أو مقبول، أو تمّ التنفيذ، مع ردّ فريق أسس، والطلب المرفوض لا يُحسب من عددك';
 var APP_NEWS_198='جرس الإشعارات للمهندس المالك: طلبات التعديل والحذف، وما عدّله الفريق قبل وبعد، والعهد، والزبائن الذين يستحقون مطالبة بدفعة|المساعد يرسل طلب تعديل أو حذف، والمهندس الموظف يصحّح حركته خلال 24 ساعة، وبعدها بطلب يوافق عليه المهندس المسؤول|عمود «صورة الوصل» في كشف الزبون: يضغط الزبون «🧾 عرض» ليشاهد الوصل|إرسال الكشف بالواتساب: ملف PDF مع رابط لمشاهدة صور الوصولات';
@@ -1897,7 +1900,8 @@ var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة 
 var APP_NEWS_188='أصبحت الطباعة ملف PDF بحجم A4 كامل وبدقة عالية، ترسله إلى الطابعة أو إلى أي شخص عبر الواتساب|الوصل: النسختان في ورقة واحدة، والختم والتوقيع مرتبان|لا يوجد قص في الحواف ولا ورقة زائدة في الطباعة';
 var APP_NEWS_186='اضغط على أي حركة في المشروع لتعديلها أو حذفها|الحذف يطلب تأكيداً، والمحذوف ينتقل إلى سلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً|أصبح حذف الزبون أو المشروع يطلب تأكيداً، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.11',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.12',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.11',d:'2026-11-22',n:APP_NEWS_1911.split('|')},
  {v:'1.9.10',d:'2026-11-22',n:APP_NEWS_1910.split('|')},
  {v:'1.9.9',d:'2026-11-22',n:APP_NEWS_199.split('|')},
  {v:'1.9.8',d:'2026-11-22',n:APP_NEWS_198.split('|')},
@@ -4030,6 +4034,12 @@ const _qBase=qBase;
 qBase=function(){const b=_qBase();if(Q.kind==='out'&&Q.pid!=='office'){b.cat=Q.cat||autoCat(Q.det);b.catx=Q.catx||'';b.catSet=!!Q.cat;if(!Q.det)b.det=catLab(b)}b.note=b.note||'';return b};
 const _qNext=qNext;
 qNext=function(){const k=qSteps()[Q.step];if(k==='det'&&Q.kind==='out'&&Q.pid!=='office'){qRead();if(!Q.cat&&!Q.det)return toast('اختر الصنف')}return _qNext()};
+
+/* ===== 1.9.12: زر «+ إضافة مبلغ» يسأل: استلمت أم صرفت ===== */
+function fabPick(){if(typeof CAN!=='undefined'&&CAN.inn===false)return qStart('out');
+  sheet(`<h3 style="text-align:center">إضافة مبلغ</h3><div class="acts fp-acts"><button class="act in" onclick="closeSheet();qStart('in')"><span>استلمت مبلغ</span><i>↓</i></button>
+   <button class="act out" onclick="closeSheet();qStart('out')"><span>صرفت مبلغ</span><i>↑</i></button></div>
+   <button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
 
 boot();
 </script>
