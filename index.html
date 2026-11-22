@@ -921,6 +921,15 @@ details.stopt summary{cursor:pointer;list-style:none}details.stopt summary::-web
 .fra-b button{flex:1;border:1px solid var(--line);background:var(--soft,#F3F6FB);border-radius:12px;padding:9px 6px;font:800 14px inherit;font-family:inherit;color:var(--navy,#14294A)}
 .fra-b button.g{background:var(--green);border-color:var(--green);color:#fff}.fra-b button.r{background:#fff;border-color:#e3b4b0;color:var(--red,#B42318)}
 
+/* 1.9.10 المزيد بأقسام + الموظفون */
+.menu .msg-h{font-size:13px;font-weight:800;color:var(--mut);margin:16px 8px 6px}
+.menu .msg-h:first-child{margin-top:2px}
+.stf-sec{margin-top:6px}.stf-sec .list{margin-top:8px}
+.li.msst .chip,.msacc .chip{font-size:11px;vertical-align:middle}
+.li.msst.off{opacity:.55}
+.msacc .msrow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+.msacc .msrow>span{color:var(--mut)}.msacc .msok{color:var(--green);font-weight:800}.msacc .msoff{color:var(--red);font-weight:800}
+
 </style>
 
 <div id="app"></div>
@@ -1846,23 +1855,25 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.9',APP_T='2026-11-22 13:20';
+var APP_V='1.9.10',APP_T='2026-11-22 15:00';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='اطلب ميزة جديدة: مشتركو الاشتراك السنوي يطلبون إضافات جديدة على النظام، طلبان لباقة فريق و5 طلبات لباقة مكتب كل سنة|تتابع حالة طلبك: قيد المراجعة، أو مقبول، أو تمّ التنفيذ، مع ردّ فريق أسس، والطلب المرفوض لا يُحسب من عددك';
+var APP_NEWS='أصبحت شاشة «المزيد» مرتبة بأقسام: العمل، الشركة والاشتراك، البيانات والحماية، التطبيق|«فريق العمل» و«الموظفون والعهدة» صارا مكاناً واحداً باسم «الموظفون»: العهدة والصلاحيات والدعوات في صفحة كل موظف|في الرئيسية: أحدث 3 مشاريع، وتحتها «الموظفون» أول 3، ولكلٍّ زر «عرض الكل»|«صافيي» أصبح اسمه «صافي الأرباح»';
+var APP_NEWS_199='اطلب ميزة جديدة: مشتركو الاشتراك السنوي يطلبون إضافات جديدة على النظام، طلبان لباقة فريق و5 طلبات لباقة مكتب كل سنة|تتابع حالة طلبك: قيد المراجعة، أو مقبول، أو تمّ التنفيذ، مع ردّ فريق أسس، والطلب المرفوض لا يُحسب من عددك';
 var APP_NEWS_198='جرس الإشعارات للمهندس المالك: طلبات التعديل والحذف، وما عدّله الفريق قبل وبعد، والعهد، والزبائن الذين يستحقون مطالبة بدفعة|المساعد يرسل طلب تعديل أو حذف، والمهندس الموظف يصحّح حركته خلال 24 ساعة، وبعدها بطلب يوافق عليه المهندس المسؤول|عمود «صورة الوصل» في كشف الزبون: يضغط الزبون «🧾 عرض» ليشاهد الوصل|إرسال الكشف بالواتساب: ملف PDF مع رابط لمشاهدة صور الوصولات';
 var APP_NEWS_197='شاشة الاشتراك الجديدة: الباقات بالتفصيل، والدفع في الأسفل|مدد الاشتراك: شهر، أو 6 أشهر، أو سنة بسعر أوفر|باقة مكتب: إضافة مهندسين ومساعدين عند الحاجة';
 var APP_NEWS_196='زر «صرفت مبلغ» أصبح على اليمين و«استلمت مبلغ» على اليسار، في الرئيسية وصفحة المشروع|ملخص الرئيسية يعرض «الكل» منذ البداية، وتختار شهراً أو سنة أو فترة من زر صغير|التواريخ في اختيار الفترة بصيغة يوم/شهر/سنة';
 var APP_NEWS_195='مربعات الرئيسية الستة بطول واحد، وكل مربع يعرض تفاصيله كاملة|نافذة «تم التحديث» تعرض الجديد فقط، والإصدارات السابقة في «المزيد» ← «ما الجديد؟»';
-var APP_NEWS_194='أصبح مستطيل القاصة تحت الشريط العلوي بالكامل|مربع «أتعابي» يبيّن طريقة الحساب، مثل: 10% من المستلم|كل المربعات في الرئيسية تفتح تفاصيلها عند الضغط، ومنها صافيي وعهدة الموظفين|كلمة «القاصة» بدل «الصندوق» في كل التطبيق';
-var APP_NEWS_193='الرئيسية أوضح: القاصة في الأعلى، ثم ستة مربعات (المستلم من الزبائن، مصاريف الزبائن، أتعابي، مصاريف المكتب، صافيي، العهدة لدى الموظفين) تُفتح تفاصيلها عند الضغط|زر «✔ إنهاء المشروع»: يبيّن الرصيد الباقي قبل الإنهاء، وينقل المشروع إلى «المشاريع المنتهية» التي لا تُحسب ضمن حد الباقة، مع الكشف النهائي وزر «إعادة فتح»|دعوة المهندس أو المساعد برابط واتساب: يختار كلمة المرور بنفسه، وتحدد له المسمى والصلاحيات والمشاريع|كل نصوص التطبيق صارت بالفصحى|إصلاح تكرار نافذة «جديد في النظام» للمدير';
-var APP_NEWS_192='أصبحت شاشة «صافيي» أوضح: الصافي في الأعلى مع أتعابي والمصاريف، وتختار الشهر أو السنة أو أي فترة من زر صغير|مربع المصاريف بكل تفاصيلها، ومربع أتعابي يبيّن كيف احتُسبت الأتعاب من كل دفعة';
-var APP_NEWS_191='شاشة «صافيي»: أتعابك مطروحاً منها مصاريف المكتب، لشهر أو سنة أو أي فترة، وأين صرفت، وكشف أرباح للطباعة|الموظفون والعهدة: تحدد لكل موظف مشاريعه، وتعطيه مبلغاً وتشاهد كم صرف وأين وكم المتبقي لديه، مع كشف عهدة|يشاهد الموظف مشاريعه فقط، ويصرف على المشروع أو على المكتب، ويعدّل صرفه في اليوم نفسه فقط|أصبحت الأشهر أرقاماً في كل التطبيق';
+var APP_NEWS_194='أصبح مستطيل القاصة تحت الشريط العلوي بالكامل|مربع «أتعابي» يبيّن طريقة الحساب، مثل: 10% من المستلم|كل المربعات في الرئيسية تفتح تفاصيلها عند الضغط، ومنها صافي الأرباح وعهدة الموظفين|كلمة «القاصة» بدل «الصندوق» في كل التطبيق';
+var APP_NEWS_193='الرئيسية أوضح: القاصة في الأعلى، ثم ستة مربعات (المستلم من الزبائن، مصاريف الزبائن، أتعابي، مصاريف المكتب، صافي الأرباح، العهدة لدى الموظفين) تُفتح تفاصيلها عند الضغط|زر «✔ إنهاء المشروع»: يبيّن الرصيد الباقي قبل الإنهاء، وينقل المشروع إلى «المشاريع المنتهية» التي لا تُحسب ضمن حد الباقة، مع الكشف النهائي وزر «إعادة فتح»|دعوة المهندس أو المساعد برابط واتساب: يختار كلمة المرور بنفسه، وتحدد له المسمى والصلاحيات والمشاريع|كل نصوص التطبيق صارت بالفصحى|إصلاح تكرار نافذة «جديد في النظام» للمدير';
+var APP_NEWS_192='أصبحت شاشة «صافي الأرباح» أوضح: الصافي في الأعلى مع أتعابي والمصاريف، وتختار الشهر أو السنة أو أي فترة من زر صغير|مربع المصاريف بكل تفاصيلها، ومربع أتعابي يبيّن كيف احتُسبت الأتعاب من كل دفعة';
+var APP_NEWS_191='شاشة «صافي الأرباح»: أتعابك مطروحاً منها مصاريف المكتب، لشهر أو سنة أو أي فترة، وأين صرفت، وكشف أرباح للطباعة|الموظفون والعهدة: تحدد لكل موظف مشاريعه، وتعطيه مبلغاً وتشاهد كم صرف وأين وكم المتبقي لديه، مع كشف عهدة|يشاهد الموظف مشاريعه فقط، ويصرف على المشروع أو على المكتب، ويعدّل صرفه في اليوم نفسه فقط|أصبحت الأشهر أرقاماً في كل التطبيق';
 var APP_NEWS_190='تحسينات بالسرعة والثبات';
 var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة والمدة وتشوف المبلغ قبل ما ترسل الوصل|إشعار من الإدارة يظهر لك بأعلى التطبيق عند وجود خبر مهم|تحسينات بالسرعة والثبات';
 var APP_NEWS_188='أصبحت الطباعة ملف PDF بحجم A4 كامل وبدقة عالية، ترسله إلى الطابعة أو إلى أي شخص عبر الواتساب|الوصل: النسختان في ورقة واحدة، والختم والتوقيع مرتبان|لا يوجد قص في الحواف ولا ورقة زائدة في الطباعة';
 var APP_NEWS_186='اضغط على أي حركة في المشروع لتعديلها أو حذفها|الحذف يطلب تأكيداً، والمحذوف ينتقل إلى سلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً|أصبح حذف الزبون أو المشروع يطلب تأكيداً، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.9',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.10',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.9',d:'2026-11-22',n:APP_NEWS_199.split('|')},
  {v:'1.9.8',d:'2026-11-22',n:APP_NEWS_198.split('|')},
  {v:'1.9.7',d:'2026-11-22',n:APP_NEWS_197.split('|')},
  {v:'1.9.6',d:'2026-11-22',n:APP_NEWS_196.split('|')},
@@ -3049,9 +3060,9 @@ function npChip(){if(NP.k==='m')return NP.m===today().slice(0,7)?'هذا الش�
 
 VIEWS.net=()=>{if(AS||!CAN.admin)return VIEWS.home();const[a,b]=npRange();const R=netOf(a,b);const FR=feeRows(a,b);
   const multi=a.slice(0,7)!==b.slice(0,7);
-  return `<header class="top short"><div class="hdr"><div><h1>صافيي</h1><p>أتعابي − المصاريف</p></div><button class="back" aria-label="رجوع" onclick="go('reports')">→</button></div></header>
+  return `<header class="top short"><div class="hdr"><div><h1>صافي الأرباح</h1><p>أتعابي − المصاريف</p></div><button class="back" aria-label="رجوع" onclick="go('reports')">→</button></div></header>
   <div class="wrap" style="margin-top:14px">
-   <section class="card cash"><div class="nftop"><span class="lbl">صافيي</span><button class="nfchip" onclick="npSheet()"><span class="num">${esc(npChip())}</span> ▾</button></div>
+   <section class="card cash"><div class="nftop"><span class="lbl">صافي الأرباح</span><button class="nfchip" onclick="npSheet()"><span class="num">${esc(npChip())}</span> ▾</button></div>
     <div class="big"><span class="amt ${R.n<0?'neg':''}">${sfmt(R.n)}</span><small>د.ع</small></div>
     <div class="duo"><div class="mini"><span>أتعابي</span><b class="amt nfg">${fmt(R.f)}</b></div><div class="mini"><span>المصاريف</span><b class="amt nfr">${fmt(R.e)}</b></div></div>
    </section>
@@ -3136,7 +3147,7 @@ VIEWS.staff=(u)=>{if(AS||!CAN.admin)return VIEWS.home();const t=TEAM().find(x=>x
     <label class="nfchk"><input type="checkbox" id="pj-all" ${all?'checked':''} onchange="pjAll(this.checked)"><span><b>كل المشاريع</b><small>يشاهد كل مشاريع المكتب</small></span></label>
     <div id="pj-list" ${all?'hidden':''}>${ps.map(p=>`<label class="nfchk"><input type="checkbox" class="pj-c" value="${p.id}" ${!all&&t.projects.includes(p.id)?'checked':''}><span><b>${esc(cName(C(p.cid)||{}))}</b><small>${esc(p.name)}${p.done?' · منتهٍ':''}</small></span></label>`).join('')}</div>
     <button class="btn" onclick="pjSave('${u}')"><span class="ck">✓</span> حفظ المشاريع</button>
-    <p class="note" style="margin:0">يشاهد المشاريع المحددة فقط: حساباتها وصرفياتها وكشوفها. لا يشاهد أتعابك ولا «صافيي» ولا مصاريف المكتب، إلا ما صرفه هو.</p></section>
+    <p class="note" style="margin:0">يشاهد المشاريع المحددة فقط: حساباتها وصرفياتها وكشوفها. لا يشاهد أتعابك ولا «صافي الأرباح» ولا مصاريف المكتب، إلا ما صرفه هو.</p></section>
    ${MODE!=='cloud'?`<button class="btn ghost" onclick="enterAs('${u}')">👁️ شاهد التطبيق كما يراه ${esc(t.name)}</button>`:''}
   </div>`};
 function showCustody(u){const t=TEAM().find(x=>x.uid===u)||{name:tmName(u)};const c=custOf(u);let bal=0;
@@ -3174,7 +3185,7 @@ const _saveNF=save;save=function(){if(FULL){nfMerge();const cur=S;S=FULL;try{_sa
 /* ---- ربط الشاشات الموجودة ---- */
 const _homeNF=VIEWS.home;VIEWS.home=a=>{if(AS)return workerHome();let h=_homeNF(a);
   if(CAN.admin){const m=today().slice(0,7),R=netOf(m+'-01',m+'-31');
-    h=h.replace('<div class="sec"><h2>مشاريع زبائنك</h2>',`<button class="card nfmini" onclick="NP.k='m';NP.m='${m}';go('net')"><div><span>صافيي هذا الشهر</span><b class="amt ${R.n<0?'neg':''}">${sfmt(R.n)} <small>د.ع</small></b><small>أتعابي <span class="num">${fmt(R.f)}</span> − مصاريف المكتب <span class="num">${fmt(R.e)}</span></small></div><i>‹</i></button>
+    h=h.replace('<div class="sec"><h2>مشاريع زبائنك</h2>',`<button class="card nfmini" onclick="NP.k='m';NP.m='${m}';go('net')"><div><span>صافي الأرباح هذا الشهر</span><b class="amt ${R.n<0?'neg':''}">${sfmt(R.n)} <small>د.ع</small></b><small>أتعابي <span class="num">${fmt(R.f)}</span> − مصاريف المكتب <span class="num">${fmt(R.e)}</span></small></div><i>‹</i></button>
    <div class="sec"><h2>مشاريع زبائنك</h2>`)}
   return h};
 const _projNF=VIEWS.project;VIEWS.project=id=>{let h=_projNF(id);if(AS)h=h.replace(/<div><span>الأتعاب[\s\S]*?<\/b><\/div>/,'');return h};
@@ -3182,13 +3193,13 @@ const _clientsNF=VIEWS.clients;VIEWS.clients=()=>{let h=_clientsNF();if(AS)h=h.r
 const _repNF=VIEWS.reports;VIEWS.reports=()=>{let h=_repNF();
   if(AS)return h.replace(/<div class="sec"><h2>التقرير الشهري[\s\S]*?(?=<div class="sec"><h2>آخر الحركات)/,'');
   if(CAN.admin)h=h.replace('<div class="wrap" style="margin-top:14px">',`<div class="wrap" style="margin-top:14px">
-   <div class="sec"><h2>صافي أتعابي</h2></div>
-   <button class="card nfmini" onclick="go('net')"><div><span>كم ربحت بعد مصاريف المكتب؟</span><b>صافيي</b><small>لشهر، لسنة كاملة، أو لأي فترة تختارها</small></div><i>‹</i></button>`);
+   <div class="sec"><h2>صافي الأرباح</h2></div>
+   <button class="card nfmini" onclick="go('net')"><div><span>كم ربحت بعد مصاريف المكتب؟</span><b>صافي الأرباح</b><small>لشهر، لسنة كاملة، أو لأي فترة تختارها</small></div><i>‹</i></button>`);
   return h};
 const _moreNF=VIEWS.more;VIEWS.more=()=>{let h=_moreNF();
   const li=(on,ic,t,s)=>`<button class="li" onclick="${on}"><div class="ic">${ic}</div><div class="mid"><div class="t">${t}</div><div class="s">${s}</div></div></button>`;
   if(DEMO_AS)return h.replace('<div class="wrap menu" style="margin-top:14px">',`<div class="wrap menu" style="margin-top:14px"><div class="nfas"><span>👁️ هذا ما يراه ${esc(AS.name)}</span><button onclick="exitAs()">رجوع لحسابي</button></div>`);
-  if(!AS&&CAN.admin)h=h.replace('<div class="wrap menu" style="margin-top:14px">',`<div class="wrap menu" style="margin-top:14px"><div class="list">${li("go('net')",'💰','صافيي','أتعابي − مصاريف المكتب، لأي فترة')}${li("go('team')",'👷','الموظفون والعهدة','مشاريع كل موظف، وكم أعطيته وكم صرف')}</div>`);
+  if(!AS&&CAN.admin)h=h.replace('<div class="wrap menu" style="margin-top:14px">',`<div class="wrap menu" style="margin-top:14px"><div class="list">${li("go('net')",'💰','صافي الأرباح','أتعابي − مصاريف المكتب، لأي فترة')}${li("go('team')",'👷','الموظفون والعهدة','مشاريع كل موظف، وكم أعطيته وكم صرف')}</div>`);
   return h};
 const _renderNF=render;render=function(){_renderNF();
   if(MODE==='cloud'&&['team','staff'].includes(V.v)&&!TM_LOADED){TM_LOADED=true;loadMembers().then(()=>{if(['team','staff'].includes(V.v))render()})}};
@@ -3383,7 +3394,7 @@ function htTiles0(){const N=htNums();const am=(v,c)=>`<b class="amt ${c||''}">${
     ${t(3,"htShow('cust')",'عهدة الموظفين',am(N.cust),N.cn?`لدى <span class="num">${N.cn}</span> موظف · الرصيد الآن`:'الرصيد الآن')}
     ${t(4,"htShow('fee')",'أتعابي',am(N.R.f),htFeeHow(N.a,N.b))}
     ${t(5,"htShow('off')",'مصاريف المكتب',am(N.R.e,'r'),'تُخصم من الأتعاب')}
-    ${t(6,"htShow('net')",'صافيي',am(N.R.n,N.R.n<0?'neg':''),'أتعابي − مصاريف المكتب')}
+    ${t(6,"htShow('net')",'صافي الأرباح',am(N.R.n,N.R.n<0?'neg':''),'أتعابي − مصاريف المكتب')}
    </div>`}
 function htFeeHow(a,b){const rs=feeRows(a,b);if(!rs.length)return 'لا توجد أتعاب في هذه الفترة';const pr=rs.filter(r=>!r.fixed);const pcs=[...new Set(pr.map(r=>r.pc))];const fx=rs.some(r=>r.fixed);
   if(pcs.length===1&&!fx)return `<span class="num">${pcs[0]}%</span> من المستلم <span class="num">${fmt(pr.reduce((x,r)=>x+r.e.amt,0))}</span>`;
@@ -3394,17 +3405,17 @@ function htShow0(k){const N=htNums();const per=npChip();let h='';
   const lst=(rows,empty)=>`<div class="list">${rows||`<div class="empty" style="padding:18px;text-align:center;color:var(--mut)">${empty}</div>`}</div>`;
   if(k==='in')h=`<h3>المستلم من الزبائن</h3><p class="note">${per}</p>${box('المجموع',N.inn,'g')}${lst(N.ins.map(entryRow).join(''),'لا توجد مبالغ مستلمة في هذه الفترة')}`;
   else if(k==='out')h=`<h3>مصاريف الزبائن</h3><p class="note">${per} · المصاريف المسجّلة على المشاريع، وتظهر في كشف كل زبون</p>${box('المجموع',N.out,'r')}${lst(N.outs.map(entryRow).join(''),'لا توجد مصاريف في هذه الفترة')}`;
-  else if(k==='off')h=`<h3>مصاريف المكتب</h3><p class="note">${per} · تُخصم من أتعابك، ولا تظهر للزبون</p>${box('المجموع',N.R.e,'r')}${lst(N.R.ex.map(entryRow).join(''),'لا توجد مصاريف مكتب في هذه الفترة')}<button class="btn" style="margin-top:12px;width:100%" onclick="closeSheet();go('net')">عرض صافيي</button>`;
-  else if(k==='fee'){const FR=feeRows(N.a,N.b);h=`<h3>أتعابي</h3><p class="note">${per} · تُحسب من كل دفعة يستلمها المكتب من الزبون</p>${box('المجموع',N.R.f)}${lst(FR.map(r=>{const c=C(r.p.cid)||{};return `<button class="li" onclick="closeSheet();go('project','${r.p.id}')"><div class="dot in">٪</div><div class="mid"><div class="t">${esc(c.name||'')} · ${esc(r.p.name)}</div><div class="s"><span class="num">${r.e.date}</span> · ${r.fixed?'أتعاب مقطوعة':'<span class="num">'+r.pc+'%</span> من دفعة <span class="num">'+fmt(r.e.amt)+'</span>'}</div></div><b class="a amt">${fmt(r.f)}</b></button>`}).join(''),'لا توجد أتعاب في هذه الفترة')}<button class="btn" style="margin-top:12px;width:100%" onclick="closeSheet();go('net')">عرض صافيي</button>`}
-  else if(k==='net'){const R=N.R;h=`<h3>صافيي</h3><p class="note">${per} · ما يبقى لك من أتعابك بعد مصاريف المكتب</p>
+  else if(k==='off')h=`<h3>مصاريف المكتب</h3><p class="note">${per} · تُخصم من أتعابك، ولا تظهر للزبون</p>${box('المجموع',N.R.e,'r')}${lst(N.R.ex.map(entryRow).join(''),'لا توجد مصاريف مكتب في هذه الفترة')}<button class="btn" style="margin-top:12px;width:100%" onclick="closeSheet();go('net')">عرض صافي الأرباح</button>`;
+  else if(k==='fee'){const FR=feeRows(N.a,N.b);h=`<h3>أتعابي</h3><p class="note">${per} · تُحسب من كل دفعة يستلمها المكتب من الزبون</p>${box('المجموع',N.R.f)}${lst(FR.map(r=>{const c=C(r.p.cid)||{};return `<button class="li" onclick="closeSheet();go('project','${r.p.id}')"><div class="dot in">٪</div><div class="mid"><div class="t">${esc(c.name||'')} · ${esc(r.p.name)}</div><div class="s"><span class="num">${r.e.date}</span> · ${r.fixed?'أتعاب مقطوعة':'<span class="num">'+r.pc+'%</span> من دفعة <span class="num">'+fmt(r.e.amt)+'</span>'}</div></div><b class="a amt">${fmt(r.f)}</b></button>`}).join(''),'لا توجد أتعاب في هذه الفترة')}<button class="btn" style="margin-top:12px;width:100%" onclick="closeSheet();go('net')">عرض صافي الأرباح</button>`}
+  else if(k==='net'){const R=N.R;h=`<h3>صافي الأرباح</h3><p class="note">${per} · ما يبقى لك من أتعابك بعد مصاريف المكتب</p>
    <div class="list hteq"><button class="li" onclick="htShow('fee')"><div class="mid"><div class="t">أتعابي</div><div class="s">${htFeeHow(N.a,N.b)}</div></div><b class="a amt">${fmt(R.f)}</b><span class="li-more">‹</span></button>
    <button class="li" onclick="htShow('off')"><div class="mid"><div class="t">− مصاريف المكتب</div><div class="s"><span class="num">${R.ex.length}</span> مصروف</div></div><b class="a amt r">${fmt(R.e)}</b><span class="li-more">‹</span></button>
-   <div class="li tl"><div class="mid"><div class="t">= صافيي</div></div><b class="a amt ${R.n<0?'r':''}">${sfmt(R.n)}</b></div></div>
-   <button class="btn" style="margin-top:12px;width:100%" onclick="closeSheet();go('net')">عرض صافيي لأي فترة</button>`}
+   <div class="li tl"><div class="mid"><div class="t">= صافي الأرباح</div></div><b class="a amt ${R.n<0?'r':''}">${sfmt(R.n)}</b></div></div>
+   <button class="btn" style="margin-top:12px;width:100%" onclick="closeSheet();go('net')">عرض صافي الأرباح لأي فترة</button>`}
   else if(k==='cust'){if(MODE==='cloud'&&!MEMBERS.length&&!htShow.ld){htShow.ld=1;loadMembers().then(()=>htShow('cust'),()=>{})}
    const us=[...new Set(live(S.entries).filter(e=>e.cu).map(e=>e.cu))].map(u=>({u,c:custOf(u)})).filter(x=>x.c.L.length).sort((x,y)=>y.c.left-x.c.left);
    h=`<h3>عهدة الموظفين</h3><p class="note">المبالغ الموجودة الآن لدى الموظفين من أموال القاصة</p>${box('المجموع الآن',N.cust)}${lst(us.map(x=>`<button class="li" onclick="closeSheet();go('staff','${x.u}')"><div class="dot cg">${esc((tmName(x.u)||'?').trim()[0])}</div><div class="mid"><div class="t">${esc(tmName(x.u))}</div><div class="s">استلم <span class="num">${fmt(x.c.g+x.c.col)}</span> · صرف <span class="num">${fmt(x.c.sp)}</span>${x.c.r?' · أرجع <span class="num">'+fmt(x.c.r)+'</span>':''}</div></div><b class="a amt">${sfmt(x.c.left)}</b><span class="li-more">‹</span></button>`).join(''),'لا توجد عهدة لدى أي موظف')}
-   <button class="btn" style="margin-top:12px;width:100%" onclick="closeSheet();go('team')">الموظفون والعهدة</button>`}
+   <button class="btn" style="margin-top:12px;width:100%" onclick="closeSheet();go('team')">الموظفون</button>`}
   sheet(`<div class="htsh">${h}</div>`)}
 const _homeHT=VIEWS.home;VIEWS.home=a=>{let h=_homeHT(a);if(AS||!CAN.admin)return h;
   h=h.replace('<header class="top">','<header class="top hth">').replace('<div class="wrap pull">','<div class="wrap htw">').replace('<section class="card cash">','<section class="card cash htc">').replace(/<div class="duo"><div class="mini"><span>صرف هذا الشهر[\s\S]*?<\/div><\/div><\/section>/,'</section>');
@@ -3413,7 +3424,7 @@ const _homeHT=VIEWS.home;VIEWS.home=a=>{let h=_homeHT(a);if(AS||!CAN.admin)retur
   return h};
 adminBtn=function(){};
 
-/* فترة الرئيسية: الافتراضي «الكل»، مستقلة عن فترة شاشة صافيي */
+/* فترة الرئيسية: الافتراضي «الكل»، مستقلة عن فترة شاشة صافي الأرباح */
 const HP={k:'a',m:today().slice(0,7),y:+today().slice(0,4),from:today().slice(0,8)+'01',to:today()};
 function htWith(fn){const sv=Object.assign({},NP);Object.assign(NP,HP);try{return fn()}finally{Object.assign(NP,sv)}}
 const dmy=d=>{const p=String(d||'').split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:d};
@@ -3441,7 +3452,7 @@ const PV_INFO={
    f:['المشاريع والزبائن والقبض والصرف','الكشوف والوصولات باسم شركتك وختمها','إرسال الوصل والتذكير بالدفعة عبر الواتساب','صور الوصولات والنسخ الاحتياطي اليومي'],
    hook:'سجّل كل دينار تستلمه أو تصرفه، وأرسل الوصل والكشف لزبونك خلال ثوانٍ.'},
  'فريق':{t:'المهندس ومساعدوه',tag:'⭐ الأكثر اختياراً',lim:['👷 مهندس + 3 مساعدين','📁 20 مشروعاً نشطاً'],plus:'كل ما في باقة فرد، إضافةً إلى:',
-   f:['مساعدون بصلاحيات تحدّدها أنت','الموظفون والعهدة: ما أعطيته، وما صرفه، والباقي لديه','«صافيي»: أتعابك بعد مصاريف المكتب','التقرير الشهري','إضافة مهندس أو مساعد متى احتجت'],
+   f:['مساعدون بصلاحيات تحدّدها أنت','الموظفون والعهدة: ما أعطيته، وما صرفه، والباقي لديه','«صافي الأرباح»: أتعابك بعد مصاريف المكتب','التقرير الشهري','إضافة مهندس أو مساعد متى احتجت'],
    hook:'تابِع أين صُرف كل دينار سلّمته لموظفيك، واعرف صافي ربحك كل شهر.'},
  'مكتب':{t:'المكاتب والشركات',tag:'🏢 للمكاتب',lim:['👷 5 مهندسين + 10 مساعدين','📁 مشاريع غير محدودة'],plus:'كل ما في باقة فريق، إضافةً إلى:',
    f:['عدة مهندسين في حساب واحد','دعم فني بأولوية'],
@@ -3518,9 +3529,9 @@ function pvSolo(){return !IS_ADMIN&&!AS&&!!S.sub&&!!S.sub.paid&&S.sub.plan==='ف
 function pvLock(what){const I=PV_INFO['فريق'];sheet(`<h3>🔒 ${what}</h3><p class="note">هذه الميزة متاحة في باقة «فريق» فما فوق. باقتك الحالية «فرد» مخصّصة للمهندس وحده.</p>
   <div class="pv-lk"><b>باقة فريق تضيف لك:</b><ul>${I.lim.map(x=>x.replace(/^\S+ /,'')).concat(I.f).map(x=>`<li>${x}</li>`).join('')}</ul></div>
   <button class="btn y" onclick="closeSheet();PV.pl='فريق';subSheet();PV.pl='فريق';pvDraw()">عرض الباقات</button><button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)}
-const PV_LOCK={net:'صافيي',team:'الموظفون والعهدة',staff:'الموظفون والعهدة',members:'فريق العمل'};
+const PV_LOCK={net:'صافي الأرباح',team:'الموظفون',staff:'الموظفون',members:'الموظفون'};
 const _goPV=go;go=function(v,a){if(pvSolo()&&PV_LOCK[v])return pvLock(PV_LOCK[v]);return _goPV(v,a)};
-const _htShowPV=htShow;htShow=function(k){if(pvSolo()&&({cust:'عهدة الموظفين',off:'مصاريف المكتب',net:'صافيي'})[k])return pvLock(({cust:'عهدة الموظفين',off:'مصاريف المكتب',net:'صافيي'})[k]);return _htShowPV(k)};
+const _htShowPV=htShow;htShow=function(k){if(pvSolo()&&({cust:'عهدة الموظفين',off:'مصاريف المكتب',net:'صافي الأرباح'})[k])return pvLock(({cust:'عهدة الموظفين',off:'مصاريف المكتب',net:'صافي الأرباح'})[k]);return _htShowPV(k)};
 const _qStartPV=qStart;qStart=function(kind,pid){if(pvSolo()&&pid==='office')return pvLock('مصاريف المكتب');return _qStartPV(kind,pid)};
 const _showMonthlyPV=showMonthly;showMonthly=function(ym){if(pvSolo())return pvLock('التقرير الشهري');return _showMonthlyPV(ym)};
 /* علامة القفل على مربعات الرئيسية */
@@ -3840,6 +3851,95 @@ function fraRej(id){sheet(`<h3 style="color:var(--red)">✕ رفض الطلب</h
 function fraNote(id){const r=(FRA.list||[]).find(x=>x.id===id);if(!r)return;sheet(`<h3>✏️ ردّ للمشترك</h3>
    <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="fra-n">يظهر تحت الطلب في تطبيق المشترك</label><textarea id="fra-n" rows="3" style="border:0;background:none;width:100%;font:inherit;resize:vertical" placeholder="مثلاً: ستُضاف في التحديث القادم">${esc(r.admin_note||'')}</textarea></div></div>
    <button class="btn y" style="margin-top:14px" onclick="fraDo(${id},'${r.status}',$('#fra-n').value.trim())">حفظ</button><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
+
+/* ============ 1.9.10: المزيد بأقسام + «الموظفون» مكان واحد + الموظفون في الرئيسية ============ */
+/* «فريق العمل» و«الموظفون والعهدة» صارا شاشة واحدة «الموظفون» (view team).
+   الرئيسية: «مشاريع زبائنك» أول 3 (الأحدث حركة) ثم «الموظفون» أول 3، ولكلٍّ «عرض الكل». */
+let MS_BACK='more';
+{const _goMS=go;go=function(v,a){if(v==='members')v='team';
+  if(v==='team'&&V&&V.v!=='staff'&&V.v!=='team')MS_BACK=V.v==='home'?'home':'more';return _goMS(v,a)}}
+VIEWS.members=()=>VIEWS.team();
+{const _lmMS=loadMembers;loadMembers=async function(){const r=await _lmMS.apply(this,arguments);TM_LOADED=true;if(V&&['team','staff','home'].includes(V.v)&&!$('#layer').innerHTML)render();return r}}
+
+const msLast=pid=>{let d='';for(const e of live((FULL||S).entries)){if(e.pid!==pid)continue;const k=(e.date||'')+'|'+String(e.ts||0).padStart(14,'0');if(k>d)d=k}return d};
+const msStaffLast=u=>{const L=custOf(u).L;const e=L[L.length-1];return e?(e.date||'')+'|'+String(e.ts||0).padStart(14,'0'):''};
+const msMem=u=>(typeof MEMBERS!=='undefined'?MEMBERS:[]).find(m=>m.user_id===u);
+const msTitle=t=>{const m=MODE==='cloud'&&msMem(t.uid);return m?siTitleOf(m):(t.job||'')};
+function msStaffRow(t){const c=custOf(t.uid);const off=t.active===false;
+  return `<button class="li msst ${off?'off':''}" onclick="go('staff','${t.uid}')"><div class="ic">👷</div><div class="mid"><div class="t">${esc(t.name)}${msTitle(t)?' <span class="chip">'+esc(msTitle(t))+'</span>':''}</div>
+   <div class="s">${t.projects?'<span class="num">'+t.projects.length+'</span> '+(t.projects.length===1?'مشروع':'مشاريع'):'كل المشاريع'}${off?' · موقوف':''}</div></div>
+   <div class="nfleft"><b class="num ${c.left<0?'nfr':''}">${sfmt(c.left)}</b><span>${c.left<0?'له بذمة المكتب':'المتبقي لديه'}</span></div></button>`}
+const msAdd=()=>MODE==='cloud'?'memberSheet()':'tmAddSheet()';
+
+/* ---- الرئيسية ---- */
+{const _hMS=VIEWS.home;VIEWS.home=a=>{let h=_hMS(a);if(AS)return h;
+  const all=activeProjects();
+  if(all.length>3){const cards=all.map(prjCard).join('');const i=h.indexOf(cards);
+    if(i>=0){const top=all.map(p=>[p,msLast(p.id)]).sort((x,y)=>y[1].localeCompare(x[1])).slice(0,3).map(x=>x[0]);h=h.slice(0,i)+top.map(prjCard).join('')+h.slice(i+cards.length)}}
+  h=h.replace(`<div class="sec"><h2>مشاريع زبائنك</h2><button class="link" onclick="go('clients')">عرض الكل</button>`,`<div class="sec"><h2>مشاريع زبائنك</h2><button class="link" onclick="go('clients')">عرض الكل${all.length>3?' (<span class="num">'+all.length+'</span>)':''}</button>`);
+  if(!CAN.admin||(typeof pvSolo==='function'&&pvSolo()))return h;
+  if(MODE==='cloud'&&!TM_LOADED){TM_LOADED=true;loadMembers()}
+  const T=TEAM().filter(t=>t.active!==false||custOf(t.uid).left);
+  const top=T.map(t=>[t,msStaffLast(t.uid)]).sort((x,y)=>y[1].localeCompare(x[1])||x[0].name.localeCompare(y[0].name)).slice(0,3).map(x=>x[0]);
+  const sec=`<div class="stf-sec"><div class="sec"><h2>الموظفون</h2>${T.length?`<button class="link" onclick="go('team')">عرض الكل${T.length>3?' (<span class="num">'+T.length+'</span>)':''}</button>`:''}</div>
+   ${T.length?`<div class="list">${top.map(msStaffRow).join('')}</div>`:`<div class="card empty">${MODE==='cloud'&&!MEMBERS.length?'يرجى الانتظار…':'لا يوجد موظفون بعد.<br><br><button class="btn sm y" onclick="'+msAdd()+'">+ أضف موظفاً</button>'}</div>`}</div>`;
+  /* يوضع تحت مشاريع الزبائن (وبعد رابط المشاريع المنتهية) */
+  const top3=all.length>3?null:all;const shown=(top3||all.map(p=>[p,msLast(p.id)]).sort((x,y)=>y[1].localeCompare(x[1])).slice(0,3).map(x=>x[0])).map(prjCard).join('');
+  let j=shown?h.indexOf(shown):-1;
+  if(j>=0){j+=shown.length;const pl=pdLink();if(pl&&h.startsWith(pl,j))j+=pl.length;return h.slice(0,j)+sec+h.slice(j)}
+  const e=h.indexOf('<div class="card empty">لا توجد مشاريع بعد.');
+  if(e>=0){const k=h.indexOf('</div>',h.indexOf('</button>',e))+6;return h.slice(0,k)+sec+h.slice(k)}
+  const pl=pdLink();if(pl){const k=h.indexOf(pl);if(k>=0)return h.slice(0,k+pl.length)+sec+h.slice(k+pl.length)}
+  return h}}
+
+/* ---- شاشة «الموظفون» الموحّدة ---- */
+VIEWS.team=()=>{if(AS||!CAN.admin)return VIEWS.home();const T=TEAM();const cl=MODE==='cloud';
+  const sorted=T.slice().sort((x,y)=>(x.active===false)-(y.active===false)||msStaffLast(y.uid).localeCompare(msStaffLast(x.uid))||x.name.localeCompare(y.name));
+  return `<header class="top short"><div class="hdr"><div><h1>الموظفون</h1><p ${cl?'id="seatinfo"':''}>${cl?esc(seatInfo()):'<span class="num">'+T.length+'</span> موظف'}</p></div><button class="back" aria-label="رجوع" onclick="go('${MS_BACK}')">→</button></div></header>
+  <div class="wrap" style="margin-top:14px">
+   <div class="hint">اضغط على الموظف لتشاهد <b>المبلغ الذي استلمه</b>، و<b>أين صرفه</b>، والمتبقي لديه، ومشاريعه وصلاحياته.</div>
+   <button class="btn y" onclick="${msAdd()}">+ ${cl?'دعوة موظف جديد':'موظف جديد'}</button>
+   ${cl?`<div id="invlist">${inviteRows()}</div>`:''}
+   <div class="sec"><h2>موظفو المكتب</h2>${T.length?'<span class="num">'+T.length+'</span>':''}</div>
+   <div class="list">${sorted.map(msStaffRow).join('')||`<div class="empty">${cl&&!TM_LOADED?'يرجى الانتظار…':'لا يوجد موظفون بعد'}</div>`}</div>
+   ${cl?'<p class="note" style="text-align:center">يدخل كل موظف عبر رابط الدعوة الذي يصله بالواتساب، ويمكنك تغيير مسمّاه وصلاحياته من صفحته في أي وقت.</p>':''}
+  </div>`};
+
+/* ---- صفحة الموظف: الحساب والصلاحيات (كانت في «فريق العمل») ---- */
+{const _sMS=VIEWS.staff;VIEWS.staff=u=>{let h=_sMS(u);if(AS||!CAN.admin||MODE!=='cloud')return h;const m=msMem(u);if(!m)return h;
+  const box=`<section class="card msacc"><div class="nfh">الحساب والصلاحيات</div>
+    <div class="msrow"><span>المسمى</span><b><span class="chip">${esc(siTitleOf(m))}</span></b></div>
+    <div class="msrow"><span>رقم الدخول</span><b class="num">${esc(m.phone||'—')}</b></div>
+    <div class="msrow"><span>الحالة</span><b>${m.active?'<span class="msok">فعّال</span>':'<span class="msoff">موقوف</span>'}</b></div>
+    <p class="note" style="margin:8px 0 10px">${esc(siSummary(m))}</p>
+    <button class="btn ghost" onclick="memberSheet('${u}')">✏️ تعديل المسمى والصلاحيات</button></section>`;
+  return h.replace('<div class="sec"><h2>أين صرف</h2>',box+'<div class="sec"><h2>أين صرف</h2>')}}
+
+/* ---- المزيد: أقسام مرتبة، بلا سطر صاحب الحساب ---- */
+const MS_GROUPS=[
+ ['العمل',['المشاريع المنتهية','الموظفون','صافي الأرباح']],
+ ['الشركة والاشتراك',['هوية الشركة','الاشتراك','اطلب ميزة جديدة']],
+ ['البيانات والحماية',['النسخ الاحتياطي','سلة المحذوفات','القفل بالبصمة / Face ID']],
+ ['التطبيق',['كيف أثبّت التطبيق','لوحة إدارة أسس']]];
+{const _mMS=VIEWS.more;VIEWS.more=a=>{let h=_mMS(a);if(DEMO_AS)return h;
+  try{const T=document.createElement('template');T.innerHTML=h;const w=T.content.querySelector('.wrap.menu');if(!w)return h;
+    const lists=[...w.children].filter(x=>x.classList.contains('list'));if(!lists.length)return h;
+    const rows=[];for(const l of lists)for(const r of [...l.children]){if(!r.classList.contains('li'))continue;
+      const t=(r.querySelector('.t')||{}).textContent||'';
+      if(r.tagName!=='BUTTON'&&/صاحب الحساب|مهندس|مساعد|مشاهدة فقط/.test(r.textContent))continue; /* سطر الاسم: بلا وظيفة */
+      if(t.trim()==='المهندسون المساعدون')continue;
+      rows.push({t:t.trim(),el:r})}
+    /* «فريق العمل» يُدمج في «الموظفون» */
+    for(const r of rows)if(r.t==='الموظفون والعهدة'||r.t==='فريق العمل'){r.t='الموظفون';r.el.setAttribute('onclick',"go('team')");r.el.querySelector('.t').textContent='الموظفون';r.el.querySelector('.ic').textContent='👷';r.el.querySelector('.s').textContent='ما استلمه كل موظف وأين صرفه، ومشاريعه وصلاحياته'}
+    const seen=new Set();const uniq=rows.filter(r=>{if(r.t==='الموظفون'){if(seen.has(r.t))return false;seen.add(r.t)}return true});
+    const top=uniq.filter(r=>r.el.classList.contains('hl')&&/أنشئ حساباً/.test(r.t));
+    const used=new Set(top);let out='';
+    for(const [g,names] of MS_GROUPS){const L=names.map(n=>uniq.find(r=>r.t===n&&!used.has(r))).filter(Boolean);
+      if(g==='التطبيق')for(const r of uniq)if(!used.has(r)&&!L.includes(r)&&!MS_GROUPS.some(x=>x[1].includes(r.t)))L.push(r);
+      L.forEach(r=>used.add(r));if(L.length)out+=`<div class="msg-h">${g}</div><div class="list">${L.map(r=>r.el.outerHTML).join('')}</div>`}
+    const first=lists[0];const box=document.createElement('div');box.innerHTML=(top.length?`<div class="list">${top.map(r=>r.el.outerHTML).join('')}</div>`:'')+out;
+    w.insertBefore(box,first);for(const l of lists)l.remove();box.replaceWith(...box.childNodes);
+    return T.innerHTML}catch(e){console.error(e);return h}}}
 
 boot();
 </script>
