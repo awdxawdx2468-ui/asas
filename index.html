@@ -823,6 +823,83 @@ details.stopt summary{cursor:pointer;list-style:none}details.stopt summary::-web
 .pv-pr .pc i{font-style:normal;font-size:11.5px;font-weight:800;color:var(--green)}
 .pv-ad .pv-ad-d{display:block;font-size:12.5px;color:var(--mut);font-weight:700;margin-top:2px;line-height:1.5}
 
+/* جرس المالك + طلبات التعديل والحذف */
+.ab-ib{position:relative}
+.ab-n{position:absolute;top:-4px;left:-4px;min-width:19px;height:19px;padding:0 5px;border-radius:10px;background:var(--red);color:#fff;font-size:11.5px;font-weight:800;line-height:19px;text-align:center;box-shadow:0 0 0 2px var(--navy)}
+.sheet.ab-sh{max-height:88vh;display:flex;flex-direction:column}
+#ab-bell{display:flex;flex-direction:column;min-height:0;flex:1}
+#ab-bell h3{margin:0 0 2px}
+#ab-bell .sb{flex:none;margin:0 0 10px;font-size:12.5px;color:var(--mut);line-height:1.6}
+.ab-tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none;flex:none}
+.ab-tabs::-webkit-scrollbar{display:none}
+.ab-tabs button{flex:none;border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:20px;padding:7px 12px;font-size:13px;font-weight:700;font-family:inherit;line-height:1.4;white-space:nowrap;height:auto}
+.ab-tabs button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.ab-tabs button b{display:inline-block;min-width:18px;padding:0 5px;border-radius:9px;background:var(--red);color:#fff;font-size:11px;line-height:18px;margin-right:3px}
+.ab-l{overflow-y:auto;min-height:0;flex:1;margin:0 -2px 10px;padding:0 2px}
+.ab-s{margin:12px 2px 6px;font-size:13px;color:var(--mut);font-weight:800}
+.ab-it{background:#fff;border:1px solid var(--line);border-radius:14px;padding:11px 12px;margin-bottom:8px}
+.ab-it.rq{border-color:#F2C94C;background:#FFFBEB}
+.ab-it.nw{box-shadow:inset -3px 0 0 var(--yel)}
+.ab-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.ab-h b{font-size:14.5px}
+.ab-h span{font-size:12px;color:var(--mut);white-space:nowrap}
+.ab-t{font-size:13.5px;font-weight:700;margin:3px 0 6px}
+.ab-t.r{color:var(--red)}
+.ab-e{display:flex;flex-direction:column;gap:1px;background:var(--soft);border-radius:10px;padding:7px 10px;font-size:12.5px;color:var(--mut)}
+.ab-e b{font-size:15px}
+.ab-df{margin-top:7px;display:flex;flex-direction:column;gap:5px}
+.ab-df div{display:grid;grid-template-columns:auto 1fr auto 1fr;align-items:center;gap:6px;font-size:13px}
+.ab-df span{color:var(--mut);font-size:12px;min-width:62px}
+.ab-df s{color:var(--red);background:var(--redbg);border-radius:7px;padding:3px 7px;text-decoration:line-through;text-align:center;overflow-wrap:anywhere}
+.ab-df b{color:var(--green);background:var(--greenbg);border-radius:7px;padding:3px 7px;text-align:center;overflow-wrap:anywhere}
+.ab-df i{font-style:normal;color:var(--mut)}
+.ab-w{margin-top:6px;font-size:12.5px;color:var(--mut);line-height:1.6}
+.ab-b{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.ab-b button{border:0;border-radius:11px;padding:10px;font:800 14px inherit;font-family:inherit}
+.ab-b .ok{background:var(--green);color:#fff}
+.ab-b .no{background:#fff;color:var(--red);border:1px solid #F5C9C9}
+.ab-b .no.g{color:var(--navy);border-color:var(--line)}
+.ab-wait{background:#FFFBEB;border:1px solid #F2C94C;border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.7;margin:0 0 10px}
+.ab-wait .link,.ab-note .link{background:none;border:0;color:var(--navy);font:800 13px inherit;font-family:inherit;text-decoration:underline;padding:0}
+.ab-note{background:#FFFBEB;border:1px solid #F2C94C;border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.7;margin-bottom:12px}
+.ab-chip{display:inline-block;background:#FFF1C2;color:#8A6100;border-radius:6px;padding:0 6px;font-size:11.5px;font-weight:700}
+.ab-st{flex:none;font-size:11.5px;font-weight:800;border-radius:8px;padding:3px 7px;white-space:nowrap}
+.ab-st.w{background:#FFF1C2;color:#8A6100}.ab-st.ok{background:var(--greenbg);color:var(--green)}.ab-st.no{background:var(--redbg);color:var(--red)}
+.lockn.ab-ok{color:var(--green)}
+.ab-pg .ab-it{box-shadow:none}
+
+/* صور الوصولات في الكشف */
+.rp-th{text-align:center!important;width:74px}
+.rp-td{text-align:center!important;padding-top:2px!important;padding-bottom:2px!important}
+.rp-m{display:inline-flex;align-items:center;justify-content:center;gap:3px;width:68px;box-sizing:border-box;padding:1px 4px;border:1.5px solid #E0A200;border-radius:7px;background:#FFF1C2;color:#6B4A00;font-size:.9em;font-weight:800;text-decoration:none;cursor:pointer;white-space:nowrap;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.rp-no{color:#9aa6b8}
+.rp-leg{margin:4px 0 8px;padding:5px 9px;border-radius:6px;background:#FFF8E1;border:1px dashed #E0A200;font-size:10.5px;color:#5a4a20;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.rp-ph{border:1px solid #D8DFEA;border-radius:8px;padding:8px;margin:0 0 10px;break-inside:avoid;text-align:center}
+.rp-ph img{display:block;margin:6px auto 0;width:100%;height:88mm;object-fit:contain;border-radius:4px}
+.rp-c{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;justify-content:flex-start;font-size:11px;color:#3b4a63;text-align:right}
+.rp-n{display:inline-block;min-width:22px;height:22px;line-height:22px;border-radius:11px;background:#14294A;color:#fff;text-align:center;font-size:12px}
+#rp-lb{position:fixed;inset:0;z-index:2147483600;background:rgba(8,16,32,.82);display:flex;align-items:center;justify-content:center;padding:14px;direction:rtl}
+#rp-lb .rp-bx{background:#fff;border-radius:16px;width:100%;max-width:560px;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;font-family:Tajawal,system-ui,sans-serif;color:#14294A}
+#rp-lb .rp-top{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid #E3E8F0}
+#rp-lb .rp-top b{font-size:15px}
+#rp-lb .rp-top button{border:0;background:#F3F6FB;border-radius:10px;width:36px;height:36px;font-size:16px;color:#14294A}
+#rp-lb .rp-cap{padding:8px 14px 0}
+#rp-lb .rp-cap .rp-c{font-size:13px}
+#rp-lb img{display:block;margin:8px auto;max-width:calc(100% - 20px);max-height:62vh;object-fit:contain;border-radius:8px}
+#rp-lb .rp-nav{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 14px 12px}
+#rp-lb .rp-nav button{border:1px solid #D8DFEA;background:#fff;border-radius:11px;padding:10px;font:700 14px Tajawal,system-ui,sans-serif;color:#14294A}
+#rp-lb .rp-nav button:disabled{opacity:.4}
+
+.rp-snd{display:flex;flex-direction:column;gap:8px;margin:4px 0 14px}
+.rp-snd>div{display:flex;gap:10px;align-items:center;background:var(--soft);border-radius:12px;padding:10px 12px}
+.rp-snd>div.off{opacity:.55}
+.rp-snd i{font-style:normal;font-size:22px}
+.rp-snd b{display:block;font-size:14.5px}.rp-snd span{font-size:12.5px;color:var(--mut)}
+#rp-wa{background:#E5DDD5;border-radius:14px;padding:12px;margin:0 0 12px;max-height:56vh;overflow:auto}
+#rp-wa .bub{background:#DCF8C6;border-radius:10px;padding:8px 10px;font-size:13.5px;line-height:1.7;white-space:pre-wrap;color:#111;margin-inline-start:24px}
+#rp-wa .pdf{display:flex;gap:8px;align-items:center;background:#fff;border-radius:8px;padding:8px;margin-bottom:6px;font-size:13px}
+#rp-wa a{color:#0b6bcb;text-decoration:underline;word-break:break-all}
+
 </style>
 
 <div id="app"></div>
@@ -1748,9 +1825,10 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.7',APP_T='2026-11-22 04:00';
+var APP_V='1.9.8',APP_T='2026-11-22 12:50';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='شاشة الاشتراك الجديدة: الباقات بالتفصيل، والدفع في الأسفل|مدد الاشتراك: شهر، أو 6 أشهر، أو سنة بسعر أوفر|باقة مكتب: إضافة مهندسين ومساعدين عند الحاجة';
+var APP_NEWS='جرس الإشعارات للمهندس المالك: طلبات التعديل والحذف، وما عدّله الفريق قبل وبعد، والعهد، والزبائن الذين يستحقون مطالبة بدفعة|المساعد يرسل طلب تعديل أو حذف، والمهندس الموظف يصحّح حركته خلال 24 ساعة، وبعدها بطلب يوافق عليه المهندس المسؤول|عمود «صورة الوصل» في كشف الزبون: يضغط الزبون «🧾 عرض» ليشاهد الوصل|إرسال الكشف بالواتساب: ملف PDF مع رابط لمشاهدة صور الوصولات';
+var APP_NEWS_197='شاشة الاشتراك الجديدة: الباقات بالتفصيل، والدفع في الأسفل|مدد الاشتراك: شهر، أو 6 أشهر، أو سنة بسعر أوفر|باقة مكتب: إضافة مهندسين ومساعدين عند الحاجة';
 var APP_NEWS_196='زر «صرفت مبلغ» أصبح على اليمين و«استلمت مبلغ» على اليسار، في الرئيسية وصفحة المشروع|ملخص الرئيسية يعرض «الكل» منذ البداية، وتختار شهراً أو سنة أو فترة من زر صغير|التواريخ في اختيار الفترة بصيغة يوم/شهر/سنة';
 var APP_NEWS_195='مربعات الرئيسية الستة بطول واحد، وكل مربع يعرض تفاصيله كاملة|نافذة «تم التحديث» تعرض الجديد فقط، والإصدارات السابقة في «المزيد» ← «ما الجديد؟»';
 var APP_NEWS_194='أصبح مستطيل القاصة تحت الشريط العلوي بالكامل|مربع «أتعابي» يبيّن طريقة الحساب، مثل: 10% من المستلم|كل المربعات في الرئيسية تفتح تفاصيلها عند الضغط، ومنها صافيي وعهدة الموظفين|كلمة «القاصة» بدل «الصندوق» في كل التطبيق';
@@ -1762,7 +1840,8 @@ var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة 
 var APP_NEWS_188='أصبحت الطباعة ملف PDF بحجم A4 كامل وبدقة عالية، ترسله إلى الطابعة أو إلى أي شخص عبر الواتساب|الوصل: النسختان في ورقة واحدة، والختم والتوقيع مرتبان|لا يوجد قص في الحواف ولا ورقة زائدة في الطباعة';
 var APP_NEWS_186='اضغط على أي حركة في المشروع لتعديلها أو حذفها|الحذف يطلب تأكيداً، والمحذوف ينتقل إلى سلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً|أصبح حذف الزبون أو المشروع يطلب تأكيداً، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.7',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.8',d:'2026-11-22',n:APP_NEWS.split('|')},
+ {v:'1.9.7',d:'2026-11-22',n:APP_NEWS_197.split('|')},
  {v:'1.9.6',d:'2026-11-22',n:APP_NEWS_196.split('|')},
  {v:'1.9.5',d:'2026-11-22',n:APP_NEWS_195.split('|')},
  {v:'1.9.4',d:'2026-11-22',n:APP_NEWS_194.split('|')},
@@ -3424,6 +3503,237 @@ const _showMonthlyPV=showMonthly;showMonthly=function(ym){if(pvSolo())return pvL
 /* علامة القفل على مربعات الرئيسية */
 const _homePV=VIEWS.home;VIEWS.home=a=>{let h=_homePV(a);if(!pvSolo())return h;
   for(const k of ['cust','off','net'])h=h.replace(new RegExp(`(onclick="htShow\\('${k}'\\)"><i>‹</i><span class="l">)`),'$1🔒 ');return h};
+
+/* ============ جرس المالك + طلبات التعديل والحذف (1.9.8) ============ */
+/* القواعد:
+   - المساعد لا يعدّل ولا يحذف مباشرة، بل يرسل «طلب تعديل/حذف» للمالك.
+   - المهندس الموظف يصحّح حركته هو خلال 24 ساعة من تسجيلها (ويصل للمالك إشعار قبل ← بعد)، وبعدها يصبح التعديل/الحذف طلباً.
+   - المالك يعدّل ويحذف بحرية، والمحذوف يبقى في السلة 30 يوماً.
+   الطلب يُحفظ داخل الحركة نفسها: e.rq={t:'e'|'d',u,by,ts,nw,why,st:''|'ok'|'no',dt,db,nr}
+   تعديل الموظف المباشر يُعلَّم في السجل: log[i].u = رقم الموظف، و ts. الحذف: del.u و del.ts */
+const AB_H=864e5;
+const AB_FN=Object.assign({},FIELDN,{mat:'المادة',qty:'الكمية',unit:'الوحدة',note:'الملاحظة',att:'صورة الوصل'});
+function STF(){if(DEMO_AS){const t=TEAM().find(x=>x.uid===DEMO_AS.uid)||{};return{uid:DEMO_AS.uid,name:DEMO_AS.name,eng:/مهندس/.test(t.job||'')}}
+  if(MODE==='cloud'&&ME&&ME.role!=='owner')return{uid:ME.uid,name:ME.name,eng:!!ME.eng};return null}
+function abOwner(){if(MODE==='cloud'){const m=MEMBERS.find(x=>x.role==='owner');return m?m.name:(ME&&ME.role==='owner'?ME.name:'')}return (FULL||S).me}
+function abMine(e,s){return e.cu===s.uid||(!e.cu&&e.by===s.name)}
+function abWhy(e){const s=STF();if(!s||!e)return '';if(e.kind==='cg'||e.kind==='cr')return 'حركات العهدة يسجّلها المهندس المسؤول فقط';
+  if(!s.eng)return 'التعديل والحذف يتمّان بطلب يوافق عليه المهندس المسؤول';
+  if(!abMine(e,s))return 'سجّل هذه الحركة شخص آخر، فالتعديل والحذف بطلب يوافق عليه المهندس المسؤول';
+  return 'مضت أكثر من 24 ساعة على تسجيل الحركة، فالتعديل والحذف بطلب يوافق عليه المهندس المسؤول'}
+function abDirect(e){const s=STF();if(!s||!e)return true;if(e.kind==='cg'||e.kind==='cr')return false;return s.eng&&abMine(e,s)&&Date.now()-(e.ts||0)<AB_H}
+canEditE=function(e){return abDirect(e)};
+const abPend=e=>e&&e.rq&&!e.rq.st;
+const ab2=n=>String(n).padStart(2,'0');
+function abDT(ts){const d=new Date(ts);if(isNaN(d))return '';return ab2(d.getDate())+'/'+ab2(d.getMonth()+1)+'/'+d.getFullYear()+' '+ab2(d.getHours())+':'+ab2(d.getMinutes())}
+function abD(s){const m=String(s||'').match(/^(\d{4})-(\d\d)-(\d\d)/);return m?m[3]+'/'+m[2]+'/'+m[1]:String(s||'')}
+function abV(k,v){if(k==='amt')return fmt(v);if(k==='cat')return CATN[v]||'—';if(k==='pid')return v==='office'?'المكتب':((P(v)||{}).name||'—');if(k==='kind')return v==='in'?'مقبوض':'مصروف';if(k==='date')return abD(v);if(k==='att')return v?'📎 صورة':'بلا صورة';return (v===undefined||v===null||v==='')?'—':String(v)}
+function abDiff(old,nw){const out=[];for(const k of Object.keys(AB_FN)){if(!(k in nw))continue;const a=old[k]??'',b=nw[k]??'';if(String(a)!==String(b))out.push({k,n:AB_FN[k],a:abV(k,a),b:abV(k,b)})}return out}
+function abDiffHtml(L){return `<div class="ab-df">${L.map(x=>`<div><span>${esc(x.n)}</span><s class="num">${esc(x.a)}</s><i>←</i><b class="num">${esc(x.b)}</b></div>`).join('')}</div>`}
+function abLogDiff(ch){return String(ch||'').split(' · ').map(p=>{const m=p.match(/^([^:]+):\s*(.*?)\s*←\s*(.*)$/);return m?{n:m[1],a:m[2],b:m[3]}:{n:'',a:'',b:p}})}
+function abWhere(e){const p=P(e.pid),c=p&&C(p.cid);return e.pid==='office'?'🏢 المكتب':(p?esc(cName(c||{}))+' · '+esc(p.name):'—')}
+function abSum(e){const isIn=e.kind==='in';return `<div class="ab-e"><b class="amt ${isIn?'pos':'neg'}">${isIn?'+':'−'}${fmt(e.amt)} <small>د.ع</small></b><span>${esc(e.det||(isIn?'دفعة':'—'))} · <span class="num">${abD(e.date)}</span>${e.no?' · <span class="num">'+esc(e.no)+'</span>':''}</span><span>${abWhere(e)}</span></div>`}
+
+/* ---- قائمة الحركة (⋮) ---- */
+entMenu=function(id){const e=S.entries.find(x=>x.id===id);if(!e)return;const p=P(e.pid),isIn=e.kind==='in',c=p&&C(p.cid);const s=STF();const dir=abDirect(e),done=p&&p.done;
+  const open=`closeSheet();go('entry',{id:'${id}',pid:'${e.pid}'})`;const pend=abPend(e);
+  let btns='';
+  if(pend&&s){btns=`<div class="ab-wait">⏳ أرسلت طلب ${e.rq.t==='d'?'حذف':'تعديل'} بتاريخ <span class="num">${abDT(e.rq.ts)}</span>، وهو بانتظار موافقة المهندس المسؤول.</div>
+    <button onclick="${open}"><i>👁️</i><div><b>عرض التفاصيل</b></div></button>
+    <button class="dl" onclick="abCancel('${id}')"><i>↩</i><div><b>إلغاء الطلب</b></div></button>`}
+  else{
+   if(CAN.edit&&!done&&dir)btns+=`<button onclick="${open}"><i>✏️</i><div><b>تعديل</b><span>${s?'يصل للمهندس المسؤول إشعار بما تغيّر':'المبلغ، التاريخ، البيان، البند، الصورة…'}</span></div></button>`;
+   else btns+=`<button onclick="${open}"><i>👁️</i><div><b>عرض التفاصيل</b>${done?'<span>المشروع منتهٍ، أعد فتحه للتعديل</span>':''}</div></button>`;
+   if(s&&CAN.edit&&!done&&!dir&&e.kind!=='cg'&&e.kind!=='cr')btns+=`<button onclick="closeSheet();abReqEdit('${id}')"><i>📝</i><div><b>طلب تعديل</b><span>عدّل الحقول، ويُرسل التعديل للمهندس المسؤول للموافقة</span></div></button>`;
+   if(isIn&&c)btns+=`<button onclick="closeSheet();rcptSheet('${id}')"><i>🧾</i><div><b>الوصل</b><span>عرض، طباعة، إرسال بالواتساب</span></div></button>`;
+   if(!done&&!s&&CAN.del)btns+=`<button class="dl" onclick="entDelAsk('${id}')"><i>🗑️</i><div><b>حذف</b><span>ينتقل لسلة المحذوفات ويمكن استرجاعه خلال 30 يوماً</span></div></button>`;
+   if(!done&&s&&CAN.edit&&e.kind!=='cg'&&e.kind!=='cr'){if(dir&&CAN.del)btns+=`<button class="dl" onclick="entDelAsk('${id}')"><i>🗑️</i><div><b>حذف</b><span>ينتقل للسلة ويصل للمهندس المسؤول إشعار بالحذف</span></div></button>`;
+     else btns+=`<button class="dl" onclick="closeSheet();abReqDel('${id}')"><i>🗑️</i><div><b>طلب حذف</b><span>يُرسل للمهندس المسؤول للموافقة</span></div></button>`}}
+  const own=!s&&pend?`<div class="ab-wait">⏳ ${esc(e.rq.by)} طلب ${e.rq.t==='d'?'حذف':'تعديل'} هذه الحركة. <button class="link" onclick="closeSheet();bellOpen('rq')">عرض الطلب</button></div>`:'';
+  sheet(`<div class="emh"><div class="dot ${e.kind}">${isIn?'↓':'↑'}</div><div class="mid"><b class="amt ${isIn?'pos':'neg'}">${isIn?'+':'−'}${fmt(e.amt)} <small>د.ع</small></b>
+   <span>${esc(e.det||(isIn?'دفعة':'—'))} · <span class="num">${e.date}</span>${e.no?' · <span class="num">'+esc(e.no)+'</span>':''}</span>${c?'<span>'+esc(c.name)+' · '+esc(p.name)+'</span>':e.pid==='office'?'<span>🏢 المكتب</span>':''}${s&&!dir&&!pend?'<span class="lockn">🔒 '+abWhy(e)+'</span>':''}${s&&dir&&!pend?'<span class="lockn ab-ok">✏️ يمكنك تصحيحها خلال 24 ساعة من تسجيلها</span>':''}</div></div>
+  ${own}<div class="emenu">${btns}</div><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)};
+
+/* ---- طلب التعديل: نفس شاشة التعديل، والحفظ يرسل طلباً ---- */
+let AB_RQ=null;
+function abReqEdit(id){AB_RQ=id;F=null;go('entry',{id,pid:(S.entries.find(x=>x.id===id)||{}).pid})}
+{const _vE=VIEWS.entry;VIEWS.entry=a=>{let h=_vE(a);if(F&&F.id&&STF()&&!abDirect(S.entries.find(x=>x.id===F.id))){
+   if(AB_RQ===F.id)h=h.replace(/<h1>تعديل مبلغ [^<]*<\/h1><p>[^<]*<\/p>/,'<h1>طلب تعديل</h1><p>يُرسل للمهندس المسؤول للموافقة</p>').replace(/(<div class="wrap[^"]*"[^>]*>)/,'$1<div class="ab-note">📝 عدّل ما تريد ثم اضغط «إرسال الطلب». لن يتغيّر شيء حتى يوافق المهندس المسؤول.</div>').replace('<span class="ck">✓</span> حفظ المبلغ','📤 إرسال الطلب');
+   else h=h.replace(/(<div class="wrap[^"]*"[^>]*>)/,`$1<div class="ab-note">🔒 ${abWhy(S.entries.find(x=>x.id===F.id))}. <button class="link" onclick="abReqEdit('${F.id}');render()">طلب تعديل</button></div>`)}
+  return h}}
+{const _eS=entrySave;entrySave=function(){const s=STF();const old=F&&F.id&&S.entries.find(x=>x.id===F.id);
+  if(s&&old&&!abDirect(old)){if(!F.quick)readF();if(AB_RQ!==F.id)return toast(abWhy(old));
+    if(!F.amt)return toast('اكتب المبلغ');if(!okDate(F.date))return toast('اختر التاريخ');if(F.date>today())return toast('لا يمكن اختيار تاريخ بعد اليوم');
+    const nw={};for(const k of Object.keys(AB_FN))if(k in F&&String(old[k]??'')!==String(F[k]??''))nw[k]=F[k];
+    if(!Object.keys(nw).length)return toast('لم تغيّر شيئاً');
+    return abWhySheet('تعديل',r=>{old.rq={t:'e',u:s.uid,by:s.name,ts:Date.now(),nw,why:r,st:''};AB_RQ=null;const pid=old.pid;F=null;save();toast('أُرسل الطلب إلى المهندس المسؤول ✓');pid==='office'?go('home'):go('project',pid)})}
+  const id=F&&F.id;const r=_eS.apply(this,arguments);
+  if(s&&id){const i=S.entries.findIndex(x=>x.id===id);const e=S.entries[i];const l=e&&e.log&&e.log[e.log.length-1];
+    if(l&&!l.u&&l.by===s.name){l.u=s.uid;l.ts=Date.now();if(FULL){const j=FULL.entries.findIndex(x=>x.id===id);if(j>=0)FULL.entries[j]=e}save()}}
+  return r}}
+function abWhySheet(t,cb){window._abCb=cb;sheet(`<h3>طلب ${t}</h3><p class="note">يصل الطلب للمهندس المسؤول، ويُنفَّذ بعد موافقته.</p>
+  <div class="fld"><div class="bx"><label for="ab-why">السبب (اختياري)</label><input id="ab-why" placeholder="مثلاً: المبلغ الصحيح حسب الوصل"></div></div>
+  <button class="btn" onclick="const r=$('#ab-why').value.trim();closeSheet();_abCb(r)">📤 إرسال الطلب</button><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
+function abReqDel(id){const e=S.entries.find(x=>x.id===id);const s=STF();if(!e||!s)return;
+  abWhySheet('حذف',r=>{e.rq={t:'d',u:s.uid,by:s.name,ts:Date.now(),why:r,st:''};save();render();toast('أُرسل طلب الحذف إلى المهندس المسؤول ✓')})}
+function abCancel(id){const e=S.entries.find(x=>x.id===id);if(!e||!abPend(e))return;delete e.rq;save();closeSheet();render();toast('أُلغي الطلب')}
+{const _dA=entDelAsk;entDelAsk=function(id,back){const s=STF();const e=S.entries.find(x=>x.id===id);
+  if(s&&e&&!abDirect(e)){closeSheet();return abReqDel(id)}
+  const r=_dA.apply(this,arguments);
+  if(s&&e){const cb=askCb;askCb=()=>{cb&&cb();if(e.del){e.del.u=s.uid;e.del.ts=Date.now();save()}}}
+  else if(e){const cb=askCb;askCb=()=>{cb&&cb();if(e.del&&!e.del.ts){e.del.ts=Date.now();save()}}}
+  return r}}
+
+/* ---- موافقة / رفض المالك ---- */
+function abOk(id){const e=S.entries.find(x=>x.id===id);if(!abPend(e))return;const q=e.rq,me=S.me;
+  if(q.t==='e'){const L=abDiff(e,q.nw);if(q.nw.kind&&q.nw.kind!==e.kind)e.no=nextNo(q.nw.kind);Object.assign(e,q.nw);
+    e.log=[...(e.log||[]),{at:new Date().toISOString().slice(0,16).replace('T',' '),ts:Date.now(),by:me,rq:q.by,ch:L.map(x=>x.n+': '+x.a+' ← '+x.b).join(' · ')}]}
+  else e.del={at:today(),ts:Date.now(),by:me,rq:q.by};
+  q.st='ok';q.dt=Date.now();q.db=me;save();render();if($('#ab-bell'))bellPaint();toast(q.t==='d'?'تمت الموافقة، ونُقلت الحركة للسلة ✓':'تمت الموافقة، وطُبّق التعديل ✓')}
+function abNo(id){const e=S.entries.find(x=>x.id===id);if(!abPend(e))return;
+  window._abNoId=id;sheet(`<h3>رفض الطلب</h3><p class="note">يصل لـ ${esc(e.rq.by)} أن الطلب مرفوض، وتبقى الحركة كما هي.</p>
+  <div class="fld"><div class="bx"><label for="ab-nr">سبب الرفض (اختياري)</label><input id="ab-nr" placeholder="مثلاً: المبلغ مطابق للوصل"></div></div>
+  <button class="btn redf" onclick="abNoDo($('#ab-nr').value.trim())">✕ رفض الطلب</button><button class="btn ghost" onclick="bellOpen('rq')">رجوع</button>`)}
+function abNoDo(r){const e=S.entries.find(x=>x.id===window._abNoId);if(!abPend(e))return;Object.assign(e.rq,{st:'no',dt:Date.now(),db:S.me,nr:r});save();render();bellOpen('rq');toast('رُفض الطلب')}
+
+/* ---- عناصر الجرس ---- */
+function abUid(x,name){if(x)return x;const t=TEAM().find(q=>q.name===name);return t?t.uid:''}
+function abActs(u){const own=abOwner();const out=[];const S0=FULL||S;
+  for(const e of S0.entries){
+    for(const l of (e.log||[])){if(l.rq)continue;if(!(l.u||(l.by&&own&&l.by!==own)))continue;const id=abUid(l.u,l.by);if(u&&id!==u)continue;
+      out.push({k:'ed',ts:l.ts||Date.parse((l.at||'').replace(' ','T')+'Z')||0,who:tmName(id)!=='موظف'?tmName(id):l.by,e,l})}
+    const d=e.del;if(d&&!d.rq&&(d.u||(d.by&&own&&d.by!==own))){const id=abUid(d.u,d.by);if(!u||id===u)out.push({k:'dl',ts:d.ts||Date.parse(d.at)||0,who:tmName(id)!=='موظف'?tmName(id):d.by,e})}
+    if(u&&e.rq&&e.rq.st&&e.rq.u===u)out.push({k:'rr',ts:e.rq.dt||e.rq.ts,who:e.rq.by,e})}
+  return out.sort((a,b)=>b.ts-a.ts)}
+function abReqs(){return (FULL||S).entries.filter(e=>!e.del&&abPend(e)).sort((a,b)=>b.rq.ts-a.rq.ts)}
+function abSys(){const L=[];const n=subLeft();if(n!==null&&n<=7)L.push({ic:'⭐',t:n<=0?'انتهى الاشتراك':'الاشتراك ينتهي بعد '+n+' يوم',s:'جدّد الاشتراك حتى لا تتوقف الإضافة والتعديل',go:'subSheet()'});
+  return L}
+const AB_SK=()=>'asas_bell_seen_'+(MODE==='cloud'&&ME?ME.org:'demo');
+function abSeen(){try{return +localStorage.getItem(AB_SK())||0}catch(e){return 0}}
+function abCount(){if(STF()||!CAN.admin)return 0;const sn=abSeen();return abReqs().length+abActs().filter(x=>x.ts>sn).length+abCust().length+needList().length+abSys().length}
+const AB_T=[['all','الكل'],['rq','الطلبات'],['ed','التعديلات والحذف'],['mn','المبالغ'],['sy','النظام']];
+let AB_TAB='all';
+function abReqCard(e){const q=e.rq;const L=q.t==='e'?abDiff(e,q.nw):[];
+  return `<div class="ab-it rq"><div class="ab-h"><b>👷 ${esc(q.by)}</b><span class="num">${abDT(q.ts)}</span></div>
+   <div class="ab-t">${q.t==='d'?'🗑️ يطلب حذف حركة':'📝 يطلب تعديل حركة'}</div>${abSum(e)}
+   ${q.t==='e'?abDiffHtml(L):''}${q.why?`<div class="ab-w">السبب: ${esc(q.why)}</div>`:''}
+   <div class="ab-b"><button class="ok" onclick="abOk('${e.id}')">✓ موافقة</button><button class="no" onclick="abNo('${e.id}')">✕ رفض</button></div></div>`}
+function abActCard(x,sn){const e=x.e;const nw=x.ts>sn;
+  if(x.k==='rr'){const q=e.rq;return `<div class="ab-it"><div class="ab-h"><b>${q.st==='ok'?'✅ تمت الموافقة':'❌ رُفض'} طلب ${q.t==='d'?'الحذف':'التعديل'}</b><span class="num">${abDT(q.dt)}</span></div>${abSum(e)}${q.nr?`<div class="ab-w">سبب الرفض: ${esc(q.nr)}</div>`:''}</div>`}
+  if(x.k==='dl')return `<div class="ab-it${nw?' nw':''}"><div class="ab-h"><b>👷 ${esc(x.who)}</b><span class="num">${abDT(x.ts)}</span></div><div class="ab-t r">🗑️ حذف حركة</div>${abSum(e)}<div class="ab-w">الحركة في سلة المحذوفات، ويمكنك استرجاعها خلال 30 يوماً.</div></div>`;
+  return `<div class="ab-it${nw?' nw':''}"><div class="ab-h"><b>👷 ${esc(x.who)}</b><span class="num">${abDT(x.ts)}</span></div><div class="ab-t">✏️ عدّل حركة</div>${abSum(e)}${abDiffHtml(abLogDiff(x.l.ch))}</div>`}
+function abCust(){const L=[];for(const t of TEAM()){const c=custOf(t.uid);if(c.left<0)L.push({t,c})}return L}
+function abCustCard(x){return `<div class="ab-it rq"><div class="ab-h"><b>👷 ${esc(x.t.name)}</b></div><div class="ab-t r">صرف أكثر من عهدته</div>
+   <div class="ab-e"><b class="amt neg">${fmt(-x.c.left)} <small>د.ع</small></b><span>استلم <span class="num">${fmt(x.c.g+x.c.col)}</span> · صرف <span class="num">${fmt(x.c.sp)}</span> · المبلغ له بذمة المكتب</span></div>
+   <div class="ab-b"><button class="ok" onclick="closeSheet();custSheet('${x.t.uid}','cg')">+ أعطيته مبلغ</button><button class="no g" onclick="closeSheet();go('staff','${x.t.uid}')">صفحته</button></div></div>`}
+function abMoney(){return abCust().map(abCustCard).concat(needList().map(({p,z})=>{const c=C(p.cid)||{};return `<div class="ab-it"><div class="ab-h"><b>💰 ${esc(cName(c))}</b></div><div class="ab-t">${esc(p.name)} · ${z.bal<0?'المصروف تجاوز المستلم':(z.bal===0?'نفد رصيد الزبون':'رصيد الزبون قارب على النفاد')}</div>
+   <div class="ab-e"><b class="amt ${z.bal<0?'neg':''}">${sfmt(z.bal)} <small>د.ع</small></b><span>${z.bal<0?'التجاوز':'المتبقي'} · يستحق مطالبة الزبون بدفعة</span></div>
+   <div class="ab-b"><button class="ok" onclick="closeSheet();payReqSheet('${p.id}')">📤 طلب دفعة</button><button class="no g" onclick="closeSheet();go('project','${p.id}')">فتح المشروع</button></div></div>`}))}
+function bellBody(){const sn=abSeen();const R=abReqs(),A=abActs(),M=abMoney(),Y=abSys();const cnt={all:R.length+A.filter(x=>x.ts>sn).length+M.length+Y.length,rq:R.length,ed:A.filter(x=>x.ts>sn).length,mn:M.length,sy:Y.length};
+  const sec=(k,t,arr)=>(AB_TAB==='all'||AB_TAB===k)&&arr.length?`${AB_TAB==='all'?`<h4 class="ab-s">${t}</h4>`:''}${arr.join('')}`:'';
+  let h=sec('rq','طلبات تنتظر موافقتك',R.map(abReqCard))+sec('ed','تعديلات وحذف الفريق',A.slice(0,AB_TAB==='ed'?60:8).map(x=>abActCard(x,sn)))+sec('mn','المبالغ: العهد ومطالبة الزبائن',M)+sec('sy','النظام',Y.map(y=>`<div class="ab-it"${y.go?` onclick="${y.go}" style="cursor:pointer"`:''}><div class="ab-h"><b>${y.ic} ${y.t}</b></div><div class="ab-w">${y.s}</div></div>`));
+  if(!h)h=`<div class="empty">لا توجد إشعارات ${AB_TAB==='all'?'':'في هذا القسم'}</div>`;
+  return `<div id="ab-bell"><h3>🔔 الإشعارات</h3><p class="sb">الشغلات المهمة فقط. صرفيات كل موظف بالتفصيل في صفحته من «الموظفون والعهدة».</p>
+   <div class="ab-tabs">${AB_T.map(([k,n])=>`<button class="${AB_TAB===k?'on':''}" onclick="AB_TAB='${k}';bellPaint()">${n}${cnt[k]?` <b class="num">${cnt[k]}</b>`:''}</button>`).join('')}</div>
+   <div class="ab-l">${h}</div><button class="btn" onclick="bellDone()">تم</button></div>`}
+function abTabVis(){const o=$('.ab-tabs .on');if(o)o.scrollIntoView({inline:'nearest',block:'nearest'})}
+function bellOpen(t){if(t)AB_TAB=t;sheet(bellBody());const sh=$('.sheet');if(sh)sh.classList.add('ab-sh');abTabVis()}
+function bellPaint(){const b=$('#ab-bell');if(b){b.outerHTML=bellBody();abTabVis()}else bellOpen()}
+function bellDone(){try{localStorage.setItem(AB_SK(),String(Date.now()))}catch(e){}closeSheet();render()}
+
+/* ---- زر الجرس بأعلى الرئيسية (للمالك) ---- */
+{const _hAB=VIEWS.home;VIEWS.home=a=>{let h=_hAB(a);if(STF()||!CAN.admin)return h;const n=abCount();
+  return h.replace(`<button class="ib" aria-label="التنبيهات" onclick="toast('لا توجد تنبيهات جديدة')">${IC.bell}</button>`,`<button class="ib ab-ib" aria-label="الإشعارات" onclick="bellOpen('all')">${IC.bell}${n?`<b class="ab-n num">${n>99?'99+':n}</b>`:''}</button>`)}}
+
+/* ---- شارة على الحركة التي عليها طلب ---- */
+{const _eR=entryRow;entryRow=function(e){let r=_eR(e);if(abPend(e))r=r.replace('<div class="s">',`<div class="s"><span class="ab-chip">⏳ طلب ${e.rq.t==='d'?'حذف':'تعديل'}</span> `);return r}}
+
+/* ---- الموظف: طلباتي ---- */
+{const _wH=workerHome;workerHome=function(){let h=_wH();const s=STF();if(!s)return h;
+  const L=(FULL||S).entries.filter(e=>e.rq&&e.rq.u===s.uid).sort((a,b)=>(b.rq.dt||b.rq.ts)-(a.rq.dt||a.rq.ts)).slice(0,8);
+  const rule=s.eng?'يمكنك تصحيح حركتك خلال 24 ساعة من تسجيلها، وبعدها يكون التعديل والحذف بطلب يوافق عليه المهندس المسؤول.':'التعديل والحذف يتمّان بطلب يوافق عليه المهندس المسؤول.';
+  const box=`<div class="sec"><h2>طلباتي</h2>${L.length?'<span class="num">'+L.length+'</span>':''}</div><div class="list">${L.map(e=>{const q=e.rq;const st=!q.st?'<span class="ab-st w">⏳ بانتظار الموافقة</span>':q.st==='ok'?'<span class="ab-st ok">✅ تمت الموافقة</span>':'<span class="ab-st no">❌ مرفوض</span>';
+    return `<button class="li" onclick="entMenu('${e.id}')"><div class="ic">${q.t==='d'?'🗑️':'📝'}</div><div class="mid"><div class="t">طلب ${q.t==='d'?'حذف':'تعديل'} · ${fmt(e.amt)} د.ع</div><div class="s">${esc(e.det||'—')} · <span class="num">${abDT(q.dt||q.ts)}</span>${q.nr?' · السبب: '+esc(q.nr):''}</div></div>${st}</button>`}).join('')||'<div class="empty">لا توجد طلبات</div>'}</div><p class="note">✏️ ${rule}</p>`;
+  return h.replace('<div class="sec"><h2>مشاريعي</h2>',box+'<div class="sec"><h2>مشاريعي</h2>')}}
+
+/* ---- صفحة الموظف: سجل التعديلات والحذف والطلبات ---- */
+{const _sV=VIEWS.staff;VIEWS.staff=u=>{let h=_sV(u);if(STF()||!CAN.admin)return h;
+  const A=abActs(u).slice(0,30);const R=abReqs().filter(e=>e.rq.u===u);
+  const box=`<div class="sec"><h2>سجل التعديلات والحذف</h2>${A.length+R.length?'<span class="num">'+(A.length+R.length)+'</span>':''}</div>
+   <div class="ab-l ab-pg">${R.map(abReqCard).join('')}${A.map(x=>abActCard(x,Infinity)).join('')||(!R.length?'<div class="card empty">لم يعدّل ولم يحذف أي حركة</div>':'')}</div>`;
+  return h.replace('<div class="sec"><h2>المشاريع التي يراها</h2>',box+'<div class="sec"><h2>المشاريع التي يراها</h2>')}}
+
+/* المهندس الموظف (في وضع «شاهد كما يراه») يحذف حركته خلال 24 ساعة مثل التعديل */
+{const _eA=enterAs;enterAs=function(u){const r=_eA.apply(this,arguments);const s=STF();if(s&&s.eng){CAN.del=true;document.body.classList.remove('nodel');render()}return r}}
+
+/* ============ صور الوصولات في كشف الزبون (1.9.8) ============ */
+/* كل بند له صورة وصل يأخذ علامة 📎 برقم الصورة. في آخر الكشف ملحق «صور الوصولات» مرقّم.
+   بالشاشة وبرابط الكشف المرسل للزبون: الضغط على 📎 يفتح الصورة. بالطباعة: الرقم يدل على صفحة الصور. */
+STM.ph=true;STM.pa=false;
+const RP={on:false,list:[],map:{}};
+function rpNo(e){if(!RP.on||!STM.ph||!e||!e.att)return 0;if(RP.map[e.id])return RP.map[e.id];RP.list.push(e);return RP.map[e.id]=RP.list.length}
+function rpMark(a,b){if(!a)return '<span class="rp-no">—</span>';const r=b&&b!==a;return `<a class="rp-m" data-a="${a}" data-b="${b||a}">🧾 عرض <span class="num">${r?a+'–'+b:a}</span></a>`}
+const RP_LEG='<div class="rp-leg"><b>صورة الوصل</b>: اضغط على «🧾 عرض» لمشاهدة صورة الوصل.</div>';
+stOuts=function(outs,dense){let cum=0;const ns=outs.map(rpNo),ph=ns.some(Boolean);return `<table class="t ${dense?'dense':''}"><thead><tr><th>ت</th><th>التاريخ</th><th>البيان</th><th>البند</th><th>المدفوع له</th><th>المستند</th><th class="n">المبلغ (د.ع)</th><th class="n">التراكمي</th>${ph?'<th class="rp-th">صورة الوصل</th>':''}</tr></thead><tbody>
+  ${outs.map((e,i)=>{cum+=e.amt;return `<tr><td>${i+1}</td><td class="num">${e.date}</td><td>${esc(e.det)}</td><td><span class="cat">${CATN[e.cat]||''}</span></td><td>${esc(e.party)}</td><td>${e.docType==='دون مستند'?'—':esc(e.docType)+' <span class="num">'+esc(e.docNo)+'</span>'}</td><td class="n r">${fmt(e.amt)}</td><td class="n mut">${fmt(cum)}</td>${ph?'<td class="rp-td">'+rpMark(ns[i])+'</td>':''}</tr>`}).join('')||'<tr><td colspan="8" class="mut">لا توجد مصروفات</td></tr>'}
+  <tr class="tot"><td colspan="6">مجموع المصروفات</td><td class="n">${fmt(cum)}</td><td></td>${ph?'<td></td>':''}</tr></tbody></table>${ph?RP_LEG:''}`};
+stSum=function(outs){const g={};for(const e of outs){const k=e.cat+'|'+itemKey(e);const r=g[k]||(g[k]={cat:e.cat,name:itemKey(e),n:0,amt:0,qty:0,unit:'',from:e.date,to:e.date,es:[]});
+    r.n++;r.amt+=e.amt;r.es.push(e);if(e.qty){r.qty+=+e.qty;r.unit=e.unit||r.unit}if(e.date<r.from)r.from=e.date;if(e.date>r.to)r.to=e.date}
+  const ord=Object.fromEntries(CATS.map((c,i)=>[c.k,i]));const rows=Object.values(g).sort((a,b)=>ord[a.cat]-ord[b.cat]||b.amt-a.amt);const t=outs.reduce((a,e)=>a+e.amt,0);
+  for(const r of rows){const ns=r.es.map(rpNo).filter(Boolean);r.pa=ns.length?Math.min(...ns):0;r.pb=ns.length?Math.max(...ns):0}const ph=rows.some(r=>r.pa);
+  return `<table class="t"><thead><tr><th>البند</th><th>المادة / العمل</th><th class="n">عدد الوصولات</th><th>الكمية</th><th>الفترة</th><th class="n">المبلغ (د.ع)</th><th class="n">النسبة</th>${ph?'<th class="rp-th">صورة الوصل</th>':''}</tr></thead><tbody>
+  ${rows.map(r=>`<tr><td><span class="cat">${CATN[r.cat]||''}</span></td><td><b>${esc(r.name)}</b></td><td class="n">${r.n}</td><td>${r.qty?'<span class="num">'+(+r.qty).toLocaleString('en-US')+'</span> '+esc(r.unit):'—'}</td><td class="mut" style="white-space:nowrap">${r.from===r.to?'<span class="num">'+r.from+'</span>':'<span class="num">'+r.from+'</span> إلى <span class="num">'+r.to+'</span>'}</td><td class="n r"><b>${fmt(r.amt)}</b></td><td class="n mut">${t?Math.round(r.amt/t*100):0}%</td>${ph?'<td class="rp-td">'+rpMark(r.pa,r.pb)+'</td>':''}</tr>`).join('')||'<tr><td colspan="7" class="mut">لا توجد مصروفات</td></tr>'}
+  <tr class="tot"><td colspan="2">مجموع المصروفات</td><td class="n">${outs.length}</td><td></td><td></td><td class="n">${fmt(t)}</td><td class="n">100%</td>${ph?'<td></td>':''}</tr></tbody></table>${ph?RP_LEG:''}`};
+function rpItems(){return RP.list.map((e,i)=>`<div class="rp-ph" data-n="${i+1}"><div class="rp-c"><b class="rp-n num">${i+1}</b><span>${esc(e.det||'—')}</span><span class="num">${fmt(e.amt)} د.ع</span><span class="num">${e.date}</span>${e.docType&&e.docType!=='دون مستند'?`<span>${esc(e.docType)} <span class="num">${esc(e.docNo||'')}</span></span>`:''}</div><img src="${e.att}" alt="صورة الوصل ${i+1}"></div>`).join('')}
+function rpAnnex(){if(!RP.list.length)return '';
+  if(!STM.pa)return `<div class="rp-store" style="display:none">${rpItems()}</div>`;
+  return `<div class="pgbrk"></div><div class="ax-h"><b>ملحق: صور الوصولات</b><span><span class="num">${RP.list.length}</span> صورة · الرقم مطابق لعمود «صورة الوصل» في الكشف</span></div><div class="st-b">${rpItems()}</div>`}
+function rpReset(){RP.list=[];RP.map={}}
+for(const n of ['showPayment','showFinal','showPeriod','payReqSend']){const f=window[n];window[n]=function(){RP.on=true;rpReset();try{return f.apply(this,arguments)}finally{RP.on=false}}}
+{const _dO=docOpen;docOpen=function(title,html,meta){if(RP.on&&RP.list.length)html+=rpAnnex();rpReset();RP.on=false;rpSB();return _dO.call(this,title,html,meta)}}
+{const _rS=readSTM;readSTM=function(){_rS();const a=$('#st-ph');if(a)STM.pa=a.checked}}
+{const _sS=showStatement;showStatement=function(pid){_sS(pid);const a=$('#st-annex');if(a&&!$('#st-ph')){const p=P(pid);const n=entriesOf(pid).filter(e=>e.kind==='out'&&e.att).length;
+  a.closest('label').insertAdjacentHTML('afterend',`<label class="ck2"><input type="checkbox" id="st-ph" ${STM.ph?'checked':''}><span>أرفق صور الوصولات${n?' (<span class="num">'+n+'</span> صورة)':''}: يظهر عمود «صورة الوصل» بزر «🧾 عرض» لكل بند، ويفتح صورة الوصل عند الضغط عليه</span></label>`)}}}
+
+/* فتح الصورة عند الضغط على 📎 (في التطبيق وبرابط الكشف) */
+let RPV={a:1,b:1,n:1};
+function rpImg(n){const ph=document.querySelector(`#paper .rp-ph[data-n="${n}"]`);return ph?{src:ph.querySelector('img').src,cap:ph.querySelector('.rp-c').innerHTML}:null}
+function rpShow(){const x=rpImg(RPV.n);if(!x)return;let w=$('#rp-lb');if(!w){w=document.createElement('div');w.id='rp-lb';w.onclick=e=>{if(e.target===w)rpClose()};document.body.appendChild(w)}
+  const many=RPV.b>RPV.a;w.innerHTML=`<div class="rp-bx"><div class="rp-top"><b>🧾 صورة الوصل ${many?'<span class="num">'+RPV.n+'</span> من <span class="num">'+RPV.a+'–'+RPV.b+'</span>':''}</b><button onclick="rpClose()" aria-label="إغلاق">✕</button></div>
+   <div class="rp-cap"><div class="rp-c">${x.cap}</div></div><img src="${x.src}" alt="صورة الوصل">
+   ${many?`<div class="rp-nav"><button ${RPV.n<=RPV.a?'disabled':''} onclick="RPV.n--;rpShow()">→ السابقة</button><button ${RPV.n>=RPV.b?'disabled':''} onclick="RPV.n++;rpShow()">التالية ←</button></div>`:''}</div>`}
+function rpClose(){const w=$('#rp-lb');if(w)w.remove()}
+document.addEventListener('click',ev=>{const m=ev.target.closest&&ev.target.closest('.rp-m');if(!m)return;ev.preventDefault();ev.stopPropagation();RPV={a:+m.dataset.a,b:+m.dataset.b,n:+m.dataset.a};rpShow()},true);
+
+/* رابط الكشف: إذا كبر حجم الصور نصغّرها قبل الرفع (حد السيرفر 3 ميغا) */
+function rpShrink1(src,max,q){return new Promise(res=>{const im=new Image();im.onload=()=>{const sc=Math.min(1,max/Math.max(im.width,im.height));const cv=document.createElement('canvas');cv.width=Math.round(im.width*sc);cv.height=Math.round(im.height*sc);cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);res(cv.toDataURL('image/jpeg',q))};im.onerror=()=>res(src);im.src=src})}
+async function rpShrink(html){for(const [max,q] of [[800,.6],[600,.5],[420,.45]]){if(html.length<2.7e6)break;const srcs=[...new Set((html.match(/data:image\/[a-z]+;base64,[A-Za-z0-9+/=]+/g)||[]).filter(s=>s.length>30000))];
+    for(const s of srcs){const n=await rpShrink1(s,max,q);if(n.length<s.length)html=html.split(s).join(n)}}return html}
+function rpSB(){if(!SB||SB.__rp)return;const o=SB.rpc.bind(SB);SB.rpc=async function(n,a){if(n==='asas_share_create'&&a&&a.p_html&&a.p_html.length>2.7e6)a=Object.assign({},a,{p_html:await rpShrink(a.p_html)});return o(n,a)};SB.__rp=1}
+
+/* إصلاح: دالة waOpen الخاصة بدعوة الفريق (رقم هاتف) غطّت دالة الزبون (كائن الزبون)، فصار إرسال الكشف/الوصل يفتح الواتساب بدون رقم الزبون */
+{const _wo=waOpen;waOpen=function(a,text){if(a&&typeof a==='object'){const n=waNum(a.phone);if(!n){toast('أضف رقم موبايل الزبون أولاً');if(a.id)setTimeout(()=>clientSheet(a.id),300);return}
+    const l=document.createElement('a');l.href='https://wa.me/'+n+(text?'?text='+encodeURIComponent(text):'');l.target='_blank';l.rel='noopener';document.body.appendChild(l);l.click();l.remove();return}
+  return _wo.apply(this,arguments)}}
+
+/* إرسال الكشف بالواتساب: ملف PDF + رابط لمشاهدة صور الوصولات */
+let RPS=null;
+{const _sS=stSend;stSend=async function(pid){if(!document.querySelector('#paper .rp-m'))return _sS.apply(this,arguments);
+  const p=P(pid),c=C(p.cid)||{},k=calc(p);const title=DOCMETA.title||'كشف حساب';
+  sheet(`<h3>⏳ جارٍ تجهيز الكشف…</h3><p class="note">نجهّز ملف PDF ورابط صور الوصولات، لحظات.</p>`);
+  let url='';const html=$('#paper').innerHTML;
+  if(MODE==='cloud'&&ME&&ME.org&&SB){try{rpSB();const r=await SB.rpc('asas_share_create',{p_org:ME.org,p_pid:pid,p_title:title+' · '+p.name,p_html:html});if(r.error)throw r.error;url=APP_URL+'?s='+r.data}catch(e){logErr&&logErr('share',e)}}
+  else url=APP_URL+'?s=…';
+  let f=null,pages=0;try{const r=await pagesToPdf();const name=pdfName();f=new File([r.blob],name,{type:'application/pdf'});pages=r.pages;PDFF={blob:r.blob,f,name,pages}}catch(e){}
+  const t=`السلام عليكم ${cName(c)} المحترم،\n\n📄 *${title}*\n🏗️ ${p.name}\nرقم الكشف: ${DOCMETA.no||''} · ${DOCMETA.date||today()}\n\n${k.bal<0?'⚠️ المبلغ المطلوب منكم':'✅ الرصيد المتبقي لكم'}: *${fmt(Math.abs(k.bal))} د.ع*\n\n${f?'الكشف مرفق بملف PDF.\n':''}${url?'🧾 لمشاهدة صور الوصولات اضغط على الرابط، ثم اضغط «🧾 عرض» بجانب أي بند:\n'+url+'\n':''}\nمع التقدير، ${waSign()}\n— أُعدّ بنظام أسس`;
+  RPS={t,f,c,url,pages};rpSendSheet()}}
+function rpSendSheet(){const x=RPS;sheet(`<h3>✓ الكشف جاهز للإرسال</h3>
+  <div class="rp-snd"><div class="${x.f?'':'off'}"><i>📄</i><div><b>الكشف بملف PDF</b><span>${x.f?(x.pages===1?'ورقة A4 واحدة':'<span class="num">'+x.pages+'</span> أوراق A4'):'تعذّر تجهيز الملف، سيُرسل الرابط فقط'}</span></div></div>
+  <div class="${x.url?'':'off'}"><i>🧾</i><div><b>رابط صور الوصولات</b><span>${x.url?'يفتح الكشف بالمتصفح، ويضغط الزبون «🧾 عرض» ليشاهد الوصل':'تعذّر إنشاء الرابط، تأكد من الإنترنت'}</span></div></div></div>
+  <button class="btn wa" onclick="rpSendGo()">💬 إرسال بالواتساب</button><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
+function rpSendGo(){const x=RPS;if(!x)return;
+  if(x.f&&navigator.canShare&&navigator.canShare({files:[x.f],text:x.t})){navigator.share({files:[x.f],text:x.t}).then(()=>closeSheet(),e=>{if(e&&e.name==='AbortError')return;closeSheet();waOpen(x.c,x.t)})}
+  else{closeSheet();waOpen(x.c,x.t);if(x.f)setTimeout(()=>toast('أُرسل الرابط. لإرفاق ملف PDF استعمل «طباعة / PDF» ثم مشاركة'),600)}}
 
 boot();
 </script>
