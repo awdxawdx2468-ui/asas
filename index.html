@@ -1929,10 +1929,11 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.18',APP_T='2026-11-24 16:40';
+var APP_V='1.9.19',APP_T='2026-11-24 18:05';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
 var APP_NEWS_1917='عند استلام مبلغ: إذا سلّم المبلغ شخص غير الزبون، اضغط «سلّم المبلغ شخص آخر غير الزبون؟» واكتب اسمه|يظهر اسمه في الوصل ورسالة الواتساب والكشوف: «بالنيابة عن الزبون»';
-var APP_NEWS='صور الوصولات تظهر الآن في الكشف وملف PDF ورابط الزبون|تاريخ رسائل الواتساب بصيغة يوم/شهر/سنة|بعد حفظ الدفعة يظهر الوصل مباشرة دون رسالة «بدون إنترنت» بالخطأ';
+var APP_NEWS='زر «إرسال الوصل للزبون بالواتساب» يرسل الآن صورة الوصل نفسه بشعار شركتك وختمها، مع سطر قصير برقم الوصل ومبلغه';
+var APP_NEWS_1918='صور الوصولات تظهر الآن في الكشف وملف PDF ورابط الزبون|تاريخ رسائل الواتساب بصيغة يوم/شهر/سنة|بعد حفظ الدفعة يظهر الوصل مباشرة دون رسالة «بدون إنترنت» بالخطأ';
 var APP_NEWS_1916='عرض «المؤسسون»: أول 50 مكتباً يحصلون تلقائياً على 3 أشهر مجاناً بباقة «فريق»، ثم نصف السعر لأول سنة مدفوعة|يظهر خصم المؤسس وسعر الاشتراك بعد الخصم في نافذة الاشتراك|تبسيط شرح الإضافات في الباقات';
 var APP_NEWS_1915='اختيار المشروع أسرع: مربعات صغيرة تظهر فيها أحدث 20 مشروعاً، مع بحث في الأعلى وزر «عرض كل المشاريع»|بعد اختيار المشروع يبقى اسمه ظاهراً في كل الخطوات، مع زر «تغيير»';
 var APP_NEWS_1914='الأعداد بالفصحى في كل النظام، مثل «8 حركات» و«موظفان»|التواريخ في القوائم والكشوف بصيغة يوم/شهر/سنة|حماية أقوى لحسابات الموظفين: التعديل والحذف حسب الصلاحيات من السيرفر نفسه|تحسين صياغة بعض الرسائل';
@@ -1954,7 +1955,8 @@ var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة 
 var APP_NEWS_188='أصبحت الطباعة ملف PDF بحجم A4 كامل وبدقة عالية، ترسله إلى الطابعة أو إلى أي شخص عبر الواتساب|الوصل: النسختان في ورقة واحدة، والختم والتوقيع مرتبان|لا يوجد قص في الحواف ولا ورقة زائدة في الطباعة';
 var APP_NEWS_186='اضغط على أي حركة في المشروع لتعديلها أو حذفها|الحذف يطلب تأكيداً، والمحذوف ينتقل إلى سلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً|أصبح حذف الزبون أو المشروع يطلب تأكيداً، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.18',d:'2026-11-24',n:APP_NEWS.split('|')},
+ {v:'1.9.19',d:'2026-11-24',n:APP_NEWS.split('|')},
+ {v:'1.9.18',d:'2026-11-24',n:APP_NEWS_1918.split('|')},
  {v:'1.9.17',d:'2026-11-24',n:APP_NEWS_1917.split('|')},
  {v:'1.9.16',d:'2026-11-23',n:APP_NEWS_1916.split('|')},
  {v:'1.9.15',d:'2026-11-22',n:APP_NEWS_1915.split('|')},
@@ -4281,6 +4283,46 @@ let PF_LEFT=null;
 {const _ih=instHtml;instHtml=function(){let h=_ih.apply(this,arguments);if(MODE==='cloud'&&ME&&ME.role!=='owner')h=h.replace('🎉 أهلاً بك! تجربتك المجانية بدأت','🎉 أهلاً بك في فريق العمل');return h}}
 /* صورة الوصل في ملحق PDF: تحافظ على نسبتها (html2canvas لا يدعم object-fit فكانت تتمطط) */
 {const st=document.createElement('style');st.textContent='.rp-ph img{width:auto!important;max-width:100%;height:88mm}';document.head.appendChild(st)}
+
+/* ===== 1.9.19 إرسال الوصل للزبون صورةً بالواتساب (2026-11-24) =====
+   زر «💬 إرسال الوصل للزبون بالواتساب» يرسل صورة الوصل نفسه (نسخة الزبون من ورقة الطباعة: شعار الشركة، الختم، التواقيع، رمز التحقق)
+   مع سطر قصير. تُجهَّز الصورة مسبقاً عند ظهور نافذة «تم تسجيل الاستلام» حتى يفتح الإرسال بضغطة واحدة.
+   الأجهزة التي لا تدعم مشاركة الصور (بعض الحاسبات): تبقى الرسالة المكتوبة كما كانت. */
+const RCI={};
+var rciOk=()=>!!(navigator.share&&navigator.canShare&&window.File);
+function rciKey(e){return hashCode(rcHalf(e,'نسخة الزبون'))}
+function rciCap(e){return pfDates(`وصل استلام رقم ${e.no||''} بمبلغ ${fmt(e.amt)} د.ع\nمع التقدير، ${waSign()}`)}
+async function rciMake(e){const k=rciKey(e);const o=RCI[e.id];if(o&&o.k===k)return o.p;
+  const p=(async()=>{await loadH2C();try{await document.fonts.ready}catch(_){}
+    const box=document.createElement('div');box.className='book pdfx';box.style.cssText='position:fixed;left:-30000px;top:0;width:794px;background:#fff;transform:none';
+    box.innerHTML=`<div class="paper rcpage" style="width:794px;height:auto;margin:0;box-shadow:none">${rcHalf(e,'نسخة الزبون')}</div>`;document.body.appendChild(box);
+    try{if(rcptUrl(e)){try{await loadQR()}catch(_){}if(window.qrcode)box.querySelectorAll('[data-qr]').forEach(x=>x.innerHTML=qrSvg(x.dataset.qr))}
+      await Promise.all([...box.querySelectorAll('img')].map(im=>im.complete?0:new Promise(r=>{im.onload=im.onerror=r})));
+      const el=box.firstElementChild,h=Math.ceil(el.getBoundingClientRect().height)||549;
+      const cv=await html2canvas(el,{scale:2.5,backgroundColor:'#ffffff',useCORS:true,logging:false,width:794,height:h,windowWidth:794,scrollX:0,scrollY:0});
+      const blob=await new Promise(r=>cv.toBlob(r,'image/jpeg',.92));if(!blob)throw new Error('blob');
+      const name=('وصل استلام '+(e.no||'')).replace(/[\\/:*?"<>|]+/g,'-').trim()+'.jpg';
+      let f=null;try{f=new File([blob],name,{type:'image/jpeg'})}catch(_){}
+      const x={blob,f,name,w:cv.width,h:cv.height};RCI[e.id].x=x;return x}finally{box.remove()}})();
+  RCI[e.id]={k,p,x:null};p.catch(()=>{if(RCI[e.id]&&RCI[e.id].p===p)delete RCI[e.id]});return p}
+function rciReady(e){const o=RCI[e.id];return o&&o.k===rciKey(e)&&o.x&&o.x.f?o.x:null}
+function rciShare(e,c,x){const cap=rciCap(e);const d={files:[x.f],text:cap};const ok=navigator.canShare(d);
+  return navigator.share(ok?d:{files:[x.f]}).then(()=>{closeSheet();if(!ok){try{navigator.clipboard&&navigator.clipboard.writeText(cap)}catch(_){}}},err=>{if(err&&err.name==='AbortError')return;closeSheet();waOpen(c,rcptText(e))})}
+function rciSheet(id){const e=S.entries.find(x=>x.id===id);const x=e&&rciReady(e);if(!x)return;const u=URL.createObjectURL(x.blob);
+  sheet(`<h3>✓ صورة الوصل جاهزة</h3><img src="${u}" alt="" style="display:block;width:100%;border:1px solid var(--line,#e3e8f0);border-radius:12px;margin:2px 0 10px;background:#fff">
+   <p class="note" style="margin:0 0 10px">تُرسل صورة الوصل ومعها: «وصل استلام رقم <b class="num">${esc(e.no||'')}</b> بمبلغ <b class="num">${fmt(e.amt)}</b> د.ع». اختر الواتساب ثم اسم الزبون.</p>
+   <button class="btn wa" onclick="rciGo('${id}')">💬 إرسال بالواتساب</button><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
+function rciGo(id){const e=S.entries.find(x=>x.id===id);if(!e)return;const x=rciReady(e);if(!x)return waReceipt(id);rciShare(e,C((P(e.pid)||{}).cid)||{},x)}
+{const _wr=waReceipt;waReceipt=async function(id){const e=S.entries.find(x=>x.id===id);if(!e)return;
+  if(!rciOk()||(typeof noFixed==='function'&&!noFixed(e)))return _wr.apply(this,arguments);
+  const c=C((P(e.pid)||{}).cid)||{};const r=rciReady(e);if(r)return rciShare(e,c,r);
+  sheet(`<h3>⏳ جارٍ تجهيز صورة الوصل…</h3><p class="note">لحظات.</p>`);
+  let x=null;try{x=await rciMake(e)}catch(err){try{logErr&&logErr('rcimg',err)}catch(_){}}
+  if(!x||!x.f||!navigator.canShare({files:[x.f]})){closeSheet();return _wr.apply(this,arguments)}
+  rciSheet(id)}}
+/* تجهيز الصورة مسبقاً عند فتح نافذة الوصل بعد الحفظ */
+{const _rs=rcptSheet;rcptSheet=async function(id){const r=await _rs.apply(this,arguments);const e=S.entries.find(x=>x.id===id);
+  if(e&&rciOk()&&(typeof noFixed!=='function'||noFixed(e)))setTimeout(()=>{rciMake(e).catch(()=>{})},350);return r}}
 
 boot();
 </script>
