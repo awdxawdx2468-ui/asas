@@ -1929,9 +1929,10 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.17',APP_T='2026-11-24 15:15';
+var APP_V='1.9.18',APP_T='2026-11-24 16:40';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='عند استلام مبلغ: إذا سلّم المبلغ شخص غير الزبون، اضغط «سلّم المبلغ شخص آخر غير الزبون؟» واكتب اسمه|يظهر اسمه في الوصل ورسالة الواتساب والكشوف: «بالنيابة عن الزبون»';
+var APP_NEWS_1917='عند استلام مبلغ: إذا سلّم المبلغ شخص غير الزبون، اضغط «سلّم المبلغ شخص آخر غير الزبون؟» واكتب اسمه|يظهر اسمه في الوصل ورسالة الواتساب والكشوف: «بالنيابة عن الزبون»';
+var APP_NEWS='صور الوصولات تظهر الآن في الكشف وملف PDF ورابط الزبون|تاريخ رسائل الواتساب بصيغة يوم/شهر/سنة|بعد حفظ الدفعة يظهر الوصل مباشرة دون رسالة «بدون إنترنت» بالخطأ';
 var APP_NEWS_1916='عرض «المؤسسون»: أول 50 مكتباً يحصلون تلقائياً على 3 أشهر مجاناً بباقة «فريق»، ثم نصف السعر لأول سنة مدفوعة|يظهر خصم المؤسس وسعر الاشتراك بعد الخصم في نافذة الاشتراك|تبسيط شرح الإضافات في الباقات';
 var APP_NEWS_1915='اختيار المشروع أسرع: مربعات صغيرة تظهر فيها أحدث 20 مشروعاً، مع بحث في الأعلى وزر «عرض كل المشاريع»|بعد اختيار المشروع يبقى اسمه ظاهراً في كل الخطوات، مع زر «تغيير»';
 var APP_NEWS_1914='الأعداد بالفصحى في كل النظام، مثل «8 حركات» و«موظفان»|التواريخ في القوائم والكشوف بصيغة يوم/شهر/سنة|حماية أقوى لحسابات الموظفين: التعديل والحذف حسب الصلاحيات من السيرفر نفسه|تحسين صياغة بعض الرسائل';
@@ -1953,7 +1954,8 @@ var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة 
 var APP_NEWS_188='أصبحت الطباعة ملف PDF بحجم A4 كامل وبدقة عالية، ترسله إلى الطابعة أو إلى أي شخص عبر الواتساب|الوصل: النسختان في ورقة واحدة، والختم والتوقيع مرتبان|لا يوجد قص في الحواف ولا ورقة زائدة في الطباعة';
 var APP_NEWS_186='اضغط على أي حركة في المشروع لتعديلها أو حذفها|الحذف يطلب تأكيداً، والمحذوف ينتقل إلى سلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً|أصبح حذف الزبون أو المشروع يطلب تأكيداً، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.17',d:'2026-11-24',n:APP_NEWS.split('|')},
+ {v:'1.9.18',d:'2026-11-24',n:APP_NEWS.split('|')},
+ {v:'1.9.17',d:'2026-11-24',n:APP_NEWS_1917.split('|')},
  {v:'1.9.16',d:'2026-11-23',n:APP_NEWS_1916.split('|')},
  {v:'1.9.15',d:'2026-11-22',n:APP_NEWS_1915.split('|')},
  {v:'1.9.14',d:'2026-11-22',n:APP_NEWS_1914.split('|')},
@@ -4240,6 +4242,45 @@ function byPick(w,v){if(w==='q'){const qb=$('#q-by');if(qb)Q.by=qb.value.trim();
 function byPh(e){const c=C((P(e.pid)||{}).cid);return c?cName(c)+' (الزبون)':'اسم الزبون'}
 function fromT(e){const c=C((P(e.pid)||{}).cid)||{};const b=byOf(e);return b?b+' بالنيابة عن الزبون '+cName(c):cName(c)}
 function fromH(e){const c=C((P(e.pid)||{}).cid)||{};const b=byOf(e);return b?esc(b)+' <small>(بالنيابة عن الزبون '+esc(cName(c))+')</small>':esc(cName(c))}
+
+/* ===== 1.9.18 إصلاحات فحص ما قبل النشر (2026-11-24) ===== */
+/* (1) صور الوصولات في الكشوف: الصورة المرفوعة على السيرفر محفوظة كـ sb:… فكانت تظهر فارغة في الكشف وملف PDF ورابط الزبون.
+       الآن تُجلب من السيرفر وتُضمَّن في الكشف نفسه (مصغّرة) قبل العرض والطباعة والإرسال. */
+const PF_IMG={};
+function pfShrink(blob){return new Promise(res=>{const u=URL.createObjectURL(blob);const im=new Image();
+  im.onload=()=>{const sc=Math.min(1,1400/Math.max(im.width,im.height));const cv=document.createElement('canvas');cv.width=Math.round(im.width*sc);cv.height=Math.round(im.height*sc);
+    cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);URL.revokeObjectURL(u);res(cv.toDataURL('image/jpeg',.72))};
+  im.onerror=()=>{URL.revokeObjectURL(u);res(null)};im.src=u})}
+async function pfImg(path){if(PF_IMG[path])return PF_IMG[path];if(!SB)return null;
+  try{const{data}=await SB.storage.from('asas-receipts').createSignedUrl(path,3600);if(!data||!data.signedUrl)return null;
+    const r=await fetch(data.signedUrl);if(!r.ok)return null;const d=await pfShrink(await r.blob());if(d)PF_IMG[path]=d;return d}catch(e){return null}}
+async function rpResolve(){const ims=[...document.querySelectorAll('#paper img')].filter(im=>(im.getAttribute('src')||'').startsWith('sb:'));
+  await Promise.all(ims.map(async im=>{const d=await pfImg(im.getAttribute('src').slice(3));if(d)im.src=d}))}
+{const _dO=docOpen;docOpen=function(){const r=_dO.apply(this,arguments);rpResolve();return r}}
+{const _pp=pagesToPdf;pagesToPdf=async function(){await rpResolve();return _pp.apply(this,arguments)}}
+{const _ss=stSend;stSend=async function(){await rpResolve();const r=await _ss.apply(this,arguments);if(RPS&&RPS.t)RPS.t=pfDates(RPS.t);return r}}
+
+/* (2) رسائل الواتساب: التاريخ يوم/شهر/سنة بدل 2026-11-24 */
+function pfDates(t){return String(t).replace(/(\d{4})-(\d{2})-(\d{2})/g,'$3/$2/$1')}
+{const _rt=rcptText;rcptText=function(){return pfDates(_rt.apply(this,arguments))}}
+
+/* (3) بعد حفظ دفعة والإنترنت موجود: لا تظهر «بدون إنترنت» بالخطأ. ننتظر الحفظ على السيرفر لحظة قبل عرض الوصل */
+{const _rc=rcptSheet;rcptSheet=async function(id,fresh){if(fresh&&MODE==='cloud'&&!isOff()&&BASE.entries[id]===undefined){for(let i=0;i<16&&BASE.entries[id]===undefined;i++){if(!SYNC.busy)await push();else await new Promise(r=>setTimeout(r,250))}}return _rc.apply(this,arguments)}}
+
+/* (4) صفحة التعريف «احجز مقعدك» ← تفتح «حساب جديد» مباشرة (الرابط ينتهي بـ #new) */
+if(location.hash==='#new'){AUTH.tab='up';try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}
+
+/* (5) شاشة «حساب جديد»: تذكر عرض المؤسسين (3 أشهر) بدل «30 يوماً» ما دامت المقاعد متاحة */
+let PF_LEFT=null;
+{const _lg=VIEWS.login;VIEWS.login=function(){let h=_lg.apply(this,arguments);
+  if(AUTH.tab==='up'){if(PF_LEFT===null&&SB){PF_LEFT=-1;SB.rpc('asas_founders_left').then(r=>{PF_LEFT=+(r&&r.data)||0;if(V.v==='login'&&AUTH.tab==='up'){const k={ph:($('#a-ph')||{}).value,name:($('#a-name')||{}).value,co:($('#a-co')||{}).value};render();refill(k)}},()=>{PF_LEFT=0})}
+    if(PF_LEFT>0)h=h.replace(/تبدأ بفترة تجريبية مجانية [^.]*\./,'🏅 عرض المؤسسين: <b>3 أشهر مجاناً</b> بباقة «فريق»، ثم خصم 50% لأول سنة. بقي <b class="num">'+PF_LEFT+'</b> مقعداً.')}
+  return h}}
+
+/* (6) الموظف المدعو: ترحيب «فريق العمل» بدل «تجربتك المجانية بدأت» */
+{const _ih=instHtml;instHtml=function(){let h=_ih.apply(this,arguments);if(MODE==='cloud'&&ME&&ME.role!=='owner')h=h.replace('🎉 أهلاً بك! تجربتك المجانية بدأت','🎉 أهلاً بك في فريق العمل');return h}}
+/* صورة الوصل في ملحق PDF: تحافظ على نسبتها (html2canvas لا يدعم object-fit فكانت تتمطط) */
+{const st=document.createElement('style');st.textContent='.rp-ph img{width:auto!important;max-width:100%;height:88mm}';document.head.appendChild(st)}
 
 boot();
 </script>
