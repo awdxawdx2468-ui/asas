@@ -1010,6 +1010,7 @@ details.stopt summary{cursor:pointer;list-style:none}details.stopt summary::-web
 .fd-adm .w{color:var(--red);font-weight:700}
 .fd-adm button{margin-top:6px;border:1.5px solid var(--red);color:var(--red);background:transparent;border-radius:10px;padding:6px 12px;font:700 13px var(--f)}
 
+.bylink{display:block;width:100%;border:0;background:none;color:var(--navy,#14294A);font:inherit;font-size:14px;font-weight:700;text-decoration:underline;text-align:right;padding:8px 4px;margin:2px 0 6px;cursor:pointer}.bylink.f{margin:-4px 0 10px}.byfld{margin:4px 0 12px}.byfld.f{background:var(--card,#fff);border-radius:16px;padding:12px 14px}.byfld.f input{width:100%;border:0;border-bottom:2px solid #E1E7F0;font:inherit;font-size:17px;padding:6px 0;background:none;box-sizing:border-box}.byfld.f input:focus{outline:0;border-color:var(--yel,#F5B800)}.byl{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:0 2px 6px}.byl label{font-size:13px;font-weight:700}.byx{border:1px solid #E1E7F0;background:#fff;border-radius:10px;padding:4px 10px;font:inherit;font-size:12px;font-weight:700;color:#5b6b85}.byh{display:block;font-size:12px;color:var(--mut,#5b6b85);margin:4px 2px 10px;font-weight:500;line-height:1.5}.bx .byh{margin:4px 0 0}.byn{font-size:.85em;color:#5b6b85;margin-top:2px}
 </style>
 
 <div id="app"></div>
@@ -1274,7 +1275,7 @@ VIEWS.entry=(a={})=>{
      <div class="fld"><div class="bx"><label for="f-qty">الكمية</label><input id="f-qty" inputmode="decimal" value="${esc(F.qty)}" placeholder="150"></div></div>
      <div class="fld"><div class="bx"><label for="f-unit">الوحدة</label><input id="f-unit" value="${esc(F.unit)}" placeholder="كيس" list="units"></div></div></div>
      <datalist id="units"><option>كيس<option>طن<option>قطعة<option>م³<option>م²<option>لتر<option>حمل</datalist>`:''}
-   <div class="fld"><div class="ic">${isIn?'👤':'🏭'}</div><div class="bx"><label for="f-party">${isIn?'المقبوض منه':'المدفوع له'}</label><input id="f-party" value="${esc(F.party)}" list="parties" placeholder="${isIn?'اسم الزبون':'معمل الفرات'}"></div></div>
+   ${isIn?byPickH(F.oth===undefined?!!byOf(F):F.oth,byOf(F),'f'):`<div class="fld"><div class="ic">🏭</div><div class="bx"><label for="f-party">المدفوع له</label><input id="f-party" value="${esc(F.party)}" list="parties" placeholder="معمل الفرات"></div></div>`}
    <datalist id="parties">${[...new Set(live(S.entries).map(e=>e.party).filter(Boolean))].map(x=>`<option>${esc(x)}`).join('')}</datalist>
    <div class="fld"><div class="bx dprow"><label>التاريخ</label>${dpk('f-date',F.date)}</div></div>
    <div class="fld"><div class="ic">💼</div><div class="bx"><label for="f-src">${isIn?'استُلم إلى':'دُفع من'}</label><select id="f-src"><option value="الصندوق" ${F.src==='الصندوق'?'selected':''}>القاصة</option><option ${F.src==='حساب المصرف'?'selected':''}>حساب المصرف</option></select></div><span class="mut">▾</span></div>
@@ -1307,17 +1308,17 @@ function setDate(back){const d=new Date();d.setDate(d.getDate()-back);dpkPut('f-
 function attPick(inp){const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{
   const sc=Math.min(1,1000/Math.max(im.width,im.height));const cv=document.createElement('canvas');cv.width=im.width*sc;cv.height=im.height*sc;
   cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);readF();F.att=cv.toDataURL('image/jpeg',.7);render()};im.src=r.result};r.readAsDataURL(f)}
-const FIELDN={amt:'المبلغ',date:'التاريخ',det:'البيان',party:'الطرف',pid:'المشروع',cat:'البند',docNo:'رقم المستند',docType:'نوع المستند',kind:'النوع'};
+const FIELDN={amt:'المبلغ',date:'التاريخ',det:'البيان',party:'من سلّم المبلغ / المدفوع له',pid:'المشروع',cat:'البند',docNo:'رقم المستند',docType:'نوع المستند',kind:'النوع'};
 function entrySave(){if(!F.quick)readF();if(F.id&&!canEditE(S.entries.find(e=>e.id===F.id)))return toast(LOCK_MSG);
   if(!F.amt)return toast('اكتب المبلغ');if(!okDate(F.date))return toast('اختر التاريخ');if(F.date>today())return toast('لا يمكن اختيار تاريخ بعد اليوم');if(!F.pid)return toast('اختر المشروع');
-  if(F.pid==='office')F.cat='';else if(F.kind==='out'&&!F.cat)F.cat=autoCat(F.det);if(F.kind==='in')F.cat='';
+  if(F.pid==='office')F.cat='';else if(F.kind==='out'&&!F.cat)F.cat=autoCat(F.det);if(F.kind==='in'){F.cat='';if(F.oth===undefined)F.oth=!!byOf(F);if(F.oth&&!String(F.party||'').trim())return toast('اكتب اسم الشخص الذي سلّم المبلغ');if(!F.oth||!String(F.party||'').trim()){const c=C((P(F.pid)||{}).cid);if(c)F.party=cName(c)}}
   const doSave=()=>{if(F.id){const i=S.entries.findIndex(e=>e.id===F.id);const old=S.entries[i];const ch=[];
       for(const k of Object.keys(FIELDN))if(String(old[k]??'')!==String(F[k]??''))ch.push(`${FIELDN[k]}: ${k==='amt'?fmt(old[k]):k==='cat'?CATN[old[k]]||'':k==='pid'?(P(old[k])||{}).name:old[k]||'—'} ← ${k==='amt'?fmt(F[k]):k==='cat'?CATN[F[k]]||'':k==='pid'?(P(F[k])||{}).name:F[k]||'—'}`);
-      const rec=Object.assign({},old,F);delete rec.catSet;delete rec.quick;
+      const rec=Object.assign({},old,F);delete rec.catSet;delete rec.quick;delete rec.oth;
       if(old.kind!==F.kind)rec.no=nextNo(F.kind);
       if(ch.length)rec.log=[...(old.log||[]),{at:new Date().toISOString().slice(0,16).replace('T',' '),by:S.me,ch:ch.join(' · ')}];
       S.entries[i]=rec}
-    else{const rec=Object.assign({},F,{id:uid(),no:nextNo(F.kind),ts:Date.now(),by:S.me,log:[]});if(NOFIX)rec.nf=1;if(AS)rec.cu=AS.uid;delete rec.catSet;delete rec.quick;S.entries.push(rec)}
+    else{const rec=Object.assign({},F,{id:uid(),no:nextNo(F.kind),ts:Date.now(),by:S.me,log:[]});if(NOFIX)rec.nf=1;if(AS)rec.cu=AS.uid;delete rec.catSet;delete rec.quick;delete rec.oth;S.entries.push(rec)}
     const nid=F.id||S.entries[S.entries.length-1].id,wasIn=F.kind==='in',isNew=!F.id;save();toast(isOff()?'✓ حُفظ على جهازك ⏳ ويُرفع إلى السيرفر فور عودة الاتصال':'تم حفظ المبلغ ✓ على '+pgName(F.pid).replace(/&amp;/g,'&'));(F.pid==='office'?go(AS?'home':'net'):go('project',F.pid));if(wasIn&&isNew)setTimeout(()=>rcptSheet(nid,true),250)};
   // كشف التكرار
   const dup=!F.id&&live(S.entries).find(e=>e.pid===F.pid&&e.kind===F.kind&&e.date===F.date&&e.amt===F.amt&&(e.det===F.det||(!F.det&&e.party===F.party)));
@@ -1448,7 +1449,7 @@ function waPickSt(cid){const ps=live(S.projects).filter(p=>p.cid===cid);sheet(`<
 function rcptRef(e){return hashCode(e.id+'|'+e.amt+'|'+e.date+'|'+(e.no||''))}
 function balAfter(e){const p=P(e.pid);const pct=p&&p.feeType==='pct'?(+p.feeVal||0)/100:0;let b=0;for(const x of entriesOf(e.pid)){if(x.kind==='in')b+=x.amt-Math.round(x.amt*pct);else b-=x.amt;if(x.id===e.id)break}return b}
 function rcptText(e){const p=P(e.pid)||{},c=C(p.cid)||{};const b=balAfter(e);
-  return `🧾 *وصل استلام* رقم ${e.no||''}\n\nاستلمنا من ${cName(c)} مبلغاً قدره *${fmt(e.amt)} دينار عراقي*\n(فقط ${words(e.amt)} دينار عراقي لا غير)\n\n🏗️ المشروع: ${p.name||''}${e.det?'\n📝 البيان: '+e.det:''}\n📅 تاريخ الاستلام: ${e.date}\n🙋 المستلم: ${e.rcv||e.by||S.me||''}\n💼 ${e.src==='حساب المصرف'?'تحويل إلى حساب المصرف':'نقداً'}${e.docType&&e.docType!=='دون مستند'&&e.docNo?'\n📄 '+e.docType+' '+e.docNo:''}\n\nرصيدكم في المشروع بعد هذه الدفعة: ${sfmt(b)} د.ع\nرمز التحقق: ${rcptRef(e)}\n\nمع التقدير، ${waSign()}\n— أُعدّ بنظام أسس`}
+  return `🧾 *وصل استلام* رقم ${e.no||''}\n\nاستلمنا من ${fromT(e)} مبلغاً قدره *${fmt(e.amt)} دينار عراقي*\n(فقط ${words(e.amt)} دينار عراقي لا غير)\n\n🏗️ المشروع: ${p.name||''}${e.det?'\n📝 البيان: '+e.det:''}\n📅 تاريخ الاستلام: ${e.date}\n🙋 المستلم: ${e.rcv||e.by||S.me||''}\n💼 ${e.src==='حساب المصرف'?'تحويل إلى حساب المصرف':'نقداً'}${e.docType&&e.docType!=='دون مستند'&&e.docNo?'\n📄 '+e.docType+' '+e.docNo:''}\n\nرصيدكم في المشروع بعد هذه الدفعة: ${sfmt(b)} د.ع\nرمز التحقق: ${rcptRef(e)}\n\nمع التقدير، ${waSign()}\n— أُعدّ بنظام أسس`}
 function waReceipt(id){const e=S.entries.find(x=>x.id===id);if(!e)return;const c=C((P(e.pid)||{}).cid)||{};waOpen(c,rcptText(e))}
 function waStatement(pid){const p=P(pid),c=C(p.cid)||{},k=calc(p);
   waOpen(c,`📄 *كشف حساب* — ${p.name}\n${cName(c)} المحترم\nلغاية ${today()}\n\n↓ مجموع ما استلمناه منكم: ${fmt(k.inn)} د.ع\n↑ مجموع المصروف على المشروع: ${fmt(k.out)} د.ع\n👷 أتعاب المهندس (${feeLabel(p)}): ${fmt(k.fee)} د.ع\n\n${k.bal<0?'⚠️ المبلغ المطلوب منكم':'✅ الرصيد المتبقي لكم'}: *${fmt(Math.abs(k.bal))} د.ع*\n\nعدد الحركات: ${k.es.length} · الكشف المفصّل بالفواتير جاهز للطباعة عند الطلب.\n\nمع التقدير، ${waSign()}\n— أُعدّ بنظام أسس`)}
@@ -1487,7 +1488,7 @@ async function shareView(t){$('#app').innerHTML=`<div class="vfy"><div class="vf
   D.classList.add('show');$('#app').innerHTML='';fitPaper()}
 function rcptSheet(id,fresh){const e=S.entries.find(x=>x.id===id);if(!e)return;
   if(!noFixed(e))return sheet(`<h3>${fresh?'✓ تم تسجيل الاستلام':'وصل الاستلام'}</h3><div class="rcbox"><b class="num">${fmt(e.amt)} د.ع</b><div>⏳ محفوظ على جهازك وبانتظار الإنترنت</div></div><p class="mut" style="text-align:center;margin:6px 0 12px">يجهز الوصل ورقمه فور حفظ المبلغ على السيرفر، ويمكنك حينها إرساله إلى الزبون.</p><button class="btn y" onclick="closeSheet()">تمام</button>`);const c=C((P(e.pid)||{}).cid)||{};
-  sheet(`<h3>${fresh?'✓ تم تسجيل الاستلام':'وصل الاستلام'}</h3>${MODE==='cloud'&&BASE.entries[id]===undefined?'<div class="rcoff">⏳ بدون إنترنت — رقم الوصل ثابت ولن يتغير، ويُحفظ على السيرفر فور عودة الاتصال</div>':''}<div class="rcbox"><div>وصل رقم <b class="num">${esc(e.no||'')}</b> · <span class="num">${e.date}</span></div><b class="num">${fmt(e.amt)} د.ع</b><div>من ${esc(cName(c))} · المستلم ${esc(e.rcv||e.by||S.me||'')}</div></div>
+  sheet(`<h3>${fresh?'✓ تم تسجيل الاستلام':'وصل الاستلام'}</h3>${MODE==='cloud'&&BASE.entries[id]===undefined?'<div class="rcoff">⏳ بدون إنترنت — رقم الوصل ثابت ولن يتغير، ويُحفظ على السيرفر فور عودة الاتصال</div>':''}<div class="rcbox"><div>وصل رقم <b class="num">${esc(e.no||'')}</b> · <span class="num">${e.date}</span></div><b class="num">${fmt(e.amt)} د.ع</b><div>من ${fromH(e)} · المستلم ${esc(e.rcv||e.by||S.me||'')}</div></div>
    <button class="btn wa" onclick="closeSheet();waReceipt('${id}')">💬 إرسال الوصل للزبون بالواتساب</button>
    <button class="btn" onclick="closeSheet();showReceipt('${id}')">🧾 عرض الوصل وطباعته</button>
    <button class="btn ghost" onclick="closeSheet()">لاحقاً</button>`)}
@@ -1501,10 +1502,10 @@ function rcHalf(e,copy){const p=P(e.pid)||{},c=C(p.cid)||{},co=S.co;const b=balA
     <div class="rc-no"><span>رقم الوصل</span><b class="num">${esc(e.no||'')}</b><small class="num">${e.date}</small></div></div>
    <div class="rc-mid"><div class="rc-left">
      <div class="rc-am"><div><span>المبلغ المستلم</span><b class="num">${fmt(e.amt)}</b><small>دينار عراقي</small></div><p>فقط ${words(e.amt)} دينار عراقي لا غير</p></div>
-     <div class="rc-gr">${row('استلمنا من',esc(cName(c)))}${row('المشروع',esc(p.name||''))}${e.det?row('البيان',esc(e.det)):''}${row('تاريخ الاستلام','<span class="num">'+e.date+'</span>')}${row('المستلم',esc(e.rcv||e.by||S.me||''))}${row('طريقة الاستلام',(e.src==='حساب المصرف'?'تحويل مصرفي':'نقداً')+(e.docType&&e.docType!=='دون مستند'&&e.docNo?' · '+esc(e.docType)+' <span class="num">'+esc(e.docNo)+'</span>':''))}${row('رصيد المشروع بعد الدفعة','<span class="num '+(b<0?'r':'')+'">'+sfmt(b)+'</span> د.ع')}</div>
-     <div class="rc-dec">يُقرّ ${esc(co.eng?(/^م\.?\s/.test(co.eng)?co.eng:'م. '+co.eng):(co.name||'المكتب'))} باستلام المبلغ المذكور أعلاه من ${esc(cName(c))} بتاريخ <span class="num">${e.date}</span>، وقد قُيّد في حساب المشروع ويظهر في كشف الحساب برقم الوصل <b class="num">${esc(e.no||'')}</b>.</div></div>
+     <div class="rc-gr">${row('استلمنا من',fromH(e))}${row('المشروع',esc(p.name||''))}${e.det?row('البيان',esc(e.det)):''}${row('تاريخ الاستلام','<span class="num">'+e.date+'</span>')}${row('المستلم',esc(e.rcv||e.by||S.me||''))}${row('طريقة الاستلام',(e.src==='حساب المصرف'?'تحويل مصرفي':'نقداً')+(e.docType&&e.docType!=='دون مستند'&&e.docNo?' · '+esc(e.docType)+' <span class="num">'+esc(e.docNo)+'</span>':''))}${row('رصيد المشروع بعد الدفعة','<span class="num '+(b<0?'r':'')+'">'+sfmt(b)+'</span> د.ع')}</div>
+     <div class="rc-dec">يُقرّ ${esc(co.eng?(/^م\.?\s/.test(co.eng)?co.eng:'م. '+co.eng):(co.name||'المكتب'))} باستلام المبلغ المذكور أعلاه من ${fromH(e)} بتاريخ <span class="num">${e.date}</span>، وقد قُيّد في حساب المشروع ويظهر في كشف الحساب برقم الوصل <b class="num">${esc(e.no||'')}</b>.</div></div>
     <div class="rc-qr">${url?`<div class="qr" data-qr="${esc(url)}"></div><span>امسح الرمز للتحقق من صحة الوصل</span>`:'<div class="qr off">QR</div><span>التحقق متاح في النسخة السحابية</span>'}<small>رمز التحقق <b class="num">${rcptRef(e)}</b></small></div></div>
-   <div class="rc-sig"><div><i></i>المستلم: ${esc(e.rcv||e.by||S.me||'')}</div><div class="st">${stampHtml()}<i></i>المهندس المشرف</div><div><i></i>${esc(cName(c))}: سلّمت المبلغ</div></div>
+   <div class="rc-sig"><div><i></i>المستلم: ${esc(e.rcv||e.by||S.me||'')}</div><div class="st">${stampHtml()}<i></i>المهندس المشرف</div><div><i></i>${byOf(e)?'سلّم المبلغ: '+esc(byOf(e))+'<br><small>بالنيابة عن '+esc(cName(c))+'</small>':esc(cName(c))+': سلّمت المبلغ'}</div></div>
    <div class="rc-ft"><span>${esc(co.short||co.name||'')}${co.city?' · '+esc(co.city):''}</span><span>${PLATFORM.footer} · للاشتراك: <span class="num">${PLATFORM.phone}</span></span></div></section>`}
 async function showReceipt(id){const e=S.entries.find(x=>x.id===id);if(!e)return;
   const d=$('#doc');DOCMETA={title:'وصل استلام '+(e.no||''),no:e.no||'',ref:rcptRef(e),date:e.date};
@@ -1519,7 +1520,7 @@ async function verifyView(ref){$('#app').innerHTML=`<div class="vfy"><div class=
   b.innerHTML=`<div class="vf-st ${r.cancelled?'bad':'ok'}">${r.cancelled?'⚠️ هذا الوصل أُلغي من قِبل المكتب':'✓ وصل صحيح ومسجّل في نظام أسس'}</div>
    <div class="vf-am"><span>المبلغ</span><b class="num">${fmt(r.amt)}</b><small>دينار عراقي</small></div>
    <div class="vf-g"><div><span>رقم الوصل</span><b class="num">${esc(r.no||'')}</b></div><div><span>التاريخ</span><b class="num">${esc(r.date||'')}</b></div>
-   <div><span>من</span><b>${esc(r.client||'')}</b></div><div><span>المشروع</span><b>${esc(r.project||'')}</b></div>
+   <div><span>من</span><b>${r.party&&r.party!==r.client?esc(r.party)+' (بالنيابة عن '+esc(r.client||'')+')':esc(r.client||'')}</b></div><div><span>المشروع</span><b>${esc(r.project||'')}</b></div>
    <div><span>المستلم</span><b>${esc(r.rcv||'')}</b></div><div><span>المكتب</span><b>${esc(r.eng||r.office||'')}${r.eng&&r.office&&r.office!==r.eng?' · '+esc(r.office):''}</b></div></div>
    <p class="vf-n">هذه الصفحة تعرض بيانات الوصل كما هي مسجّلة لدى المكتب الآن. ${r.phone?'للاستفسار: <b class="num">'+esc(r.phone)+'</b>':''}</p>`}
 
@@ -1630,7 +1631,7 @@ function payDoc(p,x,withAnnex){const c=C(p.cid)||{};const b=catsOf(x.outs);const
     <div><span>− المصروفات (${x.outs.length})</span><b class="r">${fmt(x.spent)}</b></div><div class="eqt"><span>= ${x.close<0?'التجاوز':'المتبقي'}</span><b class="${x.close<0?'r':''}">${sfmt(x.close)}</b></div></div>`;
   return docHead('كشف الدفعة '+ordN(x.i),`رقم <span class="num">د-${stNo(p)}-${x.i}</span> · <span class="num">${today()}</span>`)+`<div class="st-b">
    ${stInfo(p,c,`<div><span class="m">الدفعة:</span> <b>${ordN(x.i)}</b> · <b class="num">${fmt(x.e.amt)}</b> د.ع · وصل <span class="rcn num">${x.e.no}</span></div>
-     <div><span class="m">استُلمت:</span> <b class="num">${x.e.date}</b> · <span class="m">آخر صرف منها:</span> <b class="num">${x.outs.length?x.outs[x.outs.length-1].date:'—'}</b></div>
+     ${byOf(x.e)?`<div><span class="m">استُلمت من:</span> <b>${esc(byOf(x.e))}</b> (بالنيابة عن الزبون)</div>`:''}<div><span class="m">استُلمت:</span> <b class="num">${x.e.date}</b> · <span class="m">آخر صرف منها:</span> <b class="num">${x.outs.length?x.outs[x.outs.length-1].date:'—'}</b></div>
      <div><span class="m">الأتعاب:</span> <b>${esc(feeLabel(p))}</b> · <span class="m">المهندس:</span> <b>${esc(S.me)}</b></div>`)}
    ${stKpis(kp)}
    <div class="st-2"><div><div class="st-h3">حساب الدفعة</div>${eq}</div><div><div class="st-h3">أين صُرفت الدفعة</div>${stDonut(b,x.spent)}</div></div>
@@ -1653,7 +1654,7 @@ function showFinal(pid){readSTM();const annex=STM.annex;const p=P(pid),c=C(p.cid
    ${stKpis([['مجموع المقبوض',k.inn],['مجموع المصروف',k.out],['أتعاب المهندس',k.fee],[neg?'مطلوب من الزبون':'الرصيد للزبون',k.bal,neg?'negb':'']])}
    <div class="st-h3">الدفعات وأين ذهبت كل دفعة</div>
    <table class="t"><thead><tr><th>الدفعة</th><th>التاريخ</th><th>رقم الوصل</th><th class="n">مبلغ الدفعة</th>${p.feeType==='pct'?'<th class="n">الأتعاب</th>':''}<th class="n">صُرف منها</th><th class="n">عدد المصروفات</th><th class="n">الرصيد بعدها</th></tr></thead><tbody>
-    ${L.map(x=>`<tr><td><b>${ordN(x.i)}</b></td><td class="num">${x.e.date}</td><td><span class="rcn num">${x.e.no}</span></td><td class="n g"><b>${fmt(x.e.amt)}</b></td>${p.feeType==='pct'?`<td class="n">${fmt(x.fee)}</td>`:''}<td class="n r">${fmt(x.spent)}</td><td class="n">${x.outs.length}</td><td class="n ${x.close<0?'r':''}"><b>${sfmt(x.close)}</b></td></tr>`).join('')}
+    ${L.map(x=>`<tr><td><b>${ordN(x.i)}</b></td><td class="num">${x.e.date}</td><td><span class="rcn num">${x.e.no}</span>${byOf(x.e)?`<div class="byn">استُلمت من: ${esc(byOf(x.e))}</div>`:''}</td><td class="n g"><b>${fmt(x.e.amt)}</b></td>${p.feeType==='pct'?`<td class="n">${fmt(x.fee)}</td>`:''}<td class="n r">${fmt(x.spent)}</td><td class="n">${x.outs.length}</td><td class="n ${x.close<0?'r':''}"><b>${sfmt(x.close)}</b></td></tr>`).join('')}
     ${p.feeType==='fixed'?`<tr><td colspan="4">أتعاب المهندس المقطوعة</td><td class="n"></td><td></td><td class="n r"><b>−${fmt(k.fee)}</b></td></tr>`:''}
     <tr class="tot"><td colspan="3">المجموع</td><td class="n">${fmt(k.inn)}</td>${p.feeType==='pct'?`<td class="n">${fmt(k.fee)}</td>`:''}<td class="n">${fmt(k.out)}</td><td class="n">${k.es.length-L.length}</td><td class="n">${sfmt(k.bal)}</td></tr></tbody></table>
    <div class="st-2" style="grid-template-columns:1fr 1.2fr"><div><div class="st-h3">أين صُرف المبلغ</div>${stDonut(k.byCat,k.out)}</div>
@@ -1673,7 +1674,7 @@ function showPeriod(pid,from,to){readSTM();if(!okDate(from)||!okDate(to))return 
    ${stInfo(p,c,`<div><span class="m">الفترة:</span> <b class="num">${from}</b> إلى <b class="num">${to}</b></div><div><span class="m">الأتعاب:</span> <b>${esc(feeLabel(p))}</b></div><div><span class="m">المهندس المشرف:</span> <b>${esc(S.me)}</b></div>`)}
    ${stKpis(kp)}
    <div class="st-2"><div><div class="st-h3">المبالغ المقبوضة في الفترة</div><table class="t"><thead><tr><th>التاريخ</th><th>البيان</th><th>رقم الوصل</th><th class="n">المبلغ</th></tr></thead><tbody>
-     ${ins.map(e=>`<tr><td class="num">${e.date}</td><td>${esc(e.det)}</td><td><span class="rcn num">${e.no}</span></td><td class="n g"><b>${fmt(e.amt)}</b></td></tr>`).join('')||'<tr><td colspan="4" class="mut">لا يوجد</td></tr>'}
+     ${ins.map(e=>`<tr><td class="num">${e.date}</td><td>${esc(e.det)}${byOf(e)?`<div class="byn">استُلمت من: ${esc(byOf(e))}</div>`:''}</td><td><span class="rcn num">${e.no}</span></td><td class="n g"><b>${fmt(e.amt)}</b></td></tr>`).join('')||'<tr><td colspan="4" class="mut">لا يوجد</td></tr>'}
      <tr class="tot"><td colspan="3">المجموع</td><td class="n">${fmt(inn)}</td></tr></tbody></table></div>
     <div><div class="st-h3">أين صُرف المبلغ</div>${stDonut(catsOf(outs),out)}</div></div>
    ${stExp(outs,'المصروفات خلال الفترة')}
@@ -1928,9 +1929,10 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.16',APP_T='2026-11-23 01:45';
+var APP_V='1.9.17',APP_T='2026-11-24 15:15';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
-var APP_NEWS='عرض «المؤسسون»: أول 50 مكتباً يحصلون تلقائياً على 3 أشهر مجاناً بباقة «فريق»، ثم نصف السعر لأول سنة مدفوعة|يظهر خصم المؤسس وسعر الاشتراك بعد الخصم في نافذة الاشتراك|تبسيط شرح الإضافات في الباقات';
+var APP_NEWS='عند استلام مبلغ: إذا سلّم المبلغ شخص غير الزبون، اضغط «سلّم المبلغ شخص آخر غير الزبون؟» واكتب اسمه|يظهر اسمه في الوصل ورسالة الواتساب والكشوف: «بالنيابة عن الزبون»';
+var APP_NEWS_1916='عرض «المؤسسون»: أول 50 مكتباً يحصلون تلقائياً على 3 أشهر مجاناً بباقة «فريق»، ثم نصف السعر لأول سنة مدفوعة|يظهر خصم المؤسس وسعر الاشتراك بعد الخصم في نافذة الاشتراك|تبسيط شرح الإضافات في الباقات';
 var APP_NEWS_1915='اختيار المشروع أسرع: مربعات صغيرة تظهر فيها أحدث 20 مشروعاً، مع بحث في الأعلى وزر «عرض كل المشاريع»|بعد اختيار المشروع يبقى اسمه ظاهراً في كل الخطوات، مع زر «تغيير»';
 var APP_NEWS_1914='الأعداد بالفصحى في كل النظام، مثل «8 حركات» و«موظفان»|التواريخ في القوائم والكشوف بصيغة يوم/شهر/سنة|حماية أقوى لحسابات الموظفين: التعديل والحذف حسب الصلاحيات من السيرفر نفسه|تحسين صياغة بعض الرسائل';
 var APP_NEWS_1913='إصلاح ظهور شاشة الدخول: تظهر الآن بشكل صحيح عند فتح التطبيق دون تسجيل دخول وبعد تسجيل الخروج';
@@ -1951,7 +1953,8 @@ var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة 
 var APP_NEWS_188='أصبحت الطباعة ملف PDF بحجم A4 كامل وبدقة عالية، ترسله إلى الطابعة أو إلى أي شخص عبر الواتساب|الوصل: النسختان في ورقة واحدة، والختم والتوقيع مرتبان|لا يوجد قص في الحواف ولا ورقة زائدة في الطباعة';
 var APP_NEWS_186='اضغط على أي حركة في المشروع لتعديلها أو حذفها|الحذف يطلب تأكيداً، والمحذوف ينتقل إلى سلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً|أصبح حذف الزبون أو المشروع يطلب تأكيداً، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.16',d:'2026-11-23',n:APP_NEWS.split('|')},
+ {v:'1.9.17',d:'2026-11-24',n:APP_NEWS.split('|')},
+ {v:'1.9.16',d:'2026-11-23',n:APP_NEWS_1916.split('|')},
  {v:'1.9.15',d:'2026-11-22',n:APP_NEWS_1915.split('|')},
  {v:'1.9.14',d:'2026-11-22',n:APP_NEWS_1914.split('|')},
  {v:'1.9.13',d:'2026-11-22',n:APP_NEWS_1913.split('|')},
@@ -2091,7 +2094,7 @@ function bkStatus(){const L=BK.list||[];const auto=L.find(b=>b.kind==='auto');co
 /* ===== إدخال سريع خطوة بخطوة ===== */
 let Q=null;
 function qStart(kind,pid){const recentP=()=>{const es=live(S.entries).slice().sort((a,b)=>(b.ts||0)-(a.ts||0));const e=es.find(e=>P(e.pid)&&!P(e.pid).done);return e?e.pid:(activeProjects()[0]||{}).id||''};
-  Q={kind,step:0,amt:0,pid:pid||recentP(),det:'',att:'',note:'',src:'الصندوق',date:today(),fixP:!!pid};go('quick')}
+  Q={kind,step:0,amt:0,pid:pid||recentP(),det:'',att:'',note:'',by:'',oth:false,src:'الصندوق',date:today(),fixP:!!pid};go('quick')}
 function qSteps(){return Q.kind==='out'?['amt','pid','det','note','att']:['amt','pid','src']}
 const QT={amt:'المبلغ',pid:'المشروع',det:'على ماذا صرفت؟',att:'صورة الوصل',note:'ملاحظة',src:'طريقة الاستلام'};
 function qRecentDets(){const seen=new Set(),out=[];for(const e of live(S.entries).filter(e=>e.kind==='out').sort((a,b)=>(b.ts||0)-(a.ts||0))){const d=(e.det||'').trim();if(d&&!seen.has(d)){seen.add(d);out.push(d)}if(out.length>=8)break}return out}
@@ -2106,13 +2109,13 @@ VIEWS.quick=()=>{if(!Q)return VIEWS.home();const st=qSteps(),k=st[Q.step],isIn=Q
   else if(k==='det'){body=qDetBody()}
   else if(k==='att'){body=`<label class="qcam" for="q-att">${Q.att?`<img src="${Q.att}" alt="">`:'📷<b>صوّر الوصل</b><span>اختياري</span>'}</label><input id="q-att" type="file" accept="image/*" capture="environment" hidden onchange="qAtt(this)">`}
   else if(k==='note'){body=`<textarea id="q-note" class="qin" rows="3" placeholder="اختياري: أي تفصيل تريد تتذكره">${esc(Q.note)}</textarea>`}
-  else if(k==='src'){body=`<div class="qlist">${[['الصندوق','💵 نقداً'],['حساب المصرف','🏦 تحويل للمصرف']].map(([v,t])=>`<button class="qopt ${Q.src===v?'on':''}" onclick="Q.src='${v}';qNext()"><b>${t}</b></button>`).join('')}</div>`}
+  else if(k==='src'){const cc=C((P(Q.pid)||{}).cid)||{};body=`<div class="qlist">${[['الصندوق','💵 نقداً'],['حساب المصرف','🏦 تحويل للمصرف']].map(([v,t])=>`<button class="qopt ${Q.src===v?'on':''}" onclick="Q.src='${v}';qNext()"><b>${t}</b></button>`).join('')}</div>`}
   const req=k==='amt'||k==='pid';const p=P(Q.pid),c=p&&C(p.cid);
   return `<header class="top short"><div class="hdr"><div><h1>${isIn?'استلمت مبلغ':'صرفت مبلغ'}</h1><p>خطوة <span class="num">${Q.step+1}</span> من <span class="num">${st.length}</span>${Q.amt&&k!=='amt'?' · <b class="num">'+fmt(Q.amt)+'</b> د.ع':''}</p></div><button class="back" aria-label="إغلاق" onclick="Q=null;go('home')">✕</button></div></header>
-  <div class="wrap qwrap"><div class="qdots">${dots}</div>${qOnBar(k)}<h2 class="qh">${k==='pid'&&!isIn?'يُحسب هذا المصروف على:':k==='det'&&Q.pid==='office'?'التفاصيل (مثلاً: أجور العامل أحمد)':QT[k]}</h2>${body}
+  <div class="wrap qwrap"><div class="qdots">${dots}</div>${qOnBar(k)}${isIn&&k==='src'?byPickH(Q.oth,Q.by,'q'):''}<h2 class="qh">${k==='pid'&&!isIn?'يُحسب هذا المصروف على:':k==='det'&&Q.pid==='office'?'التفاصيل (مثلاً: أجور العامل أحمد)':QT[k]}</h2>${body}
    <button class="btn ${isIn?'gin':'y'} qgo" onclick="${last?'qSave()':'qNext()'}">${last?'✓ حفظ':'التالي ←'}</button>${!last&&Q.step>=2?`<button class="btn qnow" onclick="qSave()">✓ حفظ الآن <small>بدون ${st.slice(Q.step+1).map(x=>x==='att'?'صورة':x==='note'?'ملاحظة':QT[x]).join(' و')}</small></button>`:''}
    <div class="qnav"><button onclick="qBack()" ${Q.step?'':'disabled'}>→ رجوع</button>${req?'':`<button onclick="qSkip()">تخطي</button>`}<button onclick="qFull()">النموذج الكامل</button></div></div>`};
-function qRead(){const d=$('#q-det');if(d)Q.det=d.value.trim();const n=$('#q-note');if(n)Q.note=n.value.trim()}
+function qRead(){const d=$('#q-det');if(d)Q.det=d.value.trim();const qb=$('#q-by');if(qb)Q.by=qb.value.trim();const n=$('#q-note');if(n)Q.note=n.value.trim()}
 function qKey(x){if(x==='⌫')Q.amt=Math.floor(Q.amt/10);else{const v=+(String(Q.amt||'')+x);if(v<1e12)Q.amt=v}
   $('#q-amt').textContent=Q.amt?fmt(Q.amt):'0';$('#q-w').textContent=Q.amt?words(Q.amt)+' دينار':'اكتب المبلغ'}
 function qDatePick(){const [y,m,d]=Q.date.split('-').map(Number);const cy=new Date().getFullYear();
@@ -2130,8 +2133,8 @@ function qNext(){qRead();const k=qSteps()[Q.step];if(k==='amt'&&!Q.amt)return to
 function qBack(){qRead();if(Q.step>0){Q.step--;if(qSteps()[Q.step]==='pid'&&Q.fixP&&Q.step>0)Q.step--}render()}
 function qSkip(){qRead();const k=qSteps()[Q.step];if(k==='det')Q.det='';if(k==='att')Q.att='';if(k==='note')Q.note='';if(Q.step>=qSteps().length-1)return qSave();Q.step++;render()}
 function qBase(){const p=P(Q.pid),c=p&&C(p.cid);const isIn=Q.kind==='in';
-  return{id:null,kind:Q.kind,pid:Q.pid,amt:Q.amt,date:Q.date,det:Q.det||(isIn?'دفعة':''),cat:isIn||Q.pid==='office'?'':autoCat(Q.det),catSet:false,party:isIn&&c?cName(c):'',docType:isIn?'دون مستند':(Q.att?'فاتورة':'دون مستند'),docNo:'',mat:'',qty:'',unit:'',src:Q.src,att:Q.att,note:Q.note,rcv:isIn?(S.me||''):undefined}}
-function qSave(){qRead();if(!Q.amt){Q.step=0;render();return toast('اكتب المبلغ')}if(!Q.pid)return toast('اختر المشروع');
+  return{id:null,kind:Q.kind,pid:Q.pid,amt:Q.amt,date:Q.date,det:Q.det||(isIn?'دفعة':''),cat:isIn||Q.pid==='office'?'':autoCat(Q.det),catSet:false,party:isIn&&c?(Q.oth&&Q.by?Q.by:cName(c)):'',docType:isIn?'دون مستند':(Q.att?'فاتورة':'دون مستند'),docNo:'',mat:'',qty:'',unit:'',src:Q.src,att:Q.att,note:Q.note,rcv:isIn?(S.me||''):undefined}}
+function qSave(){qRead();if(Q.kind==='in'&&Q.oth&&!Q.by){Q.step=qSteps().indexOf('src');render();return toast('اكتب اسم الشخص الذي سلّم المبلغ')}if(!Q.amt){Q.step=0;render();return toast('اكتب المبلغ')}if(!Q.pid)return toast('اختر المشروع');
   F=Object.assign(qBase(),{quick:true});if(F.rcv===undefined)delete F.rcv;Q=null;entrySave()}
 function qFull(){qRead();const b=qBase();if(b.rcv===undefined)delete b.rcv;Q=null;go('entry',{kind:b.kind,pid:b.pid});Object.assign(F,b,{amt:b.amt||0,det:b.det==='دفعة'?'':b.det,docType:b.att?'فاتورة':F.docType});render()}
 
@@ -3650,7 +3653,7 @@ function abDiff(old,nw){const out=[];for(const k of Object.keys(AB_FN)){if(!(k i
 function abDiffHtml(L){return `<div class="ab-df">${L.map(x=>`<div><span>${esc(x.n)}</span><s class="num">${esc(x.a)}</s><i>←</i><b class="num">${esc(x.b)}</b></div>`).join('')}</div>`}
 function abLogDiff(ch){return String(ch||'').split(' · ').map(p=>{const m=p.match(/^([^:]+):\s*(.*?)\s*←\s*(.*)$/);return m?{n:m[1],a:m[2],b:m[3]}:{n:'',a:'',b:p}})}
 function abWhere(e){const p=P(e.pid),c=p&&C(p.cid);return e.pid==='office'?'🏢 المكتب':(p?esc(cName(c||{}))+' · '+esc(p.name):'—')}
-function abSum(e){const isIn=e.kind==='in';return `<div class="ab-e"><b class="amt ${isIn?'pos':'neg'}">${isIn?'+':'−'}${fmt(e.amt)} <small>د.ع</small></b><span>${esc(e.det||(isIn?'دفعة':'—'))} · <span class="num">${abD(e.date)}</span>${e.no?' · <span class="num">'+esc(e.no)+'</span>':''}</span><span>${abWhere(e)}</span></div>`}
+function abSum(e){const isIn=e.kind==='in';return `<div class="ab-e"><b class="amt ${isIn?'pos':'neg'}">${isIn?'+':'−'}${fmt(e.amt)} <small>د.ع</small></b><span>${esc(e.det||(isIn?'دفعة':'—'))} · <span class="num">${abD(e.date)}</span>${e.no?' · <span class="num">'+esc(e.no)+'</span>':''}</span><span>${abWhere(e)}${byOf(e)?' · استُلم من '+esc(byOf(e)):''}</span></div>`}
 
 /* ---- قائمة الحركة (⋮) ---- */
 entMenu=function(id){const e=S.entries.find(x=>x.id===id);if(!e)return;const p=P(e.pid),isIn=e.kind==='in',c=p&&C(p.cid);const s=STF();const dir=abDirect(e),done=p&&p.done;
@@ -4223,6 +4226,20 @@ admRenew=(function(prev){return function(id){const F=fdOf(id);if(!F||!(F.left>0)
     async()=>{const d=await admCall({action:'activate',org_id:id,plan:p.plan,months:mo,method:'ماستر كارد',receipt:'تجديد',extra_eng:p.extra_eng||0,extra_asst:p.extra_asst||0,amount:amt});if(d){toast('تم التجديد ✓');await admReload();PAYS=null;actDone(id,d.paid_until,p.plan)}},'y')}})(admRenew);
 /* المرفق المؤشَّر: نافذة الإضافات مختصرة (سطر واحد فقط) */
 const _pvAddSecFD=pvAddSec;pvAddSec=function(){return _pvAddSecFD().replace(/<br>• تُحسب بمدة باقتك[^<]*<br>• إذا أضفتها لاحقاً[^<]*/,'')};
+
+
+/* ===== «استُلم من»: الشخص الذي سلّم المبلغ نيابةً عن الزبون (1.9.17) ===== */
+function byNorm(x){return String(x||'').replace(/\s+/g,' ').replace(/^(السيد|السيدة|الأستاذ|الحاج|الحاجة|م\.|د\.)\s*/,'').trim()}
+function byOf(e){if(!e||e.kind!=='in')return '';const n=String(e.party||'').trim();if(!n)return '';const c=C((P(e.pid)||{}).cid);if(!c)return '';
+  return [byNorm(cName(c)),byNorm(c.name)].includes(byNorm(n))?'':n}
+function byPickH(oth,val,w){const id=w==='q'?'q-by':'f-party';
+  if(!oth)return `<button type="button" class="bylink ${w}" onclick="byPick('${w}',true)">+ سلّم المبلغ شخص آخر غير الزبون؟</button>`;
+  return `<div class="byfld ${w}"><div class="byl"><label for="${id}">اسم الشخص الذي سلّم المبلغ</label><button type="button" class="byx" aria-label="إلغاء" onclick="byPick('${w}',false)">✕ الزبون نفسه</button></div><input id="${id}" class="${w==='q'?'qin':''}" value="${esc(val||'')}" placeholder="مثلاً: أحمد حسين" autocomplete="off"></div>`}
+function byPick(w,v){if(w==='q'){const qb=$('#q-by');if(qb)Q.by=qb.value.trim();Q.oth=v;if(!v)Q.by='';render();if(v)setTimeout(()=>{const i=$('#q-by');if(i)i.focus()},60)}
+  else{readF();F.oth=v;if(!v)F.party='';render();if(v)setTimeout(()=>{const i=$('#f-party');if(i)i.focus()},60)}}
+function byPh(e){const c=C((P(e.pid)||{}).cid);return c?cName(c)+' (الزبون)':'اسم الزبون'}
+function fromT(e){const c=C((P(e.pid)||{}).cid)||{};const b=byOf(e);return b?b+' بالنيابة عن الزبون '+cName(c):cName(c)}
+function fromH(e){const c=C((P(e.pid)||{}).cid)||{};const b=byOf(e);return b?esc(b)+' <small>(بالنيابة عن الزبون '+esc(cName(c))+')</small>':esc(cName(c))}
 
 boot();
 </script>
