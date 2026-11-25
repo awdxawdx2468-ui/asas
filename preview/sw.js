@@ -1,5 +1,5 @@
 // أسس — عامل الخدمة: يحفظ واجهة التطبيق لتفتح بدون إنترنت. البيانات نفسها تُزامَن مع السيرفر من داخل التطبيق.
-const V = 'asas-preview-20261121094157';
+const V = 'asas-preview-20261125220720';
 const SHELL = ['./', './index.html', './manifest.webmanifest', '../icons/icon-192.png', '../icons/icon-512.png',
   'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js'];
 self.addEventListener('install', (e) => {
@@ -13,6 +13,7 @@ self.addEventListener('fetch', (e) => {
   if (r.method !== 'GET') return;
   const u = new URL(r.url);
   if (u.hostname.endsWith('supabase.co')) return; // طلبات البيانات تذهب للسيرفر مباشرة
+  if (u.origin === location.origin && u.pathname.includes('/welcome/')) return; // صفحة التعريف لا تُحفظ مكان التطبيق
   const isPage = r.mode === 'navigate';
   if (isPage || u.origin === location.origin) {
     // الشبكة أولاً حتى تصل التحديثات فوراً، والنسخة المحفوظة عند انقطاع الإنترنت
