@@ -121,6 +121,7 @@ table.t.dense .cat{font-size:8.5px;padding:0 5px;line-height:1.4}
 .fld{background:var(--card);border-radius:16px;padding:10px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 3px 10px rgba(20,41,74,.04)}
 .fld .ic{width:40px;height:40px;border-radius:12px;background:var(--soft);display:grid;place-items:center;flex:none;font-size:19px}
 .fld .bx{flex:1;min-width:0;display:flex;flex-direction:column}
+.ccp{position:relative;flex:none;display:inline-flex;align-items:center;gap:4px;background:#14294A;color:#fff;border-radius:999px;padding:6px 12px;font-weight:700;font-size:14px;white-space:nowrap;cursor:pointer}.ccp::after{content:"▾";font-size:11px;opacity:.8}.ccp .num{color:#fff}.fld .ccp select{position:absolute;inset:0;opacity:0;width:100%;height:100%;padding:0;font-size:16px;cursor:pointer}
 .fld label{font-size:12.5px;color:var(--mut)}
 .fld input,.fld select,.fld textarea{border:0;outline:none;background:none;font-weight:700;font-size:16.5px;padding:3px 0;width:100%}
 .fld select{appearance:none;-webkit-appearance:none}
@@ -1437,7 +1438,11 @@ function subSheet(){sheet(`<h3>اشتراك أسس</h3><div class="hook in">مب
 
 
 /* ===== وصل الاستلام + الواتساب للزبون ===== */
-function waNum(ph){let d=String(ph||'').replace(/\D/g,'');if(!d)return '';if(d.startsWith('00'))d=d.slice(2);if(d.startsWith('964'))return d;if(d.startsWith('0'))d=d.slice(1);return d.length>=9?'964'+d:''}
+function waNum(ph){const raw=String(ph||'').replace(/[٠-٩]/g,c=>'٠١٢٣٤٥٦٧٨٩'.indexOf(c)).trim();let d=raw.replace(/\D/g,'');if(!d)return '';
+  if(/^(\+|00)/.test(raw)){if(raw.startsWith('00'))d=d.slice(2);return d.length>=8?d:''}
+  if(d.startsWith('964')&&d.length>=12)return d;if(/^0?7\d{9}$/.test(d))return '964'+d.replace(/^0/,'');
+  const cc=officeCC();if(cc!=='964'){if(d.startsWith(cc)&&d.length>=cc.length+8)return d;d=d.replace(/^0+/,'');return d.length>=6?cc+d:''}
+  if(d.startsWith('0'))d=d.slice(1);return d.length>=9?'964'+d:''}
 function waOpen(c,text){const n=waNum(c&&c.phone);if(!n){toast('أضف رقم موبايل الزبون أولاً');if(c&&c.id)setTimeout(()=>clientSheet(c.id),300);return}
   const a=document.createElement('a');a.href='https://wa.me/'+n+(text?'?text='+encodeURIComponent(text):'');a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove()}
 function cName(c){return (c.title?c.title+' ':'')+(c.name||'')}
@@ -1730,8 +1735,24 @@ function subLeft(){if(MODE!=='cloud'||IS_ADMIN||!S||!S.sub||!S.sub.until)return 
 function subEnded(){const n=subLeft();return n!==null&&(n<=0||!!(S.sub&&S.sub.susp))}
 function setCan(){const r=MODE==='cloud'?ME.role:'owner';const end=subEnded();CAN.edit=r!=='viewer'&&!end;CAN.del=(r==='owner'||(MODE==='cloud'&&r==='assistant'&&ME.eng))&&!end;CAN.admin=r==='owner';
   document.body.classList.toggle('ro',!CAN.edit);document.body.classList.toggle('nodel',!CAN.del)}
-const normPhone=p=>{let d=String(p||'').replace(/[٠-٩]/g,c=>'٠١٢٣٤٥٦٧٨٩'.indexOf(c)).replace(/\D/g,'');
+const CCS=[['964','العراق','🇮🇶'],['249','السودان','🇸🇩'],['966','السعودية','🇸🇦'],['965','الكويت','🇰🇼'],['971','الإمارات','🇦🇪'],['974','قطر','🇶🇦'],['973','البحرين','🇧🇭'],['968','عُمان','🇴🇲'],['962','الأردن','🇯🇴'],['963','سوريا','🇸🇾'],['961','لبنان','🇱🇧'],['970','فلسطين','🇵🇸'],['20','مصر','🇪🇬'],['218','ليبيا','🇱🇾'],['216','تونس','🇹🇳'],['213','الجزائر','🇩🇿'],['212','المغرب','🇲🇦'],['967','اليمن','🇾🇪'],['90','تركيا','🇹🇷'],['98','إيران','🇮🇷']];
+/* المفتاح: عراقي 7xxxxxxxxx (كما كان)، دولي = رمز الدولة + الرقم. cc = رمز الدولة المختارة (الافتراضي العراق) */
+const normPhone=(p,cc)=>{const raw=String(p||'').replace(/[٠-٩]/g,c=>'٠١٢٣٤٥٦٧٨٩'.indexOf(c)).trim();let d=raw.replace(/\D/g,'');
+  if(/^(\+|00)/.test(raw)){if(raw.startsWith('00'))d=d.slice(2);if(!d.startsWith('964'))return /^[1-9]\d{7,14}$/.test(d)?d:'';cc='964'}
+  if(cc&&cc!=='964'){if(d.startsWith(cc)&&d.length>=cc.length+8)d=d.slice(cc.length);d=d.replace(/^0+/,'');return d.length>=6&&(cc+d).length<=15?cc+d:''}
   if(d.startsWith('00964'))d=d.slice(5);else if(d.startsWith('964'))d=d.slice(3);if(d.startsWith('0'))d=d.slice(1);return /^7\d{9}$/.test(d)?d:''};
+const phoneDisp=k=>!k?'':/^7\d{9}$/.test(k)?'0'+k:'+'+k;
+const phoneKey=x=>normPhone(x)||normPhone('+'+String(x||'').replace(/\D/g,''))||String(x||'').replace(/\D/g,'').replace(/^0+/,'');
+const ccOfKey=k=>{k=String(k||'');if(!k||/^7\d{9}$/.test(k))return '964';const c=CCS.find(x=>k.startsWith(x[0]));return c?c[0]:''};
+function officeCC(){const p=String((typeof ME!=='undefined'&&ME&&ME.phone)||(S&&S.co&&S.co.phone)||'').trim();return /^(\+|00)/.test(p)?(ccOfKey(normPhone(p))||'964'):'964'}
+const CCSEL={};
+const ccLbl=c=>{const x=CCS.find(y=>y[0]===c)||CCS[0];return x[2]+' <span class="num" dir="ltr">+'+x[0]+'</span>'};
+const ccPh=c=>c==='964'?'07xx xxx xxxx':'الرقم دون رمز الدولة';
+const ccMem=()=>{try{return localStorage.getItem('asas_cc')||''}catch(e){return ''}};
+function ccPick(id,def){const c=CCSEL[id]||def||(id==='a-ph'&&ccMem())||'964';CCSEL[id]=c;return `<label class="ccp" title="رمز الدولة"><span id="${id}-ccl">${ccLbl(c)}</span><select id="${id}-cc" aria-label="الدولة" onchange="ccSet('${id}',this.value)">${CCS.map(x=>`<option value="${x[0]}" ${x[0]===c?'selected':''}>${x[2]} ${x[1]} (+${x[0]})</option>`).join('')}</select></label>`}
+function ccSet(id,c){CCSEL[id]=c;if(id==='a-ph')try{localStorage.setItem('asas_cc',c)}catch(e){}const l=$('#'+id+'-ccl');if(l)l.innerHTML=ccLbl(c);const i=$('#'+id);if(i){i.placeholder=ccPh(c);i.focus()}}
+const ccOf=id=>{const e=$('#'+id+'-cc');return (e&&e.value)||CCSEL[id]||'964'};
+const phErr=id=>ccOf(id)==='964'?'رقم الموبايل غير صحيح، اكتبه مثل 07701234567':'رقم الموبايل غير صحيح، اكتبه دون رمز الدولة';
 const cacheKey=()=>'asas_c_'+(ME&&ME.uid);
 const J=x=>JSON.stringify(x);
 /* --- الحفظ المضمون على الجهاز (بدون إنترنت): نسختان، localStorage + IndexedDB --- */
@@ -1843,14 +1864,15 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
 setInterval(()=>{if(document.visibilityState==='visible')refresh()},45000);
 
 /* --- تسجيل الدخول وإنشاء الحساب --- */
-let AUTH={tab:'in',busy:false,err:''};
+function authTab(){try{if(localStorage.getItem('asas_known'))return 'in';for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i)||'';if(k==='asas-auth'||k.startsWith('asas_c_'))return 'in'}}catch(e){}return 'up'}
+let AUTH={tab:authTab(),busy:false,err:''};
 VIEWS.login=()=>{const up=AUTH.tab==='up';return `<div class="auth">
   <div class="auth-top"><div class="auth-logo">${helmet(64)}</div><h1>أسس</h1><p class="tag">حسابات مشاريعك وزبائنك بمكان واحد</p><div class="hook">مبلغٌ واحد تنسى تسجيله قد يكلّفك أكثر من اشتراك سنة كاملة.<br><b>أسس يحفظ لك كل دينار.</b></div></div>
   <div class="wrap auth-card">
    <div class="seg"><button class="${up?'':'on'}" onclick="AUTH.tab='in';AUTH.err='';render()">تسجيل دخول</button><button class="${up?'on':''}" onclick="AUTH.tab='up';AUTH.err='';render()">حساب جديد</button></div>
    ${up?`<div class="fld"><div class="bx"><label for="a-name">اسمك</label><input id="a-name" autocomplete="name" placeholder="م. علي الطامي"></div></div>
    <div class="fld"><div class="bx"><label for="a-co">اسم شركتك أو مكتبك (اختياري)</label><input id="a-co" placeholder="شركة الطامي للبناء"></div></div>`:''}
-   <div class="fld"><div class="bx"><label for="a-ph">رقم الموبايل</label><input id="a-ph" class="num" inputmode="tel" autocomplete="username" placeholder="07xx xxx xxxx" style="text-align:right"></div></div>
+   <div class="fld"><div class="bx"><label for="a-ph">رقم الموبايل</label><input id="a-ph" class="num" inputmode="tel" autocomplete="username" placeholder="${ccPh(CCSEL['a-ph']||ccMem()||'964')}" style="text-align:right"></div>${ccPick('a-ph')}</div>
    <div class="fld"><div class="bx"><label for="a-pw">كلمة السر</label><input id="a-pw" type="password" autocomplete="${up?'new-password':'current-password'}" placeholder="${up?'6 أحرف أو أرقام على الأقل':''}" onkeydown="if(event.key==='Enter')authGo()"></div></div>
    ${AUTH.err?`<div class="auth-err">${esc(AUTH.err)}</div>`:''}
    <button class="btn y" ${AUTH.busy?'disabled':''} onclick="authGo()">${AUTH.busy?'لحظة…':up?'إنشاء الحساب':'دخول'}</button>
@@ -1859,12 +1881,12 @@ VIEWS.login=()=>{const up=AUTH.tab==='up';return `<div class="auth">
   </div>
   <p class="note" style="text-align:center;font-size:14px">للمساعدة: <b class="num">${PLATFORM.phone}</b></p>${verLine()}</div>`};
 function helmet(sz){return `<svg width="${sz}" height="${sz}" viewBox="0 0 64 64"><path d="M10 42a22 22 0 0 1 44 0z" fill="#F5B800"/><path d="M27 20h10v22H27z" fill="#E0A200"/><rect x="6" y="41" width="52" height="7" rx="3.5" fill="#F5B800"/></svg>`}
-async function authGo(){if(AUTH.busy)return;const up=AUTH.tab==='up';const ph=normPhone($('#a-ph').value),pw=$('#a-pw').value;
+async function authGo(){if(AUTH.busy)return;const up=AUTH.tab==='up';const ph=normPhone($('#a-ph').value,ccOf('a-ph')),pw=$('#a-pw').value;
   const name=up?$('#a-name').value.trim():'',co=up?$('#a-co').value.trim():'';
   const keep={ph:$('#a-ph').value,name,co};
-  if(up&&!name)return authErr('اكتب اسمك',keep);if(!ph)return authErr('رقم الموبايل غير صحيح، اكتبه مثل 07701234567',keep);if(pw.length<6)return authErr('كلمة السر 6 أحرف على الأقل',keep);
+  if(up&&!name)return authErr('اكتب اسمك',keep);if(!ph)return authErr(phErr('a-ph'),keep);if(pw.length<6)return authErr('كلمة السر 6 أحرف على الأقل',keep);
   AUTH.busy=true;AUTH.err='';render();refill(keep);
-  try{if(up){const r=await fetch(CLOUD.url+'/functions/v1/asas-signup',{method:'POST',headers:{'Content-Type':'application/json',apikey:CLOUD.key,Authorization:'Bearer '+CLOUD.key},body:J({phone:ph,password:pw,name,company:co})});
+  try{if(up){const r=await fetch(CLOUD.url+'/functions/v1/asas-signup',{method:'POST',headers:{'Content-Type':'application/json',apikey:CLOUD.key,Authorization:'Bearer '+CLOUD.key},body:J({phone:phoneDisp(ph),password:pw,name,company:co})});
       const j=await r.json().catch(()=>({}));if(!r.ok&&j.error!=='taken')throw new Error(j.msg||'تعذّر إنشاء الحساب');if(j.error==='taken'){AUTH.tab='in';throw new Error(j.msg)}}
     const{error}=await SB.auth.signInWithPassword({email:ph+'@asas.app',password:pw});
     if(error)throw new Error(/invalid/i.test(error.message)?'الرقم أو كلمة السر غير صحيحة':'تعذّر الدخول، تأكد من الإنترنت');
@@ -1873,8 +1895,8 @@ async function authGo(){if(AUTH.busy)return;const up=AUTH.tab==='up';const ph=no
 function authErr(m,keep){AUTH.err=m;render();refill(keep)}
 function refill(k){if(!k)return;const s=(id,v)=>{const el=$('#'+id);if(el&&v)el.value=v};s('a-ph',k.ph);s('a-name',k.name);s('a-co',k.co)}
 function startDemo(){try{localStorage.setItem('asas_mode','demo')}catch(e){}MODE='demo';ME=null;load();setCan();go('home')}
-function toLogin(){try{localStorage.removeItem('asas_mode')}catch(e){}MODE='demo';AUTH={tab:'up',busy:false,err:''};go('login')}
-async function enterCloud(offUid){let user=null;if(offUid)user={id:offUid};else{const{data:{session}}=await SB.auth.getSession();user=session&&session.user}if(!user)return go('login');
+function toLogin(){try{localStorage.removeItem('asas_mode')}catch(e){}MODE='demo';AUTH={tab:authTab(),busy:false,err:''};go('login')}
+async function enterCloud(offUid){try{localStorage.setItem('asas_known','1')}catch(e){}let user=null;if(offUid)user={id:offUid};else{const{data:{session}}=await SB.auth.getSession();user=session&&session.user}if(!user)return go('login');
   IDB_C=await idbGet('asas_c_'+user.id);
   const{data:m,error}=offUid?{data:null,error:{message:'offline'}}:await withTO(SB.from('asas_members').select('org_id,role,name,phone,active,is_engineer,projects,title,perms').eq('user_id',user.id).eq('active',true).limit(1).maybeSingle(),8000);
   let me=null;
@@ -1904,7 +1926,7 @@ VIEWS.more=()=>{if(MODE!=='cloud')return _more().replace(`onclick="toast('إضا
   const li=(on,ic,t,s,cls='')=>`<button class="li ${cls}" onclick="${on}"><div class="ic">${ic}</div><div class="mid"><div class="t">${t}</div><div class="s">${s}</div></div></button>`;
   return `<header class="top short"><div class="hdr"><div><h1>المزيد</h1><p>${esc(S.co.name||S.co.short||'')}</p></div></div></header>
   <div class="wrap menu" style="margin-top:14px">
-   <div class="list"><div class="li"><div class="ic">👤</div><div class="mid"><div class="t">${esc(ME.name)}</div><div class="s"><span class="num">${esc(ME.phone||'')}</span> · ${ROLE_N[roleOf(ME)]}</div></div></div></div>
+   <div class="list"><div class="li"><div class="ic">👤</div><div class="mid"><div class="t">${esc(ME.name)}</div><div class="s"><span class="num" dir="ltr">${esc(ME.phone||'')}</span> · ${ROLE_N[roleOf(ME)]}</div></div></div></div>
    <div class="list">
     ${CAN.admin?li("go('settings')",'🏢','هوية الشركة','الاسم، الشعار، الختم، العنوان، الهاتف'):''}
     ${CAN.admin?li("go('members')",'👷','فريق العمل','أضف مهندساً أو مساعداً وحدّد صلاحيته'):''}
@@ -1929,10 +1951,11 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.19',APP_T='2026-11-24 18:05';
+var APP_V='1.9.20',APP_T='2026-11-26 01:20';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
 var APP_NEWS_1917='عند استلام مبلغ: إذا سلّم المبلغ شخص غير الزبون، اضغط «سلّم المبلغ شخص آخر غير الزبون؟» واكتب اسمه|يظهر اسمه في الوصل ورسالة الواتساب والكشوف: «بالنيابة عن الزبون»';
-var APP_NEWS='زر «إرسال الوصل للزبون بالواتساب» يرسل الآن صورة الوصل نفسه بشعار شركتك وختمها، مع سطر قصير برقم الوصل ومبلغه';
+var APP_NEWS='يمكنك الآن التسجيل والدخول برقم موبايل من أي دولة: اضغط رمز الدولة بجانب الرقم واختر دولتك (العراق هو الافتراضي)|عند فتح التطبيق أول مرة على جهاز جديد تظهر صفحة «حساب جديد» مباشرة';
+var APP_NEWS_1919='زر «إرسال الوصل للزبون بالواتساب» يرسل الآن صورة الوصل نفسه بشعار شركتك وختمها، مع سطر قصير برقم الوصل ومبلغه';
 var APP_NEWS_1918='صور الوصولات تظهر الآن في الكشف وملف PDF ورابط الزبون|تاريخ رسائل الواتساب بصيغة يوم/شهر/سنة|بعد حفظ الدفعة يظهر الوصل مباشرة دون رسالة «بدون إنترنت» بالخطأ';
 var APP_NEWS_1916='عرض «المؤسسون»: أول 50 مكتباً يحصلون تلقائياً على 3 أشهر مجاناً بباقة «فريق»، ثم نصف السعر لأول سنة مدفوعة|يظهر خصم المؤسس وسعر الاشتراك بعد الخصم في نافذة الاشتراك|تبسيط شرح الإضافات في الباقات';
 var APP_NEWS_1915='اختيار المشروع أسرع: مربعات صغيرة تظهر فيها أحدث 20 مشروعاً، مع بحث في الأعلى وزر «عرض كل المشاريع»|بعد اختيار المشروع يبقى اسمه ظاهراً في كل الخطوات، مع زر «تغيير»';
@@ -1955,7 +1978,8 @@ var APP_NEWS_189='تجديد الاشتراك أسهل: تختار الباقة 
 var APP_NEWS_188='أصبحت الطباعة ملف PDF بحجم A4 كامل وبدقة عالية، ترسله إلى الطابعة أو إلى أي شخص عبر الواتساب|الوصل: النسختان في ورقة واحدة، والختم والتوقيع مرتبان|لا يوجد قص في الحواف ولا ورقة زائدة في الطباعة';
 var APP_NEWS_186='اضغط على أي حركة في المشروع لتعديلها أو حذفها|الحذف يطلب تأكيداً، والمحذوف ينتقل إلى سلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً|أصبح حذف الزبون أو المشروع يطلب تأكيداً، وحذف الصورة من شاشة تعديل المبلغ';
 var APP_LOG=[
- {v:'1.9.19',d:'2026-11-24',n:APP_NEWS.split('|')},
+ {v:'1.9.20',d:'2026-11-26',n:APP_NEWS.split('|')},
+ {v:'1.9.19',d:'2026-11-24',n:APP_NEWS_1919.split('|')},
  {v:'1.9.18',d:'2026-11-24',n:APP_NEWS_1918.split('|')},
  {v:'1.9.17',d:'2026-11-24',n:APP_NEWS_1917.split('|')},
  {v:'1.9.16',d:'2026-11-23',n:APP_NEWS_1916.split('|')},
@@ -2201,7 +2225,7 @@ function remindMsg(o){const n=dLeft(o),paid=o.paid_until&&o.paid_until>=o.trial_
 function remindList(){const L=soonOrgs().sort((a,b)=>dLeft(a)-dLeft(b));
   sheet(`<h3>⏰ تذكير المكاتب قبل انتهاء الاشتراك</h3><p class="note" style="margin:0">المكاتب التي تنتهي خلال 7 أيام أو انتهت قبل أيام قليلة. اضغط «تذكير» لفتح الواتساب برسالة جاهزة.</p>
    <div class="list">${L.map(o=>{const n=dLeft(o);return `<div class="li"><div class="mid"><div class="t">${esc(o.name)}</div><div class="s">${esc(o.owner)} · <span class="num">${esc(o.phone)}</span> · ${n>0?'باقٍ <span class="num">'+n+'</span> يوم':'<b style="color:var(--red)">منتهٍ</b>'}</div></div>
-     <a class="chip" style="background:#25D366;color:#fff;text-decoration:none" href="https://wa.me/964${esc(String(o.phone).replace(/^0/,''))}?text=${encodeURIComponent(remindMsg(o))}" target="_blank" rel="noopener">💬 تذكير</a></div>`}).join('')||'<div class="empty">لا توجد مكاتب تنتهي قريباً ✓</div>'}</div>
+     <a class="chip" style="background:#25D366;color:#fff;text-decoration:none" href="https://wa.me/${esc(waNum(o.phone))}?text=${encodeURIComponent(remindMsg(o))}" target="_blank" rel="noopener">💬 تذكير</a></div>`}).join('')||'<div class="empty">لا توجد مكاتب تنتهي قريباً ✓</div>'}</div>
    <button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)}
 
 /* ===== صحة النظام (للمدير) ===== */
@@ -2300,7 +2324,7 @@ const roleSel=(v)=>`<div class="fld"><div class="bx"><label for="m-role">الص�
 function memberSheet(id){const m=id?MEMBERS.find(x=>x.user_id===id):null;
   if(!m)return sheet(`<h3>إضافة مستخدم</h3>
    <div class="fld"><div class="bx"><label for="m-name">الاسم</label><input id="m-name" placeholder="م. أحمد كريم"></div></div>
-   <div class="fld"><div class="bx"><label for="m-ph">رقم الموبايل</label><input id="m-ph" class="num" inputmode="tel" placeholder="07xx xxx xxxx" style="text-align:right"></div></div>
+   <div class="fld"><div class="bx"><label for="m-ph">رقم الموبايل</label><input id="m-ph" class="num" inputmode="tel" placeholder="${ccPh(officeCC())}" style="text-align:right"></div>${ccPick('m-ph',officeCC())}</div>
    <div class="fld"><div class="bx"><label for="m-pw">كلمة السر</label><input id="m-pw" class="num" value="${Math.random().toString().slice(2,8)}" style="text-align:right"></div></div>
    ${roleSel('assistant')}<p class="note">أرسل الرقم وكلمة السر إلى المستخدم ليتمكّن من الدخول من هاتفه.</p>
    <button class="btn" onclick="memberAdd()"><span class="ck">✓</span> إضافة</button><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`);
@@ -2313,10 +2337,10 @@ function memberSheet(id){const m=id?MEMBERS.find(x=>x.user_id===id):null;
    <button class="btn del" onclick="if(custOf('${id}').left)return toast('لديه عهدة متبقية '+fmt(custOf('${id}').left)+' د.ع. سجّل «استلمت الباقي» أولاً');ask('حذف ${esc(m.name)} نهائياً؟ لن يتمكّن من الدخول بعد الآن، وتبقى المبالغ التي سجّلها.','حذف المستخدم',()=>memberAct('remove','${id}'))">حذف المستخدم</button>`)}
 async function callMember(body){const{data,error}=await SB.functions.invoke('asas-member',{body:Object.assign({org_id:ME.org},body)});
   if(error){let msg='تعذّر التنفيذ، تأكد من الإنترنت';try{const j=await error.context.json();if(j.msg)msg=j.msg}catch(e){}throw new Error(msg)}return data}
-async function memberAdd(){const name=$('#m-name').value.trim(),ph=normPhone($('#m-ph').value),pw=$('#m-pw').value.trim(),role=$('#m-role').value;
-  if(!name)return toast('اكتب الاسم');if(!ph)return toast('رقم الموبايل غير صحيح');if(pw.length<6)return toast('كلمة السر 6 أحرف على الأقل');
-  try{await callMember({action:'add',name,phone:ph,password:pw,role});closeSheet();toast('تمت إضافة '+name+' ✓');
-    sheet(`<h3>تمت إضافة ${esc(name)} ✓</h3><p class="note">أرسل له هذه المعلومات ليتمكّن من الدخول:</p><div class="card" style="padding:14px;line-height:2">الرقم: <b class="num">0${ph}</b><br>كلمة السر: <b class="num">${esc(pw)}</b></div><button class="btn" onclick="closeSheet()">تم</button>`);loadMembers()}
+async function memberAdd(){const name=$('#m-name').value.trim(),ph=normPhone($('#m-ph').value,ccOf('m-ph')),pw=$('#m-pw').value.trim(),role=$('#m-role').value;
+  if(!name)return toast('اكتب الاسم');if(!ph)return toast(phErr('m-ph'));if(pw.length<6)return toast('كلمة السر 6 أحرف على الأقل');
+  try{await callMember({action:'add',name,phone:phoneDisp(ph),password:pw,role});closeSheet();toast('تمت إضافة '+name+' ✓');
+    sheet(`<h3>تمت إضافة ${esc(name)} ✓</h3><p class="note">أرسل له هذه المعلومات ليتمكّن من الدخول:</p><div class="card" style="padding:14px;line-height:2">الرقم: <b class="num" dir="ltr">${phoneDisp(ph)}</b><br>كلمة السر: <b class="num">${esc(pw)}</b></div><button class="btn" onclick="closeSheet()">تم</button>`);loadMembers()}
   catch(e){toast(e.message)}}
 async function memberAct(action,id,extra={}){try{await callMember(Object.assign({action,user_id:id},extra));closeSheet();toast('تم ✓');loadMembers()}catch(e){toast(e.message)}}
 
@@ -2408,7 +2432,7 @@ function admSheet(id){const o=ADM.orgs.find(x=>x.id===id);if(!o)return;ADM.cur=i
    <div class="stopt"><b>✏️ الاسم والهاتف</b>
     <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="adm-on">اسم المكتب / الشركة</label><input id="adm-on" value="${esc(o.name)}"></div></div>
     <div class="row2"><div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="adm-ow">اسم المهندس</label><input id="adm-ow" value="${esc(o.owner)}"></div></div>
-    <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="adm-ph">الهاتف (رقم الدخول)</label><input id="adm-ph" class="num" inputmode="tel" value="${esc(o.phone)}" style="text-align:right"></div></div></div>
+    <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="adm-ph">الهاتف (رقم الدخول · الرقم الدولي يبدأ بـ +)</label><input id="adm-ph" class="num" inputmode="tel" value="${esc(o.phone)}" style="text-align:right" dir="ltr"></div></div></div>
     <button class="btn ghost" onclick="admDo('${id}','info',{name:$('#adm-on').value,owner:$('#adm-ow').value,phone:$('#adm-ph').value},'حُفظت البيانات ✓')">حفظ البيانات</button></div>
 
    <div class="stopt"><b>📅 مدة الاشتراك</b>
@@ -2433,7 +2457,7 @@ function admSheet(id){const o=ADM.orgs.find(x=>x.id===id);if(!o)return;ADM.cur=i
 
    <div class="stopt"><b>💳 الدفعات</b>${(o.payments||[]).length?o.payments.map(p=>p.months>0?`<div class="s" style="font-size:13px">${esc(p.plan)} · ${moTxt(p.months)} · <span class="num">${fmt(p.amount)}</span> د.ع · ${esc(p.method||'')} ${p.receipt?'· '+esc(p.receipt):''} ${p.extra_eng?' · +'+p.extra_eng+' مهندس':''} · حتى <span class="num">${p.to_date.slice(0,10)}</span><span class="pe"><button onclick="payEdit(${p.id||0},'${id}')">تعديل</button><button class="r" onclick="payDel(${p.id||0},'${id}')">حذف</button></span></div>`:`<div class="s" style="font-size:13px;color:var(--red)">أُلغي التفعيل · <span class="num">${p.created_at.slice(0,10)}</span></div>`).join(''):'<div class="mut" style="font-size:13px">لا توجد دفعات مسجّلة</div>'}</div>
 
-   <a class="btn" style="text-decoration:none;background:#169C55;color:#fff;margin:0" href="https://wa.me/964${esc(String(o.phone).replace(/^0/,''))}?text=${encodeURIComponent(remindMsg(o))}" target="_blank" rel="noopener">💬 إرسال رسالة تذكير واتساب</a>
+   <a class="btn" style="text-decoration:none;background:#169C55;color:#fff;margin:0" href="https://wa.me/${esc(waNum(o.phone))}?text=${encodeURIComponent(remindMsg(o))}" target="_blank" rel="noopener">💬 إرسال رسالة تذكير واتساب</a>
    <div class="aacts">
     ${o.suspended_at?`<button class="ok" onclick="admAsk('${id}','resume')">▶️ تشغيل الحساب</button>`:`<button class="bad" onclick="admAsk('${id}','suspend')">⏸️ إيقاف الحساب</button>`}
     <button onclick="admAsk('${id}','password')">🔑 كلمة مرور مؤقتة</button>
@@ -2460,7 +2484,7 @@ function admAsk(id,a){const o=ADM.orgs.find(x=>x.id===id);const[t,txt,btn,msg]=A
   admConfirm(t+' · '+esc(o.owner||o.name),txt,btn,async()=>{if(a!=='password')return admDo(id,a,{},msg);
     const d=await admCall({action:'password',org_id:id});if(!d)return;const m=`السلام عليكم م. ${o.owner}\nكلمة المرور المؤقتة لحسابك في أسس: ${d.password}\nرقم الدخول: ${o.phone}\nيرجى تغييرها بعد الدخول.\nإدارة أسس`;
     sheet(`<h3>🔑 كلمة المرور المؤقتة</h3><div class="pwbox num">${d.password}</div><p class="note" style="margin:0">لـ ${esc(o.owner)} · <span class="num">${esc(o.phone)}</span>. القديمة بطلت.</p>
-     <a class="btn" style="text-decoration:none;background:#25D366;color:#fff" href="https://wa.me/964${esc(String(o.phone).replace(/^0/,''))}?text=${encodeURIComponent(m)}" target="_blank" rel="noopener">💬 إرسالها له بالواتساب</a>
+     <a class="btn" style="text-decoration:none;background:#25D366;color:#fff" href="https://wa.me/${esc(waNum(o.phone))}?text=${encodeURIComponent(m)}" target="_blank" rel="noopener">💬 إرسالها له بالواتساب</a>
      <button class="btn ghost" onclick="admSheet('${id}')">رجوع</button>`)},a==='resume'?'y':'r')}
 function admConfirm(t,txt,btn,fn,kind){sheet(`<h3>${t}</h3><p style="margin:0;line-height:1.9">${txt}</p>
   <button class="btn ${kind==='y'?'y':''}" id="adm-go" style="${kind==='r'?'background:var(--red);color:#fff':''}">${btn}</button><button class="btn ghost" onclick="admBack()">رجوع</button>`);
@@ -2469,7 +2493,7 @@ function admBack(){if(ADM.cur)admSheet(ADM.cur);else closeSheet()}
 function admDelAsk(id){const o=ADM.orgs.find(x=>x.id===id);
   sheet(`<h3 style="color:var(--red)">🗑️ حذف الحساب نهائياً</h3>
    <div class="trialbar end" style="display:block;line-height:1.9">سيُحذف <b>${esc(o.name)}</b> وكل بياناته: <span class="num">${o.clients||0}</span> زبون، <span class="num">${o.projects||0}</span> مشروع، <span class="num">${o.entries||0}</span> مبلغ، الصور، النسخ الاحتياطية، والمستخدمين (<span class="num">${o.members||0}</span>).<br><b>لا يمكن استرجاعه.</b> يبقى رقمه محجوزاً ولا يحصل على تجربة مجانية أخرى.</div>
-   <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="adm-del">للتأكيد اكتب رقم هاتفه: <span class="num">${esc(o.phone)}</span></label><input id="adm-del" class="num" inputmode="tel" style="text-align:right" oninput="$('#adm-delgo').disabled=this.value.replace(/\\D/g,'').replace(/^0/,'')!=='${esc(String(o.phone).replace(/^0/,''))}'"></div></div>
+   <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="adm-del">للتأكيد اكتب رقم هاتفه: <span class="num">${esc(o.phone)}</span></label><input id="adm-del" class="num" inputmode="tel" style="text-align:right" oninput="$('#adm-delgo').disabled=phoneKey(this.value)!=='${esc(phoneKey(o.phone))}'"></div></div>
    <button class="btn" id="adm-delgo" disabled style="background:var(--red);color:#fff" onclick="admDel('${id}')">حذف نهائي</button>
    <button class="btn ghost" onclick="admSheet('${id}')">رجوع</button>`)}
 async function admDel(id){const b=$('#adm-delgo');b.disabled=true;b.textContent='جارٍ الحذف…';const d=await admCall({action:'delete',org_id:id,confirm:$('#adm-del').value});
@@ -2509,7 +2533,7 @@ function annBar(){const t=(SETS.ann&&SETS.ann.text||'').trim();if(V.v!=='home'||
 const NEEDSRV='تعمل هذه الميزة بعد «ارفع» (تحتاج تحديث السيرفر)';
 async function admTry(body){try{const{data,error}=await SB.functions.invoke('asas-admin',{body});if(error){let j={};try{j=await error.context.json()}catch(e){}return{_err:1,msg:j.msg||'تعذّر تنفيذ العملية'}}return data||{}}catch(e){return{_err:1,msg:'تعذّر الاتصال'}}}
 const bgd=t=>t?new Date(Date.parse(t)+3*36e5).toISOString().slice(0,10):'';
-const isAdmOrg=o=>String(o.phone||'').replace(/^0/,'')===PLATFORM.phone.replace(/^0/,'');
+const isAdmOrg=o=>phoneKey(o.phone)===phoneKey(PLATFORM.phone);
 var DORM=14;const dormD=()=>(SETS&&SETS.follow&&+SETS.follow.dorm)||14;
 function idleDays(o){const r=[o.last_login,o.last_entry,o.created_at].filter(Boolean).sort().pop();return r?Math.max(0,Math.floor((Date.now()-Date.parse(r))/864e5)):0}
 function akey(o){const n=dLeft(o),paid=o.paid_until&&o.paid_until>=o.trial_until;if(o.suspended_at)return 'stop';if(n<=0)return 'end';if(n<=7)return 'soon';return paid?'paid':'trial'}
@@ -2830,7 +2854,7 @@ admSheet=function(id,tab){const o=ADM.orgs.find(x=>x.id===id);if(!o)return;if(AD
    <div class="stopt"><b>✏️ الاسم والهاتف</b>
     <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="adm-on">اسم المكتب / الشركة</label><input id="adm-on" value="${esc(o.name)}"></div></div>
     <div class="row2"><div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="adm-ow">اسم المهندس</label><input id="adm-ow" value="${esc(o.owner)}"></div></div>
-    <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="adm-ph">الهاتف (رقم الدخول)</label><input id="adm-ph" class="num" inputmode="tel" value="${esc(o.phone)}" style="text-align:right"></div></div></div>
+    <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="adm-ph">الهاتف (رقم الدخول · الرقم الدولي يبدأ بـ +)</label><input id="adm-ph" class="num" inputmode="tel" value="${esc(o.phone)}" style="text-align:right" dir="ltr"></div></div></div>
     <button class="btn ghost" style="margin:0" onclick="admDo('${id}','info',{name:$('#adm-on').value,owner:$('#adm-ow').value,phone:$('#adm-ph').value},'حُفظت البيانات ✓')">حفظ البيانات</button></div>
    <div class="stopt"><b>📝 ملاحظة (تظهر لك فقط)</b>
     <textarea id="adm-note" placeholder="مثلاً: وعد بالدفع يوم الخميس" style="width:100%;min-height:70px;border-radius:12px;border:1px solid var(--line);padding:10px;font:inherit;background:var(--soft)">${esc(o.note||'')}</textarea>
@@ -3405,7 +3429,7 @@ memberSheet=function(id){const m=id?MEMBERS.find(x=>x.user_id===id):null;
   if(!m){SI={title:'فورمن',other:'',p:Object.assign({},SI_PRESET['فورمن']),pj:[]};
     return sheet(`<h3>دعوة عضو جديد</h3><p class="note" style="margin-top:-4px">يصله رابط عبر الواتساب، فيفتحه ويختار كلمة سر ويدخل مباشرة.</p>
      <div class="fld"><div class="bx"><label for="m-name">الاسم</label><input id="m-name" placeholder="م. أحمد كريم"></div></div>
-     <div class="fld"><div class="bx"><label for="m-ph">رقم الموبايل (اختياري)</label><input id="m-ph" class="num" inputmode="tel" placeholder="07xx xxx xxxx" style="text-align:right"></div></div>
+     <div class="fld"><div class="bx"><label for="m-ph">رقم الموبايل (اختياري)</label><input id="m-ph" class="num" inputmode="tel" placeholder="${ccPh(officeCC())}" style="text-align:right"></div>${ccPick('m-ph',officeCC())}</div>
      <p class="note" style="margin:-4px 4px 8px">إذا تركته فارغاً، يُفتح الواتساب لتختار الشخص من جهات الاتصال، ويكتب هو رقمه عند فتح الرابط.</p>
      <div id="siform">${siForm()}</div>
      <button class="btn wa" id="si-go" onclick="inviteSend()">💬 إرسال الدعوة بالواتساب</button>
@@ -3425,9 +3449,9 @@ function siCheck(b){if(b.title==='')return 'اكتب المسمى';if(b.projects
 async function memberSave(id){const b=siBody();const e=siCheck(b);if(e)return toast(e);await memberAct('update',id,b)}
 function inviteMsg(iv){const office=S.co.name||S.co.short||'المكتب';
   return `السلام عليكم ${iv.name}،\nيسرّنا انضمامك إلى فريق عمل «${office}» بصفة: ${iv.title}.\n\nلتفعيل حسابك اضغط على الرابط التالي (صالح لمرة واحدة ولمدة 7 أيام):\n${SI_URL(iv.code)}\n\nبعد فتح الرابط تختار كلمة سر خاصة بك، وتظهر لك ${iv.all?'المشاريع':'المشاريع المكلَّف بها'} مباشرة.\n\n${ME.name||''} — ${office}`}
-function waOpen(phone,text){const d=normPhone(phone);const u='https://wa.me/'+(d?'964'+d:'')+'?text='+encodeURIComponent(text);const w=window.open(u,'_blank','noopener');if(!w)location.href=u}
-async function inviteSend(){const name=$('#m-name').value.trim(),raw=$('#m-ph').value.trim(),ph=raw?normPhone(raw):'';const b=siBody();
-  if(!name)return toast('اكتب الاسم');if(raw&&!ph)return toast('رقم الموبايل غير صحيح، أو اتركه فارغاً');const e=siCheck(b);if(e)return toast(e);
+function waOpen(phone,text){const d=phone?waNum(phone):'';const u='https://wa.me/'+(d||'')+'?text='+encodeURIComponent(text);const w=window.open(u,'_blank','noopener');if(!w)location.href=u}
+async function inviteSend(){const name=$('#m-name').value.trim(),raw=$('#m-ph').value.trim(),ph=raw?phoneDisp(normPhone(raw,ccOf('m-ph'))):'';const b=siBody();
+  if(!name)return toast('اكتب الاسم');if(raw&&!ph)return toast(phErr('m-ph')+'، أو اتركه فارغاً');const e=siCheck(b);if(e)return toast(e);
   const bt=$('#si-go');if(bt){bt.disabled=true;bt.textContent='يرجى الانتظار…'}
   try{const r=await callMember(Object.assign({action:'invite',name,phone:ph},b));const iv={code:r.code,name,title:b.title||'مساعد',all:!b.projects};
     waOpen(ph,inviteMsg(iv));closeSheet();
@@ -3453,16 +3477,16 @@ function joinPaint(){const i=JOIN.info;$('#layer').innerHTML='';
    <h1>${i?esc(i.office):'دعوة للانضمام'}</h1><p class="tag">${i?'دعوة للانضمام إلى فريق العمل':''}</p></div>
    <div class="wrap auth-card">${!i&&!JOIN.err?'<div class="empty">يرجى الانتظار…</div>':!i?`<div class="auth-err">${esc(JOIN.err)}</div><button class="btn ghost" onclick="location.href=location.pathname">فتح صفحة الدخول</button>`:`
     <div class="sijoin"><div>أهلاً <b>${esc(i.name)}</b></div><div>${i.by?esc(i.by)+' يدعوك':'تمت دعوتك'} للانضمام بصفة: <b>${esc(i.title)}</b></div></div>
-    ${i.phone?`<div class="fld"><div class="bx"><label>رقم الموبايل</label><input class="num" value="${esc(i.phone)}" disabled style="text-align:right"></div><span class="mut">🔒</span></div>`:`<div class="fld"><div class="bx"><label for="j-ph">رقم موبايلك</label><input id="j-ph" class="num" inputmode="tel" autocomplete="tel" placeholder="07xx xxx xxxx" style="text-align:right" value="${esc(JOIN.ph||'')}"></div></div>`}
+    ${i.phone?`<div class="fld"><div class="bx"><label>رقم الموبايل</label><input class="num" value="${esc(i.phone)}" disabled style="text-align:right" dir="ltr"></div><span class="mut">🔒</span></div>`:`<div class="fld"><div class="bx"><label for="j-ph">رقم موبايلك</label><input id="j-ph" class="num" inputmode="tel" autocomplete="tel" placeholder="${ccPh(CCSEL['j-ph']||'964')}" style="text-align:right" value="${esc(JOIN.ph||'')}"></div>${ccPick('j-ph')}</div>`}
     <div class="fld"><div class="bx"><label for="j-pw">اختر كلمة سر</label><input id="j-pw" type="password" autocomplete="new-password" placeholder="6 أحرف أو أرقام على الأقل"></div></div>
     <div class="fld"><div class="bx"><label for="j-pw2">أعد كتابة كلمة السر</label><input id="j-pw2" type="password" autocomplete="new-password" onkeydown="if(event.key==='Enter')joinGo()"></div></div>
     ${JOIN.err?`<div class="auth-err">${esc(JOIN.err)}</div>`:''}
     <button class="btn y" ${JOIN.busy?'disabled':''} onclick="joinGo()">${JOIN.busy?'يرجى الانتظار…':'تفعيل الحساب والدخول'}</button>
     <p class="note">يمكنك بعدها الدخول بالرقم وكلمة السر نفسيهما من أي جهاز، فاحتفظ بهما.</p>`}</div></div>`}
-async function joinGo(){if(JOIN.busy)return;const a=$('#j-pw').value,b=$('#j-pw2').value;const pe=$('#j-ph');if(pe){JOIN.ph=pe.value;if(!normPhone(pe.value)){JOIN.err='رقم الموبايل غير صحيح، اكتبه مثل 07701234567';return joinPaint()}}
+async function joinGo(){if(JOIN.busy)return;const a=$('#j-pw').value,b=$('#j-pw2').value;const pe=$('#j-ph');if(pe){JOIN.ph=pe.value;if(!normPhone(pe.value,ccOf('j-ph'))){JOIN.err=phErr('j-ph');return joinPaint()}}
   if(a.length<6){JOIN.err='كلمة السر 6 أحرف على الأقل';return joinPaint()}if(a!==b){JOIN.err='كلمتا السر غير متطابقتين';return joinPaint()}
   JOIN.busy=true;JOIN.err='';joinPaint();
-  try{const r=await joinCall({action:'accept',code:JOIN.code,password:a,phone:pe?normPhone(pe.value):''});const ph=normPhone(r.phone);
+  try{const r=await joinCall({action:'accept',code:JOIN.code,password:a,phone:pe?phoneDisp(normPhone(pe.value,ccOf('j-ph'))):''});const ph=normPhone(r.phone);
     const{error}=await SB.auth.signInWithPassword({email:ph+'@asas.app',password:a});if(error)throw new Error('تم تفعيل الحساب ✓ سجّل الدخول برقمك وكلمة السر');
     try{history.replaceState(null,'',location.pathname);localStorage.setItem('asas_inst_due','1')}catch(e){}
     JOIN.busy=false;await enterCloud();toast('أهلاً بك في فريق '+(r.office||'العمل')+' ✓')}
