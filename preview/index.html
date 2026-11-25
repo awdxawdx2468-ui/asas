@@ -1863,7 +1863,8 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
 setInterval(()=>{if(document.visibilityState==='visible')refresh()},45000);
 
 /* --- تسجيل الدخول وإنشاء الحساب --- */
-let AUTH={tab:'in',busy:false,err:''};
+function authTab(){try{if(localStorage.getItem('asas_known'))return 'in';for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i)||'';if(k==='asas-auth'||k.startsWith('asas_c_'))return 'in'}}catch(e){}return 'up'}
+let AUTH={tab:authTab(),busy:false,err:''};
 VIEWS.login=()=>{const up=AUTH.tab==='up';return `<div class="auth">
   <div class="auth-top"><div class="auth-logo">${helmet(64)}</div><h1>أسس</h1><p class="tag">حسابات مشاريعك وزبائنك بمكان واحد</p><div class="hook">مبلغٌ واحد تنسى تسجيله قد يكلّفك أكثر من اشتراك سنة كاملة.<br><b>أسس يحفظ لك كل دينار.</b></div></div>
   <div class="wrap auth-card">
@@ -1893,8 +1894,8 @@ async function authGo(){if(AUTH.busy)return;const up=AUTH.tab==='up';const ph=no
 function authErr(m,keep){AUTH.err=m;render();refill(keep)}
 function refill(k){if(!k)return;const s=(id,v)=>{const el=$('#'+id);if(el&&v)el.value=v};s('a-ph',k.ph);s('a-name',k.name);s('a-co',k.co)}
 function startDemo(){try{localStorage.setItem('asas_mode','demo')}catch(e){}MODE='demo';ME=null;load();setCan();go('home')}
-function toLogin(){try{localStorage.removeItem('asas_mode')}catch(e){}MODE='demo';AUTH={tab:'up',busy:false,err:''};go('login')}
-async function enterCloud(offUid){let user=null;if(offUid)user={id:offUid};else{const{data:{session}}=await SB.auth.getSession();user=session&&session.user}if(!user)return go('login');
+function toLogin(){try{localStorage.removeItem('asas_mode')}catch(e){}MODE='demo';AUTH={tab:authTab(),busy:false,err:''};go('login')}
+async function enterCloud(offUid){try{localStorage.setItem('asas_known','1')}catch(e){}let user=null;if(offUid)user={id:offUid};else{const{data:{session}}=await SB.auth.getSession();user=session&&session.user}if(!user)return go('login');
   IDB_C=await idbGet('asas_c_'+user.id);
   const{data:m,error}=offUid?{data:null,error:{message:'offline'}}:await withTO(SB.from('asas_members').select('org_id,role,name,phone,active,is_engineer,projects,title,perms').eq('user_id',user.id).eq('active',true).limit(1).maybeSingle(),8000);
   let me=null;
