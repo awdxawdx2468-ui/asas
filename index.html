@@ -1959,7 +1959,7 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.21',APP_T='2026-11-26 12:30';
+var APP_V='1.9.22',APP_T='2026-11-26 13:00';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
 var APP_NEWS_1917='عند استلام مبلغ: إذا سلّم المبلغ شخص غير الزبون، اضغط «سلّم المبلغ شخص آخر غير الزبون؟» واكتب اسمه|يظهر اسمه في الوصل ورسالة الواتساب والكشوف: «بالنيابة عن الزبون»';
 var APP_NEWS_1921='عملة مكتبك حسب دولته: إذا كان رقم المكتب من خارج العراق تظهر المبالغ في التطبيق والوصولات والكشوف والرسائل بعملة دولته (مثل الجنيه السوداني أو الدرهم الإماراتي)|يمكنك تغيير العملة من «هوية الشركة» ← «عملة المبالغ»، مثلاً إذا كنت تتعامل مع زبائنك بالدولار|اشتراك المكاتب من خارج العراق بالدولار الأمريكي، والمكاتب في العراق تبقى بالدينار كما هي';
@@ -4399,5 +4399,79 @@ boot();
 /* صرفت يمين (لليد اليمنى)، استلمت يسار */
 .acts .act.out,.pj-acts .pj-out{order:-1}
 </style>
+
+<style>
+/* 1.9.22 مربعات المؤسسين والتثبيت فوق قائمة المكاتب */
+.fdt{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px}
+.fdt button{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:10px 12px;text-align:right;font-family:inherit;color:var(--ink);cursor:pointer;display:flex;flex-direction:column;gap:2px;min-height:74px}
+.fdt button:active{background:var(--soft)}
+.fdt .h{font-size:12.5px;color:var(--mut);font-weight:700}
+.fdt .v{font-size:22px;font-weight:800;line-height:1.2}.fdt .v small{font-size:12.5px;color:var(--mut);font-weight:700}
+.fdt .f{font-size:12px;color:var(--mut)}.fdt .f b{color:var(--ink)}
+.ins-b{display:inline-block;border-radius:8px;padding:0 6px;font-size:11.5px;font-weight:700}
+.ins-b.app{background:var(--greenbg);color:var(--green)}.ins-b.web{background:var(--cream);color:#9A6B00}.ins-b.none{background:var(--soft);color:var(--mut)}
+.gl-t{display:flex;gap:6px;margin:4px 0 10px}.gl-t button{flex:1;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 4px;font:700 13px inherit;font-family:inherit;color:var(--ink)}
+.gl-t button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.gl{display:flex;align-items:center;gap:8px;padding:9px 10px;margin:6px 0;border-radius:12px;background:var(--soft)}
+.gl .gm{flex:1;min-width:0;cursor:pointer}.gl .gm b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gl .gm small{display:block;font-size:12px;color:var(--mut);line-height:1.6}
+.gl a{flex:none;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:17px}
+.gl a.wa{background:#25D366;color:#fff}.gl a.tel{background:#E6ECF6;color:var(--navy)}
+.ins-adm{background:var(--soft);border-radius:12px;padding:9px 12px;margin:8px 0;font-size:13.5px;line-height:1.9}
+</style>
+<script>
+/* ===== 1.9.22 (مثل مندوبي): مقاعد المؤسسين الباقية + من ثبّت التطبيق ومن يفتحه من المتصفح ===== */
+/* (1) كل مستخدم يبلّغ السيرفر مرة بكل فتح: مثبّت على الشاشة أو متصفح، ونوع الجهاز */
+async function appPing(){if(MODE!=='cloud'||!SB||window.__appPinged)return;window.__appPinged=1;
+  try{await SB.rpc('asas_app_ping',{p_mode:isInstalled()?'app':'web',p_os:devKind()})}catch(e){}}
+const _chkAdmINS=checkAdmin;checkAdmin=async function(){appPing();return _chkAdmINS()};
+/* (2) الإدارة: حالة التثبيت لكل مستخدم */
+async function insAdmLoad(){try{const{data,error}=await SB.rpc('asas_install_admin');ADM.ins=error?null:(data||[])}catch(e){ADM.ins=null}}
+const _admReloadINS=admReload;admReload=async function(){await insAdmLoad();return _admReloadINS()};
+const _admLoadINS=admLoad;admLoad=async function(){await Promise.all([insAdmLoad(),ADM.fd?null:fdAdmLoad()]);return _admLoadINS()};
+const OS_L={ios:'آيفون',android:'أندرويد',pc:'حاسبة'};
+function insOf(m){return !m?'none':m.inst?'app':m.at?'web':'none'}
+function insOwner(o){return (ADM.ins||[]).find(m=>m.org===o.id&&m.role==='owner')||null}
+function insKey(o){return insOwner(o)?insOf(insOwner(o)):(ADM.ins?'none':'')}
+const INS_L={app:'📲 مثبّت',web:'🌐 متصفح فقط',none:'⏳ لم يفتح بعد'};
+function insBadge(k){return k?`<span class="ins-b ${k}">${INS_L[k]}</span>`:''}
+function insDesc(m){const k=insOf(m);if(k==='none')return 'لم يفتح التطبيق منذ هذا التحديث';const os=OS_L[m.os]||'';
+  return k==='app'?`مثبّت على الشاشة${os?' ('+os+')':''}${m.mode==='web'?' · آخر فتح من المتصفح':''} · آخر فتح ${agoTxt(m.at)}`:`يفتحه من المتصفح فقط${os?' ('+os+')':''} · آخر فتح ${agoTxt(m.at)}`}
+/* مربعان فوق قائمة المكاتب */
+function fdTiles(){const F=ADM.fd,O=realOrgs();const max=F?F.max:50,left=F?Math.max(0,F.max-F.n):null;
+  const c={app:0,web:0,none:0};O.forEach(o=>{const k=insKey(o);if(k)c[k]++});
+  return `<div class="fdt"><button onclick="grpSheet('fd')"><span class="h">🏅 مقاعد المؤسسين الباقية</span><span class="v"><span class="num">${left==null?'—':left}</span> <small>من <span class="num">${max}</span></small></span><span class="f">أول <span class="num">${max}</span> مكتباً: 3 أشهر مجاناً</span></button>
+   <button onclick="grpSheet('${c.web?'web':'app'}')"><span class="h">📲 تثبيت التطبيق</span><span class="v"><span class="num">${ADM.ins?c.app:'—'}</span> <small>مثبّت</small></span><span class="f">${ADM.ins?`🌐 متصفح فقط <b class="num">${c.web}</b>${c.none?` · ⏳ <b class="num">${c.none}</b>`:''}`:'يعمل بعد «ارفع»'}</span></button></div>`}
+const _admOrgsINS=admOrgs;admOrgs=function(){let h=_admOrgsINS();
+  h=h.replace(/(<button class="li" onclick="admSheet\('([^']+)'\)">[\s\S]*?)<br>🕒 آخر دخول:/g,(all,pre,id)=>{const o=(ADM.orgs||[]).find(x=>x.id===id);const k=o?insKey(o):'';return pre+'<br>'+(k?insBadge(k)+' · ':'')+'🕒 آخر دخول:'});
+  return fdTiles()+h};
+/* قائمة المجموعة عند الضغط على المربع */
+let GRP='fd';
+function grpRow(o,sub){const ph=String(o.phone||'');return `<div class="gl"><div class="gm" onclick="closeSheet();admSheet('${o.id}')"><b>${esc(o.name)}</b><small>${esc(o.owner||'')} · <span class="num">${esc(ph)}</span></small>${sub?`<small>${sub}</small>`:''}</div>
+  <a class="wa" href="${waTo(o,grpMsg(o))}" target="_blank" rel="noopener" aria-label="واتساب">💬</a><a class="tel" href="tel:${ph.replace(/[^\d+]/g,'')}" aria-label="اتصال">📞</a></div>`}
+function grpMsg(o){const nm=String(o.owner||'').trim();const hi=`السلام عليكم ${nm||'حضرة المهندس'}،\n`;
+  if(GRP==='web'||GRP==='none'){const m=insOwner(o);const os=m&&m.os;
+    const ios='• آيفون: افتح الرابط في متصفح Safari، ثم اضغط زر المشاركة ⬆️ في الأسفل، ثم «إضافة إلى الشاشة الرئيسية».';
+    const and='• أندرويد: افتح الرابط في متصفح Chrome، ثم اضغط ⋮ في الأعلى، ثم «تثبيت التطبيق».';
+    return hi+`لتسهيل استخدام «أسس»، يمكنك تثبيته على شاشة موبايلك ليفتح مثل أي تطبيق، بضغطة واحدة ودون الحاجة إلى المتصفح:\n${os==='ios'?ios:os==='android'?and:ios+'\n'+and}\n\nالرابط: ${APP_URL}\nوإذا احتجت أي مساعدة فأنا حاضر.`}
+  return hi+'شكراً لانضمامك إلى «المؤسسين» في أسس. هل تحتاج إلى أي مساعدة في تسجيل أول مشروع أو أول مبلغ؟'}
+function grpSheet(k){GRP=k;const O=realOrgs();let h='';
+  if(k==='fd'){const F=ADM.fd;const list=(ADM.orgs||[]).filter(o=>fdOf(o.id)).sort((a,b)=>fdOf(a.id).no-fdOf(b.id).no);const left=F?Math.max(0,F.max-F.n):0;
+    h=`<h3>🏅 المؤسسون</h3><p class="note" style="margin:0 0 8px">باقٍ <b class="num">${left}</b> مقعداً من <span class="num">${F?F.max:50}</span> · المسجّلون <b class="num">${list.length}</b></p>
+     ${list.map(o=>{const f=fdOf(o.id),days=Math.floor((Date.now()-Date.parse(o.created_at))/864e5),idle=!f.used&&!(o.entries>0);
+       return grpRow(o,`مؤسس رقم <span class="num">${f.no}</span> · ${idle?`<b style="color:var(--red)">⚠️ لم يسجّل أي مبلغ بعد${days>0?' (سجّل '+agoTxt(o.created_at)+')':''}</b>`:`<span class="num">${o.entries||0}</span> مبلغ`}${ADM.ins?' · '+insBadge(insKey(o)):''}`)}).join('')||'<div class="empty">لا يوجد مؤسسون بعد</div>'}`}
+  else{const c={app:[],web:[],none:[]};O.forEach(o=>{const kk=insKey(o);if(kk)c[kk].push(o)});
+    const tb=(t,l)=>`<button class="${k===t?'on':''}" onclick="grpSheet('${t}')">${l} <span class="num">${c[t].length}</span></button>`;
+    h=`<h3>📲 تثبيت التطبيق</h3>${ADM.ins?'':'<div class="srvnote">يعمل بعد «ارفع»: يبدأ التسجيل من أول فتح للتطبيق بعد التحديث.</div>'}
+     <div class="gl-t">${tb('app','📲 مثبّت')}${tb('web','🌐 متصفح فقط')}${tb('none','⏳ لم يفتح')}</div>
+     <p class="note" style="margin:0 0 6px">${k==='app'?'فتحوا أسس من أيقونته على الشاشة.':k==='web'?'يفتحون أسس من المتصفح فقط. اضغط 💬 لترسل لهم شرح التثبيت.':'لم يفتحوا التطبيق منذ هذا التحديث، فلا نعرف حالتهم بعد.'}</p>
+     ${c[k].sort((a,b)=>String((insOwner(b)||{}).at||'').localeCompare(String((insOwner(a)||{}).at||''))).map(o=>grpRow(o,insDesc(insOwner(o)))).join('')||'<div class="empty">لا يوجد</div>'}`}
+  sheet(h+'<button class="btn ghost" onclick="closeSheet()">إغلاق</button>')}
+/* صفحة المكتب: حالة التثبيت لكل مستخدم */
+const _admSheetINS=admSheet;admSheet=function(id,tab){_admSheetINS(id,tab);if(!ADM.ins)return;const o=(ADM.orgs||[]).find(x=>x.id===id);const h=document.querySelector('#layer .sheet h3');
+  if(!o||!h||document.querySelector('#layer .ins-adm'))return;const ms=ADM.ins.filter(m=>m.org===id).sort((a,b)=>(b.role==='owner')-(a.role==='owner'));if(!ms.length)return;
+  let el=h;while(el.parentElement&&!el.parentElement.classList.contains('sheet'))el=el.parentElement;const at=document.querySelector('#layer .fd-adm')||el;
+  at.insertAdjacentHTML('afterend',`<div class="ins-adm"><b>📲 تثبيت التطبيق</b>${ms.map(m=>`<br>${insBadge(insOf(m))} ${esc(m.name||'')}${m.role==='owner'?' (صاحب الحساب)':''}: <small style="color:var(--mut)">${insDesc(m)}</small>`).join('')}</div>`)};
+</script>
 
 <script>if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}</script>
