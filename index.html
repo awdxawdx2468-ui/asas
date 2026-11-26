@@ -1085,7 +1085,7 @@ function calc(p){const es=entriesOf(p.id);let inn=0,out=0;const byCat={},mats={}
     if(e.cat==='mat'&&e.mat&&e.qty){const k=e.mat.trim();const m=mats[k]||(mats[k]={name:k,unit:e.unit||'',qty:0,amt:0});m.qty+=+e.qty;m.amt+=e.amt}}}
   const fee=p.feeType==='pct'?Math.round(inn*(+p.feeVal||0)/100):(+p.feeVal||0);
   return{es,inn,out,fee,bal:inn-out-fee,byCat,mats:Object.values(mats)}}
-function feeLabel(p){return p.feeType==='pct'?`${+p.feeVal||0}% من المقبوض`:`مقطوعة ${fmt(p.feeVal)} د.ع`}
+function feeLabel(p){return p.feeType==='pct'?`${+p.feeVal||0}% من المقبوض`:`مقطوعة ${fmt(p.feeVal)} ${OS()}`}
 function cashTotals(){let inn=0,out=0,mon=0;const m=today().slice(0,7);
   for(const e of live(S.entries)){const off=e.pid==='office';if(!off&&(!P(e.pid)||P(e.pid).del))continue;
     if(e.kind==='cg'){out+=e.amt;continue}if(e.kind==='cr'){inn+=e.amt;continue}
@@ -1187,7 +1187,7 @@ VIEWS.home=()=>{const t=cashTotals();const ps=activeProjects();
     <button class="ib" aria-label="التنبيهات" onclick="toast('لا توجد تنبيهات جديدة')">${IC.bell}</button></div></header>
   <div class="wrap pull">
    <section class="card cash"><div class="lbl">المبلغ الموجود في القاصة الآن</div>
-     <div class="big"><span class="amt ${t.cash<0?'neg':''}">${sfmt(t.cash)}</span><small>د.ع</small></div>
+     <div class="big"><span class="amt ${t.cash<0?'neg':''}">${sfmt(t.cash)}</span><small>${OS()}</small></div>
      <div class="duo"><div class="mini"><span>صرف هذا الشهر</span><b class="amt">${fmt(t.mon)}</b></div>
      <div class="mini"><span>أتعابي من كل المشاريع</span><b class="amt">${fmt(t.fees)}</b></div></div></section>
    <div class="acts"><button class="act in" onclick="qStart('in')"><span>استلمت مبلغ</span><i>↓</i></button>
@@ -1228,7 +1228,7 @@ VIEWS.project=(id)=>{const p=P(id);if(!p)return VIEWS.home();const c=C(p.cid)||{
   return `<header class="top short"><div class="hdr"><div><h1>${esc(c.name)}</h1><p>${esc(p.name)}${p.desc?' · '+esc(p.desc):''}${p.done?' · ✔ منتهٍ':''}</p></div><button class="back" aria-label="رجوع" onclick="go('${p.done?'done':'home'}')">→</button></div></header>
   <div class="wrap pjv" style="margin-top:14px">
    <div class="pj-sum">
-    <div class="pj-bal"><span>${k.bal<0?'تجاوز — مطلوب من الزبون':'الرصيد المتبقي للزبون'}</span><b class="num${k.bal<0?' neg':''}">${fmt(Math.abs(k.bal))}<small>د.ع</small></b></div>
+    <div class="pj-bal"><span>${k.bal<0?'تجاوز — مطلوب من الزبون':'الرصيد المتبقي للزبون'}</span><b class="num${k.bal<0?' neg':''}">${fmt(Math.abs(k.bal))}<small>${OS()}</small></b></div>
     <div class="pj-bar" title="المصروف من المقبوض"><i style="width:${used}%"${used>=90?' class="hot"':''}></i></div>
     <div class="pj-bar-l"><span>صُرف <b class="num">${used}%</b> من المقبوض</span></div>
     <div class="pj-three">
@@ -1237,7 +1237,7 @@ VIEWS.project=(id)=>{const p=P(id);if(!p)return VIEWS.home();const c=C(p.cid)||{
      <div><span>الأتعاب${p.feeType==='pct'?` <em class="num">${+p.feeVal||0}%</em>`:''}</span><b class="num">${fmt(k.fee)}</b></div>
     </div>
    </div>
-   ${(()=>{const z=payLevel(p);return z&&z.lv!=='g'?`<div class="pban ${z.lv}"><div><b>${z.bal<0?'⚠️ المصروف تجاوز المستلم':(z.bal===0?'⚠️ نفد رصيد الزبون':'⏳ رصيد الزبون قرب يخلص')}</b><span>${z.bal<0?'التجاوز':'المتبقي'} <b class="num">${fmt(Math.abs(z.bal))}</b> د.ع${z.bal>0?` · أقل من ${alertPct()}% من آخر دفعة`:''}</span></div><button onclick="payReqSheet('${p.id}')">طلب دفعة</button></div>`:''})()}
+   ${(()=>{const z=payLevel(p);return z&&z.lv!=='g'?`<div class="pban ${z.lv}"><div><b>${z.bal<0?'⚠️ المصروف تجاوز المستلم':(z.bal===0?'⚠️ نفد رصيد الزبون':'⏳ رصيد الزبون قرب يخلص')}</b><span>${z.bal<0?'التجاوز':'المتبقي'} <b class="num">${fmt(Math.abs(z.bal))}</b> ${OS()}${z.bal>0?` · أقل من ${alertPct()}% من آخر دفعة`:''}</span></div><button onclick="payReqSheet('${p.id}')">طلب دفعة</button></div>`:''})()}
    ${p.done?`<div class="pj-done"><b>✔ المشروع منتهٍ</b><span>انتهى في <span class="num">${pdDate(p.done.at)}</span> · الحسابات مقفلة للعرض والطباعة فقط</span><div class="pd-b"><button onclick="showFinal('${p.id}')">📄 الكشف النهائي</button>${CAN.del?`<button class="g" onclick="projectDone('${p.id}',false)">↺ إعادة فتح</button>`:''}</div></div>`:`<div class="pj-acts"><button class="pj-in" onclick="qStart('in','${p.id}')"><i>↓</i>استلمت</button><button class="pj-out" onclick="qStart('out','${p.id}')"><i>↑</i>صرفت</button></div>`}
    <div class="pj-tools">
     ${tool('doc','كشف الحساب',`showStatement('${p.id}')`)}
@@ -1269,7 +1269,7 @@ VIEWS.entry=(a={})=>{
   <div class="wrap" style="margin-top:14px">
    <div class="card amtcard"><label for="f-amt">المبلغ</label>
     <input id="f-amt" inputmode="numeric" autocomplete="off" placeholder="0" value="${F.amt?fmt(F.amt):''}" style="color:${isIn?'var(--green)':'var(--red)'}">
-    <div class="w" id="f-words">${F.amt?words(F.amt)+' دينار':'اكتب المبلغ بالدينار'}</div></div>
+    <div class="w" id="f-words">${F.amt?words(F.amt)+' '+OW()+'':'اكتب المبلغ'}</div></div>
    <div class="fld pgf" role="button" tabindex="0" onclick="pgOpen()"><div class="ic">🏠</div><div class="bx"><label>${isIn?'الزبون / المشروع':'يُحسب هذا المصروف على'}</label><input type="hidden" id="f-pid" value="${esc(F.pid)}"><div class="pgv">${pgLabel(F.pid)}</div></div><span class="mut">▾</span></div>
    ${entCatBox(isIn)}
    ${!isIn&&F.pid!=='office'?`<div class="row3" id="f-matrow" ${F.cat==='mat'?'':'hidden'}>
@@ -1297,7 +1297,7 @@ function readF(){const g=id=>{const el=$('#'+id);return el?el.value:undefined};
   F.docType=g('f-dt');F.docNo=g('f-dn').trim();F.src=g('f-src');F.note=g('f-note').trim();if($('#f-rcv'))F.rcv=g('f-rcv').trim();
   if($('#f-mat')){F.mat=g('f-mat').trim();F.qty=g('f-qty').trim();F.unit=g('f-unit').trim()}}
 function entryBind(){const a=$('#f-amt');if(!a)return;
-  a.addEventListener('input',()=>{const n=parseAmt(a.value);a.value=n?fmt(n):'';$('#f-words').textContent=n?words(n)+' دينار':'اكتب المبلغ بالدينار'});
+  a.addEventListener('input',()=>{const n=parseAmt(a.value);a.value=n?fmt(n):'';$('#f-words').textContent=n?words(n)+' '+OW()+'':'اكتب المبلغ'});
   const d=$('#f-det');if(d&&F.kind==='out')d.addEventListener('input',()=>{if(!F.catSet){F.cat=d.value?autoCat(d.value):'';paintCat()}});
   document.querySelectorAll('.wrap input').forEach(el=>el.addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();if(ev.ctrlKey||ev.metaKey)return entrySave();
     const all=[...document.querySelectorAll('.wrap input:not([type=file]),.wrap select')];const i=all.indexOf(el);if(all[i+1])all[i+1].focus()}}));
@@ -1376,12 +1376,13 @@ VIEWS.settings=()=>{const c=S.co;return `<header class="top short"><div class="h
      .map(([id,l,v])=>`<div class="fld"><div class="bx"><label for="${id}">${l}</label><input id="${id}" value="${esc(v)}"></div></div>`).join('')}
    <div class="fld"><div class="ic">⏳</div><div class="bx"><label for="s-ap">تنبيه «يحتاج دفعة» عندما ينزل الرصيد تحت (% من آخر دفعة)</label><input id="s-ap" inputmode="numeric" value="${alertPct()}"></div><span class="mut">%</span></div>
    <div class="fld"><div class="ic">🔤</div><div class="bx"><label for="s-ord">الأسماء في رأس الكشف</label><select id="s-ord">${[['eng','المهندس أولاً ثم الشركة'],['co','الشركة أولاً ثم المهندس (للمكاتب)'],['coonly','اسم الشركة فقط'],['engonly','اسم المهندس فقط']].map(([v,t])=>`<option value="${v}" ${(c.order||'eng')===v?'selected':''}>${t}</option>`).join('')}</select></div><span class="mut">▾</span></div>
+   <div class="fld"><div class="ic">💱</div><div class="bx"><label for="s-cur">عملة المبالغ (في الوصولات والكشوف والرسائل)</label><select id="s-cur">${Object.keys(CURS).map(k=>`<option value="${k}" ${OCc()===k?'selected':''}>${CURS[k][2]} (${CURS[k][0]})</option>`).join('')}</select></div></div>
    <div class="row2"><label class="photo" for="s-logo">${c.logo?`<img src="${c.logo}" alt="">`:defLogo(48)}<br>شعار الشركة</label><label class="photo" for="s-stamp">${c.stamp?`<img src="${c.stamp}" alt="">`:'🔵'}<br>صورة الختم</label></div>
    <input id="s-logo" type="file" accept="image/*" hidden onchange="imgPick(this,'logo')"><input id="s-stamp" type="file" accept="image/*" hidden onchange="imgPick(this,'stamp')">
    <button class="btn" onclick="setSave()"><span class="ck">✓</span> حفظ</button>
    <p class="note">سطر «${PLATFORM.footer} · للاشتراك: ${PLATFORM.phone}» يظهر صغيراً أسفل كل كشف ولا يمكن حذفه.</p>
   </div>`};
-function setSave(){const g=id=>$('#'+id).value.trim();Object.assign(S.co,{eng:g('s-eng'),name:g('s-name'),short:g('s-short'),city:g('s-city'),phone:g('s-phone'),stampText:g('s-stt'),order:$('#s-ord').value,alertPct:Math.min(90,Math.max(1,+g('s-ap')||20))});S.me=g('s-me')||S.me;save();toast('تم الحفظ ✓');go('more')}
+function setSave(){const g=id=>$('#'+id).value.trim();Object.assign(S.co,{eng:g('s-eng'),name:g('s-name'),short:g('s-short'),city:g('s-city'),phone:g('s-phone'),stampText:g('s-stt'),order:$('#s-ord').value,cur:$('#s-cur').value,alertPct:Math.min(90,Math.max(1,+g('s-ap')||20))});S.me=g('s-me')||S.me;save();toast('تم الحفظ ✓');go('more')}
 function imgPick(inp,key){const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const sc=Math.min(1,400/Math.max(im.width,im.height));
   const cv=document.createElement('canvas');cv.width=im.width*sc;cv.height=im.height*sc;cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);S.co[key]=cv.toDataURL('image/png');save();render()};im.src=r.result};r.readAsDataURL(f)}
 VIEWS.trash=()=>{const es=S.entries.filter(e=>e.del),ps=S.projects.filter(p=>p.del),cs=S.clients.filter(c=>c.del);
@@ -1419,12 +1420,12 @@ function projectSheet(id,cid){if(!id&&projFull())return limitSheet();const p=id?
    <div class="fld"><div class="bx"><label for="p-loc">الموقع</label><input id="p-loc" value="${esc(p.loc)}" placeholder="الديوانية، حي العسكري"></div></div>
    <div class="card" style="padding:12px;display:flex;flex-direction:column;gap:8px"><b>أتعاب المهندس لهذا المشروع</b>
     <div class="cats"><button id="ft-pct" class="${p.feeType==='pct'?'on':''}" onclick="feeT('pct')">نسبة من المقبوض</button><button id="ft-fixed" class="${p.feeType==='fixed'?'on':''}" onclick="feeT('fixed')">مبلغ مقطوع</button></div>
-    <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="p-fee" id="p-feel">${p.feeType==='pct'?'النسبة %':'المبلغ (د.ع)'}</label><input id="p-fee" inputmode="numeric" class="num" style="text-align:right" value="${p.feeType==='pct'?p.feeVal:fmt(p.feeVal)}"></div></div>
+    <div class="fld" style="box-shadow:none;background:var(--soft)"><div class="bx"><label for="p-fee" id="p-feel">${p.feeType==='pct'?'النسبة %':'المبلغ ('+OS()+')'}</label><input id="p-fee" inputmode="numeric" class="num" style="text-align:right" value="${p.feeType==='pct'?p.feeVal:fmt(p.feeVal)}"></div></div>
     <input type="hidden" id="p-ft" value="${p.feeType}"></div>
    <button class="btn" onclick="projectSave('${id||''}')"><span class="ck">✓</span> حفظ المشروع</button>
    ${id?(p.done?`<button class="btn ghost" onclick="projectDone('${id}',false)">إعادة فتح المشروع</button>`:`<button class="btn ghost" onclick="projectDone('${id}',true)">✔ إنهاء المشروع (لا يُحسب ضمن حد الباقة)</button>`):''}
    ${id?`<button class="btn del" onclick="projectDel('${id}')">🗑️ حذف المشروع</button>`:''}`)}
-function feeT(t){$('#p-ft').value=t;$('#ft-pct').classList.toggle('on',t==='pct');$('#ft-fixed').classList.toggle('on',t==='fixed');$('#p-feel').textContent=t==='pct'?'النسبة %':'المبلغ (د.ع)';$('#p-fee').value=t==='pct'?10:''}
+function feeT(t){$('#p-ft').value=t;$('#ft-pct').classList.toggle('on',t==='pct');$('#ft-fixed').classList.toggle('on',t==='fixed');$('#p-feel').textContent=t==='pct'?'النسبة %':'المبلغ ('+OS()+')';$('#p-fee').value=t==='pct'?10:''}
 function projectSave(id){const n=$('#p-name').value.trim();if(!n)return toast('اكتب اسم المشروع');const ft=$('#p-ft').value;
   const d={cid:$('#p-cid').value,name:n,desc:$('#p-desc').value.trim(),loc:$('#p-loc').value.trim(),feeType:ft,feeVal:ft==='pct'?+$('#p-fee').value.replace(/[^\d.]/g,'')||0:parseAmt($('#p-fee').value)};
   if(id){Object.assign(P(id),d);save();closeSheet();render()}else{const p=Object.assign({id:uid(),start:today()},d);S.projects.push(p);save();closeSheet();go('project',p.id)}}
@@ -1455,10 +1456,10 @@ function waPickSt(cid){const ps=live(S.projects).filter(p=>p.cid===cid);sheet(`<
 function rcptRef(e){return hashCode(e.id+'|'+e.amt+'|'+e.date+'|'+(e.no||''))}
 function balAfter(e){const p=P(e.pid);const pct=p&&p.feeType==='pct'?(+p.feeVal||0)/100:0;let b=0;for(const x of entriesOf(e.pid)){if(x.kind==='in')b+=x.amt-Math.round(x.amt*pct);else b-=x.amt;if(x.id===e.id)break}return b}
 function rcptText(e){const p=P(e.pid)||{},c=C(p.cid)||{};const b=balAfter(e);
-  return `🧾 *وصل استلام* رقم ${e.no||''}\n\nاستلمنا من ${fromT(e)} مبلغاً قدره *${fmt(e.amt)} دينار عراقي*\n(فقط ${words(e.amt)} دينار عراقي لا غير)\n\n🏗️ المشروع: ${p.name||''}${e.det?'\n📝 البيان: '+e.det:''}\n📅 تاريخ الاستلام: ${e.date}\n🙋 المستلم: ${e.rcv||e.by||S.me||''}\n💼 ${e.src==='حساب المصرف'?'تحويل إلى حساب المصرف':'نقداً'}${e.docType&&e.docType!=='دون مستند'&&e.docNo?'\n📄 '+e.docType+' '+e.docNo:''}\n\nرصيدكم في المشروع بعد هذه الدفعة: ${sfmt(b)} د.ع\nرمز التحقق: ${rcptRef(e)}\n\nمع التقدير، ${waSign()}\n— أُعدّ بنظام أسس`}
+  return `🧾 *وصل استلام* رقم ${e.no||''}\n\nاستلمنا من ${fromT(e)} مبلغاً قدره *${fmt(e.amt)} ${OF()}*\n(فقط ${words(e.amt)} ${OF()} لا غير)\n\n🏗️ المشروع: ${p.name||''}${e.det?'\n📝 البيان: '+e.det:''}\n📅 تاريخ الاستلام: ${e.date}\n🙋 المستلم: ${e.rcv||e.by||S.me||''}\n💼 ${e.src==='حساب المصرف'?'تحويل إلى حساب المصرف':'نقداً'}${e.docType&&e.docType!=='دون مستند'&&e.docNo?'\n📄 '+e.docType+' '+e.docNo:''}\n\nرصيدكم في المشروع بعد هذه الدفعة: ${sfmt(b)} ${OS()}\nرمز التحقق: ${rcptRef(e)}\n\nمع التقدير، ${waSign()}\n— أُعدّ بنظام أسس`}
 function waReceipt(id){const e=S.entries.find(x=>x.id===id);if(!e)return;const c=C((P(e.pid)||{}).cid)||{};waOpen(c,rcptText(e))}
 function waStatement(pid){const p=P(pid),c=C(p.cid)||{},k=calc(p);
-  waOpen(c,`📄 *كشف حساب* — ${p.name}\n${cName(c)} المحترم\nلغاية ${today()}\n\n↓ مجموع ما استلمناه منكم: ${fmt(k.inn)} د.ع\n↑ مجموع المصروف على المشروع: ${fmt(k.out)} د.ع\n👷 أتعاب المهندس (${feeLabel(p)}): ${fmt(k.fee)} د.ع\n\n${k.bal<0?'⚠️ المبلغ المطلوب منكم':'✅ الرصيد المتبقي لكم'}: *${fmt(Math.abs(k.bal))} د.ع*\n\nعدد الحركات: ${k.es.length} · الكشف المفصّل بالفواتير جاهز للطباعة عند الطلب.\n\nمع التقدير، ${waSign()}\n— أُعدّ بنظام أسس`)}
+  waOpen(c,`📄 *كشف حساب* — ${p.name}\n${cName(c)} المحترم\nلغاية ${today()}\n\n↓ مجموع ما استلمناه منكم: ${fmt(k.inn)} ${OS()}\n↑ مجموع المصروف على المشروع: ${fmt(k.out)} ${OS()}\n👷 أتعاب المهندس (${feeLabel(p)}): ${fmt(k.fee)} ${OS()}\n\n${k.bal<0?'⚠️ المبلغ المطلوب منكم':'✅ الرصيد المتبقي لكم'}: *${fmt(Math.abs(k.bal))} ${OS()}*\n\nعدد الحركات: ${k.es.length} · الكشف المفصّل بالفواتير جاهز للطباعة عند الطلب.\n\nمع التقدير، ${waSign()}\n— أُعدّ بنظام أسس`)}
 /* ---- طلب دفعة: تنبيه نفاد الرصيد ---- */
 const alertPct=()=>{const v=+S.co.alertPct;return v>0&&v<100?v:20};
 function payLevel(p){if(p.done||p.del)return null;const k=calc(p);if(!k.es.length)return null;const L=pays(p);const last=L[L.length-1];
@@ -1478,7 +1479,7 @@ function payReqShow(pid){REQ=1;const p=P(pid),L=pays(p);if(!L.length){REQ=0;retu
   docOpen('كشف الدفعة '+ordN(L.length),payDoc(p,L[L.length-1],STM.annex),{no:`د-${stNo(p)}-${L.length}`,who:whoOf(p),client:cliSig(p)});REQ=0;
   const bar=$('#doc .docbar');if(bar)bar.insertAdjacentHTML('beforeend',`<button class="wa" onclick="payReqSend('${pid}')">💬 إرسال للزبون</button>`)}
 function payReqText(p,url){const c=C(p.cid)||{},k=calc(p);const L=pays(p),x=L[L.length-1];
-  return `السلام عليكم ${cName(c)} المحترم،\n\nنودّ إعلامكم بأن ${k.bal<0?'مصروفات المشروع تجاوزت المبالغ المستلمة':'رصيد مشروعكم قارب على النفاد'}:\n🏗️ ${p.name}\n\n${x?`↓ آخر دفعة استلمناها: ${fmt(x.e.amt)} د.ع (وصل ${x.e.no}، ${x.e.date})\n↑ صُرف منها: ${fmt(x.spent)} د.ع\n`:''}${k.bal<0?'⚠️ التجاوز الحالي':'✅ المتبقي الآن'}: *${fmt(Math.abs(k.bal))} د.ع*\n\n💰 *المطلوب: دفعة جديدة* ليستمر العمل دون توقف.\n\n${url?`📄 كشف الدفعة كاملاً (كل مصروف وكيف وصل الرصيد):\n${url}\n\n`:''}نشكر تعاونكم، ${waSign()}\n— أُعدّ بنظام أسس`}
+  return `السلام عليكم ${cName(c)} المحترم،\n\nنودّ إعلامكم بأن ${k.bal<0?'مصروفات المشروع تجاوزت المبالغ المستلمة':'رصيد مشروعكم قارب على النفاد'}:\n🏗️ ${p.name}\n\n${x?`↓ آخر دفعة استلمناها: ${fmt(x.e.amt)} ${OS()} (وصل ${x.e.no}، ${x.e.date})\n↑ صُرف منها: ${fmt(x.spent)} ${OS()}\n`:''}${k.bal<0?'⚠️ التجاوز الحالي':'✅ المتبقي الآن'}: *${fmt(Math.abs(k.bal))} ${OS()}*\n\n💰 *المطلوب: دفعة جديدة* ليستمر العمل دون توقف.\n\n${url?`📄 كشف الدفعة كاملاً (كل مصروف وكيف وصل الرصيد):\n${url}\n\n`:''}نشكر تعاونكم، ${waSign()}\n— أُعدّ بنظام أسس`}
 async function payReqSend(pid){const p=P(pid),c=C(p.cid)||{};
   if(!waNum(c.phone))return toast('أضف رقم هاتف الزبون أولاً');const L=pays(p);let url='';
   let w=null;if(L.length&&MODE==='cloud'&&ME&&ME.org&&SB){w=window.open('about:blank','_blank');toast('جارٍ تجهيز رابط الكشف…');const keep=$('#doc').classList.contains('show')?$('#doc').innerHTML:null;
@@ -1493,8 +1494,8 @@ async function shareView(t){$('#app').innerHTML=`<div class="vfy"><div class="vf
   const D=$('#doc');D.innerHTML=`<div class="docbar shbar"><b>${esc(d.title||'كشف')}<span class="shsub">من ${esc(d.eng||d.office||'')} · <span class="num">${esc(d.phone||'')}</span></span></b><button class="y" onclick="doPrint()">🖨️ طباعة / PDF</button></div><div class="paperwrap"><div class="pscale" id="pscale"><div class="book" id="paper">${d.html}</div></div></div>`;
   D.classList.add('show');$('#app').innerHTML='';fitPaper()}
 function rcptSheet(id,fresh){const e=S.entries.find(x=>x.id===id);if(!e)return;
-  if(!noFixed(e))return sheet(`<h3>${fresh?'✓ تم تسجيل الاستلام':'وصل الاستلام'}</h3><div class="rcbox"><b class="num">${fmt(e.amt)} د.ع</b><div>⏳ محفوظ على جهازك وبانتظار الإنترنت</div></div><p class="mut" style="text-align:center;margin:6px 0 12px">يجهز الوصل ورقمه فور حفظ المبلغ على السيرفر، ويمكنك حينها إرساله إلى الزبون.</p><button class="btn y" onclick="closeSheet()">تمام</button>`);const c=C((P(e.pid)||{}).cid)||{};
-  sheet(`<h3>${fresh?'✓ تم تسجيل الاستلام':'وصل الاستلام'}</h3>${MODE==='cloud'&&BASE.entries[id]===undefined?'<div class="rcoff">⏳ بدون إنترنت — رقم الوصل ثابت ولن يتغير، ويُحفظ على السيرفر فور عودة الاتصال</div>':''}<div class="rcbox"><div>وصل رقم <b class="num">${esc(e.no||'')}</b> · <span class="num">${e.date}</span></div><b class="num">${fmt(e.amt)} د.ع</b><div>من ${fromH(e)} · المستلم ${esc(e.rcv||e.by||S.me||'')}</div></div>
+  if(!noFixed(e))return sheet(`<h3>${fresh?'✓ تم تسجيل الاستلام':'وصل الاستلام'}</h3><div class="rcbox"><b class="num">${fmt(e.amt)} ${OS()}</b><div>⏳ محفوظ على جهازك وبانتظار الإنترنت</div></div><p class="mut" style="text-align:center;margin:6px 0 12px">يجهز الوصل ورقمه فور حفظ المبلغ على السيرفر، ويمكنك حينها إرساله إلى الزبون.</p><button class="btn y" onclick="closeSheet()">تمام</button>`);const c=C((P(e.pid)||{}).cid)||{};
+  sheet(`<h3>${fresh?'✓ تم تسجيل الاستلام':'وصل الاستلام'}</h3>${MODE==='cloud'&&BASE.entries[id]===undefined?'<div class="rcoff">⏳ بدون إنترنت — رقم الوصل ثابت ولن يتغير، ويُحفظ على السيرفر فور عودة الاتصال</div>':''}<div class="rcbox"><div>وصل رقم <b class="num">${esc(e.no||'')}</b> · <span class="num">${e.date}</span></div><b class="num">${fmt(e.amt)} ${OS()}</b><div>من ${fromH(e)} · المستلم ${esc(e.rcv||e.by||S.me||'')}</div></div>
    <button class="btn wa" onclick="closeSheet();waReceipt('${id}')">💬 إرسال الوصل للزبون بالواتساب</button>
    <button class="btn" onclick="closeSheet();showReceipt('${id}')">🧾 عرض الوصل وطباعته</button>
    <button class="btn ghost" onclick="closeSheet()">لاحقاً</button>`)}
@@ -1507,8 +1508,8 @@ function rcHalf(e,copy){const p=P(e.pid)||{},c=C(p.cid)||{},co=S.co;const b=balA
     <div class="rc-tt"><h2>وصل استلام</h2><span class="rc-cp">${copy}</span></div>
     <div class="rc-no"><span>رقم الوصل</span><b class="num">${esc(e.no||'')}</b><small class="num">${e.date}</small></div></div>
    <div class="rc-mid"><div class="rc-left">
-     <div class="rc-am"><div><span>المبلغ المستلم</span><b class="num">${fmt(e.amt)}</b><small>دينار عراقي</small></div><p>فقط ${words(e.amt)} دينار عراقي لا غير</p></div>
-     <div class="rc-gr">${row('استلمنا من',fromH(e))}${row('المشروع',esc(p.name||''))}${e.det?row('البيان',esc(e.det)):''}${row('تاريخ الاستلام','<span class="num">'+e.date+'</span>')}${row('المستلم',esc(e.rcv||e.by||S.me||''))}${row('طريقة الاستلام',(e.src==='حساب المصرف'?'تحويل مصرفي':'نقداً')+(e.docType&&e.docType!=='دون مستند'&&e.docNo?' · '+esc(e.docType)+' <span class="num">'+esc(e.docNo)+'</span>':''))}${row('رصيد المشروع بعد الدفعة','<span class="num '+(b<0?'r':'')+'">'+sfmt(b)+'</span> د.ع')}</div>
+     <div class="rc-am"><div><span>المبلغ المستلم</span><b class="num">${fmt(e.amt)}</b><small>${OF()}</small></div><p>فقط ${words(e.amt)} ${OF()} لا غير</p></div>
+     <div class="rc-gr">${row('استلمنا من',fromH(e))}${row('المشروع',esc(p.name||''))}${e.det?row('البيان',esc(e.det)):''}${row('تاريخ الاستلام','<span class="num">'+e.date+'</span>')}${row('المستلم',esc(e.rcv||e.by||S.me||''))}${row('طريقة الاستلام',(e.src==='حساب المصرف'?'تحويل مصرفي':'نقداً')+(e.docType&&e.docType!=='دون مستند'&&e.docNo?' · '+esc(e.docType)+' <span class="num">'+esc(e.docNo)+'</span>':''))}${row('رصيد المشروع بعد الدفعة','<span class="num '+(b<0?'r':'')+'">'+sfmt(b)+'</span> '+OS()+'')}</div>
      <div class="rc-dec">يُقرّ ${esc(co.eng?(/^م\.?\s/.test(co.eng)?co.eng:'م. '+co.eng):(co.name||'المكتب'))} باستلام المبلغ المذكور أعلاه من ${fromH(e)} بتاريخ <span class="num">${e.date}</span>، وقد قُيّد في حساب المشروع ويظهر في كشف الحساب برقم الوصل <b class="num">${esc(e.no||'')}</b>.</div></div>
     <div class="rc-qr">${url?`<div class="qr" data-qr="${esc(url)}"></div><span>امسح الرمز للتحقق من صحة الوصل</span>`:'<div class="qr off">QR</div><span>التحقق متاح في النسخة السحابية</span>'}<small>رمز التحقق <b class="num">${rcptRef(e)}</b></small></div></div>
    <div class="rc-sig"><div><i></i>المستلم: ${esc(e.rcv||e.by||S.me||'')}</div><div class="st">${stampHtml()}<i></i>المهندس المشرف</div><div><i></i>${byOf(e)?'سلّم المبلغ: '+esc(byOf(e))+'<br><small>بالنيابة عن '+esc(cName(c))+'</small>':esc(cName(c))+': سلّمت المبلغ'}</div></div>
@@ -1524,7 +1525,7 @@ async function verifyView(ref){$('#app').innerHTML=`<div class="vfy"><div class=
   let r=null;try{const{data}=await SB.rpc('asas_verify_receipt',{p_ref:ref});r=data}catch(e){}
   const b=$('#vf-b');if(!r||!r.ok){b.innerHTML='<div class="vf-st bad">✕ لم يُعثر على هذا الوصل</div><p>تأكد من مسح الرمز الصحيح، أو راجع المكتب الذي أصدر الوصل.</p>';return}
   b.innerHTML=`<div class="vf-st ${r.cancelled?'bad':'ok'}">${r.cancelled?'⚠️ هذا الوصل أُلغي من قِبل المكتب':'✓ وصل صحيح ومسجّل في نظام أسس'}</div>
-   <div class="vf-am"><span>المبلغ</span><b class="num">${fmt(r.amt)}</b><small>دينار عراقي</small></div>
+   <div class="vf-am"><span>المبلغ</span><b class="num">${fmt(r.amt)}</b><small>${OF()}</small></div>
    <div class="vf-g"><div><span>رقم الوصل</span><b class="num">${esc(r.no||'')}</b></div><div><span>التاريخ</span><b class="num">${esc(r.date||'')}</b></div>
    <div><span>من</span><b>${r.party&&r.party!==r.client?esc(r.party)+' (بالنيابة عن '+esc(r.client||'')+')':esc(r.client||'')}</b></div><div><span>المشروع</span><b>${esc(r.project||'')}</b></div>
    <div><span>المستلم</span><b>${esc(r.rcv||'')}</b></div><div><span>المكتب</span><b>${esc(r.eng||r.office||'')}${r.eng&&r.office&&r.office!==r.eng?' · '+esc(r.office):''}</b></div></div>
@@ -1546,7 +1547,7 @@ async function stSend(pid){const p=P(pid),c=C(p.cid)||{},k=calc(p);
   let w=null;if(MODE==='cloud'&&ME&&ME.org&&SB){w=window.open('about:blank','_blank');toast('جارٍ تجهيز رابط الكشف…');
     try{const r=await SB.rpc('asas_share_create',{p_org:ME.org,p_pid:pid,p_title:title+' · '+p.name,p_html:$('#paper').innerHTML});if(r.error)throw r.error;url=APP_URL+'?s='+r.data}
     catch(e){logErr&&logErr('share',e);toast('تعذّر إنشاء الرابط، سيُرسل الملخص فقط')}}
-  const t=`السلام عليكم ${cName(c)} المحترم،\n\n📄 *${title}*\n🏗️ ${p.name}\nرقم الكشف: ${DOCMETA.no||''} · ${DOCMETA.date||today()}\n\n${k.bal<0?'⚠️ المبلغ المطلوب منكم':'✅ الرصيد المتبقي لكم'}: *${fmt(Math.abs(k.bal))} د.ع*\n\n${url?'لعرض الكشف كاملاً بالتفاصيل والتواقيع، وطباعته أو حفظه PDF:\n'+url:'الكشف الكامل جاهز للطباعة عند الطلب.'}\n\nمع التقدير، ${waSign()}\n— أُعدّ بنظام أسس`;
+  const t=`السلام عليكم ${cName(c)} المحترم،\n\n📄 *${title}*\n🏗️ ${p.name}\nرقم الكشف: ${DOCMETA.no||''} · ${DOCMETA.date||today()}\n\n${k.bal<0?'⚠️ المبلغ المطلوب منكم':'✅ الرصيد المتبقي لكم'}: *${fmt(Math.abs(k.bal))} ${OS()}*\n\n${url?'لعرض الكشف كاملاً بالتفاصيل والتواقيع، وطباعته أو حفظه PDF:\n'+url:'الكشف الكامل جاهز للطباعة عند الطلب.'}\n\nمع التقدير، ${waSign()}\n— أُعدّ بنظام أسس`;
   if(w&&!w.closed){w.location.href='https://wa.me/'+waNum(c.phone)+'?text='+encodeURIComponent(t)}else waOpen(c,t)}
 
 function paginate(src,out){const M=DOCMETA;const pages=[];let page,body;const H=src.querySelector('.st-h');
@@ -1603,9 +1604,9 @@ const stampHtml=()=>`<span class="stamp">${S.co.stamp?`<img src="${S.co.stamp}" 
 function stInfo(p,c,details){return `<div class="st-info"><div class="st-box"><h4>الزبون والمشروع</h4><div class="big">${esc(c.title?c.title+' ':'')}${esc(c.name)}</div>
   <div class="m">${esc(p.name)}${p.desc?' · '+esc(p.desc):''}${p.loc?' · '+esc(p.loc):''}</div><div><span class="m">الهاتف:</span> <b class="num">${esc(c.phone||'')}</b></div></div>
   <div class="st-box"><h4>تفاصيل الكشف</h4>${details}</div></div>`}
-function stKpis(a){return `<div class="st-k" style="grid-template-columns:repeat(${a.length},1fr)">${a.map(([l,v,cls])=>`<div class="${cls||''} ${/السابقة|قبل الفترة/.test(l)?'eprev':/مصروف|المصروف/.test(l)?'eout':/أتعاب/.test(l)?'efee':/مقبوض|الدفعة/.test(l)?'ein':''}"><span>${l}</span><b>${v<0?'−':''}${fmt(Math.abs(v))}</b><small>د.ع</small></div>`).join('')}</div>`}
+function stKpis(a){return `<div class="st-k" style="grid-template-columns:repeat(${a.length},1fr)">${a.map(([l,v,cls])=>`<div class="${cls||''} ${/السابقة|قبل الفترة/.test(l)?'eprev':/مصروف|المصروف/.test(l)?'eout':/أتعاب/.test(l)?'efee':/مقبوض|الدفعة/.test(l)?'ein':''}"><span>${l}</span><b>${v<0?'−':''}${fmt(Math.abs(v))}</b><small>${OS()}</small></div>`).join('')}</div>`}
 function stDonut(b,t){return `<div class="donut">${donut(b,t)}<div class="leg">${CATS.filter(x=>b[x.k]).sort((x,y)=>b[y.k]-b[x.k]).map(x=>`<div><i style="background:${x.h}"></i>${x.n}<b>${fmt(b[x.k])} · ${Math.round(b[x.k]/t*100)}%</b></div>`).join('')||'<div>لا مصروفات</div>'}</div></div>`}
-function stOuts(outs,dense){let cum=0;return `<table class="t ${dense?'dense':''}"><thead><tr><th>ت</th><th>التاريخ</th><th>البيان</th><th>البند</th><th>المدفوع له</th><th>المستند</th><th class="n">المبلغ (د.ع)</th><th class="n">التراكمي</th></tr></thead><tbody>
+function stOuts(outs,dense){let cum=0;return `<table class="t ${dense?'dense':''}"><thead><tr><th>ت</th><th>التاريخ</th><th>البيان</th><th>البند</th><th>المدفوع له</th><th>المستند</th><th class="n">المبلغ (${OS()})</th><th class="n">التراكمي</th></tr></thead><tbody>
   ${outs.map((e,i)=>{cum+=e.amt;return `<tr><td>${i+1}</td><td class="num">${e.date}</td><td>${esc(e.det)}</td><td><span class="cat">${catLab(e)}</span></td><td>${esc(e.party)}</td><td>${e.docType==='دون مستند'?'—':esc(e.docType)+' <span class="num">'+esc(e.docNo)+'</span>'}</td><td class="n r">${fmt(e.amt)}</td><td class="n mut">${fmt(cum)}</td></tr>`}).join('')||'<tr><td colspan="8" class="mut">لا توجد مصروفات</td></tr>'}
   <tr class="tot"><td colspan="6">مجموع المصروفات</td><td class="n">${fmt(cum)}</td><td></td></tr></tbody></table>`}
 let STM={mode:'sum',annex:false};
@@ -1615,15 +1616,15 @@ function itemKey(e){if(e.cat==='mat')return e.mat?e.mat.trim():String(e.det||'م
 function stSum(outs){const g={};for(const e of outs){const k=e.cat+'|'+(e.catx||'')+'|'+itemKey(e);const r=g[k]||(g[k]={cat:e.cat,catx:e.catx||'',name:itemKey(e),n:0,amt:0,qty:0,unit:'',from:e.date,to:e.date});
     r.n++;r.amt+=e.amt;if(e.qty){r.qty+=+e.qty;r.unit=e.unit||r.unit}if(e.date<r.from)r.from=e.date;if(e.date>r.to)r.to=e.date}
   const ord=Object.fromEntries(CATS.map((c,i)=>[c.k,i]));const rows=Object.values(g).sort((a,b)=>ord[a.cat]-ord[b.cat]||b.amt-a.amt);const t=outs.reduce((a,e)=>a+e.amt,0);
-  return `<table class="t"><thead><tr><th>البند</th><th>المادة / العمل</th><th class="n">عدد الوصولات</th><th>الكمية</th><th>الفترة</th><th class="n">المبلغ (د.ع)</th><th class="n">النسبة</th></tr></thead><tbody>
+  return `<table class="t"><thead><tr><th>البند</th><th>المادة / العمل</th><th class="n">عدد الوصولات</th><th>الكمية</th><th>الفترة</th><th class="n">المبلغ (${OS()})</th><th class="n">النسبة</th></tr></thead><tbody>
   ${rows.map(r=>`<tr><td><span class="cat">${r.catx||CATN[r.cat]||''}</span></td><td><b>${esc(r.name)}</b></td><td class="n">${r.n}</td><td>${r.qty?'<span class="num">'+(+r.qty).toLocaleString('en-US')+'</span> '+esc(r.unit):'—'}</td><td class="mut" style="white-space:nowrap">${r.from===r.to?'<span class="num">'+r.from+'</span>':'<span class="num">'+r.from+'</span> إلى <span class="num">'+r.to+'</span>'}</td><td class="n r"><b>${fmt(r.amt)}</b></td><td class="n mut">${t?Math.round(r.amt/t*100):0}%</td></tr>`).join('')||'<tr><td colspan="7" class="mut">لا توجد مصروفات</td></tr>'}
   <tr class="tot"><td colspan="2">مجموع المصروفات</td><td class="n">${outs.length}</td><td></td><td></td><td class="n">${fmt(t)}</td><td class="n">100%</td></tr></tbody></table>`}
 function stExp(outs,title){return STM.mode==='sum'?`<div class="st-h3">${title} <span class="mut" style="font-weight:500;font-size:10.5px">(مختصر: كل مادة أو بند بسطر)</span></div>${stSum(outs)}`
   :`<div class="st-h3">${title}</div>${stOuts(outs,true)}${stMats(matsOf(outs))}`}
 function annexDoc(p,outs,label){const c=C(p.cid)||{};return `<div class="pgbrk"></div><div class="ax-h"><b>ملحق: تفاصيل ${label}</b><span>${esc(c.name)} · ${esc(p.name)} · ${outs.length} مصروف</span></div><div class="st-b">${stOuts(outs,true)}</div>`}
-function stMats(ms){return ms.length?`<div class="keep"><div class="st-h3">المواد</div><table class="t"><thead><tr><th>المادة</th><th>الوحدة</th><th class="n">الكمية</th><th class="n">متوسط سعر الوحدة (د.ع)</th><th class="n">المجموع (د.ع)</th></tr></thead><tbody>
+function stMats(ms){return ms.length?`<div class="keep"><div class="st-h3">المواد</div><table class="t"><thead><tr><th>المادة</th><th>الوحدة</th><th class="n">الكمية</th><th class="n">متوسط سعر الوحدة (${OS()})</th><th class="n">المجموع (${OS()})</th></tr></thead><tbody>
   ${ms.map(m=>`<tr><td>${esc(m.name)}</td><td>${esc(m.unit)}</td><td class="n">${(+m.qty).toLocaleString('en-US')}</td><td class="n">${fmt(m.amt/m.qty)}</td><td class="n">${fmt(m.amt)}</td></tr>`).join('')}</tbody></table></div>`:''}
-function stTail(bal,title,negTitle,note,client){return `<div class="keep"><div class="st-fin ${bal<0?'negf':''}"><div><h3>${bal<0?negTitle:title}</h3><p>فقط ${words(bal)} دينار عراقي لا غير</p></div><b>${bal<0?'−':''}${fmt(Math.abs(bal))} د.ع</b></div>
+function stTail(bal,title,negTitle,note,client){return `<div class="keep"><div class="st-fin ${bal<0?'negf':''}"><div><h3>${bal<0?negTitle:title}</h3><p>فقط ${words(bal)} ${OF()} لا غير</p></div><b>${bal<0?'−':''}${fmt(Math.abs(bal))} ${OS()}</b></div>
   <div class="st-note">${note}${S.demo?' · <b>بيانات تجريبية</b>':''}</div></div>`}
 const stNo=p=>String(live(S.projects).indexOf(p)+1).padStart(3,'0');
 
@@ -1636,7 +1637,7 @@ function payDoc(p,x,withAnnex){const c=C(p.cid)||{};const b=catsOf(x.outs);const
     <div><span>+ الدفعة ${ordN(x.i)}</span><b class="g">${fmt(x.e.amt)}</b></div>${pct?`<div><span>− أتعاب المهندس</span><b>${fmt(x.fee)}</b></div>`:''}
     <div><span>− المصروفات (${x.outs.length})</span><b class="r">${fmt(x.spent)}</b></div><div class="eqt"><span>= ${x.close<0?'التجاوز':'المتبقي'}</span><b class="${x.close<0?'r':''}">${sfmt(x.close)}</b></div></div>`;
   return docHead('كشف الدفعة '+ordN(x.i),`رقم <span class="num">د-${stNo(p)}-${x.i}</span> · <span class="num">${today()}</span>`)+`<div class="st-b">
-   ${stInfo(p,c,`<div><span class="m">الدفعة:</span> <b>${ordN(x.i)}</b> · <b class="num">${fmt(x.e.amt)}</b> د.ع · وصل <span class="rcn num">${x.e.no}</span></div>
+   ${stInfo(p,c,`<div><span class="m">الدفعة:</span> <b>${ordN(x.i)}</b> · <b class="num">${fmt(x.e.amt)}</b> ${OS()} · وصل <span class="rcn num">${x.e.no}</span></div>
      ${byOf(x.e)?`<div><span class="m">استُلمت من:</span> <b>${esc(byOf(x.e))}</b> (بالنيابة عن الزبون)</div>`:''}<div><span class="m">استُلمت:</span> <b class="num">${x.e.date}</b> · <span class="m">آخر صرف منها:</span> <b class="num">${x.outs.length?x.outs[x.outs.length-1].date:'—'}</b></div>
      <div><span class="m">الأتعاب:</span> <b>${esc(feeLabel(p))}</b> · <span class="m">المهندس:</span> <b>${esc(S.me)}</b></div>`)}
    ${stKpis(kp)}
@@ -1644,7 +1645,7 @@ function payDoc(p,x,withAnnex){const c=C(p.cid)||{};const b=catsOf(x.outs);const
    ${stExp(x.outs,'مصروفات الدفعة '+ordN(x.i))}
    ${stTail(x.close,x.last?'المتبقي من الدفعة':'المتبقي ويُدوَّر للدفعة التالية','تجاوز الدفعة (يُخصم من الدفعة القادمة)',
      `المصروفات تُحسب على آخر دفعة مستلمة قبلها حسب التاريخ.${p.feeType==='fixed'?' الأتعاب المقطوعة تُحسب في الكشف النهائي.':''}${STM.mode==='sum'?(withAnnex?' تفاصيل كل وصل في الملحق.':' التفاصيل وصلاً بوصل متوفرة عند الطلب.'):''}`)}
-   ${REQ&&x.last?`<div class="keep"><div class="st-req"><div><span class="rq-l">المطلوب: دفعة جديدة</span><p>${x.close<0?`المصروف تجاوز المبالغ المستلمة بمبلغ <b class="num">${fmt(-x.close)}</b> د.ع.`:(x.close===0?'نفد رصيد الدفعة.':`رصيد الدفعة قارب على النفاد (المتبقي <b class="num">${fmt(x.close)}</b> د.ع).`)} نرجو تسديد دفعة جديدة لمواصلة العمل.</p></div><b class="rq-ic">💰</b></div></div>`:''}</div>`+(withAnnex&&STM.mode==='sum'&&x.outs.length?annexDoc(p,x.outs,'مصروفات الدفعة '+ordN(x.i)):'')}
+   ${REQ&&x.last?`<div class="keep"><div class="st-req"><div><span class="rq-l">المطلوب: دفعة جديدة</span><p>${x.close<0?`المصروف تجاوز المبالغ المستلمة بمبلغ <b class="num">${fmt(-x.close)}</b> ${OS()}.`:(x.close===0?'نفد رصيد الدفعة.':`رصيد الدفعة قارب على النفاد (المتبقي <b class="num">${fmt(x.close)}</b> ${OS()}).`)} نرجو تسديد دفعة جديدة لمواصلة العمل.</p></div><b class="rq-ic">💰</b></div></div>`:''}</div>`+(withAnnex&&STM.mode==='sum'&&x.outs.length?annexDoc(p,x.outs,'مصروفات الدفعة '+ordN(x.i)):'')}
 function showPayment(pid,i){readSTM();const p=P(pid),x=pays(p)[i-1];closeSheet();docOpen('كشف الدفعة '+ordN(i),payDoc(p,x,STM.annex),{no:`د-${stNo(p)}-${i}`,who:whoOf(p),client:cliSig(p),pid:p.id})}
 const whoOf=p=>((C(p.cid)||{}).name||'')+' · '+p.name;
 const cliSig=p=>{const c=C(p.cid)||{};return c.name?((c.title?c.title+' ':'')+c.name):''};
@@ -1746,6 +1747,12 @@ const phoneDisp=k=>!k?'':/^7\d{9}$/.test(k)?'0'+k:'+'+k;
 const phoneKey=x=>normPhone(x)||normPhone('+'+String(x||'').replace(/\D/g,''))||String(x||'').replace(/\D/g,'').replace(/^0+/,'');
 const ccOfKey=k=>{k=String(k||'');if(!k||/^7\d{9}$/.test(k))return '964';const c=CCS.find(x=>k.startsWith(x[0]));return c?c[0]:''};
 function officeCC(){const p=String((typeof ME!=='undefined'&&ME&&ME.phone)||(S&&S.co&&S.co.phone)||'').trim();return /^(\+|00)/.test(p)?(ccOfKey(normPhone(p))||'964'):'964'}
+/* 1.9.21 عملة المكتب: تُختار تلقائياً من دولة رقم المكتب، ويمكن تغييرها من «هوية الشركة» */
+const CURS={IQD:['د.ع','دينار','دينار عراقي'],USD:['$','دولار','دولار أمريكي'],SDG:['ج.س','جنيه','جنيه سوداني'],SAR:['ر.س','ريال','ريال سعودي'],KWD:['د.ك','دينار','دينار كويتي'],AED:['د.إ','درهم','درهم إماراتي'],QAR:['ر.ق','ريال','ريال قطري'],BHD:['د.ب','دينار','دينار بحريني'],OMR:['ر.ع','ريال','ريال عُماني'],JOD:['د.أ','دينار','دينار أردني'],SYP:['ل.س','ليرة','ليرة سورية'],LBP:['ل.ل','ليرة','ليرة لبنانية'],ILS:['₪','شيكل','شيكل'],EGP:['ج.م','جنيه','جنيه مصري'],LYD:['د.ل','دينار','دينار ليبي'],TND:['د.ت','دينار','دينار تونسي'],DZD:['د.ج','دينار','دينار جزائري'],MAD:['د.م','درهم','درهم مغربي'],YER:['ر.ي','ريال','ريال يمني'],TRY:['₺','ليرة','ليرة تركية'],IRR:['ر.إ','ريال','ريال إيراني']};
+const CC_CUR={'964':'IQD','249':'SDG','966':'SAR','965':'KWD','971':'AED','974':'QAR','973':'BHD','968':'OMR','962':'JOD','963':'SYP','961':'LBP','970':'ILS','20':'EGP','218':'LYD','216':'TND','213':'DZD','212':'MAD','967':'YER','90':'TRY','98':'IRR'};
+function curAuto(){let cc='964';try{const p=String((S&&S.co&&S.co.phone)||'').trim();if(/^(\+|00)/.test(p))cc=ccOfKey(normPhone(p))||'';else if(typeof ME==='undefined'||!ME||ME.role==='owner')cc=officeCC()}catch(e){}return CC_CUR[cc]||(cc==='964'?'IQD':'USD')}
+function OCc(){const c=S&&S.co&&S.co.cur;return CURS[c]?c:curAuto()}
+const OS=()=>CURS[OCc()][0],OW=()=>CURS[OCc()][1],OF=()=>CURS[OCc()][2];
 const CCSEL={};
 const ccLbl=c=>{const x=CCS.find(y=>y[0]===c)||CCS[0];return x[2]+' <span class="num" dir="ltr">+'+x[0]+'</span>'};
 const ccPh=c=>c==='964'?'07xx xxx xxxx':'الرقم دون رمز الدولة';
@@ -1955,7 +1962,7 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 var APP_V='1.9.21',APP_T='2026-11-26 12:30';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
 var APP_NEWS_1917='عند استلام مبلغ: إذا سلّم المبلغ شخص غير الزبون، اضغط «سلّم المبلغ شخص آخر غير الزبون؟» واكتب اسمه|يظهر اسمه في الوصل ورسالة الواتساب والكشوف: «بالنيابة عن الزبون»';
-var APP_NEWS_1921='الأسعار بالدولار الأمريكي للمكاتب من خارج العراق: إذا كان رقم المكتب من دولة غير العراق تظهر أسعار الباقات والإضافات بالدولار، ويكون التحويل بالدولار|المكاتب في العراق تبقى أسعارها بالدينار كما هي';
+var APP_NEWS_1921='عملة مكتبك حسب دولته: إذا كان رقم المكتب من خارج العراق تظهر المبالغ في التطبيق والوصولات والكشوف والرسائل بعملة دولته (مثل الجنيه السوداني أو الدرهم الإماراتي)|يمكنك تغيير العملة من «هوية الشركة» ← «عملة المبالغ»، مثلاً إذا كنت تتعامل مع زبائنك بالدولار|اشتراك المكاتب من خارج العراق بالدولار الأمريكي، والمكاتب في العراق تبقى بالدينار كما هي';
 var APP_NEWS='يمكنك الآن التسجيل والدخول برقم موبايل من أي دولة: اضغط رمز الدولة بجانب الرقم واختر دولتك (العراق هو الافتراضي)|عند فتح التطبيق أول مرة على جهاز جديد تظهر صفحة «حساب جديد» مباشرة';
 var APP_NEWS_1919='زر «إرسال الوصل للزبون بالواتساب» يرسل الآن صورة الوصل نفسه بشعار شركتك وختمها، مع سطر قصير برقم الوصل ومبلغه';
 var APP_NEWS_1918='صور الوصولات تظهر الآن في الكشف وملف PDF ورابط الزبون|تاريخ رسائل الواتساب بصيغة يوم/شهر/سنة|بعد حفظ الدفعة يظهر الوصل مباشرة دون رسالة «بدون إنترنت» بالخطأ';
@@ -2133,7 +2140,7 @@ function qProjects(){const last={};for(const e of live(S.entries))last[e.pid]=Ma
 VIEWS.quick=()=>{if(!Q)return VIEWS.home();const st=qSteps(),k=st[Q.step],isIn=Q.kind==='in',last=Q.step===st.length-1;
   const dots=st.map((s,i)=>`<i class="${i<Q.step?'d':i===Q.step?'on':''}"></i>`).join('');let body='';
   if(k==='amt'){
-    body=`<div class="qamt ${isIn?'in':'out'}"><b id="q-amt">${Q.amt?fmt(Q.amt):'0'}</b><span>د.ع</span></div><div class="qw" id="q-w">${Q.amt?words(Q.amt)+' دينار':'اكتب المبلغ'}</div>
+    body=`<div class="qamt ${isIn?'in':'out'}"><b id="q-amt">${Q.amt?fmt(Q.amt):'0'}</b><span>${OS()}</span></div><div class="qw" id="q-w">${Q.amt?words(Q.amt)+' '+OW()+'':'اكتب المبلغ'}</div>
      <div class="qpad">${['1','2','3','4','5','6','7','8','9','000','0','⌫'].map(x=>`<button onclick="qKey('${x}')" class="${x==='⌫'?'bk':''}">${x}</button>`).join('')}</div>
      <div class="qdate"><span>التاريخ</span>${dpk('q-date',Q.date)}</div>`}
   else if(k==='pid'){body=pgGrid({ps:qProjects(),cur:Q.pid,office:!isIn&&!pvSolo(),all:!!Q.all,fn:'qPick',allFn:'qAll'})}
@@ -2142,13 +2149,13 @@ VIEWS.quick=()=>{if(!Q)return VIEWS.home();const st=qSteps(),k=st[Q.step],isIn=Q
   else if(k==='note'){body=`<textarea id="q-note" class="qin" rows="3" placeholder="اختياري: أي تفصيل تريد تتذكره">${esc(Q.note)}</textarea>`}
   else if(k==='src'){const cc=C((P(Q.pid)||{}).cid)||{};body=`<div class="qlist">${[['الصندوق','💵 نقداً'],['حساب المصرف','🏦 تحويل للمصرف']].map(([v,t])=>`<button class="qopt ${Q.src===v?'on':''}" onclick="Q.src='${v}';qNext()"><b>${t}</b></button>`).join('')}</div>`}
   const req=k==='amt'||k==='pid';const p=P(Q.pid),c=p&&C(p.cid);
-  return `<header class="top short"><div class="hdr"><div><h1>${isIn?'استلمت مبلغ':'صرفت مبلغ'}</h1><p>خطوة <span class="num">${Q.step+1}</span> من <span class="num">${st.length}</span>${Q.amt&&k!=='amt'?' · <b class="num">'+fmt(Q.amt)+'</b> د.ع':''}</p></div><button class="back" aria-label="إغلاق" onclick="Q=null;go('home')">✕</button></div></header>
+  return `<header class="top short"><div class="hdr"><div><h1>${isIn?'استلمت مبلغ':'صرفت مبلغ'}</h1><p>خطوة <span class="num">${Q.step+1}</span> من <span class="num">${st.length}</span>${Q.amt&&k!=='amt'?' · <b class="num">'+fmt(Q.amt)+'</b> '+OS()+'':''}</p></div><button class="back" aria-label="إغلاق" onclick="Q=null;go('home')">✕</button></div></header>
   <div class="wrap qwrap"><div class="qdots">${dots}</div>${qOnBar(k)}${isIn&&k==='src'?byPickH(Q.oth,Q.by,'q'):''}<h2 class="qh">${k==='pid'&&!isIn?'يُحسب هذا المصروف على:':k==='det'&&Q.pid==='office'?'التفاصيل (مثلاً: أجور العامل أحمد)':QT[k]}</h2>${body}
    <button class="btn ${isIn?'gin':'y'} qgo" onclick="${last?'qSave()':'qNext()'}">${last?'✓ حفظ':'التالي ←'}</button>${!last&&Q.step>=2?`<button class="btn qnow" onclick="qSave()">✓ حفظ الآن <small>بدون ${st.slice(Q.step+1).map(x=>x==='att'?'صورة':x==='note'?'ملاحظة':QT[x]).join(' و')}</small></button>`:''}
    <div class="qnav"><button onclick="qBack()" ${Q.step?'':'disabled'}>→ رجوع</button>${req?'':`<button onclick="qSkip()">تخطي</button>`}<button onclick="qFull()">النموذج الكامل</button></div></div>`};
 function qRead(){const d=$('#q-det');if(d)Q.det=d.value.trim();const qb=$('#q-by');if(qb)Q.by=qb.value.trim();const n=$('#q-note');if(n)Q.note=n.value.trim()}
 function qKey(x){if(x==='⌫')Q.amt=Math.floor(Q.amt/10);else{const v=+(String(Q.amt||'')+x);if(v<1e12)Q.amt=v}
-  $('#q-amt').textContent=Q.amt?fmt(Q.amt):'0';$('#q-w').textContent=Q.amt?words(Q.amt)+' دينار':'اكتب المبلغ'}
+  $('#q-amt').textContent=Q.amt?fmt(Q.amt):'0';$('#q-w').textContent=Q.amt?words(Q.amt)+' '+OW()+'':'اكتب المبلغ'}
 function qDatePick(){const [y,m,d]=Q.date.split('-').map(Number);const cy=new Date().getFullYear();
   const sel=(id,from,to,v,lab)=>`<div class="qds"><label for="${id}">${lab}</label><select id="${id}" class="num">${Array.from({length:to-from+1},(_,i)=>from+i).map(n=>`<option ${n===v?'selected':''}>${n}</option>`).join('')}</select></div>`;
   sheet(`<h3>📅 اختر تاريخ الصرف أو الاستلام</h3><p class="note" style="margin:0">تقدر تسجّل مبلغ بأي تاريخ سابق.</p><div class="qdrow">${sel('qd-d',1,31,d,'اليوم')}${sel('qd-m',1,12,m,'الشهر')}${sel('qd-y',cy-3,cy,y,'السنة')}</div>
@@ -2337,7 +2344,7 @@ function memberSheet(id){const m=id?MEMBERS.find(x=>x.user_id===id):null;
    <button class="btn ghost" onclick="const p=$('#m-pw').value;if(p.length<6)return toast('كلمة السر 6 أحرف على الأقل');memberAct('password','${id}',{password:p})">تغيير كلمة السر</button>
    <button class="btn ghost" onclick="memberAct('update','${id}',{active:${!m.active}})">${m.active?'إيقاف الدخول مؤقتاً':'إعادة التفعيل'}</button>
    <button class="btn ghost" onclick="closeSheet();go('staff','${id}')">💼 العهدة والمشاريع</button>
-   <button class="btn del" onclick="if(custOf('${id}').left)return toast('لديه عهدة متبقية '+fmt(custOf('${id}').left)+' د.ع. سجّل «استلمت الباقي» أولاً');ask('حذف ${esc(m.name)} نهائياً؟ لن يتمكّن من الدخول بعد الآن، وتبقى المبالغ التي سجّلها.','حذف المستخدم',()=>memberAct('remove','${id}'))">حذف المستخدم</button>`)}
+   <button class="btn del" onclick="if(custOf('${id}').left)return toast('لديه عهدة متبقية '+fmt(custOf('${id}').left)+' ${OS()}. سجّل «استلمت الباقي» أولاً');ask('حذف ${esc(m.name)} نهائياً؟ لن يتمكّن من الدخول بعد الآن، وتبقى المبالغ التي سجّلها.','حذف المستخدم',()=>memberAct('remove','${id}'))">حذف المستخدم</button>`)}
 async function callMember(body){const{data,error}=await SB.functions.invoke('asas-member',{body:Object.assign({org_id:ME.org},body)});
   if(error){let msg='تعذّر التنفيذ، تأكد من الإنترنت';try{const j=await error.context.json();if(j.msg)msg=j.msg}catch(e){}throw new Error(msg)}return data}
 async function memberAdd(){const name=$('#m-name').value.trim(),ph=normPhone($('#m-ph').value,ccOf('m-ph')),pw=$('#m-pw').value.trim(),role=$('#m-role').value;
@@ -3016,7 +3023,7 @@ function askDel(msg,yes,cb){askCb=cb;sheet(`<h3>${esc(msg)}</h3><button class="b
 entryRow=(function(o){return function(e){return o(e).replace(`onclick="go('entry',{id:'${e.id}'})"`,`onclick="entMenu('${e.id}')"`).replace(/<\/button>$/,'<span class="li-more" aria-hidden="true">⋮</span></button>')}})(entryRow);
 function entMenu(id){const e=S.entries.find(x=>x.id===id);if(!e)return;const p=P(e.pid),c=p&&C(p.cid),isIn=e.kind==='in';
   const open=`closeSheet();go('entry',{id:'${id}',pid:'${e.pid}'})`;
-  sheet(`<div class="emh"><div class="dot ${e.kind}">${isIn?'↓':'↑'}</div><div class="mid"><b class="amt ${isIn?'pos':'neg'}">${isIn?'+':'−'}${fmt(e.amt)} <small>د.ع</small></b>
+  sheet(`<div class="emh"><div class="dot ${e.kind}">${isIn?'↓':'↑'}</div><div class="mid"><b class="amt ${isIn?'pos':'neg'}">${isIn?'+':'−'}${fmt(e.amt)} <small>${OS()}</small></b>
    <span>${esc(e.det||(isIn?'دفعة':'—'))} · <span class="num">${e.date}</span>${e.no?' · <span class="num">'+esc(e.no)+'</span>':''}</span>${c?'<span>'+esc(c.name)+' · '+esc(p.name)+'</span>':e.pid==='office'?'<span>🏢 المكتب</span>':''}${!canEditE(e)?'<span class="lockn">🔒 '+LOCK_MSG+'</span>':''}</div></div>
   <div class="emenu">
    ${CAN.edit&&!(p&&p.done)&&canEditE(e)?`<button onclick="${open}"><i>✏️</i><div><b>تعديل</b><span>المبلغ، التاريخ، البيان، البند، الصورة…</span></div></button>`:`<button onclick="${open}"><i>👁️</i><div><b>عرض التفاصيل</b>${p&&p.done?'<span>المشروع منتهٍ، أعد فتحه للتعديل</span>':''}</div></button>`}
@@ -3024,7 +3031,7 @@ function entMenu(id){const e=S.entries.find(x=>x.id===id);if(!e)return;const p=P
    ${CAN.del&&!(p&&p.done)?`<button class="dl" onclick="entDelAsk('${id}')"><i>🗑️</i><div><b>حذف</b><span>ينتقل لسلة المحذوفات ويمكن استرجاعه خلال 30 يوماً</span></div></button>`:''}
   </div><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
 function entDelAsk(id,back){const e=S.entries.find(x=>x.id===id);if(!e)return;const isIn=e.kind==='in';
-  askDel(`حذف ${isIn?'الدفعة':'المصروف'} ${fmt(e.amt)} د.ع${e.no?' ('+e.no+')':''}؟ ينتقل لسلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً.${isIn&&e.no?' رقم الوصل يبقى محجوزاً له ولا يُعطى لدفعة أخرى.':''}`,'نعم، احذف',()=>{
+  askDel(`حذف ${isIn?'الدفعة':'المصروف'} ${fmt(e.amt)} ${OS()}${e.no?' ('+e.no+')':''}؟ ينتقل لسلة المحذوفات ويمكنك استرجاعه خلال 30 يوماً.${isIn&&e.no?' رقم الوصل يبقى محجوزاً له ولا يُعطى لدفعة أخرى.':''}`,'نعم، احذف',()=>{
     e.del={at:today(),by:S.me};save();toast('تم الحذف ✓ يمكنك استرجاعه من سلة المحذوفات');if(back){F=null;e.pid==='office'?go(AS?'home':'net'):go('project',e.pid)}else render()})}
 entryDel=function(){entDelAsk(F.id,true)};
 projectDel=function(id){const p=P(id);if(!p)return;const n=live(S.entries).filter(e=>e.pid===id).length;
@@ -3192,7 +3199,7 @@ VIEWS.net=()=>{if(AS||!CAN.admin)return VIEWS.home();const[a,b]=npRange();const 
   return `<header class="top short"><div class="hdr"><div><h1>صافي الأرباح</h1><p>أتعابي − المصاريف</p></div><button class="back" aria-label="رجوع" onclick="go('reports')">→</button></div></header>
   <div class="wrap" style="margin-top:14px">
    <section class="card cash"><div class="nftop"><span class="lbl">صافي الأرباح</span><button class="nfchip" onclick="npSheet()"><span class="num">${esc(npChip())}</span> ▾</button></div>
-    <div class="big"><span class="amt ${R.n<0?'neg':''}">${sfmt(R.n)}</span><small>د.ع</small></div>
+    <div class="big"><span class="amt ${R.n<0?'neg':''}">${sfmt(R.n)}</span><small>${OS()}</small></div>
     <div class="duo"><div class="mini"><span>أتعابي</span><b class="amt nfg">${fmt(R.f)}</b></div><div class="mini"><span>المصاريف</span><b class="amt nfr">${fmt(R.e)}</b></div></div>
    </section>
    <section class="card nfsc"><div class="nfband r"><h2>المصاريف</h2><b class="num nfr">${fmt(R.e)}</b></div>
@@ -3238,13 +3245,13 @@ function tmAddSheet(){sheet(`<h3>موظف جديد</h3>
 function custRow(e){if(e.kind==='cg'||e.kind==='cr')return `<button class="li" onclick="custMenu('${e.id}')"><div class="dot ${e.kind}">${e.kind==='cg'?'↓':'↩'}</div><div class="mid"><div class="t">${e.kind==='cg'?'استلم عهدة':'رجّع للمكتب'}${e.det&&!/^(عهدة نقدية|إرجاع)$/.test(e.det)?' · '+esc(e.det):''}</div><div class="s"><span class="num">${e.date}</span>${e.by?' · '+esc(e.by):''}</div></div><b class="a amt">${fmt(e.amt)}</b></button>`;
   let r=entryRow(e);if(e.pid==='office')r=r.replace('<div class="s">','<div class="s">🏢 المكتب · ');if(e.cu&&!AS)r=r.replace('<div class="s">','<div class="s">👷 '+esc(tmName(e.cu))+' · ');return r}
 function custMenu(id){const e=S.entries.find(x=>x.id===id);if(!e)return;
-  sheet(`<h3>${e.kind==='cg'?'عهدة إلى ':'استلام من '}${esc(tmName(e.cu))}</h3><p class="note"><b class="num">${fmt(e.amt)}</b> د.ع · <span class="num">${e.date}</span>${e.det?' · '+esc(e.det):''}</p>
+  sheet(`<h3>${e.kind==='cg'?'عهدة إلى ':'استلام من '}${esc(tmName(e.cu))}</h3><p class="note"><b class="num">${fmt(e.amt)}</b> ${OS()} · <span class="num">${e.date}</span>${e.det?' · '+esc(e.det):''}</p>
    ${CAN.admin&&!AS?`<button class="btn del" onclick="closeSheet();askDel('حذف هذه الحركة؟ تنتقل لسلة المحذوفات.','نعم، احذف',()=>{const x=S.entries.find(q=>q.id==='${id}');x.del={at:today(),by:S.me};save();render();toast('تم الحذف ✓')})">🗑️ حذف</button>`:''}
    <button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)}
 function custSheet(u,kind){const c=custOf(u),nm=tmName(u);
   sheet(`<h3>${kind==='cg'?'أعطيت '+esc(nm)+' مبلغ':'استلمت من '+esc(nm)}</h3>
-   <p class="note">${kind==='cg'?'يخرج المبلغ من القاصة ويصبح بعهدة الموظف. لا يُحسب مصروفاً، فالمصروف هو ما يصرفه الموظف.':'يعود المبلغ إلى القاصة ويُخصم مما لديه.'} المتبقي لديه الآن: <b class="num">${sfmt(c.left)}</b> د.ع</p>
-   <div class="fld"><div class="bx"><label for="cs-amt">المبلغ (د.ع)</label><input id="cs-amt" class="num" inputmode="numeric" style="text-align:right" oninput="const n=parseAmt(this.value);this.value=n?fmt(n):''"></div></div>
+   <p class="note">${kind==='cg'?'يخرج المبلغ من القاصة ويصبح بعهدة الموظف. لا يُحسب مصروفاً، فالمصروف هو ما يصرفه الموظف.':'يعود المبلغ إلى القاصة ويُخصم مما لديه.'} المتبقي لديه الآن: <b class="num">${sfmt(c.left)}</b> ${OS()}</p>
+   <div class="fld"><div class="bx"><label for="cs-amt">المبلغ (${OS()})</label><input id="cs-amt" class="num" inputmode="numeric" style="text-align:right" oninput="const n=parseAmt(this.value);this.value=n?fmt(n):''"></div></div>
    ${kind==='cr'&&c.left>0?`<div class="quick"><button onclick="$('#cs-amt').value='${fmt(c.left)}'">كل الباقي (${fmt(c.left)})</button></div>`:''}
    <div class="dpw"><label>التاريخ</label>${dpk('cs-date',today())}</div>
    <div class="fld"><div class="bx"><label for="cs-det">ملاحظة</label><input id="cs-det" placeholder="اختياري"></div></div>
@@ -3263,8 +3270,8 @@ VIEWS.staff=(u)=>{if(AS||!CAN.admin)return VIEWS.home();const t=TEAM().find(x=>x
   <div class="wrap" style="margin-top:14px">
    <section class="card"><div class="nfh">العهدة</div>
     <div class="nfk"><div><span>أعطيته</span><b class="num nfg">${fmt(c.g)}</b></div><div><span>صرف</span><b class="num nfr">${fmt(c.sp)}</b></div><div><span>المتبقي لديه</span><b class="num ${c.left<0?"nfr":""}">${sfmt(c.left)}</b></div></div>
-    ${c.col||c.r?`<p class="note" style="margin:0 0 10px">${c.col?'استلم من الزبائن <b class="num">'+fmt(c.col)+'</b> د.ع':''}${c.col&&c.r?' · ':''}${c.r?'رجّع للمكتب <b class="num">'+fmt(c.r)+'</b> د.ع':''}</p>`:''}
-    ${c.left<0?`<p class="note" style="margin:0 0 10px">صرف أكثر مما استلم بـ <b class="num">${fmt(-c.left)}</b> د.ع، والمبلغ له بذمة المكتب.</p>`:''}
+    ${c.col||c.r?`<p class="note" style="margin:0 0 10px">${c.col?'استلم من الزبائن <b class="num">'+fmt(c.col)+'</b> '+OS()+'':''}${c.col&&c.r?' · ':''}${c.r?'رجّع للمكتب <b class="num">'+fmt(c.r)+'</b> '+OS()+'':''}</p>`:''}
+    ${c.left<0?`<p class="note" style="margin:0 0 10px">صرف أكثر مما استلم بـ <b class="num">${fmt(-c.left)}</b> ${OS()}، والمبلغ له بذمة المكتب.</p>`:''}
     <div class="row2"><button class="btn y" onclick="custSheet('${u}','cg')">+ أعطيته مبلغ</button><button class="btn ghost" onclick="custSheet('${u}','cr')">استلمت منه</button></div>
     <button class="btn ghost" style="margin-top:10px" onclick="showCustody('${u}')">🖨️ كشف العهدة</button></section>
    <div class="sec"><h2>أين صرف</h2></div>
@@ -3296,7 +3303,7 @@ function workerHome(){const c=custOf(AS.uid);const mine=c.L.filter(e=>e.kind==='
   return `<header class="top"><div class="brand"><div class="logo">${logoHtml()}</div><div><h1>${esc(S.co.short||S.co.name)}</h1><p>أهلاً ${esc(AS.name)}</p></div></div></header>
   <div class="wrap pull">
    ${DEMO_AS?`<div class="nfas"><span>👁️ هذا ما يراه ${esc(AS.name)}</span><button onclick="exitAs()">رجوع لحسابي</button></div>`:''}
-   <section class="card cash"><div class="lbl">المتبقي لديّ من العهدة</div><div class="big"><span class="amt ${c.left<0?'neg':''}">${sfmt(c.left)}</span><small>د.ع</small></div>
+   <section class="card cash"><div class="lbl">المتبقي لديّ من العهدة</div><div class="big"><span class="amt ${c.left<0?'neg':''}">${sfmt(c.left)}</span><small>${OS()}</small></div>
     <div class="duo"><div class="mini"><span>استلمت</span><b class="amt">${fmt(c.g+c.col)}</b></div><div class="mini"><span>صرفت</span><b class="amt">${fmt(c.sp)}</b></div></div></section>
    <div class="acts"><button class="act in" onclick="qStart('in')"><span>استلمت مبلغ</span><i>↓</i></button><button class="act out" onclick="qStart('out')"><span>صرفت مبلغ</span><i>↑</i></button></div>
    <div class="sec"><h2>آخر صرفي</h2></div><div class="list">${mine.map(custRow).join('')||'<div class="empty">لم تسجّل أي صرف بعد</div>'}</div>
@@ -3314,7 +3321,7 @@ const _saveNF=save;save=function(){if(FULL){nfMerge();const cur=S;S=FULL;try{_sa
 /* ---- ربط الشاشات الموجودة ---- */
 const _homeNF=VIEWS.home;VIEWS.home=a=>{if(AS)return workerHome();let h=_homeNF(a);
   if(CAN.admin){const m=today().slice(0,7),R=netOf(m+'-01',m+'-31');
-    h=h.replace('<div class="sec"><h2>مشاريع زبائنك</h2>',`<button class="card nfmini" onclick="NP.k='m';NP.m='${m}';go('net')"><div><span>صافي الأرباح هذا الشهر</span><b class="amt ${R.n<0?'neg':''}">${sfmt(R.n)} <small>د.ع</small></b><small>أتعابي <span class="num">${fmt(R.f)}</span> − مصاريف المكتب <span class="num">${fmt(R.e)}</span></small></div><i>‹</i></button>
+    h=h.replace('<div class="sec"><h2>مشاريع زبائنك</h2>',`<button class="card nfmini" onclick="NP.k='m';NP.m='${m}';go('net')"><div><span>صافي الأرباح هذا الشهر</span><b class="amt ${R.n<0?'neg':''}">${sfmt(R.n)} <small>${OS()}</small></b><small>أتعابي <span class="num">${fmt(R.f)}</span> − مصاريف المكتب <span class="num">${fmt(R.e)}</span></small></div><i>‹</i></button>
    <div class="sec"><h2>مشاريع زبائنك</h2>`)}
   return h};
 const _projNF=VIEWS.project;VIEWS.project=id=>{let h=_projNF(id);if(AS)h=h.replace(/<div><span>الأتعاب[\s\S]*?<\/b><\/div>/,'');return h};
@@ -3336,8 +3343,8 @@ const _renderNF=render;render=function(){_renderNF();
 /* ===== 1.9.3: المشروع المنتهي ===== */
 const doneProjects=()=>live(S.projects).filter(p=>p.done).sort((a,b)=>String(b.done.at||'').localeCompare(String(a.done.at||'')));
 const pdDate=s=>{const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(s||'');return m?`${+m[3]}/${+m[2]}/${m[1]}`:''};
-function pdBalBox(k){if(k.bal>0)return `<div class="pd-res pos"><span>باقٍ للزبون عندك</span><b class="num">${fmt(k.bal)} <small>د.ع</small></b><p>يُعاد للزبون أو يُتّفق عليه معه قبل الإنهاء.</p></div>`;
-  if(k.bal<0)return `<div class="pd-res neg"><span>مطلوب من الزبون</span><b class="num">${fmt(-k.bal)} <small>د.ع</small></b><p>المصروف والأتعاب أكثر من المقبوض. يبقى المبلغ ظاهراً في قائمة المشاريع المنتهية.</p></div>`;
+function pdBalBox(k){if(k.bal>0)return `<div class="pd-res pos"><span>باقٍ للزبون عندك</span><b class="num">${fmt(k.bal)} <small>${OS()}</small></b><p>يُعاد للزبون أو يُتّفق عليه معه قبل الإنهاء.</p></div>`;
+  if(k.bal<0)return `<div class="pd-res neg"><span>مطلوب من الزبون</span><b class="num">${fmt(-k.bal)} <small>${OS()}</small></b><p>المصروف والأتعاب أكثر من المقبوض. يبقى المبلغ ظاهراً في قائمة المشاريع المنتهية.</p></div>`;
   return `<div class="pd-res zero"><span>الحساب مُصفّى</span><b>✓ لا يوجد رصيد باقٍ</b></div>`}
 function pdTag(k){return k.bal>0?`<b class="amt pos">${fmt(k.bal)}</b><span>باقٍ للزبون</span>`:(k.bal<0?`<b class="amt neg">${fmt(-k.bal)}</b><span>مطلوب منه</span>`:`<b class="pd-z">✓</b><span>مُصفّى</span>`)}
 projectDone=function(id,on){const p=P(id);if(!p)return;if(!CAN.del)return toast('إنهاء المشروع وإعادة فتحه من صلاحية المالك فقط');
@@ -3458,7 +3465,7 @@ memberSheet=function(id){const m=id?MEMBERS.find(x=>x.user_id===id):null;
    <button class="btn ghost" onclick="const p=$('#m-pw').value;if(p.length<6)return toast('كلمة السر 6 أحرف على الأقل');memberAct('password','${id}',{password:p})">تغيير كلمة السر</button>
    <button class="btn ghost" onclick="memberAct('update','${id}',{active:${!m.active}})">${m.active?'إيقاف الدخول مؤقتاً':'إعادة التفعيل'}</button>
    <button class="btn ghost" onclick="closeSheet();go('staff','${id}')">💼 العهدة</button>
-   <button class="btn del" onclick="if(custOf('${id}').left)return toast('لديه عهدة متبقية '+fmt(custOf('${id}').left)+' د.ع. سجّل «استلمت الباقي» أولاً');ask('حذف ${esc(m.name)} نهائياً؟ لن يتمكّن من الدخول بعد الآن، وتبقى المبالغ التي سجّلها.','حذف المستخدم',()=>memberAct('remove','${id}'))">حذف المستخدم</button>`)};
+   <button class="btn del" onclick="if(custOf('${id}').left)return toast('لديه عهدة متبقية '+fmt(custOf('${id}').left)+' ${OS()}. سجّل «استلمت الباقي» أولاً');ask('حذف ${esc(m.name)} نهائياً؟ لن يتمكّن من الدخول بعد الآن، وتبقى المبالغ التي سجّلها.','حذف المستخدم',()=>memberAct('remove','${id}'))">حذف المستخدم</button>`)};
 function siCheck(b){if(b.title==='')return 'اكتب المسمى';if(b.projects&&!b.projects.length)return 'حدّد مشروعاً واحداً على الأقل، أو اختر «كل المشاريع»';return ''}
 async function memberSave(id){const b=siBody();const e=siCheck(b);if(e)return toast(e);await memberAct('update',id,b)}
 function inviteMsg(iv){const office=S.co.name||S.co.short||'المكتب';
@@ -3514,7 +3521,7 @@ function htNums(){const[a,b]=npRange();let inn=0,out=0,ni=0,no=0;const ins=[],ou
   const srt=x=>x.sort((p,q)=>q.date.localeCompare(p.date)||(q.ts||0)-(p.ts||0));
   return{a,b,inn,out,ins:srt(ins),outs:srt(outs),R,cust,cn}}
 function htTiles(){return htWith(htTiles0)}
-function htTiles0(){const N=htNums();const am=(v,c)=>`<b class="amt ${c||''}">${sfmt(v)}<small>د.ع</small></b>`;
+function htTiles0(){const N=htNums();const am=(v,c)=>`<b class="amt ${c||''}">${sfmt(v)}<small>${OS()}</small></b>`;
   const t=(n,fn,l,v,s)=>`<button class="htt n${n}" onclick="${fn}"><i>‹</i><span class="l">${l}</span>${v}<span class="s">${s}</span></button>`;
   return `<div class="htsec"><h2>الملخص</h2><button class="htper" onclick="htpSheet()">${npChip()} <span aria-hidden="true">▾</span></button></div>
    <div class="htg">
@@ -3530,7 +3537,7 @@ function htFeeHow(a,b){const rs=feeRows(a,b);if(!rs.length)return 'لا توجد
   const q=[];if(pcs.length)q.push(pcs.map(x=>'<span class="num">'+x+'%</span>').join(' و ')+' من المستلم');if(fx)q.push('أتعاب مقطوعة');return q.join(' + ')}
 function htShow(k){return htWith(()=>htShow0(k))}
 function htShow0(k){const N=htNums();const per=npChip();let h='';
-  const box=(lbl,v,c)=>`<div class="tot"><span>${lbl}</span><b class="amt ${c||''}">${sfmt(v)} <small>د.ع</small></b></div>`;
+  const box=(lbl,v,c)=>`<div class="tot"><span>${lbl}</span><b class="amt ${c||''}">${sfmt(v)} <small>${OS()}</small></b></div>`;
   const lst=(rows,empty)=>`<div class="list">${rows||`<div class="empty" style="padding:18px;text-align:center;color:var(--mut)">${empty}</div>`}</div>`;
   if(k==='in')h=`<h3>المستلم من الزبائن</h3><p class="note">${per}</p>${box('المجموع',N.inn,'g')}${lst(N.ins.map(entryRow).join(''),'لا توجد مبالغ مستلمة في هذه الفترة')}`;
   else if(k==='out')h=`<h3>مصاريف الزبائن</h3><p class="note">${per} · المصاريف المسجّلة على المشاريع، وتظهر في كشف كل زبون</p>${box('المجموع',N.out,'r')}${lst(N.outs.map(entryRow).join(''),'لا توجد مصاريف في هذه الفترة')}`;
@@ -3695,7 +3702,7 @@ function abDiff(old,nw){const out=[];for(const k of Object.keys(AB_FN)){if(!(k i
 function abDiffHtml(L){return `<div class="ab-df">${L.map(x=>`<div><span>${esc(x.n)}</span><s class="num">${esc(x.a)}</s><i>←</i><b class="num">${esc(x.b)}</b></div>`).join('')}</div>`}
 function abLogDiff(ch){return String(ch||'').split(' · ').map(p=>{const m=p.match(/^([^:]+):\s*(.*?)\s*←\s*(.*)$/);return m?{n:m[1],a:m[2],b:m[3]}:{n:'',a:'',b:p}})}
 function abWhere(e){const p=P(e.pid),c=p&&C(p.cid);return e.pid==='office'?'🏢 المكتب':(p?esc(cName(c||{}))+' · '+esc(p.name):'—')}
-function abSum(e){const isIn=e.kind==='in';return `<div class="ab-e"><b class="amt ${isIn?'pos':'neg'}">${isIn?'+':'−'}${fmt(e.amt)} <small>د.ع</small></b><span>${esc(e.det||(isIn?'دفعة':'—'))} · <span class="num">${abD(e.date)}</span>${e.no?' · <span class="num">'+esc(e.no)+'</span>':''}</span><span>${abWhere(e)}${byOf(e)?' · استُلم من '+esc(byOf(e)):''}</span></div>`}
+function abSum(e){const isIn=e.kind==='in';return `<div class="ab-e"><b class="amt ${isIn?'pos':'neg'}">${isIn?'+':'−'}${fmt(e.amt)} <small>${OS()}</small></b><span>${esc(e.det||(isIn?'دفعة':'—'))} · <span class="num">${abD(e.date)}</span>${e.no?' · <span class="num">'+esc(e.no)+'</span>':''}</span><span>${abWhere(e)}${byOf(e)?' · استُلم من '+esc(byOf(e)):''}</span></div>`}
 
 /* ---- قائمة الحركة (⋮) ---- */
 entMenu=function(id){const e=S.entries.find(x=>x.id===id);if(!e)return;const p=P(e.pid),isIn=e.kind==='in',c=p&&C(p.cid);const s=STF();const dir=abDirect(e),done=p&&p.done;
@@ -3713,7 +3720,7 @@ entMenu=function(id){const e=S.entries.find(x=>x.id===id);if(!e)return;const p=P
    if(!done&&s&&CAN.edit&&e.kind!=='cg'&&e.kind!=='cr'){if(dir&&CAN.del)btns+=`<button class="dl" onclick="entDelAsk('${id}')"><i>🗑️</i><div><b>حذف</b><span>ينتقل للسلة ويصل للمهندس المسؤول إشعار بالحذف</span></div></button>`;
      else btns+=`<button class="dl" onclick="closeSheet();abReqDel('${id}')"><i>🗑️</i><div><b>طلب حذف</b><span>يُرسل للمهندس المسؤول للموافقة</span></div></button>`}}
   const own=!s&&pend?`<div class="ab-wait">⏳ ${esc(e.rq.by)} طلب ${e.rq.t==='d'?'حذف':'تعديل'} هذه الحركة. <button class="link" onclick="closeSheet();bellOpen('rq')">عرض الطلب</button></div>`:'';
-  sheet(`<div class="emh"><div class="dot ${e.kind}">${isIn?'↓':'↑'}</div><div class="mid"><b class="amt ${isIn?'pos':'neg'}">${isIn?'+':'−'}${fmt(e.amt)} <small>د.ع</small></b>
+  sheet(`<div class="emh"><div class="dot ${e.kind}">${isIn?'↓':'↑'}</div><div class="mid"><b class="amt ${isIn?'pos':'neg'}">${isIn?'+':'−'}${fmt(e.amt)} <small>${OS()}</small></b>
    <span>${esc(e.det||(isIn?'دفعة':'—'))} · <span class="num">${e.date}</span>${e.no?' · <span class="num">'+esc(e.no)+'</span>':''}</span>${c?'<span>'+esc(c.name)+' · '+esc(p.name)+'</span>':e.pid==='office'?'<span>🏢 المكتب</span>':''}${s&&!dir&&!pend?'<span class="lockn">🔒 '+abWhy(e)+'</span>':''}${s&&dir&&!pend?'<span class="lockn ab-ok">✏️ يمكنك تصحيحها خلال 24 ساعة من تسجيلها</span>':''}</div></div>
   ${own}<div class="emenu">${btns}</div><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)};
 
@@ -3787,10 +3794,10 @@ function abActCard(x,sn){const e=x.e;const nw=x.ts>sn;
   return `<div class="ab-it${nw?' nw':''}"><div class="ab-h"><b>👷 ${esc(x.who)}</b><span class="num">${abDT(x.ts)}</span></div><div class="ab-t">✏️ عدّل حركة</div>${abSum(e)}${abDiffHtml(abLogDiff(x.l.ch))}</div>`}
 function abCust(){const L=[];for(const t of TEAM()){const c=custOf(t.uid);if(c.left<0)L.push({t,c})}return L}
 function abCustCard(x){return `<div class="ab-it rq"><div class="ab-h"><b>👷 ${esc(x.t.name)}</b></div><div class="ab-t r">صرف أكثر من عهدته</div>
-   <div class="ab-e"><b class="amt neg">${fmt(-x.c.left)} <small>د.ع</small></b><span>استلم <span class="num">${fmt(x.c.g+x.c.col)}</span> · صرف <span class="num">${fmt(x.c.sp)}</span> · المبلغ له بذمة المكتب</span></div>
+   <div class="ab-e"><b class="amt neg">${fmt(-x.c.left)} <small>${OS()}</small></b><span>استلم <span class="num">${fmt(x.c.g+x.c.col)}</span> · صرف <span class="num">${fmt(x.c.sp)}</span> · المبلغ له بذمة المكتب</span></div>
    <div class="ab-b"><button class="ok" onclick="closeSheet();custSheet('${x.t.uid}','cg')">+ أعطيته مبلغ</button><button class="no g" onclick="closeSheet();go('staff','${x.t.uid}')">صفحته</button></div></div>`}
 function abMoney(){return abCust().map(abCustCard).concat(needList().map(({p,z})=>{const c=C(p.cid)||{};return `<div class="ab-it"><div class="ab-h"><b>💰 ${esc(cName(c))}</b></div><div class="ab-t">${esc(p.name)} · ${z.bal<0?'المصروف تجاوز المستلم':(z.bal===0?'نفد رصيد الزبون':'رصيد الزبون قارب على النفاد')}</div>
-   <div class="ab-e"><b class="amt ${z.bal<0?'neg':''}">${sfmt(z.bal)} <small>د.ع</small></b><span>${z.bal<0?'التجاوز':'المتبقي'} · يستحق مطالبة الزبون بدفعة</span></div>
+   <div class="ab-e"><b class="amt ${z.bal<0?'neg':''}">${sfmt(z.bal)} <small>${OS()}</small></b><span>${z.bal<0?'التجاوز':'المتبقي'} · يستحق مطالبة الزبون بدفعة</span></div>
    <div class="ab-b"><button class="ok" onclick="closeSheet();payReqSheet('${p.id}')">📤 طلب دفعة</button><button class="no g" onclick="closeSheet();go('project','${p.id}')">فتح المشروع</button></div></div>`}))}
 function bellBody(){const sn=abSeen();const R=abReqs(),A=abActs(),M=abMoney(),Y=abSys();const cnt={all:R.length+A.filter(x=>x.ts>sn).length+M.length+Y.length,rq:R.length,ed:A.filter(x=>x.ts>sn).length,mn:M.length,sy:Y.length};
   const sec=(k,t,arr)=>(AB_TAB==='all'||AB_TAB===k)&&arr.length?`${AB_TAB==='all'?`<h4 class="ab-s">${t}</h4>`:''}${arr.join('')}`:'';
@@ -3816,7 +3823,7 @@ function bellDone(){try{localStorage.setItem(AB_SK(),String(Date.now()))}catch(e
   const L=(FULL||S).entries.filter(e=>e.rq&&e.rq.u===s.uid).sort((a,b)=>(b.rq.dt||b.rq.ts)-(a.rq.dt||a.rq.ts)).slice(0,8);
   const rule=s.eng?'يمكنك تصحيح حركتك خلال 24 ساعة من تسجيلها، وبعدها يكون التعديل والحذف بطلب يوافق عليه المهندس المسؤول.':'التعديل والحذف يتمّان بطلب يوافق عليه المهندس المسؤول.';
   const box=`<div class="sec"><h2>طلباتي</h2>${L.length?'<span class="num">'+L.length+'</span>':''}</div><div class="list">${L.map(e=>{const q=e.rq;const st=!q.st?'<span class="ab-st w">⏳ بانتظار الموافقة</span>':q.st==='ok'?'<span class="ab-st ok">✅ تمت الموافقة</span>':'<span class="ab-st no">❌ مرفوض</span>';
-    return `<button class="li" onclick="entMenu('${e.id}')"><div class="ic">${q.t==='d'?'🗑️':'📝'}</div><div class="mid"><div class="t">طلب ${q.t==='d'?'حذف':'تعديل'} · ${fmt(e.amt)} د.ع</div><div class="s">${esc(e.det||'—')} · <span class="num">${abDT(q.dt||q.ts)}</span>${q.nr?' · السبب: '+esc(q.nr):''}</div></div>${st}</button>`}).join('')||'<div class="empty">لا توجد طلبات</div>'}</div><p class="note">✏️ ${rule}</p>`;
+    return `<button class="li" onclick="entMenu('${e.id}')"><div class="ic">${q.t==='d'?'🗑️':'📝'}</div><div class="mid"><div class="t">طلب ${q.t==='d'?'حذف':'تعديل'} · ${fmt(e.amt)} ${OS()}</div><div class="s">${esc(e.det||'—')} · <span class="num">${abDT(q.dt||q.ts)}</span>${q.nr?' · السبب: '+esc(q.nr):''}</div></div>${st}</button>`}).join('')||'<div class="empty">لا توجد طلبات</div>'}</div><p class="note">✏️ ${rule}</p>`;
   return h.replace('<div class="sec"><h2>مشاريعي</h2>',box+'<div class="sec"><h2>مشاريعي</h2>')}}
 
 /* ---- صفحة الموظف: سجل التعديلات والحذف والطلبات ---- */
@@ -3837,17 +3844,17 @@ const RP={on:false,list:[],map:{}};
 function rpNo(e){if(!RP.on||!STM.ph||!e||!e.att)return 0;if(RP.map[e.id])return RP.map[e.id];RP.list.push(e);return RP.map[e.id]=RP.list.length}
 function rpMark(a,b){if(!a)return '<span class="rp-no">—</span>';const r=b&&b!==a;return `<a class="rp-m" data-a="${a}" data-b="${b||a}">🧾 عرض <span class="num">${r?a+'–'+b:a}</span></a>`}
 const RP_LEG='<div class="rp-leg"><b>صورة الوصل</b>: اضغط على «🧾 عرض» لمشاهدة صورة الوصل.</div>';
-stOuts=function(outs,dense){let cum=0;const ns=outs.map(rpNo),ph=ns.some(Boolean);return `<table class="t ${dense?'dense':''}"><thead><tr><th>ت</th><th>التاريخ</th><th>البيان</th><th>البند</th><th>المدفوع له</th><th>المستند</th><th class="n">المبلغ (د.ع)</th><th class="n">التراكمي</th>${ph?'<th class="rp-th">صورة الوصل</th>':''}</tr></thead><tbody>
+stOuts=function(outs,dense){let cum=0;const ns=outs.map(rpNo),ph=ns.some(Boolean);return `<table class="t ${dense?'dense':''}"><thead><tr><th>ت</th><th>التاريخ</th><th>البيان</th><th>البند</th><th>المدفوع له</th><th>المستند</th><th class="n">المبلغ (${OS()})</th><th class="n">التراكمي</th>${ph?'<th class="rp-th">صورة الوصل</th>':''}</tr></thead><tbody>
   ${outs.map((e,i)=>{cum+=e.amt;return `<tr><td>${i+1}</td><td class="num">${e.date}</td><td>${esc(e.det)}</td><td><span class="cat">${catLab(e)}</span></td><td>${esc(e.party)}</td><td>${e.docType==='دون مستند'?'—':esc(e.docType)+' <span class="num">'+esc(e.docNo)+'</span>'}</td><td class="n r">${fmt(e.amt)}</td><td class="n mut">${fmt(cum)}</td>${ph?'<td class="rp-td">'+rpMark(ns[i])+'</td>':''}</tr>`}).join('')||'<tr><td colspan="8" class="mut">لا توجد مصروفات</td></tr>'}
   <tr class="tot"><td colspan="6">مجموع المصروفات</td><td class="n">${fmt(cum)}</td><td></td>${ph?'<td></td>':''}</tr></tbody></table>${ph?RP_LEG:''}`};
 stSum=function(outs){const g={};for(const e of outs){const k=e.cat+'|'+(e.catx||'')+'|'+itemKey(e);const r=g[k]||(g[k]={cat:e.cat,catx:e.catx||'',name:itemKey(e),n:0,amt:0,qty:0,unit:'',from:e.date,to:e.date,es:[]});
     r.n++;r.amt+=e.amt;r.es.push(e);if(e.qty){r.qty+=+e.qty;r.unit=e.unit||r.unit}if(e.date<r.from)r.from=e.date;if(e.date>r.to)r.to=e.date}
   const ord=Object.fromEntries(CATS.map((c,i)=>[c.k,i]));const rows=Object.values(g).sort((a,b)=>ord[a.cat]-ord[b.cat]||b.amt-a.amt);const t=outs.reduce((a,e)=>a+e.amt,0);
   for(const r of rows){const ns=r.es.map(rpNo).filter(Boolean);r.pa=ns.length?Math.min(...ns):0;r.pb=ns.length?Math.max(...ns):0}const ph=rows.some(r=>r.pa);
-  return `<table class="t"><thead><tr><th>البند</th><th>المادة / العمل</th><th class="n">عدد الوصولات</th><th>الكمية</th><th>الفترة</th><th class="n">المبلغ (د.ع)</th><th class="n">النسبة</th>${ph?'<th class="rp-th">صورة الوصل</th>':''}</tr></thead><tbody>
+  return `<table class="t"><thead><tr><th>البند</th><th>المادة / العمل</th><th class="n">عدد الوصولات</th><th>الكمية</th><th>الفترة</th><th class="n">المبلغ (${OS()})</th><th class="n">النسبة</th>${ph?'<th class="rp-th">صورة الوصل</th>':''}</tr></thead><tbody>
   ${rows.map(r=>`<tr><td><span class="cat">${r.catx||CATN[r.cat]||''}</span></td><td><b>${esc(r.name)}</b></td><td class="n">${r.n}</td><td>${r.qty?'<span class="num">'+(+r.qty).toLocaleString('en-US')+'</span> '+esc(r.unit):'—'}</td><td class="mut" style="white-space:nowrap">${r.from===r.to?'<span class="num">'+r.from+'</span>':'<span class="num">'+r.from+'</span> إلى <span class="num">'+r.to+'</span>'}</td><td class="n r"><b>${fmt(r.amt)}</b></td><td class="n mut">${t?Math.round(r.amt/t*100):0}%</td>${ph?'<td class="rp-td">'+rpMark(r.pa,r.pb)+'</td>':''}</tr>`).join('')||'<tr><td colspan="7" class="mut">لا توجد مصروفات</td></tr>'}
   <tr class="tot"><td colspan="2">مجموع المصروفات</td><td class="n">${outs.length}</td><td></td><td></td><td class="n">${fmt(t)}</td><td class="n">100%</td>${ph?'<td></td>':''}</tr></tbody></table>${ph?RP_LEG:''}`};
-function rpItems(){return RP.list.map((e,i)=>`<div class="rp-ph" data-n="${i+1}"><div class="rp-c"><b class="rp-n num">${i+1}</b><span>${esc(e.det||'—')}</span><span class="num">${fmt(e.amt)} د.ع</span><span class="num">${e.date}</span>${e.docType&&e.docType!=='دون مستند'?`<span>${esc(e.docType)} <span class="num">${esc(e.docNo||'')}</span></span>`:''}</div><img src="${e.att}" alt="صورة الوصل ${i+1}"></div>`).join('')}
+function rpItems(){return RP.list.map((e,i)=>`<div class="rp-ph" data-n="${i+1}"><div class="rp-c"><b class="rp-n num">${i+1}</b><span>${esc(e.det||'—')}</span><span class="num">${fmt(e.amt)} ${OS()}</span><span class="num">${e.date}</span>${e.docType&&e.docType!=='دون مستند'?`<span>${esc(e.docType)} <span class="num">${esc(e.docNo||'')}</span></span>`:''}</div><img src="${e.att}" alt="صورة الوصل ${i+1}"></div>`).join('')}
 function rpAnnex(){if(!RP.list.length)return '';
   if(!STM.pa)return `<div class="rp-store" style="display:none">${rpItems()}</div>`;
   return `<div class="pgbrk"></div><div class="ax-h"><b>ملحق: صور الوصولات</b><span><span class="num">${RP.list.length}</span> صورة · الرقم مطابق لعمود «صورة الوصل» في الكشف</span></div><div class="st-b">${rpItems()}</div>`}
@@ -3888,7 +3895,7 @@ let RPS=null;
   if(MODE==='cloud'&&ME&&ME.org&&SB){try{rpSB();const r=await SB.rpc('asas_share_create',{p_org:ME.org,p_pid:pid,p_title:title+' · '+p.name,p_html:html});if(r.error)throw r.error;url=APP_URL+'?s='+r.data}catch(e){logErr&&logErr('share',e)}}
   else url=APP_URL+'?s=…';
   let f=null,pages=0;try{const r=await pagesToPdf();const name=pdfName();f=new File([r.blob],name,{type:'application/pdf'});pages=r.pages;PDFF={blob:r.blob,f,name,pages}}catch(e){}
-  const t=`السلام عليكم ${cName(c)} المحترم،\n\n📄 *${title}*\n🏗️ ${p.name}\nرقم الكشف: ${DOCMETA.no||''} · ${DOCMETA.date||today()}\n\n${k.bal<0?'⚠️ المبلغ المطلوب منكم':'✅ الرصيد المتبقي لكم'}: *${fmt(Math.abs(k.bal))} د.ع*\n\n${f?'الكشف مرفق بملف PDF.\n':''}${url?'🧾 لمشاهدة صور الوصولات اضغط على الرابط، ثم اضغط «🧾 عرض» بجانب أي بند:\n'+url+'\n':''}\nمع التقدير، ${waSign()}\n— أُعدّ بنظام أسس`;
+  const t=`السلام عليكم ${cName(c)} المحترم،\n\n📄 *${title}*\n🏗️ ${p.name}\nرقم الكشف: ${DOCMETA.no||''} · ${DOCMETA.date||today()}\n\n${k.bal<0?'⚠️ المبلغ المطلوب منكم':'✅ الرصيد المتبقي لكم'}: *${fmt(Math.abs(k.bal))} ${OS()}*\n\n${f?'الكشف مرفق بملف PDF.\n':''}${url?'🧾 لمشاهدة صور الوصولات اضغط على الرابط، ثم اضغط «🧾 عرض» بجانب أي بند:\n'+url+'\n':''}\nمع التقدير، ${waSign()}\n— أُعدّ بنظام أسس`;
   RPS={t,f,c,url,pages};rpSendSheet()}}
 function rpSendSheet(){const x=RPS;sheet(`<h3>✓ الكشف جاهز للإرسال</h3>
   <div class="rp-snd"><div class="${x.f?'':'off'}"><i>📄</i><div><b>الكشف بملف PDF</b><span>${x.f?(x.pages===1?'ورقة A4 واحدة':'<span class="num">'+x.pages+'</span> أوراق A4'):'تعذّر تجهيز الملف، سيُرسل الرابط فقط'}</span></div></div>
@@ -4281,6 +4288,9 @@ function usdFix(b){try{if(!b||b.action!=='activate'||typeof ADM==='undefined')re
   admSheet=W(admSheet,id=>byId(id));admSum=W(admSum,()=>curOrg());
   admReq=W(admReq,id=>byId(id));admRenew=W(admRenew,id=>byId(id));admActivate=W(admActivate,id=>byId(id))})();
 
+/* 1.9.21 حفظ عملة المكتب الأجنبي تلقائياً أول مرة (حتى يراها الموظفون ورابط الزبون بنفس العملة) */
+const _pullCUR=pull;pull=async function(f){const r=await _pullCUR(f);try{if(MODE==='cloud'&&ME&&ME.role==='owner'&&S&&S.co&&!S.co.cur){const c=curAuto();if(c!=='IQD'){S.co.cur=c;save()}}}catch(e){}return r};
+
 /* ===== «استُلم من»: الشخص الذي سلّم المبلغ نيابةً عن الزبون (1.9.17) ===== */
 function byNorm(x){return String(x||'').replace(/\s+/g,' ').replace(/^(السيد|السيدة|الأستاذ|الحاج|الحاجة|م\.|د\.)\s*/,'').trim()}
 function byOf(e){if(!e||e.kind!=='in')return '';const n=String(e.party||'').trim();if(!n)return '';const c=C((P(e.pid)||{}).cid);if(!c)return '';
@@ -4340,7 +4350,7 @@ let PF_LEFT=null;
 const RCI={};
 var rciOk=()=>!!(navigator.share&&navigator.canShare&&window.File);
 function rciKey(e){return hashCode(rcHalf(e,'نسخة الزبون'))}
-function rciCap(e){return pfDates(`وصل استلام رقم ${e.no||''} بمبلغ ${fmt(e.amt)} د.ع\nمع التقدير، ${waSign()}`)}
+function rciCap(e){return pfDates(`وصل استلام رقم ${e.no||''} بمبلغ ${fmt(e.amt)} ${OS()}\nمع التقدير، ${waSign()}`)}
 async function rciMake(e){const k=rciKey(e);const o=RCI[e.id];if(o&&o.k===k)return o.p;
   const p=(async()=>{await loadH2C();try{await document.fonts.ready}catch(_){}
     const box=document.createElement('div');box.className='book pdfx';box.style.cssText='position:fixed;left:-30000px;top:0;width:794px;background:#fff;transform:none';
@@ -4359,7 +4369,7 @@ function rciShare(e,c,x){const cap=rciCap(e);const d={files:[x.f],text:cap};cons
   return navigator.share(ok?d:{files:[x.f]}).then(()=>{closeSheet();if(!ok){try{navigator.clipboard&&navigator.clipboard.writeText(cap)}catch(_){}}},err=>{if(err&&err.name==='AbortError')return;closeSheet();waOpen(c,rcptText(e))})}
 function rciSheet(id){const e=S.entries.find(x=>x.id===id);const x=e&&rciReady(e);if(!x)return;const u=URL.createObjectURL(x.blob);
   sheet(`<h3>✓ صورة الوصل جاهزة</h3><img src="${u}" alt="" style="display:block;width:100%;border:1px solid var(--line,#e3e8f0);border-radius:12px;margin:2px 0 10px;background:#fff">
-   <p class="note" style="margin:0 0 10px">تُرسل صورة الوصل ومعها: «وصل استلام رقم <b class="num">${esc(e.no||'')}</b> بمبلغ <b class="num">${fmt(e.amt)}</b> د.ع». اختر الواتساب ثم اسم الزبون.</p>
+   <p class="note" style="margin:0 0 10px">تُرسل صورة الوصل ومعها: «وصل استلام رقم <b class="num">${esc(e.no||'')}</b> بمبلغ <b class="num">${fmt(e.amt)}</b> ${OS()}». اختر الواتساب ثم اسم الزبون.</p>
    <button class="btn wa" onclick="rciGo('${id}')">💬 إرسال بالواتساب</button><button class="btn ghost" onclick="closeSheet()">إلغاء</button>`)}
 function rciGo(id){const e=S.entries.find(x=>x.id===id);if(!e)return;const x=rciReady(e);if(!x)return waReceipt(id);rciShare(e,C((P(e.pid)||{}).cid)||{},x)}
 {const _wr=waReceipt;waReceipt=async function(id){const e=S.entries.find(x=>x.id===id);if(!e)return;
