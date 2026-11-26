@@ -4505,10 +4505,11 @@ function grpSheet(k){GRP=k;const O=realOrgs();let h='';
      ${c[k].sort((a,b)=>String((insOwner(b)||{}).at||'').localeCompare(String((insOwner(a)||{}).at||''))).map(o=>grpRow(o,insDesc(insOwner(o)))).join('')||'<div class="empty">لا يوجد</div>'}`}
   sheet(h+'<button class="btn ghost" onclick="closeSheet()">إغلاق</button>')}
 /* صفحة المكتب: حالة التثبيت لكل مستخدم */
-const _admSheetINS=admSheet;admSheet=function(id,tab){_admSheetINS(id,tab);if(!ADM.ins)return;const o=(ADM.orgs||[]).find(x=>x.id===id);const h=document.querySelector('#layer .sheet h3');
-  if(!o||!h||document.querySelector('#layer .ins-adm'))return;const ms=ADM.ins.filter(m=>m.org===id).sort((a,b)=>(b.role==='owner')-(a.role==='owner'));if(!ms.length)return;
+const _admSheetINS=admSheet;admSheet=function(id,tab){_admSheetINS(id,tab);const o=(ADM.orgs||[]).find(x=>x.id===id);const h=document.querySelector('#layer .sheet h3');
+  if(!o||!h||document.querySelector('#layer .ins-adm'))return;const ms=(ADM.ins||[]).filter(m=>m.org===id).sort((a,b)=>(b.role==='owner')-(a.role==='owner'));
+  const bk=`💾 ${o.last_backup?'آخر نسخة احتياطية <span class="num">'+bkWhen(o.last_backup).split(' · ')[0]+'</span> · <span class="num">'+o.backups+'</span> نسخة':'<span style="color:var(--red)">لا توجد نسخة احتياطية</span>'}`;
   let el=h;while(el.parentElement&&!el.parentElement.classList.contains('sheet'))el=el.parentElement;const at=document.querySelector('#layer .fd-adm')||el;
-  at.insertAdjacentHTML('afterend',`<div class="ins-adm"><b>📲 تثبيت التطبيق</b>${ms.map(m=>`<br>${insBadge(insOf(m))} ${esc(m.name||'')}${m.role==='owner'?' (صاحب الحساب)':''}: <small style="color:var(--mut)">${insDesc(m)}</small>`).join('')}</div>`)};
+  at.insertAdjacentHTML('afterend',`<div class="ins-adm">${ms.length?'<b>📲 تثبيت التطبيق</b>':''}${ms.map(m=>`<br>${insBadge(insOf(m))} ${esc(m.name||'')}${m.role==='owner'?' (صاحب الحساب)':''}: <small style="color:var(--mut)">${insDesc(m)}</small>`).join('')}${ms.length?'<br>':''}${bk}</div>`)};
 </script>
 
 <script>if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}</script>
