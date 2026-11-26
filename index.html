@@ -4417,6 +4417,20 @@ boot();
 .gl .gm small{display:block;font-size:12px;color:var(--mut);line-height:1.6}
 .gl a{flex:none;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:17px}
 .gl a.wa{background:#25D366;color:#fff}.gl a.tel{background:#E6ECF6;color:var(--navy)}
+.fdt.one{grid-template-columns:1fr}.fdt.one button{flex-direction:row;align-items:center;justify-content:space-between;min-height:0;padding:12px 14px;background:var(--cream);border-color:var(--yeld)}
+.fdt.one .v{font-size:16px}.fdt.one em{font-style:normal;color:var(--mut);font-size:18px}
+.oc-f{margin:0 0 10px}.oc-f button .num{display:inline-block;min-width:20px;background:var(--soft);border-radius:10px;padding:0 6px;margin-inline-start:4px;color:var(--ink)}.oc-f button.on .num{background:rgba(255,255,255,.2);color:#fff}
+.ocl{margin:10px 0}
+.oc{display:flex;align-items:center;gap:10px;width:100%;text-align:right;border:1px solid var(--line);background:var(--card);border-radius:18px;padding:14px;margin:0 0 10px;font-family:inherit;color:var(--ink);cursor:pointer}
+.oc:active{background:var(--soft)}
+.oc .av{flex:none;width:42px;height:42px;border-radius:50%;color:#fff;display:grid;place-items:center;font-size:20px;font-weight:800}
+.oc .om{flex:1;min-width:0}
+.oc .ot{display:flex;align-items:center;gap:6px}.oc .ot b{font-size:15.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;flex:0 1 auto}.oc .ot i{font-style:normal;font-size:15px;flex:none}.oc .ot span{flex:none;white-space:nowrap}
+.oc .fdb{border:1.5px solid var(--yeld);background:var(--cream);color:#8a5a00;border-radius:10px;padding:0 7px;font-size:12px;font-weight:700}
+.oc .drb{background:var(--soft);color:var(--mut);border-radius:10px;padding:0 7px;font-size:12px;font-weight:700}
+.oc .os{font-size:12.5px;color:var(--mut);line-height:1.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.oc .ost{flex:none;border-radius:10px;padding:2px 7px;font-size:11.5px;font-weight:800}
+.oc em{font-style:normal;color:var(--mut);font-size:16px}
 .ins-adm{background:var(--soft);border-radius:12px;padding:9px 12px;margin:8px 0;font-size:13.5px;line-height:1.9}
 </style>
 <script>
@@ -4437,14 +4451,37 @@ const INS_L={app:'📲 مثبّت',web:'🌐 متصفح فقط',none:'⏳ لم �
 function insBadge(k){return k?`<span class="ins-b ${k}">${INS_L[k]}</span>`:''}
 function insDesc(m){const k=insOf(m);if(k==='none')return 'لم يفتح التطبيق منذ هذا التحديث';const os=OS_L[m.os]||'';
   return k==='app'?`مثبّت على الشاشة${os?' ('+os+')':''}${m.mode==='web'?' · آخر فتح من المتصفح':''} · آخر فتح ${agoTxt(m.at)}`:`يفتحه من المتصفح فقط${os?' ('+os+')':''} · آخر فتح ${agoTxt(m.at)}`}
-/* مربعان فوق قائمة المكاتب */
-function fdTiles(){const F=ADM.fd,O=realOrgs();const max=F?F.max:50,left=F?Math.max(0,F.max-F.n):null;
-  const c={app:0,web:0,none:0};O.forEach(o=>{const k=insKey(o);if(k)c[k]++});
-  return `<div class="fdt"><button onclick="grpSheet('fd')"><span class="h">🏅 مقاعد المؤسسين الباقية</span><span class="v"><span class="num">${left==null?'—':left}</span> <small>من <span class="num">${max}</span></small></span><span class="f">أول <span class="num">${max}</span> مكتباً: 3 أشهر مجاناً</span></button>
-   <button onclick="grpSheet('${c.web?'web':'app'}')"><span class="h">📲 تثبيت التطبيق</span><span class="v"><span class="num">${ADM.ins?c.app:'—'}</span> <small>مثبّت</small></span><span class="f">${ADM.ins?`🌐 متصفح فقط <b class="num">${c.web}</b>${c.none?` · ⏳ <b class="num">${c.none}</b>`:''}`:'يعمل بعد «ارفع»'}</span></button></div>`}
-const _admOrgsINS=admOrgs;admOrgs=function(){let h=_admOrgsINS();
-  h=h.replace(/(<button class="li" onclick="admSheet\('([^']+)'\)">[\s\S]*?)<br>🕒 آخر دخول:/g,(all,pre,id)=>{const o=(ADM.orgs||[]).find(x=>x.id===id);const k=o?insKey(o):'';return pre+'<br>'+(k?insBadge(k)+' · ':'')+'🕒 آخر دخول:'});
-  return fdTiles()+h};
+/* قائمة المكاتب بترتيب مندوبي: مربع المؤسسين، ثم أزرار التصفية بأعدادها، ثم بطاقات مختصرة */
+function fdTiles(){const F=ADM.fd;const max=F?F.max:50,left=F?Math.max(0,F.max-F.n):null;
+  return `<div class="fdt one"><button onclick="grpSheet('fd')"><span class="h">🏅 المؤسسون</span><span class="v">باقٍ <span class="num">${left==null?'—':left}</span> <small>من <span class="num">${max}</span> مقعداً</small></span><em>‹</em></button></div>`}
+const ORG_AV={stop:'#8b95a7',end:'#B42318',soon:'#C98A00',paid:'#169C55',trial:'#14294A'};
+admOrgs=function(){const O=realOrgs();const all=ADM.orgs;ADM.f=ADM.f||'all';
+  const isPaid=o=>o.paid_until&&o.paid_until>=o.trial_until;
+  const F={all:()=>true,call:isCall,paid:o=>!o.suspended_at&&dLeft(o)>0&&isPaid(o),trial:o=>!o.suspended_at&&dLeft(o)>0&&!isPaid(o),soon:o=>akey(o)==='soon',end:o=>akey(o)==='end',dorm:isDorm,stop:o=>!!o.suspended_at,
+    used:o=>(o.entries||0)>0,noent:o=>!(o.entries>0),app:o=>insKey(o)==='app',web:o=>insKey(o)==='web',none:o=>insKey(o)==='none',new:o=>Date.now()-Date.parse(o.created_at)<7*864e5};
+  const chips=[['all','الكل'],['call','متابعة'],['paid','مشترك'],['trial','تجريبي'],['soon','ينتهي قريباً'],['end','منتهي'],['dorm','راكد'],['stop','موقوف'],['used','سجّل مبالغ'],['noent','بلا مبالغ']]
+    .concat(ADM.ins?[['app','📱 مثبّت'],['web','🌐 متصفح'],['none','⏳ لم يفتح']]:[]).concat(ADM.f==='new'?[['new','جدد هذا الأسبوع']]:[]);
+  const cnt=k=>(k==='all'?all:O).filter(F[k]).length;
+  const so=[['pri','الأولوية'],['end','الأقرب انتهاءً'],['new','الأحدث تسجيلاً'],['ent','الأكثر مبالغ'],['paid','الأكثر دفعاً'],['idle','الأقدم نشاطاً']];
+  const pri=o=>({end:1,soon:0,stop:4,trial:2,paid:3})[akey(o)]-(o.renew?1:0);
+  const S_={pri:(a,b)=>pri(a)-pri(b)||dLeft(a)-dLeft(b),end:(a,b)=>dLeft(a)-dLeft(b),new:(a,b)=>String(b.created_at).localeCompare(String(a.created_at)),ent:(a,b)=>(b.entries||0)-(a.entries||0),paid:(a,b)=>(b.paid_total||0)-(a.paid_total||0),idle:(a,b)=>idleDays(b)-idleDays(a)};
+  if(!F[ADM.f])ADM.f='all';
+  const q=(ADM.q||'').trim();const list=(ADM.f==='all'?all:O).filter(F[ADM.f]).filter(o=>!q||(o.name+' '+o.owner+' '+o.phone).includes(q)).sort(S_[ADM.s]);
+  const card=o=>{const k=akey(o),n=dLeft(o),end=[o.trial_until,o.paid_until].filter(Boolean).sort().pop(),fd=fdOf(o.id),ik=insKey(o);
+    const ch=k==='paid'?'مشترك':k==='trial'?'تجريبي':AK_L[k];const ini=esc(String(o.owner||o.name||'؟').replace(/^م\.\s*/,'').trim().charAt(0));
+    return `<button class="oc" onclick="admSheet('${o.id}')"><span class="av" style="background:${ORG_AV[k]}">${ini}</span><div class="om">
+      <div class="ot"><b>${esc(o.name)}</b>${ik==='app'?'<i title="مثبّت">📱</i>':ik==='web'?'<i title="متصفح فقط">🌐</i>':''}${fd?'<span class="fdb">🏅 مؤسس</span>':''}${isDorm(o)?'<span class="drb">💤 راكد</span>':''}</div>
+      <div class="os">حتى <span class="num">${end?bkWhen(end).split(' · ')[0]:'—'}</span>${n>0?' · <span class="num">'+n+'</span> يوماً':''}</div>
+      <div class="os">🕒 آخر دخول: ${o.last_login?agoTxt(o.last_login):'لم يدخل بعد'} · <span class="num">${o.entries||0}</span> مبلغ</div>
+      ${o.renew?'<div class="os" style="color:var(--yeld);font-weight:700">🔔 طلب تجديد · <span class="num">'+bkWhen(o.renew).split(' · ')[0]+'</span></div>':''}</div>
+      <span class="ost" style="color:${AK_C[k]};background:${AK_C[k]}1a">${ch}</span><em>‹</em></button>`};
+  return fdTiles()+`<div class="cats oc-f">${chips.map(([k,t])=>`<button class="${ADM.f===k?'on':''}" onclick="ADM.f='${k}';render()">${t} <span class="num">${cnt(k)}</span></button>`).join('')}</div>
+   <div class="srow"><div class="fld" style="flex:1;margin:0"><div class="bx"><label for="adm-q">بحث بالاسم أو الرقم</label><input id="adm-q" value="${esc(ADM.q||'')}" oninput="ADM.q=this.value;clearTimeout(ADM.t);ADM.t=setTimeout(()=>{render();const i=$('#adm-q');i.focus();i.setSelectionRange(i.value.length,i.value.length)},300)"></div></div>
+    <div class="fld" style="margin:0;min-width:124px"><div class="bx"><label for="adm-s">ترتيب</label><select id="adm-s" onchange="ADM.s=this.value;render()">${so.map(([k,t])=>`<option value="${k}" ${ADM.s===k?'selected':''}>${t}</option>`).join('')}</select></div></div></div>
+   ${ADM.f==='call'&&list.length?'<button class="btn" style="background:#25D366;color:#fff" onclick="bulkSheet()">💬 تذكير جماعي للكل</button>':''}
+   ${(ADM.f==='web'||ADM.f==='none')&&list.length?`<button class="btn ghost" onclick="grpSheet('${ADM.f}')">💬 أرسل لهم شرح التثبيت</button>`:''}
+   <div class="ocl">${list.map(card).join('')||'<div class="card empty">لا توجد نتائج</div>'}</div>
+   <div class="row2"><button class="btn ghost" onclick="csvOrgs()">⬇️ تصدير Excel</button><button class="btn ghost" onclick="ADM.orgs=null;PAYS=null;render()">↻ تحديث</button></div>`};
 /* قائمة المجموعة عند الضغط على المربع */
 let GRP='fd';
 function grpRow(o,sub){const ph=String(o.phone||'');return `<div class="gl"><div class="gm" onclick="closeSheet();admSheet('${o.id}')"><b>${esc(o.name)}</b><small>${esc(o.owner||'')} · <span class="num">${esc(ph)}</span></small>${sub?`<small>${sub}</small>`:''}</div>
