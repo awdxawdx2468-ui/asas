@@ -1434,7 +1434,7 @@ function backupSheet(){sheet(`<h3>النسخ الاحتياطي</h3><p class="no
   <textarea id="bk" style="width:100%;height:150px;border-radius:12px;border:1px solid var(--line);padding:10px;direction:ltr;font-size:11px">${esc(JSON.stringify(S))}</textarea>
   <div class="row2"><button class="btn sm" style="width:100%" onclick="const t=$('#bk');t.select();(navigator.clipboard?navigator.clipboard.writeText(t.value):Promise.reject()).then(()=>toast('نُسخ ✓')).catch(()=>toast('حدّد النص وانسخه'))">نسخ</button>
   <button class="btn sm ghost" style="width:100%" onclick="try{const x=JSON.parse($('#bk').value);if(x.v!==1)throw 0;S=x;save();closeSheet();go('home');toast('تم الاستيراد ✓')}catch(e){toast('النص غير صالح')}">استيراد</button></div>`)}
-function subSheet(){sheet(`<h3>اشتراك أسس</h3><div class="hook in">مبلغٌ واحد تنسى تسجيله قد يكلّفك أكثر من اشتراك سنة كاملة.<br><b>أسس يحفظ لك كل دينار.</b></div><p class="note">الأسعار بالدينار العراقي · الدفع بتحويل ماستر كارد إلى الرقم <b class="num">${PLATFORM.phone}</b></p>
+function subSheet(){sheet(`<h3>اشتراك أسس</h3><div class="hook in">مبلغٌ واحد تنسى تسجيله قد يكلّفك اشتراك سنة كاملة.<br><b>أسس يحفظ لك كل دينار.</b></div><p class="note">الأسعار بالدينار العراقي · الدفع بتحويل ماستر كارد إلى الرقم <b class="num">${PLATFORM.phone}</b></p>
   <div class="list">${PLANS.map(([n,d,a,b,c])=>`<div class="li"><div class="mid"><div class="t">${n}</div><div class="s" style="white-space:normal">${d.split(' · ')[0]}</div><div class="s" style="white-space:normal;font-weight:700;color:var(--ink,#13294b)">📁 ${d.split(' · ')[1]||''}</div>${n==='مكتب'?'<div class="s" style="white-space:normal;font-size:12px">➕ مهندس إضافي: '+addonTxt()+'</div>':''}</div><div style="text-align:left;font-size:12.5px;line-height:1.6"><div>3 أشهر <b class="num">${pfmt(a)}</b></div><div>6 أشهر <b class="num">${pfmt(b)}</b></div><div>سنة <b class="num">${pfmt(c)}</b></div></div></div>`).join('')}</div>
   <button class="btn ghost" onclick="closeSheet()">إغلاق</button>`)}
 
@@ -1875,7 +1875,7 @@ setInterval(()=>{if(document.visibilityState==='visible')refresh()},45000);
 function authTab(){try{if(localStorage.getItem('asas_known'))return 'in';for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i)||'';if(k==='asas-auth'||k.startsWith('asas_c_'))return 'in'}}catch(e){}return 'up'}
 let AUTH={tab:authTab(),busy:false,err:''};
 VIEWS.login=()=>{const up=AUTH.tab==='up';return `<div class="auth">
-  <div class="auth-top"><div class="auth-logo">${helmet(64)}</div><h1>أسس</h1><p class="tag">حسابات مشاريعك وزبائنك بمكان واحد</p><div class="hook">مبلغٌ واحد تنسى تسجيله قد يكلّفك أكثر من اشتراك سنة كاملة.<br><b>أسس يحفظ لك كل دينار.</b></div></div>
+  <div class="auth-top"><div class="auth-logo">${helmet(64)}</div><h1>أسس</h1><p class="tag">حسابات مشاريعك وزبائنك بمكان واحد</p><div class="hook">مبلغٌ واحد تنسى تسجيله قد يكلّفك اشتراك سنة كاملة.<br><b>أسس يحفظ لك كل دينار.</b></div></div>
   <div class="wrap auth-card">
    <div class="seg"><button class="${up?'':'on'}" onclick="AUTH.tab='in';AUTH.err='';render()">تسجيل دخول</button><button class="${up?'on':''}" onclick="AUTH.tab='up';AUTH.err='';render()">حساب جديد</button></div>
    ${up?`<div class="fld"><div class="bx"><label for="a-name">اسمك</label><input id="a-name" autocomplete="name" placeholder="م. علي الطامي"></div></div>
@@ -1959,7 +1959,7 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.22',APP_T='2026-11-26 13:00';
+var APP_V='1.9.23',APP_T='2026-11-26 12:30';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
 var APP_NEWS_1917='عند استلام مبلغ: إذا سلّم المبلغ شخص غير الزبون، اضغط «سلّم المبلغ شخص آخر غير الزبون؟» واكتب اسمه|يظهر اسمه في الوصل ورسالة الواتساب والكشوف: «بالنيابة عن الزبون»';
 var APP_NEWS_1921='عملة مكتبك حسب دولته: إذا كان رقم المكتب من خارج العراق تظهر المبالغ في التطبيق والوصولات والكشوف والرسائل بعملة دولته (مثل الجنيه السوداني أو الدرهم الإماراتي)|يمكنك تغيير العملة من «هوية الشركة» ← «عملة المبالغ»، مثلاً إذا كنت تتعامل مع زبائنك بالدولار|اشتراك المكاتب من خارج العراق بالدولار الأمريكي، والمكاتب في العراق تبقى بالدينار كما هي';
@@ -2362,7 +2362,7 @@ const WA='9647713275983';
 const _subSheet=subSheet;
 subSheet=function(){if(MODE!=='cloud')return _subSheet();const n=subLeft();
   const msg=encodeURIComponent('مرحباً، أرغب بالاشتراك في أسس\nالمكتب: '+(S.co.short||S.co.name||'')+'\nرقمي: '+(ME.phone||'')+'\nالباقة: ');
-  sheet(`<h3>اشتراك أسس</h3><div class="hook in">مبلغٌ واحد تنسى تسجيله قد يكلّفك أكثر من اشتراك سنة كاملة.<br><b>أسس يحفظ لك كل دينار.</b></div>
+  sheet(`<h3>اشتراك أسس</h3><div class="hook in">مبلغٌ واحد تنسى تسجيله قد يكلّفك اشتراك سنة كاملة.<br><b>أسس يحفظ لك كل دينار.</b></div>
    <div class="trialbar ${n!==null&&n<=0?'end':''}"><span>${subLabel()}${S.sub&&S.sub.until?' · ينتهي <span class="num">'+String(S.sub.until).slice(0,10)+'</span>':''}</span></div>
    <div class="list">${PLANS.map(([n,d,a,b,c])=>`<div class="li"><div class="mid"><div class="t">${n}</div><div class="s" style="white-space:normal">${d.split(' · ')[0]}</div><div class="s" style="white-space:normal;font-weight:700;color:var(--ink,#13294b)">📁 ${d.split(' · ')[1]||''}</div>${n==='مكتب'?'<div class="s" style="white-space:normal;font-size:12px">➕ مهندس إضافي: '+addonTxt()+'</div>':''}</div><div style="text-align:left;font-size:12.5px;line-height:1.6"><div>3 أشهر <b class="num">${pfmt(a)}</b></div><div>6 أشهر <b class="num">${pfmt(b)}</b></div><div>سنة <b class="num">${pfmt(c)}</b></div></div></div>`).join('')}</div>
    <div class="card" style="padding:12px 14px;font-size:14px;line-height:1.9"><b>طريقة الاشتراك:</b><br>١. حوِّل المبلغ عبر ماستر كارد إلى الرقم <b class="num">${payPhone()}</b><br>٢. صوّر الوصل وأرسله عبر الواتساب<br>٣. يُفعَّل اشتراكك خلال ساعات، دون أن تفقد الأيام المتبقية من مدتك${SETS.pay&&SETS.pay.note?'<br>'+esc(SETS.pay.note):''}${SETS.pay&&SETS.pay.video?'<br><a href="'+esc(SETS.pay.video)+'" target="_blank" rel="noopener">▶️ فيديو شرح طريقة الاشتراك</a>':''}</div>
