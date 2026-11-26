@@ -1959,7 +1959,7 @@ function dlBackup(){const b=new Blob([J(S)],{type:'application/json'});const a=d
 
 
 /* ===== الإصدار ===== */
-var APP_V='1.9.23',APP_T='2026-11-26 12:30';
+var APP_V='1.9.24',APP_T='2026-11-26 16:30';
 function verDate(){const d=new Date(APP_T.replace(' ','T'));let h=d.getHours();const ap=h>=12?'م':'ص';h=h%12||12;return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' · '+h+':'+String(d.getMinutes()).padStart(2,'0')+' '+ap}
 var APP_NEWS_1917='عند استلام مبلغ: إذا سلّم المبلغ شخص غير الزبون، اضغط «سلّم المبلغ شخص آخر غير الزبون؟» واكتب اسمه|يظهر اسمه في الوصل ورسالة الواتساب والكشوف: «بالنيابة عن الزبون»';
 var APP_NEWS_1921='عملة مكتبك حسب دولته: إذا كان رقم المكتب من خارج العراق تظهر المبالغ في التطبيق والوصولات والكشوف والرسائل بعملة دولته (مثل الجنيه السوداني أو الدرهم الإماراتي)|يمكنك تغيير العملة من «هوية الشركة» ← «عملة المبالغ»، مثلاً إذا كنت تتعامل مع زبائنك بالدولار|اشتراك المكاتب من خارج العراق بالدولار الأمريكي، والمكاتب في العراق تبقى بالدينار كما هي';
@@ -4228,7 +4228,7 @@ async function fdLoad(){if(MODE!=='cloud'||IS_ADMIN||!ME||!ME.org)return;try{con
 const _pullFD=pull;pull=async function(f){const r=await _pullFD(f);if(S&&S.fd===undefined){S.fd=null;fdLoad()}return r};
 const _subLabelFD=subLabel;subLabel=function(){const t=_subLabelFD();return S&&S.fd&&S.fd.no&&S.sub&&!S.sub.paid?t.replace('فترة تجريبية','فترة المؤسسين المجانية'):t};
 function fdBan(){if(!S||!S.fd||!S.fd.no)return '';const F=S.fd;
-  return `<div class="fd-ban">🏅 <b>أنت من المؤسسين</b> (رقم <span class="num">${F.no}</span> من <span class="num">${F.max||FD_MAX}</span>)<br>${F.left>0?`خصم <b class="num">${F.pct||50}%</b> على اشتراكك في أول ${F.left>=12?'سنة':'<span class="num">'+F.left+'</span> أشهر'} مدفوعة. الأسعار أدناه بعد الخصم.`:'انتهت مدة خصم المؤسسين، والأسعار الآن بالسعر العادي.'}</div>`}
+  return `<div class="fd-ban">🏅 <b>أنت من المؤسسين</b><br>${F.left>0?`خصم <b class="num">${F.pct||50}%</b> على اشتراكك في أول ${F.left>=12?'سنة':'<span class="num">'+F.left+'</span> أشهر'} مدفوعة. الأسعار أدناه بعد الخصم.`:'انتهت مدة خصم المؤسسين، والأسعار الآن بالسعر العادي.'}</div>`}
 pvCard=function(k){const I=PV_INFO[k],P=PR('prices')[k]||{},m=PV.m,on=PV.pl===k,cur=pvCurPlan()===k;
   return `<div class="pv-card${on?' on':''}${I.tag&&k==='فريق'?' star':''}" role="radio" aria-checked="${on}" tabindex="0" onclick="PV.pl='${k}';pvDraw()">
    <div class="pv-h"><div style="display:flex;gap:10px"><span class="pv-rd"></span><div><b class="pv-n">${k}</b><span class="pv-t">${I.t}</span></div></div>${cur?'<span class="pv-tag cur">✓ باقتك الحالية</span>':I.tag?`<span class="pv-tag">${I.tag}</span>`:''}</div>
@@ -4339,6 +4339,12 @@ let PF_LEFT=null;
   return h}}
 
 /* (6) الموظف المدعو: ترحيب «فريق العمل» بدل «تجربتك المجانية بدأت» */
+/* 1.9.24 مثل مندوبي: ترحيب المؤسس بعد التسجيل = مدة العرض وتاريخ انتهائه، بدون رقم المقعد */
+function fdWelcome(){if(!S||!S.fd||!S.fd.no||!S.sub||!S.sub.until||S.sub.paid)return '';const u=String(S.sub.until).slice(0,10);
+  const m=Math.round((Date.parse(u)-Date.now())/2592e6);const mt=m===1?'شهر':m===2?'شهرين':m>2&&m<11?'<i class="num" style="font-style:normal">'+m+'</i> أشهر':m>10?'<i class="num" style="font-style:normal">'+m+'</i> شهراً':'';
+  return `<div class="ig-hero">${helmet(44)}<div class="mid"><b>🎉 مبروك! حجزت مقعدك في عرض المؤسسين</b><span>اشتراكك المجاني بباقة «فريق» فعّال${mt?' لمدة <b style="display:inline;font-size:inherit">'+mt+'</b>':''}، حتى <b class="num" style="display:inline;font-size:inherit">${dmy(u)}</b>.</span><span style="color:var(--yel,#F5B800);opacity:1;margin-top:6px">سجّل أول دفعة أو مصروف خلال <i class="num" style="font-style:normal">30</i> يوماً حتى يبقى مقعدك محفوظاً.</span></div></div><p class="ig-note" style="text-align:center;margin:8px 0 2px">ثبّت أسس على موبايلك وحاسبتك لتفتحه بضغطة واحدة مثل أي تطبيق:</p>`}
+{const _ihF=instHtml;instHtml=function(){let h=_ihF.apply(this,arguments);if(IG.fresh&&MODE==='cloud'&&ME&&ME.role==='owner'){const w=fdWelcome();if(w)h=h.replace(/<div class="ig-hero">[\s\S]*?تجربتك المجانية بدأت[\s\S]*?<\/div><\/div>/,w)}return h}}
+{const _isF=instSheet;instSheet=async function(fresh,tab){if(fresh&&MODE==='cloud'&&S&&!S.fd)try{await fdLoad()}catch(e){}return _isF(fresh,tab)}}
 {const _ih=instHtml;instHtml=function(){let h=_ih.apply(this,arguments);if(MODE==='cloud'&&ME&&ME.role!=='owner')h=h.replace('🎉 أهلاً بك! تجربتك المجانية بدأت','🎉 أهلاً بك في فريق العمل');return h}}
 /* صورة الوصل في ملحق PDF: تحافظ على نسبتها (html2canvas لا يدعم object-fit فكانت تتمطط) */
 {const st=document.createElement('style');st.textContent='.rp-ph img{width:auto!important;max-width:100%;height:88mm}';document.head.appendChild(st)}
