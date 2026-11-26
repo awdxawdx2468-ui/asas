@@ -4335,7 +4335,7 @@ if(location.hash==='#new'){AUTH.tab='up';try{history.replaceState(null,'',locati
 let PF_LEFT=null;
 {const _lg=VIEWS.login;VIEWS.login=function(){let h=_lg.apply(this,arguments);
   if(AUTH.tab==='up'){if(PF_LEFT===null&&SB){PF_LEFT=-1;SB.rpc('asas_founders_left').then(r=>{PF_LEFT=+(r&&r.data)||0;if(V.v==='login'&&AUTH.tab==='up'){const k={ph:($('#a-ph')||{}).value,name:($('#a-name')||{}).value,co:($('#a-co')||{}).value};render();refill(k)}},()=>{PF_LEFT=0})}
-    if(PF_LEFT>0)h=h.replace(/تبدأ بفترة تجريبية مجانية [^.]*\./,'🏅 عرض المؤسسين: <b>3 أشهر مجاناً</b> بباقة «فريق»، ثم خصم 50% لأول سنة. بقي <b class="num">'+PF_LEFT+'</b> مقعداً.')}
+    if(PF_LEFT>0)h=h.replace(/تبدأ بفترة تجريبية مجانية [^.]*\./,'🏅 عرض المؤسسين: <b>3 أشهر مجاناً</b> بباقة «فريق»، ثم خصم 50% لأول سنة.')}
   return h}}
 
 /* (6) الموظف المدعو: ترحيب «فريق العمل» بدل «تجربتك المجانية بدأت» */

@@ -165,7 +165,7 @@ details.q p{padding-bottom:16px;max-width:40em}
         <a class="btn" href="https://awdxawdx2468-ui.github.io/asas/#new" target="_blank" rel="noopener">جرّب مجاناً</a>
         <a class="btn alt" href="#offer">عرض الإطلاق</a>
       </div>
-      <div class="gift"><b>🏅 أول ٥٠ مهندساً «المؤسسون»: ٣ أشهر مجاناً بباقة «فريق»، ثم نصف السعر لأول سنة</b><span class="seats" hidden>بقي <b class="seatsN num"></b> مقعداً من ٥٠.</span> شرط العرض: أن تستخدم النظام فعلاً في مشروع حقيقي.</div>
+      <div class="gift"><b>🏅 أول ٥٠ مهندساً «المؤسسون»: ٣ أشهر مجاناً بباقة «فريق»، ثم نصف السعر لأول سنة</b> شرط العرض: أن تستخدم النظام فعلاً في مشروع حقيقي.</div>
       <a class="hook" href="#probs"><span>🔎</span><b><bdi>14</bdi> مشكلة يواجهها كل مهندس مشرف في الموقع. هل تعرفها؟ اضغط لمعرفتها 👇</b></a>
       <p class="fine">يعمل على الجوال والحاسبة، بلا متجر وبلا تنصيب.</p>
     </div>
@@ -207,7 +207,7 @@ details.q p{padding-bottom:16px;max-width:40em}
 <section class="band" id="offer">
   <div class="w">
     <h2>عرض الإطلاق</h2>
-    <p class="lede">مقاعد المؤسسين محدودة، بالأولوية لمن يسجّل أولاً.<span class="seats" hidden> بقي الآن <b class="seatsN num" style="color:var(--gold)"></b> مقعداً من ٥٠.</span></p>
+    <p class="lede">مقاعد المؤسسين محدودة، بالأولوية لمن يسجّل أولاً.</p>
     <div class="offer">
       <div class="tier"><small>🏅 أول ٥٠ مهندساً «المؤسسون»</small><b>٣ أشهر مجاناً</b><span>بباقة «فريق» كاملة: ٢٠ مشروعاً، وفريق عمل ومتابعة المبالغ التي معهم، وصافي الأرباح. ثم <b style="display:inline;font:inherit;color:#fff">نصف السعر لأول سنة</b>: «فريق» السنوي بـ١٢٥ ألفاً بدل ٢٥٠ ألفاً. ومن السنة الثانية بالسعر العادي.</span></div>
       <div class="tier"><small>بعد اكتمال الـ٥٠</small><b>شهر تجريبي مجاني</b><span>بالباقة نفسها، ثم الاشتراك بالسعر العادي دون خصم.</span></div>
@@ -297,10 +297,6 @@ details.q p{padding-bottom:16px;max-width:40em}
   box.innerHTML=h;
 
 
-  /* عدد مقاعد المؤسسين الباقية (يعمل على الرابط الحقيقي) */
-  (function(){var show=function(n){document.querySelectorAll('.seatsN').forEach(function(e){e.textContent=Number(n).toLocaleString('ar-IQ')});document.querySelectorAll('.seats').forEach(function(e){e.hidden=false})};
-    try{fetch('https://nlwlopwewqebdawkgtbk.supabase.co/rest/v1/rpc/asas_founders_left',{method:'POST',headers:{'apikey':'sb_publishable_alHRZ0jFi5uK1dP8o4tm2Q_DW12s8kc','Content-Type':'application/json'},body:'{}'})
-      .then(function(r){return r.ok?r.json():Promise.reject()}).then(function(n){if(typeof n==='number')show(n)}).catch(function(){if(!/github\.io$/.test(location.hostname)){show(43);var s=document.getElementById('sig');if(s)s.insertAdjacentHTML('beforeend','<br><small>في هذا النموذج عدد المقاعد الباقية رقم تجريبي.</small>')}})}catch(e){}})();
 })();
 </script>
 
